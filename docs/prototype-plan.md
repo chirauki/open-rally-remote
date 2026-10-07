@@ -17,6 +17,18 @@ The main unknown is whether the selected BLE HID reports and press gestures reac
 
 Prices above were checked on 2026-10-07 and can change. They exclude shipping, taxes, headers, wiring, and any additional components.
 
+## Purchase options for the nRF52840 prototype board (Spain)
+
+The exact board to search for is Seeed part **102010448**, the standard XIAO nRF52840 without the Sense microphone/IMU. Prices and stock below were checked on 2026-10-07:
+
+| Store | Listing | Price / stock shown | Notes |
+|---|---|---|---|
+| [Reichelt Spain](https://www.reichelt.com/es/es/shop/producto/xiao_nrf52840_bt5_0_sin_cabezal-358357) | XIAO nRF52840, no headers | €9.56 including VAT, plus shipping; available, estimated 4–5 business days | Lowest verified price found for the standard board. |
+| [RS Spain](https://es.rs-online.com/web/p/placas-y-kits-compatibles-con-arduino/2500967) | Manufacturer part 102010448 | €14.59 including VAT; 1,046 units shown available | Higher price, with the exact manufacturer part number and stock clearly listed. |
+| [Tiendatec](https://www.tiendatec.es/maker-zone/microcontroladores/xiao/2253-seeed-xiao-nrf52840-ble-8472496026444.html) | Standard XIAO nRF52840 BLE | €11.04; out of stock when checked | Tiendatec identifies itself as an official Seeed distributor in Spain. The Sense variant was listed separately at €18.95 and available, but its extra sensors are unnecessary for this project. |
+
+Amazon.es search results did not provide a reliably verified listing for the exact standard part, so verify the seller, board variant, and manufacturer number **102010448** before ordering there. The links above are direct product pages; stock and prices may change.
+
 ## Temporary input fixture
 
 Use a USB-powered development board with these inputs on a temporary wiring fixture:
@@ -59,5 +71,8 @@ Do not freeze the final HID key map, MCU, enclosure, or claimed app compatibilit
 
 - [Seeed XIAO nRF52840 product page and current listed price](https://www.seeedstudio.com/Seeed-XIAO-BLE-nRF52840-p-5201.html)
 - [Seeed XIAO nRF52840 technical guide, size, pinout, and board files](https://wiki.seeedstudio.com/XIAO_BLE/)
+- [Reichelt Spain: XIAO nRF52840 listing](https://www.reichelt.com/es/es/shop/producto/xiao_nrf52840_bt5_0_sin_cabezal-358357)
+- [RS Spain: XIAO nRF52840, manufacturer part 102010448](https://es.rs-online.com/web/p/placas-y-kits-compatibles-con-arduino/2500967)
+- [Tiendatec: standard XIAO nRF52840 BLE](https://www.tiendatec.es/maker-zone/microcontroladores/xiao/2253-seeed-xiao-nrf52840-ble-8472496026444.html)
 - [Espressif ESP32-C3 module options and sample reference prices](https://www.espressif.com/en/products/modules?id=ESP32-C3)
 - [Espressif ESP-IDF BLE HID device example](https://github.com/espressif/esp-idf/tree/master/examples/bluetooth/bluedroid/ble/ble_hid_device_demo)
