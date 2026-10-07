@@ -48,7 +48,7 @@ If building the joystick-without-center variant, leave D7 disconnected and disab
 
 Keep the XIAO beside the breadboard rather than forcing the small board into it. Each switch straddles the breadboard's center trench. One electrical side goes to its GPIO row; the other side goes to the blue ground rail. On a standard breadboard, the five holes on each side of a numbered row are connected together, but the two groups across the center trench are separate.
 
-![Top-down XIAO nRF52840 breadboard layout with eight temporary switches and USB power](images/breadboard-layout.svg)
+![Non-crossing XIAO nRF52840 wiring diagram for eight temporary switches](images/breadboard-layout.svg)
 
 ```text
 XIAO nRF52840 (kept beside the breadboard)
@@ -77,7 +77,7 @@ Breadboard rows (switches straddle the center trench):
 USB-C on XIAO ── data cable ── computer / USB supply
 ```
 
-The diagram is logical: place the eight switches in separate numbered rows and connect each switch's opposite side to the ground rail. The two five-hole groups in each row (a–e and f–j) are not connected across the center trench. Switch leg layout can vary, so check the switch drawing or use continuity mode to identify the internally joined pairs before wiring.
+The SVG is a wiring view, not a scale drawing of the physical jumper routes. Place the eight switches in separate numbered rows and connect each switch's opposite side to the ground rail. The two five-hole groups in each row (a–e and f–j) are not connected across the center trench. Switch leg layout can vary, so check the switch drawing or use continuity mode to identify the internally joined pairs before wiring.
 
 ### Wiring steps
 

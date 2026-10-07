@@ -1,108 +1,95 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120" role="img" aria-labelledby="title desc">
-<title id="title">Complete XIAO nRF52840 breadboard assembly</title>
-<desc id="desc">A fully populated 400-point breadboard with eight tactile switches across the center gap, eight color-coded signal leads from XIAO pins D0 to D7, eight short ground leads to the blue rail, one XIAO ground lead, and a USB-C data cable.</desc>
+<title id="title">XIAO nRF52840 breadboard switch wiring diagram</title>
+<desc id="desc">A clear, non-crossing wiring diagram for eight switches. Each GPIO wire connects the XIAO to one side of a switch; the other side connects to a common ground rail.</desc>
 <defs>
  <linearGradient id="pcb" x2="0" y2="1"><stop stop-color="#29343e"/><stop offset="1" stop-color="#131a20"/></linearGradient>
- <linearGradient id="bb" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#e8edf0"/></linearGradient>
- <pattern id="holes" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="11" cy="11" r="3.3" fill="#bac4cb"/><circle cx="10" cy="10" r="1.1" fill="#fff"/></pattern>
- <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="7" stdDeviation="8" flood-color="#14202a" flood-opacity=".18"/></filter>
+ <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#14202a" flood-opacity=".16"/></filter>
  <style>
-  .title{font:700 36px Arial,sans-serif;fill:#17212b}.sub{font:17px Arial,sans-serif;fill:#52616c}.h{font:700 18px Arial,sans-serif;fill:#25333d}.body{font:15px Arial,sans-serif;fill:#34444f}.small{font:13px Arial,sans-serif;fill:#53636e}.tiny{font:11px Arial,sans-serif;fill:#63717a}.pin{font:700 13px Arial,sans-serif;fill:#f9fbfc}.w{fill:none;stroke-linecap:round;stroke-linejoin:round}
+ .title{font:700 36px Arial,sans-serif;fill:#17212b}.sub{font:17px Arial,sans-serif;fill:#52616c}.h{font:700 19px Arial,sans-serif;fill:#25333d}.body{font:15px Arial,sans-serif;fill:#34444f}.small{font:13px Arial,sans-serif;fill:#53636e}.tiny{font:12px Arial,sans-serif;fill:#63717a}.pin{font:700 14px Arial,sans-serif;fill:#f9fbfc}.wire{fill:none;stroke-linecap:round;stroke-linejoin:round}
  </style>
 </defs>
 <rect width="1600" height="1120" fill="#f4f7f8"/>
-<text x="65" y="66" class="title">Complete bench prototype layout</text>
-<text x="65" y="98" class="sub">Every part shown: XIAO, 400-point breadboard, 8 switches, 2 jumper sets and USB-C data/power cable.</text>
+<text x="60" y="62" class="title">Breadboard wiring · no crossing leads</text>
+<text x="60" y="95" class="sub">One GPIO signal per switch; the opposite switch terminal goes to the shared GND rail.</text>
 
-<!-- Breadboard -->
-<g filter="url(#shadow)"><rect x="60" y="145" width="1010" height="850" rx="24" fill="url(#bb)" stroke="#c4cdd3" stroke-width="2"/></g>
-<text x="92" y="183" class="h">400-point solderless breadboard · top view</text>
-<!-- rails -->
-<rect x="100" y="205" width="925" height="48" rx="8" fill="#fff" stroke="#d0d8dd"/>
-<line x1="132" y1="228" x2="995" y2="228" stroke="#c94b4b" stroke-width="4"/><text x="130" y="221" font-family="Arial" font-size="14" font-weight="700" fill="#b33c3c">+  UNUSED</text>
-<rect x="100" y="260" width="925" height="48" rx="8" fill="#fff" stroke="#d0d8dd"/>
-<line x1="132" y1="284" x2="995" y2="284" stroke="#3e79ad" stroke-width="4"/><text x="130" y="277" font-family="Arial" font-size="14" font-weight="700" fill="#356a9b">−  COMMON GROUND</text>
-<!-- board rows -->
-<rect x="100" y="335" width="925" height="600" rx="12" fill="#f8fafb" stroke="#d2d9de"/>
-<rect x="140" y="360" width="380" height="540" fill="url(#holes)"/>
-<rect x="610" y="360" width="380" height="540" fill="url(#holes)"/>
-<rect x="520" y="335" width="90" height="600" fill="#e3e8eb"/>
-<line x1="565" y1="345" x2="565" y2="925" stroke="#c6cfd5" stroke-dasharray="5 7"/>
-<text x="300" y="355" class="tiny">a–e group · signal side</text><text x="690" y="355" class="tiny">f–j group · ground side</text>
-<text x="526" y="954" class="tiny">center trench</text>
-
-<!-- row labels -->
-<g class="body" text-anchor="end">
- <text x="245" y="421">Button A · D0</text><text x="245" y="483">Button B · D1</text><text x="245" y="545">Button C · D2</text>
- <text x="245" y="607">Joystick UP · D3</text><text x="245" y="669">Joystick DOWN · D4</text><text x="245" y="731">Joystick LEFT · D5</text>
- <text x="245" y="793">Joystick RIGHT · D6</text><text x="245" y="855">Center press · D7*</text>
-</g>
-<!-- eight GPIO signal leads enter the signal-side terminal groups -->
-<g class="w" stroke-width="5">
- <path d="M1195 320 H1120 V415 H510" stroke="#d24f45"/>
- <path d="M1195 354 H1130 V477 H510" stroke="#de8e32"/>
- <path d="M1195 388 H1140 V539 H510" stroke="#c0a52a"/>
- <path d="M1195 422 H1150 V601 H510" stroke="#459669"/>
- <path d="M1195 456 H1160 V663 H510" stroke="#328b9c"/>
- <path d="M1195 490 H1170 V725 H510" stroke="#4276b6"/>
- <path d="M1195 524 H1180 V787 H510" stroke="#8063ae"/>
- <path d="M1195 558 H1190 V849 H510" stroke="#ad638f"/>
-</g>
-<g fill="#fff" stroke-width="3">
- <circle cx="510" cy="415" r="7" stroke="#d24f45"/><circle cx="510" cy="477" r="7" stroke="#de8e32"/><circle cx="510" cy="539" r="7" stroke="#c0a52a"/><circle cx="510" cy="601" r="7" stroke="#459669"/>
- <circle cx="510" cy="663" r="7" stroke="#328b9c"/><circle cx="510" cy="725" r="7" stroke="#4276b6"/><circle cx="510" cy="787" r="7" stroke="#8063ae"/><circle cx="510" cy="849" r="7" stroke="#ad638f"/>
-</g>
-<!-- momentary tact switches straddle the trench -->
-<g fill="#252b31" stroke="#11171b" stroke-width="2">
- <g transform="translate(565 415)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
- <g transform="translate(565 477)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
- <g transform="translate(565 539)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
- <g transform="translate(565 601)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
- <g transform="translate(565 663)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
- <g transform="translate(565 725)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
- <g transform="translate(565 787)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
- <g transform="translate(565 849)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
-</g>
-<!-- eight separate short male-male ground jumpers -->
-<g class="w" stroke="#27323a" stroke-width="4">
- <path d="M620 415 H780 V284"/><path d="M620 477 H800 V284"/><path d="M620 539 H820 V284"/><path d="M620 601 H840 V284"/>
- <path d="M620 663 H860 V284"/><path d="M620 725 H880 V284"/><path d="M620 787 H900 V284"/><path d="M620 849 H920 V284"/>
-</g>
-<g fill="#27323a"><circle cx="620" cy="415" r="5"/><circle cx="620" cy="477" r="5"/><circle cx="620" cy="539" r="5"/><circle cx="620" cy="601" r="5"/><circle cx="620" cy="663" r="5"/><circle cx="620" cy="725" r="5"/><circle cx="620" cy="787" r="5"/><circle cx="620" cy="849" r="5"/></g>
-
-<!-- XIAO and explanatory wiring block -->
-<text x="1190" y="180" class="h">XIAO, outside the breadboard</text>
+<!-- XIAO outside the breadboard -->
 <g filter="url(#shadow)">
- <rect x="1190" y="205" width="350" height="440" rx="22" fill="url(#pcb)" stroke="#0c1217" stroke-width="3"/>
- <rect x="1280" y="215" width="110" height="30" rx="7" fill="#c5cbd0" stroke="#808b93"/>
- <text x="1335" y="198" text-anchor="middle" class="small">USB-C socket</text>
- <rect x="1250" y="282" width="230" height="160" rx="10" fill="#35434e" stroke="#687681"/>
- <rect x="1285" y="314" width="160" height="92" rx="6" fill="#18232b" stroke="#71808b"/>
- <text x="1365" y="354" text-anchor="middle" class="pin" font-size="17">nRF52840</text><text x="1365" y="382" text-anchor="middle" font-family="Arial" font-size="12" fill="#cad2d8">BLE controller</text>
- <text x="1220" y="322" class="pin">D0</text><text x="1220" y="356" class="pin">D1</text><text x="1220" y="390" class="pin">D2</text><text x="1220" y="424" class="pin">D3</text>
- <text x="1485" y="322" class="pin">D4</text><text x="1485" y="356" class="pin">D5</text><text x="1485" y="390" class="pin">D6</text><text x="1485" y="424" class="pin">D7</text><text x="1485" y="458" class="pin">GND</text>
- <g fill="#d6a74c" stroke="#f4d08a" stroke-width="1"><circle cx="1250" cy="318" r="7"/><circle cx="1250" cy="352" r="7"/><circle cx="1250" cy="386" r="7"/><circle cx="1250" cy="420" r="7"/><circle cx="1470" cy="318" r="7"/><circle cx="1470" cy="352" r="7"/><circle cx="1470" cy="386" r="7"/><circle cx="1470" cy="420" r="7"/><circle cx="1470" cy="454" r="7"/></g>
- <text x="1365" y="500" text-anchor="middle" class="pin" font-size="18">SEEED XIAO</text><text x="1365" y="528" text-anchor="middle" font-family="Arial" font-size="14" fill="#ccd3d9">nRF52840 · pre-soldered headers</text>
- <path d="M1305 566 h120" stroke="#d99c43" stroke-width="5" stroke-linecap="round"/><text x="1365" y="600" text-anchor="middle" font-family="Arial" font-size="13" fill="#cad2d8">Power and programming via USB</text>
+ <rect x="55" y="150" width="270" height="660" rx="22" fill="url(#pcb)" stroke="#0c1217" stroke-width="3"/>
+ <rect x="137" y="160" width="105" height="28" rx="7" fill="#c5cbd0" stroke="#808b93"/>
+ <text x="190" y="145" text-anchor="middle" class="small">USB-C · data and power</text>
+ <rect x="112" y="215" width="156" height="110" rx="9" fill="#18232b" stroke="#71808b"/>
+ <text x="190" y="262" text-anchor="middle" class="pin" font-size="18">nRF52840</text>
+ <text x="190" y="289" text-anchor="middle" font-family="Arial" font-size="13" fill="#cad2d8">Bluetooth LE</text>
+ <text x="190" y="365" text-anchor="middle" class="pin" font-size="18">SEEED XIAO</text>
+ <text x="190" y="391" text-anchor="middle" font-family="Arial" font-size="13" fill="#ccd3d9">nRF52840 · pre-soldered</text>
 </g>
-<!-- ground jumper from XIAO to rail; routed around board -->
-<path d="M1470 454 H1560 V970 H1048 V284 H1025" class="w" stroke="#27323a" stroke-width="6"/>
-<text x="1160" y="958" class="small">1 male-to-female lead: XIAO GND → blue rail</text>
-<!-- USB cable -->
-<path d="M1335 245 V170 H1495" class="w" stroke="#20272d" stroke-width="10"/>
-<rect x="1490" y="151" width="70" height="38" rx="8" fill="#252d34"/><text x="1525" y="176" text-anchor="middle" font-family="Arial" font-size="11" fill="#fff">USB-A</text>
-<text x="1440" y="138" text-anchor="middle" class="tiny">data-capable USB cable to computer / USB supply</text>
 
-<!-- legend -->
-<g transform="translate(1100 710)">
- <text x="0" y="0" class="h">Wires and parts used</text>
- <line x1="0" y1="32" x2="56" y2="32" stroke="#4276b6" stroke-width="5"/><text x="72" y="37" class="body">8 male-to-female jumpers: D0–D7 → signal-side switch rows</text>
- <line x1="0" y1="68" x2="56" y2="68" stroke="#27323a" stroke-width="4"/><text x="72" y="73" class="body">8 male-to-male jumpers: other switch sides → blue GND rail</text>
- <line x1="0" y1="104" x2="56" y2="104" stroke="#27323a" stroke-width="6"/><text x="72" y="109" class="body">1 male-to-female jumper: XIAO GND → blue GND rail</text>
- <text x="0" y="152" class="small">Each switch bridges the center trench. One half connects to its GPIO row;</text>
- <text x="0" y="174" class="small">the opposite half goes to the blue rail. Do not connect the red + rail.</text>
- <text x="0" y="212" class="small">* D7 and switch 8 are optional for a joystick without center click.</text>
+<!-- breadboard body and center trench -->
+<g filter="url(#shadow)"><rect x="365" y="150" width="900" height="660" rx="22" fill="#fff" stroke="#c4cdd3" stroke-width="2"/></g>
+<text x="400" y="190" class="h">400-point breadboard · wiring view</text>
+<text x="432" y="224" class="tiny">GPIO side</text><text x="695" y="224" class="tiny">center trench</text><text x="970" y="224" class="tiny">GND side</text>
+<rect x="680" y="230" width="50" height="535" fill="#e6ebee"/>
+<line x1="705" y1="238" x2="705" y2="755" stroke="#c4cdd3" stroke-dasharray="5 7"/>
+<rect x="402" y="240" width="250" height="510" fill="#f8fafb" stroke="#e1e6e9"/>
+<rect x="758" y="240" width="465" height="510" fill="#f8fafb" stroke="#e1e6e9"/>
+
+<!-- common ground rail -->
+<rect x="790" y="265" width="390" height="42" rx="8" fill="#edf4fa" stroke="#c8d8e5"/>
+<line x1="812" y1="286" x2="1150" y2="286" stroke="#3e79ad" stroke-width="5"/>
+<text x="820" y="280" font-family="Arial" font-size="13" font-weight="700" fill="#356a9b">− COMMON GROUND (GND)</text>
+<path d="M1150 286 H1200" class="wire" stroke="#27323a" stroke-width="5"/>
+
+<!-- switch labels -->
+<g class="tiny">
+ <text x="420" y="336">Button A</text><text x="420" y="396">Button B</text><text x="420" y="456">Button C</text>
+ <text x="420" y="516">Joystick UP</text><text x="420" y="576">Joystick DOWN</text><text x="420" y="636">Joystick LEFT</text>
+ <text x="420" y="696">Joystick RIGHT</text><text x="420" y="756">Center press*</text>
 </g>
-<rect x="60" y="1020" width="1480" height="62" rx="12" fill="#fff4dc" stroke="#e9ce8d"/>
-<text x="82" y="1047" class="h" fill="#745317">Bench use only</text><text x="260" y="1047" class="body">Breadboards and loose jumper wires are not weatherproof or vibration-proof. Do not mount this setup on a motorcycle.</text>
+
+<!-- GPIO leads: each uses its own horizontal row, from XIAO to one switch terminal -->
+<g class="wire" stroke-width="5">
+ <path d="M325 354 H673" stroke="#d24f45"/><path d="M325 414 H673" stroke="#de8e32"/>
+ <path d="M325 474 H673" stroke="#c0a52a"/><path d="M325 534 H673" stroke="#459669"/>
+ <path d="M325 594 H673" stroke="#328b9c"/><path d="M325 654 H673" stroke="#4276b6"/>
+ <path d="M325 714 H673" stroke="#8063ae"/><path d="M325 774 H673" stroke="#ad638f"/>
+</g>
+<!-- GPIO pads and labels on the XIAO -->
+<g font-family="Arial" font-size="13" font-weight="700" fill="#f9fbfc" text-anchor="end">
+ <text x="305" y="359">D0</text><text x="305" y="419">D1</text><text x="305" y="479">D2</text><text x="305" y="539">D3</text>
+ <text x="305" y="599">D4</text><text x="305" y="659">D5</text><text x="305" y="719">D6</text><text x="305" y="779">D7</text>
+</g>
+<g fill="#d6a74c" stroke="#f4d08a" stroke-width="1">
+ <circle cx="325" cy="354" r="6"/><circle cx="325" cy="414" r="6"/><circle cx="325" cy="474" r="6"/><circle cx="325" cy="534" r="6"/>
+ <circle cx="325" cy="594" r="6"/><circle cx="325" cy="654" r="6"/><circle cx="325" cy="714" r="6"/><circle cx="325" cy="774" r="6"/>
+</g>
+
+<!-- switch bodies straddle the trench; GPIO side is left, GND side is right -->
+<g fill="#252b31" stroke="#11171b" stroke-width="2">
+ <g transform="translate(705 354)"><rect x="-32" y="-15" width="64" height="30" rx="6"/><rect x="-10" y="-10" width="20" height="20" rx="4" fill="#505962" stroke="#69747d"/></g>
+ <g transform="translate(705 414)"><rect x="-32" y="-15" width="64" height="30" rx="6"/><rect x="-10" y="-10" width="20" height="20" rx="4" fill="#505962" stroke="#69747d"/></g>
+ <g transform="translate(705 474)"><rect x="-32" y="-15" width="64" height="30" rx="6"/><rect x="-10" y="-10" width="20" height="20" rx="4" fill="#505962" stroke="#69747d"/></g>
+ <g transform="translate(705 534)"><rect x="-32" y="-15" width="64" height="30" rx="6"/><rect x="-10" y="-10" width="20" height="20" rx="4" fill="#505962" stroke="#69747d"/></g>
+ <g transform="translate(705 594)"><rect x="-32" y="-15" width="64" height="30" rx="6"/><rect x="-10" y="-10" width="20" height="20" rx="4" fill="#505962" stroke="#69747d"/></g>
+ <g transform="translate(705 654)"><rect x="-32" y="-15" width="64" height="30" rx="6"/><rect x="-10" y="-10" width="20" height="20" rx="4" fill="#505962" stroke="#69747d"/></g>
+ <g transform="translate(705 714)"><rect x="-32" y="-15" width="64" height="30" rx="6"/><rect x="-10" y="-10" width="20" height="20" rx="4" fill="#505962" stroke="#69747d"/></g>
+ <g transform="translate(705 774)"><rect x="-32" y="-15" width="64" height="30" rx="6"/><rect x="-10" y="-10" width="20" height="20" rx="4" fill="#505962" stroke="#69747d"/></g>
+</g>
+<!-- switch lead endpoints, and independent GND leads to a common ground rail -->
+<g stroke-width="5" class="wire">
+ <path d="M737 354 H825 V286" stroke="#27323a"/><path d="M737 414 H865 V286" stroke="#27323a"/>
+ <path d="M737 474 H905 V286" stroke="#27323a"/><path d="M737 534 H945 V286" stroke="#27323a"/>
+ <path d="M737 594 H985 V286" stroke="#27323a"/><path d="M737 654 H1025 V286" stroke="#27323a"/>
+ <path d="M737 714 H1065 V286" stroke="#27323a"/><path d="M737 774 H1105 V286" stroke="#27323a"/>
+</g>
+<g fill="#27323a"><circle cx="737" cy="354" r="4"/><circle cx="737" cy="414" r="4"/><circle cx="737" cy="474" r="4"/><circle cx="737" cy="534" r="4"/><circle cx="737" cy="594" r="4"/><circle cx="737" cy="654" r="4"/><circle cx="737" cy="714" r="4"/><circle cx="737" cy="774" r="4"/></g>
+<!-- XIAO GND lead -->
+<text x="82" y="830" class="small">XIAO GND</text><path d="M145 850 H350 V875 H1200 V286" class="wire" stroke="#27323a" stroke-width="5"/>
+
+<!-- explanation -->
+<rect x="55" y="900" width="1490" height="150" rx="16" fill="#fff" stroke="#d7dfe4"/>
+<text x="82" y="938" class="h">How to read the connections</text>
+<text x="82" y="970" class="body">Each colored line is one male-to-female jumper from a XIAO GPIO pin to one side of its switch.</text>
+<text x="82" y="997" class="body">Each dark line is a separate male-to-male jumper from the opposite switch side to the blue GND rail.</text>
+<text x="82" y="1024" class="body">With INPUT_PULLUP enabled: released = HIGH; pressed = GPIO connected to GND = LOW. No red + rail connection.</text>
+<text x="82" y="1075" class="tiny">* D7 and the eighth switch are optional. Diagram is a wiring view; identify the internally joined switch-leg pairs before inserting.</text>
 </svg>
