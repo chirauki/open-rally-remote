@@ -31,12 +31,16 @@ Amazon.es search results did not provide a reliably verified listing for the exa
 
 ## Temporary input fixture
 
+An ordinary solderless breadboard is suitable for the first bench prototype. The XIAO has small castellated pads, so solder 2.54 mm pin headers to the board or use a compatible XIAO breakout adapter before plugging it into the breadboard. Do not try to force the bare board into the breadboard.
+
 Use a USB-powered development board with these inputs on a temporary wiring fixture:
 
 - Three momentary switches for Buttons A, B, and C.
 - Four directional momentary contacts for the joystick directions.
 - A separate center switch, with a removable jumper/configuration option to simulate the no-center variant.
 - A USB 5 V bench supply or ordinary USB power source.
+
+For the easiest digital-input prototype, the four joystick directions can be represented by four separate momentary switches arranged as a directional pad, plus a center switch. Wire each switch between a GPIO and ground and enable the microcontroller's internal pull-up; do not apply 5 V to a GPIO. A candidate analog joystick module can be tried later if that matches the selected mechanical design, using its X/Y outputs on ADC pins and its center switch on a GPIO.
 
 This fixture checks the electrical inputs and BLE behavior only. It is not an ergonomic or waterproof enclosure and should not be used while riding.
 
