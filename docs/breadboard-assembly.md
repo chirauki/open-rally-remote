@@ -6,23 +6,22 @@ This guide uses a Seeed XIAO nRF52840 and eight momentary switches to represent 
 
 ## Parts and Spain purchase options
 
-Prices and stock were checked on 2026-10-07. The list is consolidated into two shops: Reichelt for the XIAO and Conectrol for the remaining parts. Prices include VAT where the shop displays it, but exclude shipping. Stock and delivery charges can change.
+Prices and stock were checked on 2026-10-07. The list is consolidated into two shops: Kiwi Electronics for the XIAO and Conectrol for the remaining parts. Prices include VAT where the shop displays it, but exclude shipping. Stock and delivery charges can change.
 
 | Qty | Part | Example purchase | Price checked | Notes |
 |---:|---|---|---:|---|
-| 1 | Seeed XIAO nRF52840, standard model, no headers (MPN `102010448`) | [Reichelt Spain](https://www.reichelt.com/es/es/shop/producto/xiao_nrf52840_bt5_0_sin_cabezal-358357) | €9.56 | Available, 4–5 business days shown. This is the non-Sense board. |
-| 1 | 1×40 male pin strip, 2.54 mm pitch | [Conectrol](https://conectrol.com/producto/tira-de-pines-macho-40p-2-54mm-1-fila-plano-recto-pcb-2/) | €0.25 | Cut two seven-pin sections and solder them to the XIAO. Requires a soldering iron. |
+| 1 | Seeed XIAO nRF52840, standard pre-soldered model (MPN `102010631`) | [Kiwi Electronics](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402) | €9.99 before VAT; approx. €12.09 with Spain's 21% VAT | This is the board purchased for this prototype. It has headers already soldered and is the non-Sense model. The product page showed stock when checked. |
 | 1 | 400-point solderless breadboard | [Conectrol](https://conectrol.com/producto/placa-protoboard-400-puntos-84x55x85mm/) | €2.00 | Includes side power rails. |
 | 1 set | 40 Dupont jumper wires, male-to-female, 20 cm | [Conectrol](https://conectrol.com/producto/kit-cables-dupont-1p-para-protoboard-m-h-40-unds/) | €3.00 | The female ends fit the XIAO's soldered headers; male ends fit the breadboard. |
 | 8 | 6×6×5 mm normally-open tactile switch | [Conectrol](https://conectrol.com/producto/pulsador-tactil-off-on-no-6x6x5mm-pcb-rojo/) | €0.20 each; €1.60 total | Three buttons, four joystick directions, and one center press. These tiny switches are only bench stand-ins. |
 | 1 | USB-A to USB-C data cable, 1 m | [Conectrol](https://conectrol.com/producto/cable-usb-3-0-tipo-a-usb-tipo-c-3-1-m-m-1mt/) | €6.90 | Optional if you already have a data-capable cable. A charge-only cable will not allow programming. |
 
-**Estimated parts total:** €16.41 without a USB cable, or €23.31 with the listed cable, before shipping. This requires purchases from two shops. If soldering headers is inconvenient, the pre-soldered XIAO variant (MPN `102010631`) was listed at €12.19 by Reichelt Spain but shown as unavailable when checked; confirm current stock before choosing it.
+**Estimated parts total:** approx. €18.69 without a USB cable, or €25.59 with the listed cable, before shipping. The XIAO total uses the seller's €9.99 pre-tax listing plus an estimated 21% Spanish VAT; confirm the final tax and shipping at checkout. The parts are available from two shops. For a lower-cost alternative, the unheadered standard XIAO (MPN `102010448`) was listed at €9.56 including VAT by [Reichelt Spain](https://www.reichelt.com/es/es/shop/producto/xiao_nrf52840_bt5_0_sin_cabezal-358357); it would need 2×7 2.54 mm headers soldered on, available from Conectrol.
 
 ## Tools
 
-- Soldering iron and solder, only if using the board without headers.
-- Small side cutters to cut the pin strip.
+- Soldering iron and solder, only if using the unheadered board alternative.
+- Small side cutters to cut pin strips, only if using that alternative.
 - A USB data cable and a computer for programming.
 - Optional multimeter to identify which two switch legs form each electrical side.
 
@@ -97,8 +96,9 @@ This assembly is intended for a desk or bench. Solderless breadboards, exposed D
 
 - [Seeed XIAO nRF52840 documentation: pinout, power, and board details](https://wiki.seeedstudio.com/XIAO_BLE/)
 - [Seeed XIAO nRF52840 product page](https://www.seeedstudio.com/Seeed-XIAO-BLE-nRF52840-p-5201.html)
-- [Reichelt Spain: standard XIAO nRF52840 without headers](https://www.reichelt.com/es/es/shop/producto/xiao_nrf52840_bt5_0_sin_cabezal-358357)
-- [Conectrol: 40-pin male header strip](https://conectrol.com/producto/tira-de-pines-macho-40p-2-54mm-1-fila-plano-recto-pcb-2/)
+- [Kiwi Electronics: the pre-soldered XIAO nRF52840 purchased for this prototype](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402)
+- [Reichelt Spain: lower-cost XIAO nRF52840 without headers](https://www.reichelt.com/es/es/shop/producto/xiao_nrf52840_bt5_0_sin_cabezal-358357)
+- [Conectrol: 40-pin male header strip for the unheadered-board alternative](https://conectrol.com/producto/tira-de-pines-macho-40p-2-54mm-1-fila-plano-recto-pcb-2/)
 - [Conectrol: 400-point breadboard](https://conectrol.com/producto/placa-protoboard-400-puntos-84x55x85mm/)
 - [Conectrol: male-to-female Dupont jumper set](https://conectrol.com/producto/kit-cables-dupont-1p-para-protoboard-m-h-40-unds/)
 - [Conectrol: 6×6×5 mm tactile switch](https://conectrol.com/producto/pulsador-tactil-off-on-no-6x6x5mm-pcb-rojo/)
