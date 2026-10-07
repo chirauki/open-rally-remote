@@ -8,6 +8,26 @@ The first firmware should prove that the XIAO nRF52840 can read the temporary sw
 
 This is a bench prototype. It is not riding-ready and does not establish weather resistance, vibration resistance, or app compatibility.
 
+## Product requirement: wireless firmware updates
+
+The released remote must be updateable by the owner from an Android or iOS phone over Bluetooth LE, without connecting the remote to a computer. USB remains the power input; it must not be required as a data connection for routine updates.
+
+The final hardware and firmware architecture must provide:
+
+- A BLE DFU bootloader and a phone-based update workflow that is documented for both Android and iOS.
+- A deliberate way to enter update mode, with the ordinary HID remote connection suspended during the update.
+- Signed update packages, version/product checks, and a rollback-safe update design (preferably dual-bank: retain the last working image until the new image boots successfully).
+- Recovery behavior for interrupted transfer or power loss. The device must not be left unusable if an update is interrupted; verify this experimentally before release.
+- Publicly downloadable firmware packages and clear release notes. A dedicated companion app is not yet a requirement if an existing, maintained DFU app works on both phone platforms with the chosen bootloader.
+
+### Important XIAO bootloader check
+
+The XIAO is the right board for the first HID prototype, but do not assume its factory bootloader can perform BLE OTA updates. In a 2025 public response, Seeed said it did not have an official solution or documentation for Bluetooth DFU on the XIAO nRF52840. Treat OTA on this purchased XIAO as an investigation, not an available feature. Before choosing the final controller, verify the bootloader, update package format, Android app, iOS app, image authentication, and recovery path together.
+
+Nordic provides a mobile DFU app for Android and iOS for nRF5 SDK bootloaders. Its documentation distinguishes that flow from nRF Connect SDK firmware, which uses the nRF Connect Device Manager app. Adafruit's nRF52 bootloader is another technical reference: it describes BLE OTA, signed updates, and optional dual-bank updates, but the XIAO is not listed among its officially supported boards. Porting a bootloader or changing the final controller may therefore be necessary. See [Nordic DFU mobile app](https://www.nordicsemi.com/Products/Development-tools/nRF-Device-Firmware-Update), [Nordic FOTA guide](https://nrfconnectdocs.nordicsemi.com/ncs/latest/nrf/app_dev/device_guides/nrf52/fota_update.html), [Seeed's XIAO bootloader discussion](https://github.com/Seeed-Studio/wiki-documents/discussions/2071), and [Adafruit nRF52 bootloader](https://github.com/adafruit/Adafruit_nRF52_Bootloader).
+
+Do not replace or modify the XIAO bootloader during the initial BLE HID bring-up. First establish the input and navigation behavior, then test OTA on a spare development board so a failed bootloader experiment cannot interrupt the main prototype.
+
 ## 2. Development setup and upload workflow
 
 The first firmware will be written and uploaded with **Arduino IDE 2** on a computer. The XIAO connects over a USB-C data cable; no separate programmer is required. Arduino IDE compiles the sketch for the selected XIAO board and uploads it over USB. Its Serial Monitor can show GPIO and BLE diagnostics during development.
@@ -130,10 +150,25 @@ For the first firmware build, compile-time profile selection is sufficient. Do n
 | DMD² | A follow, B zoom in, C zoom out, and joystick pan work through Generic Remote mapping | Pending | N/A |
 | Center variants | With and without D7 hardware, behavior and profile configuration are correct | Pending | Pending |
 
+## Product OTA validation checklist
+
+| Test | Pass condition | Android | iOS |
+|---|---|---|---|
+| Phone-only update | Install a published update package over BLE without a computer or USB data connection | Pending | Pending |
+| Image authentication | Reject an unsigned, corrupted, or wrong-product image | Pending | Pending |
+| Interrupted transfer | Disconnect BLE or remove power during transfer; recover automatically to the existing or update-ready state | Pending | Pending |
+| Failed first boot | A broken new application image rolls back to the previous working firmware | Pending | Pending |
+| Version handling | Reject downgrade or incompatible version unless a deliberate recovery procedure is used | Pending | Pending |
+| Normal use after update | Reconnect as a HID remote and retain the user's selected profile and settings | Pending | Pending |
+
 ## References
 
 - [Seeed Studio: XIAO nRF52840 Arduino setup and examples](https://wiki.seeedstudio.com/XIAO_BLE/)
 - [Arduino: IDE 2 board manager tutorial](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-board-manager/)
+- [Nordic: nRF Device Firmware Update mobile app](https://www.nordicsemi.com/Products/Development-tools/nRF-Device-Firmware-Update)
+- [Nordic: FOTA update on nRF52](https://nrfconnectdocs.nordicsemi.com/ncs/latest/nrf/app_dev/device_guides/nrf52/fota_update.html)
+- [Seeed: public XIAO nRF52840 Bluetooth DFU discussion](https://github.com/Seeed-Studio/wiki-documents/discussions/2071)
+- [Adafruit: nRF52 bootloader and OTA features](https://github.com/adafruit/Adafruit_nRF52_Bootloader)
 - [Bluetooth SIG: HID over GATT Profile](https://www.bluetooth.com/specifications/specs/hid-over-gatt-profile-hogp/)
 - [Android Developers: Bluetooth Low Energy overview](https://developer.android.com/develop/connectivity/bluetooth/ble/ble-overview)
 - [OsmAnd: external input devices and keyboard key assignments](https://www.osmand.net/docs/user/map/interact-with-map/)

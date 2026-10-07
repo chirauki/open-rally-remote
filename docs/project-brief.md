@@ -34,6 +34,10 @@ The remote will interpret short, long, and double presses locally and emit clear
 
 The remote project does not include or install the motorcycle's USB outlet. The builder must provide a suitable 5 V USB outlet; the remote receives power through its sealed cable.
 
+## Firmware update requirement
+
+The finished product must let its owner install firmware updates over Bluetooth LE from an Android or iOS phone, without connecting the remote to a computer. Updates must use authenticated firmware packages and a recovery-safe bootloader that can retain or restore the last working firmware if an update is interrupted or fails. This is a product requirement, not a requirement for the USB-powered bench prototype. The XIAO nRF52840 remains suitable for initial HID experiments, but its bootloader's BLE update path must be verified before selecting it or a related module for the final design.
+
 ## Design and component selection criteria
 
 1. Prefer parts available from more than one supplier and backed by public datasheets.
@@ -42,6 +46,7 @@ The remote project does not include or install the motorcycle's USB outlet. The 
 4. Keep the design buildable with common tools: two-layer PCB, hand soldering, and a printable enclosure.
 5. Design for rain, dust, vibration, and gloved operation. Define tests before claiming an IP rating.
 6. Keep electronics replaceable and publish editable source files, manufacturing files, and a BOM with alternatives.
+7. Select the final controller and bootloader with secure BLE updates from both Android and iOS in mind; weigh the update flow and recovery strategy alongside module price and size.
 
 ## Planned open deliverables
 
@@ -64,7 +69,8 @@ The variety of gloves, handlebars, and stock control assemblies is open-ended an
 2. Build the bench proof of concept in the [prototype plan](prototype-plan.md); compare BLE controllers, switches, sealed cable entry, and input protection using current prices and availability.
 3. Prototype BLE HID profiles and validate them on real Android and iPhone devices with TerraPirata, OsmAnd, and DMD².
 4. Design the PCB and 22 mm mount/enclosure; check ergonomics and installation on a motorcycle.
-5. Iterate through water, dust, vibration, drop, and USB power tests. Document results and limits before making any protection rating claim.
+5. Prototype a signed BLE firmware-update workflow on Android and iOS, including interruption and rollback recovery.
+6. Iterate through water, dust, vibration, drop, and USB power tests. Document results and limits before making any protection rating claim.
 
 ## Reference documentation
 
