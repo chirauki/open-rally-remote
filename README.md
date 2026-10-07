@@ -9,3 +9,5 @@ Requirements and the first-version concept are being defined. No hardware design
 See the [project brief](docs/project-brief.md) for the current goals, proposed design, constraints, and development plan. The current [control mapping draft](docs/control-mapping.md) records proposed app profiles and the compatibility checks still needed. The [prototype plan](docs/prototype-plan.md) compares controller candidates and lays out a bench proof of concept. The [XIAO breadboard assembly guide](docs/breadboard-assembly.md) gives a Spain-sourced bill of materials and wiring diagram for the temporary input fixture.
 
 The proposed [firmware specification](docs/firmware-spec.md) defines the first BLE HID approach, input and gesture behavior, app-profile boundaries, bench validation, and the product requirement for phone-based BLE firmware updates.
+
+The [development environment guide](docs/development-environment.md) explains how to set up Arduino IDE 2 for the purchased XIAO nRF52840, upload a smoke-test sketch, and use the Serial Monitor.
