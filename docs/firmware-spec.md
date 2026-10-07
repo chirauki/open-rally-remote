@@ -39,7 +39,7 @@ The first firmware will be written and uploaded with **Arduino IDE 2** on a comp
 5. Select **Seeed XIAO nRF52840** under the Seeed nRF52 boards and choose the port that appears for the board.
 6. Open the project's `.ino` sketch, use **Verify** to compile, then **Upload** to flash it. Pair the remote from the phone's Bluetooth settings after the HID firmware is running.
 
-At present the repository has the firmware specification but no `.ino` sketch to open yet. The first source files should be committed under a dedicated firmware folder before upload instructions are considered complete.
+An initial diagnostic sketch is now available at [firmware/xiao-nrf52840/open-rally-remote.ino](../firmware/xiao-nrf52840/open-rally-remote.ino). It uses the Seeed nRF52 board package and its bundled Bluefruit HID keyboard API. It is a starting point and has not yet been compiled or checked on the purchased hardware.
 
 Seeed's [XIAO nRF52840 guide](https://wiki.seeedstudio.com/XIAO_BLE/) documents Arduino IDE setup and the board package. Arduino's [IDE 2 board manager tutorial](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-board-manager/) explains installing board support packages.
 
@@ -50,7 +50,7 @@ Seeed's [XIAO nRF52840 guide](https://wiki.seeedstudio.com/XIAO_BLE/) documents 
 - Use the standard keyboard report protocol with key-down and key-up reports. Do not send text strings or app-specific proprietary packets.
 - Start with one bonded phone at a time. Reconnect to the last bonded host after power-up. Provide a documented way to clear the bond during development; choose the physical reset gesture after the first bench test.
 - Use a stable, recognizable device name such as `Open Rally Remote` and a distinct manufacturer/product string if the selected library supports it.
-- Do not add Consumer Control/media reports, gamepad reports, or a custom GATT service to the first build. Add another HID collection only if app tests show keyboard reports cannot express a required action.
+- The current Seeed/Bluefruit `BLEHidAdafruit` convenience class uses a stock HID descriptor that includes keyboard, Consumer Control, and mouse collections. The diagnostic sketch sends keyboard reports only; it does not send media, mouse, or gamepad data. If the extra advertised collections affect phone pairing or app compatibility, replace this helper with a keyboard-only HID descriptor before treating the transport as validated. Do not add a custom GATT service to the first build.
 
 HOGP is the Bluetooth SIG profile for exposing HID input over BLE/GATT. Android documents BLE central/GATT support, and OsmAnd documents keyboard input on Android and iOS. Those facts make this a sensible first path, but they do not guarantee every key or gesture works identically on every phone. See [Bluetooth SIG HOGP](https://www.bluetooth.com/specifications/specs/hid-over-gatt-profile-hogp/), [Android BLE overview](https://developer.android.com/develop/connectivity/bluetooth/ble/ble-overview), and [OsmAnd external input devices](https://www.osmand.net/docs/user/map/interact-with-map/).
 
@@ -129,10 +129,10 @@ For the first firmware build, compile-time profile selection is sufficient. Do n
 
 ## 8. Initial implementation phases
 
-1. **GPIO proof:** read the eight inputs, debounce them, and print state changes to the development serial monitor. Confirm active-low behavior and the optional D7 variant.
-2. **BLE keyboard proof:** advertise HOGP; pair Android and iOS separately; send a simple test key press/release for each input. Confirm no stuck keys after quick taps, long holds, disconnects, and reconnects.
-3. **Gesture proof:** add the per-input short/long/double state machine with adjustable thresholds. Confirm timing and that short actions are not lost or duplicated.
-4. **App mapping:** implement the semantic profile table and bind tested HID usages to each action. Keep unverified bindings marked experimental.
+1. **GPIO and BLE proof:** upload the [initial diagnostic sketch](../firmware/xiao-nrf52840/README.md), pair Android and iOS separately, and confirm every connected switch reports the expected key. Validate active-low behavior, the optional D7 variant, and key release.
+2. **Gesture proof:** measure short/long/double recognition with the temporary switches. Adjust timings only after the initial values have been observed on hardware.
+3. **Reliability check:** test reconnect, held arrows, opposing direction cancellation, and release behavior after disconnect.
+4. **App mapping:** implement semantic profiles and bind tested HID usages to each action. Keep unverified bindings marked experimental.
 5. **Bench compatibility:** complete the [validation matrix](control-mapping.md#bench-validation-matrix) and record phone, OS, app version, profile, actual key event, and action result.
 
 ## 9. Validation checklist

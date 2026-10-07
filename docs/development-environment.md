@@ -1,6 +1,6 @@
 # Development Environment — XIAO nRF52840
 
-**Status:** setup guide for the first bench prototype. The project firmware sketch has not been created yet.
+**Status:** setup guide for the first bench prototype. An initial diagnostic sketch is available; it still needs to be uploaded and verified on the purchased hardware.
 
 ## What you need
 
@@ -48,7 +48,7 @@ If a sketch using `Serial` fails to compile with the Seeed nRF52 package, Seeed 
 
 ## Open the project firmware when it is added
 
-The [firmware specification](firmware-spec.md) defines the intended BLE HID behavior, but the repository does not yet contain a project `.ino` file. Once the first sketch is added, open its `.ino` file in Arduino IDE, verify that the Seeed board package and XIAO model are selected, then use **Verify** and **Upload** as above. Keep the source in the repository so the build can be reviewed and reproduced.
+The initial sketch is [open-rally-remote.ino](../firmware/xiao-nrf52840/open-rally-remote.ino). Open it in Arduino IDE, verify that the Seeed board package and XIAO model are selected, then use **Verify** and **Upload** as above. The [firmware folder README](../firmware/xiao-nrf52840/README.md) gives the pin map and diagnostic test procedure. This sketch has not yet been compiled or run on the purchased hardware.
 
 The first project sketch should be uploaded in this order:
 
