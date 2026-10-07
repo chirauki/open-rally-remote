@@ -31,7 +31,7 @@ Amazon.es search results did not provide a reliably verified listing for the exa
 
 ## Temporary input fixture
 
-An ordinary solderless breadboard is suitable for the first bench prototype. The XIAO has small castellated pads, so solder 2.54 mm pin headers to the board or use a compatible XIAO breakout adapter before plugging it into the breadboard. Do not try to force the bare board into the breadboard.
+An ordinary solderless breadboard is suitable for the first bench prototype. The XIAO has small castellated pads, so solder 2.54 mm pin headers to the board or use a compatible XIAO breakout adapter before connecting it. Do not try to force the bare board into the breadboard. See the [XIAO breadboard assembly guide](breadboard-assembly.md) for a priced parts list and wiring diagram.
 
 Use a USB-powered development board with these inputs on a temporary wiring fixture:
 
