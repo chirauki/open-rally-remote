@@ -8,7 +8,22 @@ The first firmware should prove that the XIAO nRF52840 can read the temporary sw
 
 This is a bench prototype. It is not riding-ready and does not establish weather resistance, vibration resistance, or app compatibility.
 
-## 2. Bluetooth transport
+## 2. Development setup and upload workflow
+
+The first firmware will be written and uploaded with **Arduino IDE 2** on a computer. The XIAO connects over a USB-C data cable; no separate programmer is required. Arduino IDE compiles the sketch for the selected XIAO board and uploads it over USB. Its Serial Monitor can show GPIO and BLE diagnostics during development.
+
+1. Install and open [Arduino IDE](https://www.arduino.cc/en/software/).
+2. In the IDE settings, add Seeed's board index URL: `https://files.seeedstudio.com/arduino/package_seeeduino_boards_index.json`.
+3. Open Boards Manager, search for **Seeed nRF52 Boards**, and install it. Seeed recommends this board package for the XIAO's Bluetooth functions; use the standard nRF52 package rather than the mbed-enabled package for this BLE prototype.
+4. Connect the pre-soldered XIAO to the computer with a USB-C **data** cable.
+5. Select **Seeed XIAO nRF52840** under the Seeed nRF52 boards and choose the port that appears for the board.
+6. Open the project's `.ino` sketch, use **Verify** to compile, then **Upload** to flash it. Pair the remote from the phone's Bluetooth settings after the HID firmware is running.
+
+At present the repository has the firmware specification but no `.ino` sketch to open yet. The first source files should be committed under a dedicated firmware folder before upload instructions are considered complete.
+
+Seeed's [XIAO nRF52840 guide](https://wiki.seeedstudio.com/XIAO_BLE/) documents Arduino IDE setup and the board package. Arduino's [IDE 2 board manager tutorial](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-board-manager/) explains installing board support packages.
+
+## 3. Bluetooth transport
 
 - Implement the Bluetooth SIG **HID over GATT Profile (HOGP)** as a BLE peripheral.
 - Present as a standard keyboard HID device; phones act as the BLE central and HID host.
@@ -19,7 +34,7 @@ This is a bench prototype. It is not riding-ready and does not establish weather
 
 HOGP is the Bluetooth SIG profile for exposing HID input over BLE/GATT. Android documents BLE central/GATT support, and OsmAnd documents keyboard input on Android and iOS. Those facts make this a sensible first path, but they do not guarantee every key or gesture works identically on every phone. See [Bluetooth SIG HOGP](https://www.bluetooth.com/specifications/specs/hid-over-gatt-profile-hogp/), [Android BLE overview](https://developer.android.com/develop/connectivity/bluetooth/ble/ble-overview), and [OsmAnd external input devices](https://www.osmand.net/docs/user/map/interact-with-map/).
 
-## 3. Inputs and electrical behavior
+## 4. Inputs and electrical behavior
 
 | XIAO pin | Input | Released | Pressed |
 |---|---|---|---|
@@ -36,7 +51,7 @@ Configure every connected input as `INPUT_PULLUP`. A closed switch joins the inp
 
 The final hardware may use a different pin map. Keep the pin assignments in one configuration table so they can be changed without rewriting input and HID logic.
 
-## 4. Input processing and gesture rules
+## 5. Input processing and gesture rules
 
 These values are initial tunable settings, not final ergonomic decisions:
 
@@ -61,7 +76,7 @@ Joystick directions are held inputs: send the mapped key-down while the directio
 
 Do not block the input scan while waiting for a gesture timeout. Keep a separate state and timer for each gesture-capable control so buttons can be used independently.
 
-## 5. HID report behavior and reliability
+## 6. HID report behavior and reliability
 
 - Every discrete action is a complete key press followed by a key release. Never leave a key logically held after a tap.
 - Send a release report after each discrete press. Send an all-keys-released report after disconnect, profile change, reset, or any input-state recovery event.
@@ -71,7 +86,7 @@ Do not block the input scan while waiting for a gesture timeout. Keep a separate
 - Ignore input events while BLE is disconnected, then resume cleanly after reconnect. Do not queue old actions for later delivery.
 - Avoid unnecessary flash writes. Store profile/configuration only when it changes.
 
-## 6. Profiles and mappings
+## 7. Profiles and mappings
 
 The semantic app assignments below follow the project’s [control-mapping draft](control-mapping.md). A semantic action (for example, “reset partial odometer”) is not itself a HID keycode. The concrete HID usage for each action must be selected from the target app’s documented input options or discovered in a key tester, then verified on both phone platforms where the app is available.
 
@@ -92,7 +107,7 @@ The diagnostic profile uses ordinary letter keys only to make event identities e
 
 For the first firmware build, compile-time profile selection is sufficient. Do not implement a mode-change gesture until a physical UI has been agreed and tested; this avoids accidental mode changes while riding. The diagnostic profile should be available even if app-specific mappings are unfinished.
 
-## 7. Initial implementation phases
+## 8. Initial implementation phases
 
 1. **GPIO proof:** read the eight inputs, debounce them, and print state changes to the development serial monitor. Confirm active-low behavior and the optional D7 variant.
 2. **BLE keyboard proof:** advertise HOGP; pair Android and iOS separately; send a simple test key press/release for each input. Confirm no stuck keys after quick taps, long holds, disconnects, and reconnects.
@@ -100,7 +115,7 @@ For the first firmware build, compile-time profile selection is sufficient. Do n
 4. **App mapping:** implement the semantic profile table and bind tested HID usages to each action. Keep unverified bindings marked experimental.
 5. **Bench compatibility:** complete the [validation matrix](control-mapping.md#bench-validation-matrix) and record phone, OS, app version, profile, actual key event, and action result.
 
-## 8. Validation checklist
+## 9. Validation checklist
 
 | Area | Pass condition | Android | iOS |
 |---|---|---|---|
@@ -117,6 +132,8 @@ For the first firmware build, compile-time profile selection is sufficient. Do n
 
 ## References
 
+- [Seeed Studio: XIAO nRF52840 Arduino setup and examples](https://wiki.seeedstudio.com/XIAO_BLE/)
+- [Arduino: IDE 2 board manager tutorial](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-board-manager/)
 - [Bluetooth SIG: HID over GATT Profile](https://www.bluetooth.com/specifications/specs/hid-over-gatt-profile-hogp/)
 - [Android Developers: Bluetooth Low Energy overview](https://developer.android.com/develop/connectivity/bluetooth/ble/ble-overview)
 - [OsmAnd: external input devices and keyboard key assignments](https://www.osmand.net/docs/user/map/interact-with-map/)
