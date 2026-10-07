@@ -61,9 +61,10 @@ This is a candidate map based on OsmAnd's published keyboard assignments. Confir
 | Input | Proposed action | Status |
 |---|---|---|
 | Joystick directions | Pan map | DMD² documents pan actions for generic HID remotes. |
-| Joystick center | Follow/current-position action | Candidate; assign and verify in DMD² settings. |
-| Buttons A/B short | Zoom in / zoom out | Candidate; configure in DMD²'s Generic Remote mapping. |
-| Button C short | Map follow toggle | Candidate; configure in DMD². |
+| Joystick center | Unassigned initially | Avoid duplicating Button A's map-follow toggle; can be user-configured. |
+| Button A — short | Map follow toggle | Candidate; configure in DMD²'s Generic Remote mapping. |
+| Button B — short | Zoom in | Candidate; configure in DMD²'s Generic Remote mapping. |
+| Button C — short | Zoom out | Candidate; configure in DMD²'s Generic Remote mapping. |
 | Long press | One configurable long-press action per supported control | DMD² documents long-press mapping for generic remotes. Validate per key. |
 | Double press | Not assumed available as a generic-remote gesture | DMD² documentation says generic remotes do not get the native double-tap functions available to DMD remotes. A separate emitted key may work only if the app exposes a matching assignment. |
 
