@@ -6,18 +6,18 @@ This guide uses a Seeed XIAO nRF52840 and eight momentary switches to represent 
 
 ## Parts and Spain purchase options
 
-Prices and stock were checked on 2026-10-07. Prices include VAT where the shop displays it, but exclude shipping. The total is a parts estimate across three shops; delivery charges and stock can change.
+Prices and stock were checked on 2026-10-07. The list is consolidated into two shops: Reichelt for the XIAO and Conectrol for the remaining parts. Prices include VAT where the shop displays it, but exclude shipping. Stock and delivery charges can change.
 
 | Qty | Part | Example purchase | Price checked | Notes |
 |---:|---|---|---:|---|
 | 1 | Seeed XIAO nRF52840, standard model, no headers (MPN `102010448`) | [Reichelt Spain](https://www.reichelt.com/es/es/shop/producto/xiao_nrf52840_bt5_0_sin_cabezal-358357) | €9.56 | Available, 4–5 business days shown. This is the non-Sense board. |
-| 1 | 1×40 male pin strip, 2.54 mm pitch | [Conectrol](https://conectrol.com/producto/tira-de-pines-macho-40p-x1-fila-2-54mm-redondo-recto-pcb/) | €1.60 | Cut two seven-pin sections and solder them to the XIAO. Requires a soldering iron. |
-| 1 | 400-point solderless breadboard | [Electrocomponentes](https://www.electrocomponentes.es/placas/277-protoboard-400p-enlazable-con-lineas-400-puntos-blanco.html) | €1.69 | Includes side power rails. |
+| 1 | 1×40 male pin strip, 2.54 mm pitch | [Conectrol](https://conectrol.com/producto/tira-de-pines-macho-40p-2-54mm-1-fila-plano-recto-pcb-2/) | €0.25 | Cut two seven-pin sections and solder them to the XIAO. Requires a soldering iron. |
+| 1 | 400-point solderless breadboard | [Conectrol](https://conectrol.com/producto/placa-protoboard-400-puntos-84x55x85mm/) | €2.00 | Includes side power rails. |
 | 1 set | 40 Dupont jumper wires, male-to-female, 20 cm | [Conectrol](https://conectrol.com/producto/kit-cables-dupont-1p-para-protoboard-m-h-40-unds/) | €3.00 | The female ends fit the XIAO's soldered headers; male ends fit the breadboard. |
-| 8 | 6×6×5 mm normally-open tactile switch, 4-pin | [Electrocomponentes](https://www.electrocomponentes.es/pulsadores-pcb/514-mini-pulsador-para-pcb-6x6x5mm-4-pines-spst-no-negro.html) | €0.15 each; €1.20 total | Three buttons, four joystick directions, and one center press. These tiny switches are only bench stand-ins. |
-| 1 | USB-A to USB-C data cable | [Goobay 1 m cable, Reichelt Spain](https://www.reichelt.com/es/es/shop/producto/cable_de_carga_y_sincronizacion_usb-c_-_usb-a_60_w_1_-392707) | €6.09 | Optional if you already have a data-capable cable. A charge-only cable will not allow programming. |
+| 8 | 6×6×5 mm normally-open tactile switch | [Conectrol](https://conectrol.com/producto/pulsador-tactil-off-on-no-6x6x5mm-pcb-rojo/) | €0.20 each; €1.60 total | Three buttons, four joystick directions, and one center press. These tiny switches are only bench stand-ins. |
+| 1 | USB-A to USB-C data cable, 1 m | [Conectrol](https://conectrol.com/producto/cable-usb-3-0-tipo-a-usb-tipo-c-3-1-m-m-1mt/) | €6.90 | Optional if you already have a data-capable cable. A charge-only cable will not allow programming. |
 
-**Estimated parts total:** €17.05 without a USB cable, or €23.14 with the listed cable, before shipping. If soldering headers is inconvenient, the pre-soldered XIAO variant (MPN `102010631`) was listed at €12.19 by Reichelt Spain but shown as unavailable when checked; confirm current stock before choosing it.
+**Estimated parts total:** €16.41 without a USB cable, or €23.31 with the listed cable, before shipping. This requires purchases from two shops. If soldering headers is inconvenient, the pre-soldered XIAO variant (MPN `102010631`) was listed at €12.19 by Reichelt Spain but shown as unavailable when checked; confirm current stock before choosing it.
 
 ## Tools
 
@@ -96,8 +96,8 @@ This assembly is intended for a desk or bench. Solderless breadboards, exposed D
 - [Seeed XIAO nRF52840 documentation: pinout, power, and board details](https://wiki.seeedstudio.com/XIAO_BLE/)
 - [Seeed XIAO nRF52840 product page](https://www.seeedstudio.com/Seeed-XIAO-BLE-nRF52840-p-5201.html)
 - [Reichelt Spain: standard XIAO nRF52840 without headers](https://www.reichelt.com/es/es/shop/producto/xiao_nrf52840_bt5_0_sin_cabezal-358357)
-- [Conectrol: 40-pin male header strip](https://conectrol.com/producto/tira-de-pines-macho-40p-x1-fila-2-54mm-redondo-recto-pcb/)
-- [Electrocomponentes: 400-point breadboard](https://www.electrocomponentes.es/placas/277-protoboard-400p-enlazable-con-lineas-400-puntos-blanco.html)
+- [Conectrol: 40-pin male header strip](https://conectrol.com/producto/tira-de-pines-macho-40p-2-54mm-1-fila-plano-recto-pcb-2/)
+- [Conectrol: 400-point breadboard](https://conectrol.com/producto/placa-protoboard-400-puntos-84x55x85mm/)
 - [Conectrol: male-to-female Dupont jumper set](https://conectrol.com/producto/kit-cables-dupont-1p-para-protoboard-m-h-40-unds/)
-- [Electrocomponentes: 6×6×5 mm tactile switch](https://www.electrocomponentes.es/pulsadores-pcb/514-mini-pulsador-para-pcb-6x6x5mm-4-pines-spst-no-negro.html)
-- [Reichelt Spain: USB-A to USB-C data cable](https://www.reichelt.com/es/es/shop/producto/cable_de_carga_y_sincronizacion_usb-c_-_usb-a_60_w_1_-392707)
+- [Conectrol: 6×6×5 mm tactile switch](https://conectrol.com/producto/pulsador-tactil-off-on-no-6x6x5mm-pcb-rojo/)
+- [Conectrol: USB-A to USB-C data cable](https://conectrol.com/producto/cable-usb-3-0-tipo-a-usb-tipo-c-3-1-m-m-1mt/)
