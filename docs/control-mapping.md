@@ -44,8 +44,8 @@ OsmAnd supports external keyboard/controller inputs and lets users assign keys t
 | Input | Proposed HID key | Proposed OsmAnd action |
 |---|---|---|
 | Joystick up/down/left/right | Arrow keys | Pan map up/down/left/right |
-| Joystick center — short | Unassigned initially | Avoid duplicating Button A's current-position action; can be user-configured. |
-| Button A — short | `C` | Move to current position / center map |
+| Joystick center — short | `C` | Move to current position / center map |
+| Button A — short | `D` | Change map orientation |
 | Button B — short | `+` | Zoom in |
 | Button C — short | `-` | Zoom out |
 | Button A — long | `N` | Show/hide navigation view |
