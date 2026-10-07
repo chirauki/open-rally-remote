@@ -61,7 +61,7 @@ The variety of gloves, handlebars, and stock control assemblies is open-ended an
 ## Development plan
 
 1. Review the [draft control mapping](control-mapping.md) and validate app-specific button actions.
-2. Compare BLE modules, switches, sealed cable entry, and input protection using current prices and availability.
+2. Build the bench proof of concept in the [prototype plan](prototype-plan.md); compare BLE controllers, switches, sealed cable entry, and input protection using current prices and availability.
 3. Prototype BLE HID profiles and validate them on real Android and iPhone devices with TerraPirata, OsmAnd, and DMD².
 4. Design the PCB and 22 mm mount/enclosure; check ergonomics and installation on a motorcycle.
 5. Iterate through water, dust, vibration, drop, and USB power tests. Document results and limits before making any protection rating claim.
