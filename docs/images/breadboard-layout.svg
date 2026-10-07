@@ -39,36 +39,36 @@
 </g>
 <!-- eight GPIO signal leads enter the signal-side terminal groups -->
 <g class="w" stroke-width="5">
- <path d="M1195 320 H1120 V415 H450" stroke="#d24f45"/>
- <path d="M1195 354 H1130 V477 H450" stroke="#de8e32"/>
- <path d="M1195 388 H1140 V539 H450" stroke="#c0a52a"/>
- <path d="M1195 422 H1150 V601 H450" stroke="#459669"/>
- <path d="M1195 456 H1160 V663 H450" stroke="#328b9c"/>
- <path d="M1195 490 H1170 V725 H450" stroke="#4276b6"/>
- <path d="M1195 524 H1180 V787 H450" stroke="#8063ae"/>
- <path d="M1195 558 H1190 V849 H450" stroke="#ad638f"/>
+ <path d="M1195 320 H1120 V415 H510" stroke="#d24f45"/>
+ <path d="M1195 354 H1130 V477 H510" stroke="#de8e32"/>
+ <path d="M1195 388 H1140 V539 H510" stroke="#c0a52a"/>
+ <path d="M1195 422 H1150 V601 H510" stroke="#459669"/>
+ <path d="M1195 456 H1160 V663 H510" stroke="#328b9c"/>
+ <path d="M1195 490 H1170 V725 H510" stroke="#4276b6"/>
+ <path d="M1195 524 H1180 V787 H510" stroke="#8063ae"/>
+ <path d="M1195 558 H1190 V849 H510" stroke="#ad638f"/>
 </g>
 <g fill="#fff" stroke-width="3">
- <circle cx="450" cy="415" r="7" stroke="#d24f45"/><circle cx="450" cy="477" r="7" stroke="#de8e32"/><circle cx="450" cy="539" r="7" stroke="#c0a52a"/><circle cx="450" cy="601" r="7" stroke="#459669"/>
- <circle cx="450" cy="663" r="7" stroke="#328b9c"/><circle cx="450" cy="725" r="7" stroke="#4276b6"/><circle cx="450" cy="787" r="7" stroke="#8063ae"/><circle cx="450" cy="849" r="7" stroke="#ad638f"/>
+ <circle cx="510" cy="415" r="7" stroke="#d24f45"/><circle cx="510" cy="477" r="7" stroke="#de8e32"/><circle cx="510" cy="539" r="7" stroke="#c0a52a"/><circle cx="510" cy="601" r="7" stroke="#459669"/>
+ <circle cx="510" cy="663" r="7" stroke="#328b9c"/><circle cx="510" cy="725" r="7" stroke="#4276b6"/><circle cx="510" cy="787" r="7" stroke="#8063ae"/><circle cx="510" cy="849" r="7" stroke="#ad638f"/>
 </g>
 <!-- momentary tact switches straddle the trench -->
 <g fill="#252b31" stroke="#11171b" stroke-width="2">
- <g transform="translate(565 415)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-29 -16v-10 M29 -16v-10 M-29 16v10 M29 16v10" stroke="#aeb7bd" stroke-width="4"/></g>
- <g transform="translate(565 477)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-29 -16v-10 M29 -16v-10 M-29 16v10 M29 16v10" stroke="#aeb7bd" stroke-width="4"/></g>
- <g transform="translate(565 539)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-29 -16v-10 M29 -16v-10 M-29 16v10 M29 16v10" stroke="#aeb7bd" stroke-width="4"/></g>
- <g transform="translate(565 601)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-29 -16v-10 M29 -16v-10 M-29 16v10 M29 16v10" stroke="#aeb7bd" stroke-width="4"/></g>
- <g transform="translate(565 663)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-29 -16v-10 M29 -16v-10 M-29 16v10 M29 16v10" stroke="#aeb7bd" stroke-width="4"/></g>
- <g transform="translate(565 725)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-29 -16v-10 M29 -16v-10 M-29 16v10 M29 16v10" stroke="#aeb7bd" stroke-width="4"/></g>
- <g transform="translate(565 787)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-29 -16v-10 M29 -16v-10 M-29 16v10 M29 16v10" stroke="#aeb7bd" stroke-width="4"/></g>
- <g transform="translate(565 849)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-29 -16v-10 M29 -16v-10 M-29 16v10 M29 16v10" stroke="#aeb7bd" stroke-width="4"/></g>
+ <g transform="translate(565 415)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
+ <g transform="translate(565 477)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
+ <g transform="translate(565 539)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
+ <g transform="translate(565 601)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
+ <g transform="translate(565 663)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
+ <g transform="translate(565 725)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
+ <g transform="translate(565 787)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
+ <g transform="translate(565 849)"><rect x="-38" y="-16" width="76" height="32" rx="6"/><rect x="-12" y="-11" width="24" height="22" rx="4" fill="#505962" stroke="#69747d"/><path d="M-55 0h17 M38 0h17" stroke="#aeb7bd" stroke-width="5"/></g>
 </g>
 <!-- eight separate short male-male ground jumpers -->
 <g class="w" stroke="#27323a" stroke-width="4">
- <path d="M680 415 H780 V284"/><path d="M680 477 H800 V284"/><path d="M680 539 H820 V284"/><path d="M680 601 H840 V284"/>
- <path d="M680 663 H860 V284"/><path d="M680 725 H880 V284"/><path d="M680 787 H900 V284"/><path d="M680 849 H920 V284"/>
+ <path d="M620 415 H780 V284"/><path d="M620 477 H800 V284"/><path d="M620 539 H820 V284"/><path d="M620 601 H840 V284"/>
+ <path d="M620 663 H860 V284"/><path d="M620 725 H880 V284"/><path d="M620 787 H900 V284"/><path d="M620 849 H920 V284"/>
 </g>
-<g fill="#27323a"><circle cx="680" cy="415" r="5"/><circle cx="680" cy="477" r="5"/><circle cx="680" cy="539" r="5"/><circle cx="680" cy="601" r="5"/><circle cx="680" cy="663" r="5"/><circle cx="680" cy="725" r="5"/><circle cx="680" cy="787" r="5"/><circle cx="680" cy="849" r="5"/></g>
+<g fill="#27323a"><circle cx="620" cy="415" r="5"/><circle cx="620" cy="477" r="5"/><circle cx="620" cy="539" r="5"/><circle cx="620" cy="601" r="5"/><circle cx="620" cy="663" r="5"/><circle cx="620" cy="725" r="5"/><circle cx="620" cy="787" r="5"/><circle cx="620" cy="849" r="5"/></g>
 
 <!-- XIAO and explanatory wiring block -->
 <text x="1190" y="180" class="h">XIAO, outside the breadboard</text>
