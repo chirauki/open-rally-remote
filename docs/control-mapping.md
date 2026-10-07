@@ -24,13 +24,15 @@ Joystick directions are separate directional events, not button gestures. A joys
 
 | Input | Proposed action | Basis / status |
 |---|---|---|
-| Button A — short | Main odometer + one increment | The app documents remote +/− controls; confirm which key event the TerraPirata profile expects. |
-| Button A — long | Faster main odometer increase, if supported | The app says holding an adjustment button can increase the adjustment speed; validate with the selected remote mode. |
-| Button B — short | Main odometer − one increment | Same as above. |
-| Button B — long | Faster main odometer decrease, if supported | Same as above. |
-| Button C — short | Reset partial odometer | The app documents this action for the third button. |
-| Button C — long | Lock/unlock screen | The app documents a long press on the third button for screen lock. |
-| Button C — double | Unassigned initially | Avoid conflicting with the short reset or long screen-lock behavior until tested. |
+| Button A — short | Reset partial odometer | The app documents this action for a button; assigned here to Button A per the project mapping. |
+| Button A — long | Lock/unlock screen | The app documents a long press on a button for screen lock; assigned here to Button A per the project mapping. |
+| Button A — double | Unassigned initially | Avoid conflicting with reset or screen-lock behavior until tested. |
+| Button B — short | Main odometer + one increment | The app documents remote +/− controls; confirm which key event the TerraPirata profile expects. |
+| Button B — long | Faster main odometer increase, if supported | The app says holding an adjustment button can increase the adjustment speed; validate with the selected remote mode. |
+| Button B — double | Unassigned initially | No action assigned until validated. |
+| Button C — short | Main odometer − one increment | Same as Button B's increase mapping. |
+| Button C — long | Faster main odometer decrease, if supported | Same as above. |
+| Button C — double | Unassigned initially | No action assigned until validated. |
 | Joystick directions and center | To be determined during TerraPirata-mode validation | Do not assume generic arrow keys map to roadbook actions. |
 
 TerraPirata recommends its dedicated remote mode. On iOS it requires that mode or the app's compatibility mode. The event mapping for this DIY device must be verified on both Android and iOS.
