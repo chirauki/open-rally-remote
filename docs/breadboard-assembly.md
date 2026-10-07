@@ -48,6 +48,8 @@ If building the joystick-without-center variant, leave D7 disconnected and disab
 
 Keep the XIAO beside the breadboard rather than forcing the small board into it. Each switch straddles the breadboard's center trench. One electrical side goes to its GPIO row; the other side goes to the blue ground rail. On a standard breadboard, the five holes on each side of a numbered row are connected together, but the two groups across the center trench are separate.
 
+![Top-down XIAO nRF52840 breadboard layout with eight temporary switches and USB power](images/breadboard-layout.svg)
+
 ```text
 XIAO nRF52840 (kept beside the breadboard)
   D0 ───────────────────────────────────────────────────────┐
