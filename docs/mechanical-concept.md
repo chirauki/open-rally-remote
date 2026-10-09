@@ -1,12 +1,12 @@
-# Complete Mechanical CAD — V0.9 NAVCOMM-Referenced Concept
+# Complete Mechanical CAD — V0.10 NAVCOMM-Referenced Concept
 
-V0.9 keeps the broad tapered shoulders added in V0.8 and corrects the pod interior: its cavity now has rounded corners matching the outer shell, instead of a square-ended cutout that opened triangular gaps through the rounded ends. This preserves material around the pod ends. The control cover retains the 7 mm end radius matching the pod outline.
+V0.10 adds a `cutaway` view as the default OpenSCAD view. It removes the control face cover so the internal component envelopes and available cavity can be inspected. It also extends the tapered shoulders 2 degrees into the fixed clamp arc to create an area overlap at their join. V0.9's rounded cavity did not remove the triangular openings visible in the exported image, so the earlier cavity-only explanation was incomplete; inspect this revised render before fabrication.
 
-**Current parametric concept:** [complete-remote-v0.9.scad](../mechanical/cad/complete-remote-v0.9.scad)
+**Current parametric concept:** [complete-remote-v0.10.scad](../mechanical/cad/complete-remote-v0.10.scad)
 
-![Integrated split-ring concept with tapered shoulders and rounded pod ends.](images/complete-remote-v0.9.svg)
+![Integrated split-ring concept with tapered shoulders and an open cutaway view available in the CAD.](images/complete-remote-v0.10.svg)
 
-The OpenSCAD file builds the integrated main body and broad upper/lower shoulders, rounded internal pod cavity, opposite clamp cap, rounded perforated control face, exposed control heads, split liner, and internal component envelopes. Set `show_internals = false` to hide the switch-body and XIAO envelopes; the exterior control heads remain visible. Set `part_to_render` to `"housing"`, `"clamp_cap"`, `"cover"`, `"liner_main"`, or `"liner_cap"` to export a part. Button heads and joystick knob are placeholders pending exact supplier parts.
+The OpenSCAD file builds the integrated main body and broad upper/lower shoulders, rounded internal pod cavity, opposite clamp cap, rounded perforated control face, exposed control heads, split liner, and internal component envelopes. It opens in `cutaway` mode, which removes the control face cover. Set `part_to_render = "assembly"` to see the closed exterior, or `show_internals = false` to hide the switch and XIAO envelopes. The OpenSCAD console reports the cavity envelope and clamp radial section. Set `part_to_render` to `"housing"`, `"clamp_cap"`, `"cover"`, `"liner_main"`, or `"liner_cap"` to inspect individual parts. Button heads and joystick knob are placeholders pending exact supplier parts.
 
 ## NAVCOMM reference
 
@@ -33,6 +33,7 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | MHS nominal panel opening | Ø15.80 mm | Ruffy drawing callout Ø0.622 in; full profile needs confirmation |
 | Handlebar | Ø22 mm nominal | Project target; measure the actual straight section |
 | Integrated clamp | Ø50 mm outer diameter, Ø24 mm bore | Parametric packaging target; main arc plus removable 110-degree cap |
+| Clamp radial section | 13 mm | Derived from current Ø50 mm outer diameter and Ø24 mm bore; review in cutaway before reducing |
 | Pod-to-clamp shoulders | Tapered from pod corners to the angled clamp split | Initial geometry follows the supplied marked silhouette; confirm strength and print orientation by physical testing |
 | Control-cover end corners | 7 mm radius | Matched to the pod outline corner radius |
 | Pod cavity end corners | 6 mm radius | 1 mm inset from the 7 mm outer pod radius |
@@ -68,4 +69,4 @@ The cover and clamp have preliminary screw-clearance holes, but the mating bosse
 - Choose the actual cable gland, cover seal, clamp bolts/nuts or inserts, and service fasteners; add their seats and access to the CAD.
 - Check printed-part tolerances, wall strength, fastener pull-out, glove reach, water ingress, vibration, and impact on physical prototypes. This concept does not establish an IP rating.
 
-This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, control-head, and fastener dimensions are initial design targets for measurement and prototype revision. The broad shoulders express the requested architecture but do not prove clamp strength; load-test the printed housing before riding. V0.1–V0.8 remain available as earlier layouts for comparison.
+This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, control-head, and fastener dimensions are initial design targets for measurement and prototype revision. The broad shoulders express the requested architecture but do not prove clamp strength; load-test the printed housing before riding. V0.1–V0.9 remain available as earlier layouts for comparison.
