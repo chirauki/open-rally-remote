@@ -1,20 +1,20 @@
-# Complete Mechanical CAD — V0.1
+# Complete Mechanical CAD — V0.2 Integrated Clamp Concept
 
-This is the first assembly-level mechanical design of the remote. It includes the control face, front cover, rear electronics tub, internal XIAO tray, cable entry, perimeter seal, handlebar saddle, split clamp, and a replaceable liner. The earlier `control-carrier-v0.2.scad` is only a control-layout study; use the complete assembly file below as the current mechanical starting point.
+V0.2 changes the overall architecture to match the reference: the remote is built around a split ring that surrounds the handlebar. The rear enclosure and the main half of the clamp are one structural body; a removable opposite half closes the ring. This replaces the V0.1 layout, where an elongated pod sat on a clamp underneath it.
 
-**Parametric assembly:** [complete-remote-v0.1.scad](../mechanical/cad/complete-remote-v0.1.scad)
+**Current parametric concept:** [complete-remote-v0.2.scad](../mechanical/cad/complete-remote-v0.2.scad)
 
-![Packaging schematic showing the complete pod, XIAO board and switch envelopes, enclosure seal, cable exit, and a rear housing that forms the upper half of the handlebar clamp.](images/complete-remote-v0.1.svg)
+![Integrated split-ring concept with four controls on the pod and the removable clamp half shown in dark gray.](images/complete-remote-v0.2.svg)
 
-The source is a parametric OpenSCAD assembly. It builds the complete body and mounting parts, with a translucent nominal handlebar reference and component packaging envelopes. Set `show_internals = false` for the closed outer assembly. Set `part_to_render` to `"cover"`, `"housing"`, `"clamp_lower"`, `"liner_upper"`, or `"liner_lower"` to export individual printable parts. The SVG above is a dimensioned packaging schematic, not a photorealistic render; the editable geometry is the SCAD file. Switches and board are envelopes, not manufacturer STEP solids.
+The OpenSCAD file builds the integrated main body, opposite clamp cap, face cover, split liner, and component envelopes. Set `show_internals = false` to hide the button and XIAO envelopes. Set `part_to_render` to `"housing"`, `"clamp_cap"`, `"cover"`, `"liner_main"`, or `"liner_cap"` to export a part. The SVG is a dimensioned concept view; the editable geometry is the SCAD file. Switches, joystick, and board are packaging envelopes rather than supplier STEP models.
 
 ## Assembly parts represented
 
-1. **Front cover:** A/B/C button openings, joystick opening, and four service screw holes.
-2. **Rear housing:** hollow tub, internal screw bosses, perimeter gasket channel, and cable entry.
-3. **Electronics support:** XIAO tray with retaining rails; the board is placed behind the controls in a separate depth layer.
-4. **Handlebar support:** the rear housing itself forms the upper saddle; only the lower half-clamp is a separate structural part. The Ø30 mm saddle is 24 mm wide, with a Ø24 mm bore and two side webs joining it to the rear wall. A replaceable two-piece TPU liner adapts the nominal Ø22 mm bar.
-5. **Hardware envelopes:** cover screws and lower clamp fasteners.
+1. **Integrated main body:** a C-shaped main clamp half joined directly to the control pod. Its annular wall is the rear structural housing around the bar.
+2. **Removable clamp cap:** the opposite half ring closes the clamp and is secured by two transverse M4 through-bolts with locknuts in this initial concept. Verify bolt length, wrench access, and lug strength in a printed prototype.
+3. **Control face:** A/B/C and joystick openings in a serviceable face cover.
+4. **Electronics pod:** the XIAO is packaged inside the pod beside the control bodies; a cable entry is included at the lower end.
+5. **Replaceable liner:** two semicircular TPU pieces fit between the Ø24 mm clamp bore and nominal Ø22 mm handlebar.
 
 ## Sourced dimensions and design targets
 
@@ -26,33 +26,35 @@ The source is a parametric OpenSCAD assembly. It builds the complete body and mo
 | MHS joystick thread / panel | M16 × 1 / 2–3 mm | Ruffy Controls MHS datasheet |
 | MHS nominal panel opening | Ø15.80 mm | Ruffy drawing callout Ø0.622 in; full profile needs confirmation |
 | Handlebar | Ø22 mm nominal | Project target; measure the actual straight section |
-| Body envelope | 25 × 90 × 31 mm | CAD packaging target (28.5 mm tub + 2.5 mm cover) |
-| Case wall / rear floor / cover | 1.8 / 2.0 / 2.5 mm | Initial print design targets |
-| Clamp bore and liner | Ø24 mm bore + 1 mm radial liner = Ø22 mm | Parametric design target; tune to measured bar and print process |
-| Clamp saddle | Ø30 mm outside, 24 mm wide; upper half integrated into rear housing with a 3 mm overlap and two side webs | Parametric structural concept; validate printed strength and clearances |
+| Integrated clamp | Ø50 mm outer diameter, Ø24 mm bore | Parametric packaging target; currently a two-part split ring |
+| Clamp liner | 1 mm radial TPU liner gives Ø22 mm nominal inner diameter | Parametric target; tune to measured bar and print process |
+| Enclosure envelope | About 80 × 82 mm in the front plane; 27 mm clamp width + 2.5 mm face cover | Current concept target; verify against component samples |
+| Case wall / cover | 2.0 / 2.5 mm | Initial print design targets |
+| Control pitch | 18 mm, four controls | Layout target; confirm glove access and supplier bezel sizes |
+| Clamp fasteners | Two transverse M4 through-bolts | Initial target; choose length, washers, and locknuts after prototype fit |
 | Cable gland seat | Ø8.2 mm pass-through, Ø14 × 5 mm inner reinforcement | M8 gland packaging target; verify selected product drawing |
 | USB cable jacket | 3–5 mm range candidate | Hummel M8 gland example; measure actual cable |
 | XIAO header projection | 6 mm | Packaging allowance for the pre-soldered version; measure the bought board |
 
-Seeed lists the XIAO board at 21 × 17.8 mm and provides a [2D DXF drawing](https://wiki.seeedstudio.com/XIAO_BLE/). The purchased variant has pre-soldered headers, so the model allocates 6 mm for their projection and places the PCB on edge rails behind the switch envelopes. That 6 mm is a packaging allowance, not a supplier dimension. The [Kiwi listing](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402) confirms the headers are pre-soldered; measure their actual projection before printing. The 28.5 mm tub depth is the current packaging stack: 13.5 mm joystick depth + 2 mm control gap + 2 mm component height + 1.6 mm PCB + 6 mm headers + 1.4 mm rear clearance + 2 mm back wall.
+Seeed lists the XIAO board at 21 × 17.8 mm and provides a [2D DXF drawing](https://wiki.seeedstudio.com/XIAO_BLE/). The purchased variant has pre-soldered headers; V0.2 places the board parallel to the control face inside the pod. The 6 mm header projection is an allowance, not a supplier dimension. The [Kiwi listing](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402) confirms the headers are pre-soldered. Check the actual header, USB-C, antenna, and component clearances against the printed cavity before finalizing it.
 
-The Ruffy [MHS datasheet](https://www.farnell.com/datasheets/4534112.pdf) specifies an M16 × 1 body, panel thickness 2–3 mm, and a nominal Ø0.622 in mounting callout. The drawing also contains a 0.291 in profile dimension and two rounded corners; V0.1 models the nominal circle only. Do not use the joystick opening as a finished drilling template until the complete profile is checked against the full drawing or the actual part.
+The Ruffy [MHS datasheet](https://www.farnell.com/datasheets/4534112.pdf) specifies an M16 × 1 body, panel thickness 2–3 mm, and a nominal Ø0.622 in mounting callout. The drawing also contains a 0.291 in profile dimension and two rounded corners; V0.2 still models the nominal circle only. Do not use the joystick opening as a finished drilling template until the complete profile is checked against the full drawing or the actual part.
 
 APEM's [IS series page](https://www.apem.com/panel-switches/pushbutton-switches/is) gives the Ø13.6 mm panel cutout, 13 mm behind-panel depth, 1.5–4 mm panel range, and 15 mm reduced-bezel option. Order-code availability and the reduced-bezel variant's exact drawing must be confirmed before selecting the production switch.
 
 ## Power cable and service access
 
-The model assumes a flexible USB supply lead from the bike's 5 V USB outlet enters through an M8 cable gland at the lower end of the enclosure. Its 5 V and ground connect to the XIAO; its USB plug remains outside for the bike's outlet. The design uses an Ø8.2 mm gland pass-through and a 5 mm long internal reinforcement seat. [Hummel's M8 × 1.25 gland example](https://www.hummel.com/en/product-finder-cable-gland/products/metal-cable-glands/hsk-mini/1106080055-wadi-a-fpm-m8x1-25/) accepts 3–5 mm cable; choose a gland only after measuring the actual cable jacket and checking its drawing. The internal lead path is represented as a bent cable envelope to the XIAO.
+The model includes a preliminary Ø8.2 mm cable entry through the lower end wall of the pod. It does not yet model a selected gland, its nut/seat, strain relief, or the complete wire route. One candidate is [Hummel's M8 × 1.25 gland](https://www.hummel.com/en/product-finder-cable-gland/products/metal-cable-glands/hsk-mini/1106080055-wadi-a-fpm-m8x1-25/), listed for 3–5 mm cable; select and measure the actual cable and gland before adding their mounting features to the CAD.
 
-Four M3 cover screws provide access to the board and wiring for development and repair. Each screw has a shallow annular seal-groove target; the elastomer washer and clamp insert still need exact part selection. The XIAO USB-C connector is inside the enclosure in this arrangement; this CAD does not yet define a sealed external programming port. The product requirement for phone-based BLE firmware updates remains a firmware task.
+The cover and clamp have preliminary screw-clearance holes, but the mating bosses, nut traps/inserts, sealing features, and fastener lengths are not yet designed. The XIAO USB-C connector is inside the enclosure in this arrangement; the CAD does not yet define a sealed external programming port. Phone-based BLE firmware updates remain a firmware requirement.
 
 ## What is still required before fabrication
 
 - Confirm button and joystick exact order codes and use the full supplier drawings or measured samples to model their bodies, nuts, terminals, leads, and complete panel cutouts.
-- Measure the purchased XIAO including header projection, USB-C connector, component heights, and antenna keepout; verify the edge rails and cable route against the actual board.
+- Measure the purchased XIAO including header projection, USB-C connector, component heights, and antenna keepout; verify the pod cavity and cable route against the actual board.
 - Measure the bike's straight 22 mm handlebar section. Verify the liner, clamp installation direction, steering clearance, and control interference on the motorcycle.
-- Print and load-test the integrated rear saddle and lower clamp. The broad overlap and side webs remove the narrow neck from the earlier concept, but do not establish fatigue or impact strength without physical testing.
-- Choose the actual cable gland, gasket material/cord, screw seals, and M3 clamp inserts; update their CAD seats to those parts.
-- Check printed-part tolerances, wall strength, fastener pull-out, glove reach, water ingress, vibration, and impact on physical prototypes. Printed material and a gasket channel alone do not establish an IP rating.
+- Print and load-test the split-ring body, cap, bolt lugs, and liner. This CAD expresses the integrated architecture but does not establish fatigue or impact strength without physical testing.
+- Choose the actual cable gland, cover seal, clamp bolts/nuts or inserts, and service fasteners; add their seats and access to the CAD.
+- Check printed-part tolerances, wall strength, fastener pull-out, glove reach, water ingress, vibration, and impact on physical prototypes. This concept does not establish an IP rating.
 
-The model is therefore a **complete packaging CAD**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, gasket, and hardware dimensions are explicit design targets for measurement and prototype revision.
+This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, and fastener dimensions are initial design targets for measurement and prototype revision. V0.1 remains available as an earlier, superseded layout for comparison.

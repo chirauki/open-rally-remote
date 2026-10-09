@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="720" viewBox="0 0 1120 720" role="img" aria-labelledby="title desc">
+  <title id="title">Integrated split-ring rally remote, concept V0.2</title>
+  <desc id="desc">Front view of a compact four-control motorcycle remote built around an integrated split-ring handlebar clamp, plus an axial-width side view.</desc>
+  <defs>
+    <style>
+      text{font-family:Inter,Arial,sans-serif;fill:#253946}.title{font-size:23px;font-weight:700}.sub{font-size:14px;fill:#586d79}.lbl{font-size:14px;font-weight:600}.tiny{font-size:12px;fill:#526672}.dim{stroke:#415966;stroke-width:1.4;fill:none}
+    </style>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0 0L7 3.5L0 7Z" fill="#415966"/></marker>
+  </defs>
+  <rect width="1120" height="720" rx="16" fill="#f5f7f8"/>
+  <text x="42" y="48" class="title">OPEN RALLY REMOTE · INTEGRATED CLAMP CONCEPT V0.2</text>
+  <text x="42" y="74" class="sub">The enclosure wraps around the handlebar; its main body is one half of the split clamp. Dimensions in mm.</text>
+
+  <text x="72" y="122" class="lbl">FRONT VIEW · BAR AXIS INTO PAGE</text>
+  <!-- Main C-shaped body and removable right clamp cap -->
+  <circle cx="402" cy="325" r="87.5" fill="#7b8991" stroke="#394f5b" stroke-width="3"/>
+  <path d="M402 237.5 A87.5 87.5 0 0 1 402 412.5 L402 367 A42 42 0 0 0 402 283 Z" fill="#596c76" stroke="#394f5b" stroke-width="2"/>
+  <!-- Main left half shown over cap seam -->
+  <path d="M402 237.5 A87.5 87.5 0 0 0 402 412.5 L402 367 A42 42 0 0 1 402 283 Z" fill="#aebbc1" stroke="#394f5b" stroke-width="2"/>
+  <!-- Integrated control pod overlaps the clamp's main half -->
+  <rect x="209.5" y="181.5" width="140" height="287" rx="25" fill="#cbd5da" stroke="#445b68" stroke-width="3"/>
+  <rect x="222" y="194" width="115" height="262" rx="18" fill="#aab8c0" stroke="#6d808a" stroke-width="1.5"/>
+  <!-- Four controls: A, B, C, then joystick -->
+  <circle cx="280" cy="230.5" r="24" fill="#f5f7f8" stroke="#445b68" stroke-width="2.5"/>
+  <circle cx="280" cy="293.5" r="24" fill="#f5f7f8" stroke="#445b68" stroke-width="2.5"/>
+  <circle cx="280" cy="356.5" r="24" fill="#f5f7f8" stroke="#445b68" stroke-width="2.5"/>
+  <circle cx="280" cy="419.5" r="27.5" fill="#f5f7f8" stroke="#445b68" stroke-width="2.5"/>
+  <text x="280" y="235" text-anchor="middle" class="tiny">A</text>
+  <text x="280" y="298" text-anchor="middle" class="tiny">B</text>
+  <text x="280" y="361" text-anchor="middle" class="tiny">C</text>
+  <text x="280" y="424" text-anchor="middle" class="tiny">JOYSTICK</text>
+  <!-- Lined bar opening -->
+  <circle cx="402" cy="325" r="42" fill="#b77f42" stroke="#855824" stroke-width="1.5"/>
+  <circle cx="402" cy="325" r="38.5" fill="#dce2e5" stroke="#394f5b" stroke-width="1.5"/>
+  <text x="402" y="330" text-anchor="middle" font-size="11" fill="#526672">Ø22 BAR</text>
+  <!-- Cross-bolts at the two split joints -->
+  <circle cx="402" cy="247.5" r="7" fill="#d8dee1" stroke="#394f5b" stroke-width="2"/>
+  <circle cx="402" cy="402.5" r="7" fill="#d8dee1" stroke="#394f5b" stroke-width="2"/>
+  <text x="72" y="520" class="tiny">Main housing half (light) + removable clamp cap (dark), secured by two transverse M4 bolts.</text>
+
+  <!-- Dimensions -->
+  <line x1="314.5" y1="510" x2="489.5" y2="510" class="dim" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <line x1="314.5" y1="482" x2="314.5" y2="518" class="dim"/>
+  <line x1="489.5" y1="430" x2="489.5" y2="518" class="dim"/>
+  <text x="402" y="533" text-anchor="middle" class="tiny">Ø50 integrated clamp body</text>
+  <line x1="548" y1="237.5" x2="548" y2="412.5" class="dim" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <line x1="502" y1="237.5" x2="556" y2="237.5" class="dim"/>
+  <line x1="502" y1="412.5" x2="556" y2="412.5" class="dim"/>
+  <text x="565" y="330" class="tiny" transform="rotate(90 565 330)">50 mm outside diameter</text>
+
+  <!-- Axial side view -->
+  <text x="700" y="122" class="lbl">SIDE VIEW · ALONG HANDLEBAR</text>
+  <rect x="758" y="195" width="110" height="250" rx="38" fill="#cbd5da" stroke="#445b68" stroke-width="3"/>
+  <rect x="758" y="195" width="110" height="250" rx="38" fill="none" stroke="#aab8c0" stroke-width="10"/>
+  <line x1="758" y1="204" x2="868" y2="204" stroke="#445b68" stroke-width="2"/>
+  <text x="813" y="475" text-anchor="middle" class="tiny">27 mm clamp + 2.5 mm face cover = 29.5 mm</text>
+  <line x1="758" y1="456" x2="868" y2="456" class="dim" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="910" y="243" class="tiny">Front control cover</text>
+  <line x1="901" y1="248" x2="863" y2="207" class="dim"/>
+  <text x="910" y="294" class="tiny">Electronics cavity in pod</text>
+  <line x1="901" y1="299" x2="866" y2="300" class="dim"/>
+  <text x="910" y="345" class="tiny">Integrated clamp wall</text>
+  <line x1="901" y1="350" x2="861" y2="350" class="dim"/>
+  <text x="910" y="396" class="tiny">Replaceable TPU liner</text>
+  <line x1="901" y1="401" x2="867" y2="400" class="dim"/>
+
+  <rect x="696" y="520" width="370" height="112" rx="10" fill="#e9eef1" stroke="#bcc8ce"/>
+  <text x="718" y="550" class="lbl">PACKAGING TARGETS</text>
+  <text x="718" y="576" class="tiny">Bar: Ø22 · liner: 1 mm radial · clamp bore: Ø24</text>
+  <text x="718" y="598" class="tiny">Four controls at 18 mm pitch · XIAO inside the side pod</text>
+  <text x="718" y="620" class="tiny">Concept geometry; supplier fit and printed strength need checks.</text>
+
+  <text x="72" y="596" class="lbl">DESIGN INTENT</text>
+  <text x="72" y="622" class="tiny">The back of the enclosure forms the structural clamp body around the bar; there is no narrow neck below a separate pod.</text>
+  <text x="72" y="644" class="tiny">The right half is removed to mount the unit laterally, then fastened to the main housing half.</text>
+  <text x="72" y="680" class="tiny">Dimensioned concept view derived from the parametric OpenSCAD model; not a photorealistic render or a validated print.</text>
+</svg>
