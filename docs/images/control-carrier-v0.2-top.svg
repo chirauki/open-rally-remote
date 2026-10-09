@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="900" viewBox="0 0 620 900" role="img" aria-labelledby="title desc">
+  <title id="title">Control carrier V0.2 CAD render, top view</title>
+  <desc id="desc">Orthographic top view of a 20.5 by 80.5 millimetre carrier with three 13.6 millimetre button holes and one nominal 15.8 millimetre joystick opening, all on 20 millimetre centers.</desc>
+  <defs>
+    <linearGradient id="plate" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d6dde2"/><stop offset="1" stop-color="#8997a2"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-20%" width="160%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#16232d" flood-opacity=".18"/></filter>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#334958"/></marker>
+    <style>
+      text { font-family: Inter, Arial, sans-serif; fill: #233746; }
+      .dim { stroke: #334958; stroke-width: 1.5; fill: none; marker-start: url(#arrow); marker-end: url(#arrow); }
+      .ext { stroke: #71828e; stroke-width: 1; }
+      .label { font-size: 16px; font-weight: 600; }
+      .small { font-size: 13px; fill: #526673; }
+    </style>
+  </defs>
+  <rect width="620" height="900" rx="20" fill="#f5f7f8"/>
+  <text x="48" y="56" font-size="24" font-weight="700">CONTROL CARRIER · V0.2</text>
+  <text x="48" y="83" class="small">CAD-derived orthographic render · top view</text>
+
+  <!-- Scale: 7 px/mm. Outline 20.5 × 80.5 mm. -->
+  <g filter="url(#shadow)">
+    <rect x="238.25" y="130" width="143.5" height="563.5" rx="2" fill="url(#plate)" stroke="#566873" stroke-width="2"/>
+    <!-- Button panel cutouts Ø13.6; A, B, C on 20 mm centers. -->
+    <circle cx="310" cy="201.75" r="47.6" fill="#f5f7f8" stroke="#566873" stroke-width="2"/>
+    <circle cx="310" cy="341.75" r="47.6" fill="#f5f7f8" stroke="#566873" stroke-width="2"/>
+    <circle cx="310" cy="481.75" r="47.6" fill="#f5f7f8" stroke="#566873" stroke-width="2"/>
+    <!-- Nominal joystick opening Ø15.80 from Ruffy drawing; profile detail pending verification. -->
+    <circle cx="310" cy="621.75" r="55.3" fill="#f5f7f8" stroke="#566873" stroke-width="2"/>
+  </g>
+
+  <text x="310" y="203" text-anchor="middle" class="small">A</text>
+  <text x="310" y="343" text-anchor="middle" class="small">B</text>
+  <text x="310" y="483" text-anchor="middle" class="small">C</text>
+  <text x="310" y="625" text-anchor="middle" class="small">JOYSTICK</text>
+
+  <!-- Overall width -->
+  <line x1="238.25" y1="715" x2="381.75" y2="715" class="ext"/>
+  <line x1="238.25" y1="699" x2="238.25" y2="730" class="ext"/>
+  <line x1="381.75" y1="699" x2="381.75" y2="730" class="ext"/>
+  <line x1="242" y1="724" x2="378" y2="724" class="dim"/>
+  <rect x="270" y="712" width="80" height="24" fill="#f5f7f8"/>
+  <text x="310" y="729" text-anchor="middle" class="label">20.5 mm</text>
+
+  <!-- Overall length -->
+  <line x1="405" y1="130" x2="458" y2="130" class="ext"/>
+  <line x1="405" y1="693.5" x2="458" y2="693.5" class="ext"/>
+  <line x1="447" y1="134" x2="447" y2="689" class="dim"/>
+  <text x="474" y="411" text-anchor="middle" class="label" transform="rotate(90 474 411)">80.5 mm</text>
+
+  <!-- Hole callouts -->
+  <line x1="350" y1="201.75" x2="430" y2="185" stroke="#334958" stroke-width="1.5"/>
+  <text x="435" y="180" class="label">3 × Ø13.6 mm</text>
+  <text x="435" y="201" class="small">APEM button openings</text>
+  <line x1="354" y1="621.75" x2="429" y2="640" stroke="#334958" stroke-width="1.5"/>
+  <text x="435" y="641" class="label">Ø15.80 mm nominal</text>
+  <text x="435" y="662" class="small">MHS joystick opening*</text>
+
+  <text x="48" y="785" class="label">Thickness: 2.5 mm · control pitch: 20 mm</text>
+  <text x="48" y="813" class="small">*Manufacturer also shows a 0.291 in profile detail; verify its exact</text>
+  <text x="48" y="834" class="small">shape against the full drawing/sample before using this as a drill template.</text>
+  <text x="48" y="865" class="small">This is a control carrier, not the enclosure or handlebar clamp.</text>
+</svg>
