@@ -20,6 +20,8 @@ All printed housing parts are still slices of one outer solid: the convex hull o
 
 ![V0.22 section through the middle of the pod.](images/complete-remote-v0.22-section.png)
 
+![V0.22 from the back and below: the 45° chamfer between the 26 mm control end and the 23 mm clamp.](images/complete-remote-v0.22-rear.png)
+
 ![V0.22 interior with the upper axial wall removed. The joystick plate (yellow), the stick and the PCB sit behind the lower facet.](images/complete-remote-v0.22-interior-iso.png)
 
 ![V0.22 cover in its print orientation, on its axial face.](images/complete-remote-v0.22-print-cover.png)
@@ -52,7 +54,7 @@ V0.22 keeps from V0.21 the sheet gasket and the plate that clamps it, and replac
   - The disc has room to tilt 9.5° before it meets the plate.
   - The switches' own springs centre the stick and hold the ball on its seat. There is no separate spring.
 - **Centre press.** Pushing the stick straight in presses all four switches. The firmware reads that chord as the centre press and reports a direction only when a single switch is pressed. A fifth switch would have to sit on the axis, where the ball and disc are. The firmware specification still describes D7 as an optional centre switch; it needs updating for the chord.
-- **Wider control end.** For X below −38 mm, which covers the cover, the buttons and the joystick, the pod is 26 mm wide with 2 mm axial walls, leaving a 22 mm cavity. The clamp ring, the shoulders and the XIAO area keep 23 mm with 1 mm walls. The 23 mm comes from the NAVCOMM manual's minimum free space on the bar between grip and switchgear. It applies to what sits on the bar, not to the control end 40–60 mm from the bar axis. The 2 mm walls give four perimeters instead of two, which seals and prints better. The cover screws stay 3.25 mm from the outer faces, so their bosses intrude 1 mm less into the cavity.
+- **Wider control end.** For X below −38 mm, which covers the cover, the buttons and the joystick, the pod is 26 mm wide with 2 mm axial walls, leaving a 22 mm cavity. A 45° chamfer of 1.5 mm per side (`pod_step`) joins it to the 23 mm part; the walls in the chamfer are at least 1.1 mm thick, and the chamfer faces up when the housing prints. The clamp ring, the shoulders and the XIAO area keep 23 mm with 1 mm walls. The 23 mm comes from the NAVCOMM manual's minimum free space on the bar between grip and switchgear. It applies to what sits on the bar, not to the control end 40–60 mm from the bar axis. The 2 mm walls give four perimeters instead of two, which seals and prints better. The cover screws stay 3.25 mm from the outer faces, so their bosses intrude 1 mm less into the cavity.
 - **Joystick plate.** It is the V0.21 keypad plate with a seat hole, a 0.6 mm pocket in front so the sheet can follow the stick, and 6.25 mm standoffs for the PCB. The four lower cover screws (M2 × 10) still clamp it and the sheet.
 
 ### V0.21 changes, still current

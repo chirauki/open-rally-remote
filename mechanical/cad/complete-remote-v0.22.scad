@@ -42,6 +42,7 @@ axial_width = 23.0;          // clamp and rear pod; NAVCOMM manual: at least 23 
 pod_width = 26.0;            // control end of the pod, beyond pod_wide_x from the bar
 pod_wall = 2.0;              // axial walls of the wide part
 pod_wide_x = -38.0;          // the pod is pod_width wide for X below this
+pod_step = 1.5;              // 45-degree chamfer from pod_width down to axial_width ending at pod_wide_x
 pod_z0 = (axial_width-pod_width)/2;
 pod_z1 = pod_z0+pod_width;
 pod_in0 = pod_z0+pod_wall;   // inner faces of the wide part's axial walls
@@ -488,17 +489,28 @@ module housing_body() {
     }
 }
 
-// Clamp and rear pod axial_width wide; the control end (X < pod_wide_x) pod_width wide.
+// Clamp and rear pod axial_width wide; the control end (X < pod_wide_x) pod_width wide, with
+// a 45-degree chamfer between them. Both outlines are convex, so a hull of the wide and the
+// narrow slice gives the chamfer. The cavity steps the same way.
 module outer_solid() {
     linear_extrude(height=axial_width) outer_silhouette_2d();
-    translate([0,0,pod_z0]) linear_extrude(height=pod_width)
-        intersection() { outer_silhouette_2d(); x_band_2d(-100,pod_wide_x); }
+    hull() {
+        translate([0,0,pod_z0]) linear_extrude(height=pod_width)
+            intersection() { outer_silhouette_2d(); x_band_2d(-100,pod_wide_x-pod_step); }
+        linear_extrude(height=axial_width)
+            intersection() { outer_silhouette_2d(); x_band_2d(-100,pod_wide_x); }
+    }
 }
 
 module cavity_solid() {
+    step_in = (axial_width-2*case_wall-(pod_in1-pod_in0))/2;   // negative: the wide cavity is larger
     translate([0,0,case_wall]) linear_extrude(height=axial_width-2*case_wall) cavity_profile_2d();
-    translate([0,0,pod_in0]) linear_extrude(height=pod_in1-pod_in0)
-        intersection() { cavity_profile_2d(); x_band_2d(-100,pod_wide_x); }
+    hull() {
+        translate([0,0,pod_in0]) linear_extrude(height=pod_in1-pod_in0)
+            intersection() { cavity_profile_2d(); x_band_2d(-100,pod_wide_x+step_in); }
+        translate([0,0,case_wall]) linear_extrude(height=axial_width-2*case_wall)
+            intersection() { cavity_profile_2d(); x_band_2d(-100,pod_wide_x); }
+    }
 }
 
 module housing() {
