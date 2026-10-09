@@ -1,10 +1,10 @@
-# Complete Mechanical CAD — V0.11 NAVCOMM-Referenced Concept
+# Complete Mechanical CAD — V0.12 NAVCOMM-Referenced Concept
 
-V0.11 opens in an axial half-section to show the board, switch envelopes, interior clearance, and clamp cross-section. The outer clamp diameter is now Ø44 mm around a Ø24 mm lined bore, giving a 10 mm radial section for comparison with the earlier 13 mm section at Ø50 mm. This is a packaging comparison only; it has not been strength-validated. The triangular openings remain unresolved in V0.10, so check the new section render before treating them as actual openings or visual artifacts.
+V0.12 opens in an axial half-section to show the board, switch envelopes, interior clearance, and clamp cross-section. The upper and lower shoulders now fill the wedge from the pod corners to the clamp ring, while following the bore at their inner edges. The split clamp has larger ears, M4 clearance holes, a screw-head counterbore in the removable cap, and hex-nut traps in the integrated body. These are untapped clearance features; screw length, nut fit, access, and strength still need prototype verification. The outer clamp diameter is Ø44 mm around a Ø24 mm lined bore, giving a 10 mm radial section; this is a packaging comparison only and has not been strength-validated.
 
-**Current parametric concept:** [complete-remote-v0.11.scad](../mechanical/cad/complete-remote-v0.11.scad)
+**Current parametric concept:** [complete-remote-v0.12.scad](../mechanical/cad/complete-remote-v0.12.scad)
 
-![Integrated split-ring concept with the slimmer Ø44 mm clamp comparison.](images/complete-remote-v0.11.svg)
+![Integrated split-ring concept with full shoulder transitions and split-clamp fastener seats.](images/complete-remote-v0.12.svg)
 
 The OpenSCAD file builds the integrated main body and broad upper/lower shoulders, rounded internal pod cavity, opposite clamp cap, rounded perforated control face, exposed control heads, split liner, and internal component envelopes. It opens in `section` mode, cutting away half the axial width. Set `part_to_render = "assembly"` to see the closed exterior or `"cutaway"` to remove the face cover without sectioning. Set `show_internals = false` to hide the switch and XIAO envelopes. The console reports the cavity envelope and clamp radial section. Set `part_to_render` to `"housing"`, `"clamp_cap"`, `"cover"`, `"liner_main"`, or `"liner_cap"` to inspect individual parts. Button heads and joystick knob are placeholders pending exact supplier parts.
 
@@ -17,7 +17,7 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 ## Assembly parts represented
 
 1. **Integrated main body:** a C-shaped main clamp half joined to the upper and lower pod ends by broad tapered shoulders. The shoulders continue the enclosure silhouette to the clamp split; test their printed strength and fit.
-2. **Removable clamp cap:** a roughly 110-degree ring segment closes the clamp. Two M4 bolts pass through the split lugs perpendicular to the angled split faces; verify bolt orientation, nut access, and lug strength in a printed prototype.
+2. **Removable clamp cap:** a roughly 110-degree ring segment closes the clamp. Two M4 bolts pass tangentially through enlarged split ears. The cap has Ø7 mm by 2.5 mm head recesses; the integrated body has 7.2 mm across-flats hex nut traps, 3.4 mm deep. These are clearance pockets, not modeled threads; verify chosen screw-head dimensions, nut fit/access, engagement, and ear strength in a prototype.
 3. **Radial control face:** A/B/C and joystick openings are on the pod's side face. Their actuation axes are perpendicular to the handlebar axis.
 4. **Electronics pod:** the XIAO is turned 90 degrees behind the control bodies inside the pod; a preliminary cable entry is included at the lower end.
 5. **Replaceable liner:** two semicircular TPU pieces fit between the Ø24 mm clamp bore and nominal Ø22 mm handlebar.
@@ -42,7 +42,7 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | Button direction | Button axes perpendicular to the handlebar axis | Layout requirement; reflected in V0.3 coordinate system |
 | Case wall / cover | 1.0 / 2.5 mm | Compact prototype target; assess wall strength and print process |
 | Control pitch | 18 mm, four controls | Layout target; confirm glove access and supplier bezel sizes |
-| Clamp fasteners | Two M4 bolts through tangential split lugs | Initial target; choose length, washers, and locknuts after prototype fit |
+| Clamp fasteners | Two M4 clearance bolts; Ø7 × 2.5 mm head seats and 7.2 mm AF × 3.4 mm nut traps | Initial M4 socket-head/hex-nut targets; not threaded; confirm exact hardware, access, engagement, and printed fit |
 | Joystick body envelope | Ø20.1 mm MHS candidate | Supplier drawing target; leaves only 0.9 mm total axial clearance inside the 21 mm cavity before tolerances |
 | Cable entry | Ø8.2 mm preliminary pass-through; gland seat not modeled yet | Initial layout only; verify after selecting the gland and cable |
 | USB cable jacket | 3–5 mm range candidate | Hummel M8 gland example; measure actual cable |
@@ -58,7 +58,7 @@ APEM's [IS series page](https://www.apem.com/panel-switches/pushbutton-switches/
 
 The model includes a preliminary Ø8.2 mm cable entry through the lower end wall of the pod. It does not yet model a selected gland, its nut/seat, strain relief, or the complete wire route. One candidate is [Hummel's M8 × 1.25 gland](https://www.hummel.com/en/product-finder-cable-gland/products/metal-cable-glands/hsk-mini/1106080055-wadi-a-fpm-m8x1-25/), listed for 3–5 mm cable; select and measure the actual cable and gland before adding their mounting features to the CAD.
 
-The cover and clamp have preliminary screw-clearance holes, but the mating bosses, nut traps/inserts, sealing features, and fastener lengths are not yet designed. The XIAO USB-C connector is inside the enclosure in this arrangement; the CAD does not yet define a sealed external programming port. Phone-based BLE firmware updates remain a firmware requirement.
+The clamp fastener seats are preliminary M4 targets; the cover still lacks its final service-screw seats and sealing features. The XIAO USB-C connector is inside the enclosure in this arrangement; the CAD does not yet define a sealed external programming port. Phone-based BLE firmware updates remain a firmware requirement.
 
 ## What is still required before fabrication
 
@@ -69,4 +69,4 @@ The cover and clamp have preliminary screw-clearance holes, but the mating bosse
 - Choose the actual cable gland, cover seal, clamp bolts/nuts or inserts, and service fasteners; add their seats and access to the CAD.
 - Check printed-part tolerances, wall strength, fastener pull-out, glove reach, water ingress, vibration, and impact on physical prototypes. This concept does not establish an IP rating.
 
-This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, control-head, and fastener dimensions are initial design targets for measurement and prototype revision. The reduced 10 mm clamp section and broad shoulders are packaging concepts, not strength-proven parts. V0.1–V0.10 remain available as earlier layouts for comparison.
+This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, control-head, and fastener dimensions are initial design targets for measurement and prototype revision. The reduced 10 mm clamp section and filled shoulders are packaging concepts, not strength-proven parts. V0.1–V0.11 remain available as earlier layouts for comparison.
