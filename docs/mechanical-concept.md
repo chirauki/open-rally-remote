@@ -4,7 +4,7 @@ This is the first assembly-level mechanical design of the remote. It includes th
 
 **Parametric assembly:** [complete-remote-v0.1.scad](../mechanical/cad/complete-remote-v0.1.scad)
 
-![Packaging schematic showing the complete pod, XIAO board and switch envelopes, enclosure seal, cable exit, and two-piece 22 mm handlebar clamp.](images/complete-remote-v0.1.svg)
+![Packaging schematic showing the complete pod, XIAO board and switch envelopes, enclosure seal, cable exit, and a rear housing that forms the upper half of the handlebar clamp.](images/complete-remote-v0.1.svg)
 
 The source is a parametric OpenSCAD assembly. It builds the complete body and mounting parts, with a translucent nominal handlebar reference and component packaging envelopes. Set `show_internals = false` for the closed outer assembly. Set `part_to_render` to `"cover"`, `"housing"`, `"clamp_lower"`, `"liner_upper"`, or `"liner_lower"` to export individual printable parts. The SVG above is a dimensioned packaging schematic, not a photorealistic render; the editable geometry is the SCAD file. Switches and board are envelopes, not manufacturer STEP solids.
 
@@ -13,7 +13,7 @@ The source is a parametric OpenSCAD assembly. It builds the complete body and mo
 1. **Front cover:** A/B/C button openings, joystick opening, and four service screw holes.
 2. **Rear housing:** hollow tub, internal screw bosses, perimeter gasket channel, and cable entry.
 3. **Electronics support:** XIAO tray with retaining rails; the board is placed behind the controls in a separate depth layer.
-4. **Handlebar support:** integrated upper saddle and removable lower half-clamp sized around a nominal 22 mm bar, with separate TPU liner halves.
+4. **Handlebar support:** the rear housing itself forms the upper saddle; only the lower half-clamp is a separate structural part. The Ø30 mm saddle is 24 mm wide, with a Ø24 mm bore and two side webs joining it to the rear wall. A replaceable two-piece TPU liner adapts the nominal Ø22 mm bar.
 5. **Hardware envelopes:** cover screws and lower clamp fasteners.
 
 ## Sourced dimensions and design targets
@@ -29,6 +29,7 @@ The source is a parametric OpenSCAD assembly. It builds the complete body and mo
 | Body envelope | 25 × 90 × 31 mm | CAD packaging target (28.5 mm tub + 2.5 mm cover) |
 | Case wall / rear floor / cover | 1.8 / 2.0 / 2.5 mm | Initial print design targets |
 | Clamp bore and liner | Ø24 mm bore + 1 mm radial liner = Ø22 mm | Parametric design target; tune to measured bar and print process |
+| Clamp saddle | Ø30 mm outside, 24 mm wide; upper half integrated into rear housing with a 3 mm overlap and two side webs | Parametric structural concept; validate printed strength and clearances |
 | Cable gland seat | Ø8.2 mm pass-through, Ø14 × 5 mm inner reinforcement | M8 gland packaging target; verify selected product drawing |
 | USB cable jacket | 3–5 mm range candidate | Hummel M8 gland example; measure actual cable |
 | XIAO header projection | 6 mm | Packaging allowance for the pre-soldered version; measure the bought board |
@@ -50,6 +51,7 @@ Four M3 cover screws provide access to the board and wiring for development and 
 - Confirm button and joystick exact order codes and use the full supplier drawings or measured samples to model their bodies, nuts, terminals, leads, and complete panel cutouts.
 - Measure the purchased XIAO including header projection, USB-C connector, component heights, and antenna keepout; verify the edge rails and cable route against the actual board.
 - Measure the bike's straight 22 mm handlebar section. Verify the liner, clamp installation direction, steering clearance, and control interference on the motorcycle.
+- Print and load-test the integrated rear saddle and lower clamp. The broad overlap and side webs remove the narrow neck from the earlier concept, but do not establish fatigue or impact strength without physical testing.
 - Choose the actual cable gland, gasket material/cord, screw seals, and M3 clamp inserts; update their CAD seats to those parts.
 - Check printed-part tolerances, wall strength, fastener pull-out, glove reach, water ingress, vibration, and impact on physical prototypes. Printed material and a gasket channel alone do not establish an IP rating.
 

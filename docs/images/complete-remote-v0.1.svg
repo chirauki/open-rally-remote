@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="760" viewBox="0 0 1120 760" role="img" aria-labelledby="title desc">
   <title id="title">Complete rally remote mechanical CAD layout V0.1</title>
-  <desc id="desc">Dimensioned side and front views of a full remote assembly, showing the control face, two-piece weather gasket enclosure, XIAO board, cable entry and 22 millimetre handlebar clamp.</desc>
+  <desc id="desc">Dimensioned side and front views of a full remote assembly. The rear enclosure forms the upper half of the 22 millimetre handlebar clamp; a removable lower cap closes the clamp.</desc>
   <defs>
     <style>
       text{font-family:Inter,Arial,sans-serif;fill:#253946}.title{font-size:23px;font-weight:700}.sub{font-size:14px;fill:#586d79}.lbl{font-size:14px;font-weight:600}.tiny{font-size:12px;fill:#526672}.line{stroke:#415966;stroke-width:2;fill:none}.thin{stroke:#71828e;stroke-width:1.2;fill:none}.dashed{stroke:#9a6a2a;stroke-width:1.5;stroke-dasharray:5 4;fill:none}
@@ -49,20 +49,21 @@
   <path d="M535 247 Q560 247 572 258 L588 274" stroke="#3b4449" stroke-width="6" fill="none"/>
   <text x="570" y="235" class="tiny">USB power pigtail</text>
   <line x1="556" y1="242" x2="540" y2="249" class="thin"/>
-  <!-- clamp bridge and ring side section -->
-  <rect x="443" y="266" width="52" height="22" fill="#8c6b4d" stroke="#5d4936" stroke-width="1.5"/>
-  <path d="M410.6 323 A58.4 58.4 0 0 1 527.4 323 L512.8 323 A43.8 43.8 0 0 0 425.2 323 Z" fill="#667680" stroke="#415660" stroke-width="2"/>
-  <path d="M410.6 323 A58.4 58.4 0 0 0 527.4 323 L512.8 323 A43.8 43.8 0 0 1 425.2 323 Z" fill="#788790" stroke="#415660" stroke-width="2"/>
-  <circle cx="469" cy="323" r="43.8" fill="#d6dde1" stroke="#415660" stroke-width="1.5"/>
-  <circle cx="469" cy="323" r="40.15" fill="#b77f42" stroke="#855824" stroke-width="1"/>
-  <circle cx="469" cy="323" r="40.15" fill="#68757c" stroke="#415660" stroke-width="1"/>
-  <text x="469" y="328" text-anchor="middle" font-size="10" fill="#fff">Ø22 BAR</text>
+  <!-- Rear housing merges into the upper clamp saddle; only the lower cap is separate. -->
+  <!-- Integral saddle: the upper collar arc overlaps the rear wall by 3 mm. -->
+  <path d="M414 266 L436 266 L436 262 A54.75 54.75 0 0 1 502 262 L502 266 L524 266 L524 275 L414 275 Z" fill="#cbd5da" stroke="#445b68" stroke-width="1.5"/>
+  <path d="M414.25 310 A54.75 54.75 0 0 1 523.75 310 L512.8 310 A43.8 43.8 0 0 0 425.2 310 Z" fill="#667680" stroke="#415660" stroke-width="2"/>
+  <path d="M414.25 310 A54.75 54.75 0 0 0 523.75 310 L512.8 310 A43.8 43.8 0 0 1 425.2 310 Z" fill="#788790" stroke="#415660" stroke-width="2"/>
+  <circle cx="469" cy="310" r="43.8" fill="#d6dde1" stroke="#415660" stroke-width="1.5"/>
+  <circle cx="469" cy="310" r="40.15" fill="#b77f42" stroke="#855824" stroke-width="1"/>
+  <circle cx="469" cy="310" r="40.15" fill="#68757c" stroke="#415660" stroke-width="1"/>
+  <text x="469" y="315" text-anchor="middle" font-size="10" fill="#fff">Ø22 BAR</text>
 
   <!-- labels and dimensions -->
   <text x="372" y="399" class="tiny">2.5 mm face cover</text><line x1="424" y1="392" x2="414" y2="167" class="thin"/>
   <text x="372" y="421" class="tiny">28.5 mm rear tub depth</text><line x1="489" y1="414" x2="506" y2="256" class="thin"/>
   <text x="372" y="443" class="tiny">1.5 mm gasket in perimeter channel</text><line x1="534" y1="436" x2="536" y2="170" class="thin"/>
-  <text x="372" y="465" class="tiny">Split 32 mm clamp with 1 mm TPU liner</text><line x1="537" y1="458" x2="500" y2="344" class="thin"/>
+  <text x="372" y="465" class="tiny">Ø30 integrated saddle · 1 mm TPU liner</text><line x1="537" y1="458" x2="505" y2="274" class="thin"/>
   <text x="372" y="487" class="tiny">M3 service screws · M3 clamp fasteners</text>
 
   <!-- Exploded stack right side -->
@@ -74,21 +75,21 @@
     <path d="M10 33 H260" stroke="#292929" stroke-width="4"/>
     <text x="274" y="38" class="tiny">perimeter gasket</text>
     <path d="M20 48 h230 v56 h-230 z M35 58 h200 v34 h-200 z" fill="#cbd5da" fill-rule="evenodd" stroke="#445b68" stroke-width="2"/>
-    <text x="274" y="80" class="tiny">rear housing + inner tray</text>
+    <path d="M83 104 h74 v15 h-74 z M83 139 A37 37 0 0 1 157 139 L146 139 A26 26 0 0 0 94 139 Z" fill="#cbd5da" stroke="#445b68" stroke-width="2"/>
+    <text x="274" y="80" class="tiny">rear housing + integral upper saddle</text>
     <rect x="91" y="60" width="57" height="29" rx="4" fill="#4b8668" stroke="#22513a"/>
     <text x="119" y="78" text-anchor="middle" font-size="10" fill="#fff">XIAO</text>
-    <path d="M83 118 h74 v22 h-74 z" fill="#75858e" stroke="#415660" stroke-width="2"/>
-    <text x="274" y="134" class="tiny">integral upper saddle</text>
-    <path d="M83 153 A37 37 0 0 1 157 153 L146 153 A26 26 0 0 0 94 153Z" fill="#b77f42" stroke="#855824"/>
-    <text x="274" y="169" class="tiny">replaceable TPU liner</text>
-    <path d="M83 177 A37 37 0 0 0 157 177 L146 177 A26 26 0 0 1 94 177Z" fill="#778690" stroke="#415660"/>
-    <text x="274" y="191" class="tiny">removable lower clamp</text>
+    <path d="M83 139 A37 37 0 0 1 157 139 L146 139 A26 26 0 0 0 94 139Z" fill="#b77f42" stroke="#855824"/>
+    <text x="274" y="153" class="tiny">replaceable TPU liner halves</text>
+    <path d="M83 163 A37 37 0 0 0 157 163 L146 163 A26 26 0 0 1 94 163Z" fill="#778690" stroke="#415660"/>
+    <text x="274" y="177" class="tiny">removable lower clamp cap</text>
   </g>
   <rect x="690" y="400" width="385" height="190" rx="10" fill="#e9eef1" stroke="#bcc8ce"/>
   <text x="712" y="430" class="lbl">DESIGN ENVELOPE</text>
   <text x="712" y="459" class="tiny">Body: 25 × 90 × 31 mm</text>
   <text x="712" y="483" class="tiny">Control field: 20.5 mm wide · four centers at 20 mm pitch</text>
   <text x="712" y="507" class="tiny">Handlebar axis: Ø22 mm with replaceable 1 mm liner</text>
+  <text x="712" y="579" class="tiny">Rear case forms the upper saddle; lower clamp cap uses two M3 screws</text>
   <text x="712" y="531" class="tiny">Shell: 1.8 mm walls · 2 mm back · 2.5 mm cover</text>
   <text x="712" y="555" class="tiny">USB lead enters through an 8.2 mm M8 gland seat</text>
   <text x="690" y="628" class="lbl">NOTES</text>

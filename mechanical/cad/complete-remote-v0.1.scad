@@ -54,9 +54,9 @@ cable_gland_boss_length = 5.0;
 
 // Split clamp: 24 mm bore + 1 mm TPU liner per side gives 22 mm nominal bar fit.
 clamp_bore_diameter = bar_diameter + 2*bar_liner_radial_thickness;
-clamp_outer_diameter = 32.0;
+clamp_outer_diameter = 30.0;
 clamp_width = 24.0;
-clamp_center_z = -case_depth - clamp_outer_diameter/2 + 0.5;
+clamp_center_z = -case_depth - clamp_bore_diameter/2;
 clamp_lug_offset_y = 18.0;           // ears sit outside the 22 mm bar liner
 clamp_screw_diameter = 3.4;         // M3 clamp screws; inserts in upper half
 clamp_tab_height = 4.0;
@@ -156,7 +156,8 @@ module rear_housing() {
                 translate([x*(xiao_width/2+1.3),-24.5,(-case_depth+case_floor-17.0)/2])
                     cube([1.4,xiao_length+1.6,(-17.0)-(-case_depth+case_floor)],center=true);
             }
-            // Integrated upper clamp half plus two side webs, clear of the 22 mm bar bore.
+            // Integral upper clamp saddle is printed with the rear housing; no narrow neck joins it.
+            // The outer shell overlaps the case rear by 3 mm, then two side webs reinforce the joint.
             clamp_upper_ring();
             web_bottom = clamp_center_z + 10.0;
             web_top = -case_depth + 1.0;
