@@ -1,12 +1,18 @@
-# Complete Mechanical CAD — V0.3 Integrated Clamp Concept
+# Complete Mechanical CAD — V0.4 NAVCOMM-Referenced Concept
 
-V0.3 keeps the split-ring body introduced in V0.2 and corrects the control orientation. The button panel sits on the radial side of the housing, so the buttons press perpendicular to the handlebar axis. The XIAO is turned behind this panel inside the pod. The rear enclosure and the main half of the clamp are one structural body; a removable opposite half closes the ring.
+V0.4 uses the NAVCOMM as the mechanical and ergonomic reference: a compact control pod around a 22 mm handlebar, with a vertical row of three buttons and a lower joystick on the radial side of the housing. The button press axes are perpendicular to the bar. The body can be rotated around the bar to set the control angle, and a removable opposite clamp half is tightened with two M4 fasteners. The XIAO sits behind the controls.
 
-**Current parametric concept:** [complete-remote-v0.3.scad](../mechanical/cad/complete-remote-v0.3.scad)
+**Current parametric concept:** [complete-remote-v0.4.scad](../mechanical/cad/complete-remote-v0.4.scad)
 
-![Integrated split-ring concept with controls on the radial side face, perpendicular to the handlebar axis.](images/complete-remote-v0.3.svg)
+![Integrated split-ring concept with the NAVCOMM-style control arrangement and radial button face.](images/complete-remote-v0.4.svg)
 
 The OpenSCAD file builds the integrated main body, opposite clamp cap, radial control cover, split liner, and component envelopes. Set `show_internals = false` to hide the button and XIAO envelopes. Set `part_to_render` to `"housing"`, `"clamp_cap"`, `"cover"`, `"liner_main"`, or `"liner_cap"` to export a part. The SVG is a dimensioned concept view; the editable geometry is the SCAD file. Switches, joystick, and board are packaging envelopes rather than supplier STEP models.
+
+## NAVCOMM reference
+
+The [NAVCOMM product page](https://hesaparts.com/product/navcomm/) is the project's stated reference. Its [official user manual](https://hesaparts.com/wp-content/uploads/2025/02/EN/NAVCOMM%20USER%20MANUAL.pdf) specifies a 22 mm handlebar, at least 23 mm of space between the grip and the motorcycle's switchgear, rotation of the unit to suit the rider's reach, and fixing with two M4 screws and a flange. The control arrangement is one function button, two function/zoom buttons, and a lower four-way joystick.
+
+V0.4 follows those functional and packaging cues while keeping original geometry. The CAD uses 23 mm as the target width along the bar, matching the manual's minimum installation gap; the manual does not publish the NAVCOMM's own overall width. The manual's M4 screws fasten the reference unit to its flange, while this concept's two M4 through-bolts close the split clamp. The side panel keeps button presses perpendicular to the bar and can rotate around the bar before tightening.
 
 ## Assembly parts represented
 
@@ -28,18 +34,19 @@ The OpenSCAD file builds the integrated main body, opposite clamp cap, radial co
 | Handlebar | Ø22 mm nominal | Project target; measure the actual straight section |
 | Integrated clamp | Ø50 mm outer diameter, Ø24 mm bore | Parametric packaging target; currently a two-part split ring |
 | Clamp liner | 1 mm radial TPU liner gives Ø22 mm nominal inner diameter | Parametric target; tune to measured bar and print process |
-| Enclosure envelope | About 80 × 82 mm in the front plane; 27 mm clamp width + 2.5 mm face cover | Current concept target; verify against component samples |
+| Enclosure envelope | About 80 × 82 mm around the control face; 23 mm along the bar | Current concept target informed by the manual's 23 mm installation clearance; verify on the bike |
 | Button direction | Button axes perpendicular to the handlebar axis | Layout requirement; reflected in V0.3 coordinate system |
-| Case wall / cover | 2.0 / 2.5 mm | Initial print design targets |
+| Case wall / cover | 1.0 / 2.5 mm | Compact prototype target; assess wall strength and print process |
 | Control pitch | 18 mm, four controls | Layout target; confirm glove access and supplier bezel sizes |
 | Clamp fasteners | Two transverse M4 through-bolts | Initial target; choose length, washers, and locknuts after prototype fit |
-| Cable gland seat | Ø8.2 mm pass-through, Ø14 × 5 mm inner reinforcement | M8 gland packaging target; verify selected product drawing |
+| Joystick body envelope | Ø20.1 mm MHS candidate | Supplier drawing target; leaves only 0.9 mm total axial clearance inside the 21 mm cavity before tolerances |
+| Cable entry | Ø8.2 mm preliminary pass-through; gland seat not modeled yet | Initial layout only; verify after selecting the gland and cable |
 | USB cable jacket | 3–5 mm range candidate | Hummel M8 gland example; measure actual cable |
 | XIAO header projection | 6 mm | Packaging allowance for the pre-soldered version; measure the bought board |
 
-Seeed lists the XIAO board at 21 × 17.8 mm and provides a [2D DXF drawing](https://wiki.seeedstudio.com/XIAO_BLE/). The purchased variant has pre-soldered headers; V0.3 places the board parallel to the radial control cover, behind the button bodies. The 6 mm header projection is an allowance, not a supplier dimension. The [Kiwi listing](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402) confirms the headers are pre-soldered. Check the actual header, USB-C, antenna, and component clearances against the printed cavity before finalizing it.
+Seeed lists the XIAO board at 21 × 17.8 mm and provides a [2D DXF drawing](https://wiki.seeedstudio.com/XIAO_BLE/). The purchased variant has pre-soldered headers; V0.4 places the board parallel to the radial control cover, behind the button bodies. The 6 mm header projection is an allowance, not a supplier dimension. The [Kiwi listing](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402) confirms the headers are pre-soldered. Check the actual header, USB-C, antenna, and component clearances against the printed cavity before finalizing it.
 
-The Ruffy [MHS datasheet](https://www.farnell.com/datasheets/4534112.pdf) specifies an M16 × 1 body, panel thickness 2–3 mm, and a nominal Ø0.622 in mounting callout. The drawing also contains a 0.291 in profile dimension and two rounded corners; V0.2 still models the nominal circle only. Do not use the joystick opening as a finished drilling template until the complete profile is checked against the full drawing or the actual part.
+The Ruffy [MHS datasheet](https://www.farnell.com/datasheets/4534112.pdf) specifies an M16 × 1 body, panel thickness 2–3 mm, and a nominal Ø0.622 in mounting callout. The drawing also contains a 0.291 in profile dimension and two rounded corners; V0.4 still models the nominal circle only. Its Ø20.1 mm body envelope nearly fills the axial cavity needed for the 23 mm package. Confirm the real joystick and print tolerance; this candidate may need replacement with a narrower part to preserve the compact width and a robust housing wall.
 
 APEM's [IS series page](https://www.apem.com/panel-switches/pushbutton-switches/is) gives the Ø13.6 mm panel cutout, 13 mm behind-panel depth, 1.5–4 mm panel range, and 15 mm reduced-bezel option. Order-code availability and the reduced-bezel variant's exact drawing must be confirmed before selecting the production switch.
 
@@ -58,4 +65,4 @@ The cover and clamp have preliminary screw-clearance holes, but the mating bosse
 - Choose the actual cable gland, cover seal, clamp bolts/nuts or inserts, and service fasteners; add their seats and access to the CAD.
 - Check printed-part tolerances, wall strength, fastener pull-out, glove reach, water ingress, vibration, and impact on physical prototypes. This concept does not establish an IP rating.
 
-This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, and fastener dimensions are initial design targets for measurement and prototype revision. V0.1 and V0.2 remain available as earlier layouts for comparison.
+This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, and fastener dimensions are initial design targets for measurement and prototype revision. V0.1–V0.3 remain available as earlier layouts for comparison.
