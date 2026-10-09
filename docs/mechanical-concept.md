@@ -1,12 +1,12 @@
-# Complete Mechanical CAD — V0.10 NAVCOMM-Referenced Concept
+# Complete Mechanical CAD — V0.11 NAVCOMM-Referenced Concept
 
-V0.10 adds a `cutaway` view as the default OpenSCAD view. It removes the control face cover so the internal component envelopes and available cavity can be inspected. It also extends the tapered shoulders 2 degrees into the fixed clamp arc to create an area overlap at their join. V0.9's rounded cavity did not remove the triangular openings visible in the exported image, so the earlier cavity-only explanation was incomplete; inspect this revised render before fabrication.
+V0.11 opens in an axial half-section to show the board, switch envelopes, interior clearance, and clamp cross-section. The outer clamp diameter is now Ø44 mm around a Ø24 mm lined bore, giving a 10 mm radial section for comparison with the earlier 13 mm section at Ø50 mm. This is a packaging comparison only; it has not been strength-validated. The triangular openings remain unresolved in V0.10, so check the new section render before treating them as actual openings or visual artifacts.
 
-**Current parametric concept:** [complete-remote-v0.10.scad](../mechanical/cad/complete-remote-v0.10.scad)
+**Current parametric concept:** [complete-remote-v0.11.scad](../mechanical/cad/complete-remote-v0.11.scad)
 
-![Integrated split-ring concept with tapered shoulders and an open cutaway view available in the CAD.](images/complete-remote-v0.10.svg)
+![Integrated split-ring concept with the slimmer Ø44 mm clamp comparison.](images/complete-remote-v0.11.svg)
 
-The OpenSCAD file builds the integrated main body and broad upper/lower shoulders, rounded internal pod cavity, opposite clamp cap, rounded perforated control face, exposed control heads, split liner, and internal component envelopes. It opens in `cutaway` mode, which removes the control face cover. Set `part_to_render = "assembly"` to see the closed exterior, or `show_internals = false` to hide the switch and XIAO envelopes. The OpenSCAD console reports the cavity envelope and clamp radial section. Set `part_to_render` to `"housing"`, `"clamp_cap"`, `"cover"`, `"liner_main"`, or `"liner_cap"` to inspect individual parts. Button heads and joystick knob are placeholders pending exact supplier parts.
+The OpenSCAD file builds the integrated main body and broad upper/lower shoulders, rounded internal pod cavity, opposite clamp cap, rounded perforated control face, exposed control heads, split liner, and internal component envelopes. It opens in `section` mode, cutting away half the axial width. Set `part_to_render = "assembly"` to see the closed exterior or `"cutaway"` to remove the face cover without sectioning. Set `show_internals = false` to hide the switch and XIAO envelopes. The console reports the cavity envelope and clamp radial section. Set `part_to_render` to `"housing"`, `"clamp_cap"`, `"cover"`, `"liner_main"`, or `"liner_cap"` to inspect individual parts. Button heads and joystick knob are placeholders pending exact supplier parts.
 
 ## NAVCOMM reference
 
@@ -32,8 +32,8 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | MHS joystick thread / panel | M16 × 1 / 2–3 mm | Ruffy Controls MHS datasheet |
 | MHS nominal panel opening | Ø15.80 mm | Ruffy drawing callout Ø0.622 in; full profile needs confirmation |
 | Handlebar | Ø22 mm nominal | Project target; measure the actual straight section |
-| Integrated clamp | Ø50 mm outer diameter, Ø24 mm bore | Parametric packaging target; main arc plus removable 110-degree cap |
-| Clamp radial section | 13 mm | Derived from current Ø50 mm outer diameter and Ø24 mm bore; review in cutaway before reducing |
+| Integrated clamp | Ø44 mm outer diameter, Ø24 mm bore | Comparison target; main arc plus removable 110-degree cap |
+| Clamp radial section | 10 mm | Derived from Ø44 mm outer diameter and Ø24 mm bore; compare structurally against the earlier 13 mm section |
 | Pod-to-clamp shoulders | Tapered from pod corners to the angled clamp split | Initial geometry follows the supplied marked silhouette; confirm strength and print orientation by physical testing |
 | Control-cover end corners | 7 mm radius | Matched to the pod outline corner radius |
 | Pod cavity end corners | 6 mm radius | 1 mm inset from the 7 mm outer pod radius |
@@ -69,4 +69,4 @@ The cover and clamp have preliminary screw-clearance holes, but the mating bosse
 - Choose the actual cable gland, cover seal, clamp bolts/nuts or inserts, and service fasteners; add their seats and access to the CAD.
 - Check printed-part tolerances, wall strength, fastener pull-out, glove reach, water ingress, vibration, and impact on physical prototypes. This concept does not establish an IP rating.
 
-This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, control-head, and fastener dimensions are initial design targets for measurement and prototype revision. The broad shoulders express the requested architecture but do not prove clamp strength; load-test the printed housing before riding. V0.1–V0.9 remain available as earlier layouts for comparison.
+This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, control-head, and fastener dimensions are initial design targets for measurement and prototype revision. The reduced 10 mm clamp section and broad shoulders are packaging concepts, not strength-proven parts. V0.1–V0.10 remain available as earlier layouts for comparison.
