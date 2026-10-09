@@ -1,22 +1,22 @@
-# Complete Mechanical CAD — V0.5 NAVCOMM-Referenced Concept
+# Complete Mechanical CAD — V0.6 NAVCOMM-Referenced Concept
 
-V0.5 corrects the control assembly: the radial cover openings go all the way through, and the button caps and joystick knob sit outside the enclosure and connect through the panel to their switch-body envelopes inside. It keeps the NAVCOMM-referenced layout: a compact pod around a 22 mm handlebar, three buttons in a row, and the joystick at the bottom. The button press axes are perpendicular to the bar. The body can be rotated around the bar to set the control angle, and a removable opposite clamp half is tightened with two M4 fasteners. The XIAO sits behind the controls.
+V0.6 moves the clamp's structural connection to both ends of the control pod. Two blended arms now join the upper and lower pod ends to the integrated clamp half; the removable opposite half closes around the bar with two M4 fasteners. This makes the pod and clamp read as one wraparound housing, following the supplied Navcomm reference. The four control heads remain outside the radial cover, with the XIAO behind them.
 
-**Current parametric concept:** [complete-remote-v0.5.scad](../mechanical/cad/complete-remote-v0.5.scad)
+**Current parametric concept:** [complete-remote-v0.6.scad](../mechanical/cad/complete-remote-v0.6.scad)
 
-![Integrated split-ring concept with raised controls on the outside of the radial cover.](images/complete-remote-v0.5.svg)
+![Integrated split-ring concept with clamp arms joined to the upper and lower pod ends.](images/complete-remote-v0.6.svg)
 
-The OpenSCAD file builds the integrated main body, opposite clamp cap, perforated radial cover, exposed control heads, split liner, and internal component envelopes. Set `show_internals = false` to hide the switch-body and XIAO envelopes; the exterior control heads remain visible. Set `part_to_render` to `"housing"`, `"clamp_cap"`, `"cover"`, `"liner_main"`, or `"liner_cap"` to export a part. The SVG is a dimensioned concept view; the editable geometry is the SCAD file. Button heads and joystick knob are visual placeholders until exact supplier parts are selected and measured.
+The OpenSCAD file builds the integrated main body and upper/lower clamp arms, opposite clamp cap, perforated radial cover, exposed control heads, split liner, and internal component envelopes. Set `show_internals = false` to hide the switch-body and XIAO envelopes; the exterior control heads remain visible. Set `part_to_render` to `"housing"`, `"clamp_cap"`, `"cover"`, `"liner_main"`, or `"liner_cap"` to export a part. Button heads and joystick knob are placeholders pending exact supplier parts.
 
 ## NAVCOMM reference
 
 The [NAVCOMM product page](https://hesaparts.com/product/navcomm/) is the project's stated reference. Its [official user manual](https://hesaparts.com/wp-content/uploads/2025/02/EN/NAVCOMM%20USER%20MANUAL.pdf) specifies a 22 mm handlebar, at least 23 mm of space between the grip and the motorcycle's switchgear, rotation of the unit to suit the rider's reach, and fixing with two M4 screws and a flange. The control arrangement is one function button, two function/zoom buttons, and a lower four-way joystick.
 
-V0.4 follows those functional and packaging cues while keeping original geometry. The CAD uses 23 mm as the target width along the bar, matching the manual's minimum installation gap; the manual does not publish the NAVCOMM's own overall width. The manual's M4 screws fasten the reference unit to its flange, while this concept's two M4 through-bolts close the split clamp. The side panel keeps button presses perpendicular to the bar and can rotate around the bar before tightening.
+V0.6 follows those functional and packaging cues while keeping original geometry. The CAD uses 23 mm as the target width along the bar, matching the manual's minimum installation gap; the manual does not publish the NAVCOMM's own overall width. This concept's two M4 through-bolts close the split clamp. The side panel keeps button presses perpendicular to the bar and can rotate around the bar before tightening.
 
 ## Assembly parts represented
 
-1. **Integrated main body:** a C-shaped main clamp half joined directly to the control pod. Its annular wall is the rear structural housing around the bar.
+1. **Integrated main body:** a C-shaped main clamp half joined to both the upper and lower ends of the control pod by 8 mm nominal blended arms. The pod and arms form one CAD body; the arms are prototype dimensions and need physical load testing.
 2. **Removable clamp cap:** the opposite half ring closes the clamp and is secured by two transverse M4 through-bolts with locknuts in this initial concept. Verify bolt length, wrench access, and lug strength in a printed prototype.
 3. **Radial control face:** A/B/C and joystick openings are on the pod's side face. Their actuation axes are perpendicular to the handlebar axis.
 4. **Electronics pod:** the XIAO is turned 90 degrees behind the control bodies inside the pod; a preliminary cable entry is included at the lower end.
@@ -32,7 +32,8 @@ V0.4 follows those functional and packaging cues while keeping original geometry
 | MHS joystick thread / panel | M16 × 1 / 2–3 mm | Ruffy Controls MHS datasheet |
 | MHS nominal panel opening | Ø15.80 mm | Ruffy drawing callout Ø0.622 in; full profile needs confirmation |
 | Handlebar | Ø22 mm nominal | Project target; measure the actual straight section |
-| Integrated clamp | Ø50 mm outer diameter, Ø24 mm bore | Parametric packaging target; currently a two-part split ring |
+| Integrated clamp | Ø50 mm outer diameter, Ø24 mm bore | Parametric packaging target; two-piece split ring with pod-end arms |
+| Pod-to-clamp arms | 8 mm nominal diameter | Initial geometry target; confirm strength and print orientation by physical testing |
 | Clamp liner | 1 mm radial TPU liner gives Ø22 mm nominal inner diameter | Parametric target; tune to measured bar and print process |
 | Enclosure envelope | About 80 × 82 mm around the control face; 23 mm along the bar | Current concept target informed by the manual's 23 mm installation clearance; verify on the bike |
 | Button direction | Button axes perpendicular to the handlebar axis | Layout requirement; reflected in V0.3 coordinate system |
@@ -65,4 +66,4 @@ The cover and clamp have preliminary screw-clearance holes, but the mating bosse
 - Choose the actual cable gland, cover seal, clamp bolts/nuts or inserts, and service fasteners; add their seats and access to the CAD.
 - Check printed-part tolerances, wall strength, fastener pull-out, glove reach, water ingress, vibration, and impact on physical prototypes. This concept does not establish an IP rating.
 
-This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, control-head, and fastener dimensions are initial design targets for measurement and prototype revision. V0.1–V0.4 remain available as earlier layouts for comparison.
+This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, control-head, and fastener dimensions are initial design targets for measurement and prototype revision. The new clamp arms express the requested architecture but do not prove clamp strength; load-test the printed housing before riding. V0.1–V0.5 remain available as earlier layouts for comparison.
