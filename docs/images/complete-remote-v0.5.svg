@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="760" viewBox="0 0 1120 760" role="img" aria-labelledby="title desc">
+ <title id="title">Open Rally Remote NAVCOMM-referenced integrated clamp, V0.5</title>
+ <desc id="desc">The four buttons are mounted on the radial side panel. Their press axes are perpendicular to the handlebar axis. The electronics board sits behind the buttons.</desc>
+ <defs>
+  <style>
+   text{font-family:Inter,Arial,sans-serif;fill:#253946}.title{font-size:23px;font-weight:700}.sub{font-size:14px;fill:#586d79}.lbl{font-size:14px;font-weight:600}.tiny{font-size:12px;fill:#526672}.dim{stroke:#415966;stroke-width:1.4;fill:none}.axis{stroke:#9a5e25;stroke-width:2;fill:none}
+  </style>
+  <marker id="arrow" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0 0L7 3.5L0 7Z" fill="#415966"/></marker>
+  <marker id="axisArrow" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#9a5e25"/></marker>
+ </defs>
+ <rect width="1120" height="760" rx="16" fill="#f5f7f8"/>
+ <text x="42" y="48" class="title">OPEN RALLY REMOTE · NAVCOMM-REFERENCED CONCEPT V0.5</text>
+ <text x="42" y="74" class="sub">22 mm bar · radial button face · 23 mm target width along the bar, guided by the NAVCOMM manual.</text>
+
+ <!-- Side control view: looking at the YZ side face, with the clamp and bar seen edge-on -->
+ <text x="55" y="120" class="lbl">SIDE VIEW · CONTROL FACE</text>
+ <!-- integrated pod outer side cover: axial width 29.5, length 82 -->
+ <rect x="123" y="166" width="92" height="328" rx="20" fill="#cbd5da" stroke="#445b68" stroke-width="3"/>
+ <rect x="130" y="176" width="78" height="308" rx="14" fill="#aab8c0" stroke="#6d808a" stroke-width="1.5"/>
+ <!-- Four controls, A/B/C/joystick -->
+ <circle cx="169" cy="222" r="29" fill="#f5f7f8" stroke="#445b68" stroke-width="2.5"/>
+ <circle cx="169" cy="294" r="29" fill="#f5f7f8" stroke="#445b68" stroke-width="2.5"/>
+ <circle cx="169" cy="366" r="29" fill="#f5f7f8" stroke="#445b68" stroke-width="2.5"/>
+ <circle cx="169" cy="438" r="32" fill="#f5f7f8" stroke="#445b68" stroke-width="2.5"/>
+ <text x="169" y="227" text-anchor="middle" class="tiny">A</text>
+ <text x="169" y="299" text-anchor="middle" class="tiny">B</text>
+ <text x="169" y="371" text-anchor="middle" class="tiny">C</text>
+ <text x="169" y="443" text-anchor="middle" class="tiny">J</text>
+ <!-- ring side profile behind pod; opening and bar are shown as cross-sections -->
+ <rect x="213" y="238" width="92" height="200" rx="16" fill="#7b8991" stroke="#394f5b" stroke-width="3"/>
+ <rect x="213" y="294" width="92" height="88" rx="9" fill="#dce2e5" stroke="#394f5b" stroke-width="2"/>
+ <text x="259" y="341" text-anchor="middle" class="tiny">Ø22 bar</text>
+ <text x="259" y="414" text-anchor="middle" font-size="10" fill="#fff">ring behind pod</text>
+ <line x1="123" y1="532" x2="215" y2="532" class="dim" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+ <text x="169" y="554" text-anchor="middle" class="tiny">23 mm along bar</text>
+ <!-- Direction inset: Z lies in the control face, X points into the face -->
+ <line x1="169" y1="607" x2="216" y2="607" class="dim" marker-end="url(#arrow)"/>
+ <text x="223" y="611" class="tiny">handlebar axis Z (in plane)</text>
+ <circle cx="169" cy="607" r="10" fill="#fff" stroke="#9a5e25" stroke-width="1.6"/>
+ <path d="M164 602L174 612M174 602L164 612" stroke="#9a5e25" stroke-width="1.8"/>
+ <text x="55" y="646" class="tiny">⊗ button press axis X, into page; X ⟂ Z</text>
+
+ <!-- End view along handlebar: circular clamp and side-mounted control buttons -->
+ <text x="535" y="120" class="lbl">END VIEW · LOOKING ALONG HANDLEBAR AXIS Z</text>
+ <circle cx="766" cy="330" r="100" fill="#7b8991" stroke="#394f5b" stroke-width="3"/>
+ <!-- removable half-ring on right -->
+ <path d="M766 230 A100 100 0 0 1 766 430 L766 378 A48 48 0 0 0 766 282 Z" fill="#596c76" stroke="#394f5b" stroke-width="2"/>
+ <!-- fixed half-ring on left -->
+ <path d="M766 230 A100 100 0 0 0 766 430 L766 378 A48 48 0 0 1 766 282 Z" fill="#aebbc1" stroke="#394f5b" stroke-width="2"/>
+ <!-- side pod integrated into main half -->
+ <rect x="546" y="166" width="160" height="328" rx="22" fill="#cbd5da" stroke="#445b68" stroke-width="3"/>
+ <rect x="558" y="178" width="136" height="304" rx="16" fill="#aab8c0" stroke="#6d808a" stroke-width="1.5"/>
+ <!-- four button side profiles, axes along X -->
+ <rect x="530" y="204" width="29" height="36" rx="15" fill="#536b77" stroke="#344a55" stroke-width="2"/>
+ <rect x="530" y="276" width="29" height="36" rx="15" fill="#536b77" stroke="#344a55" stroke-width="2"/>
+ <rect x="530" y="348" width="29" height="36" rx="15" fill="#536b77" stroke="#344a55" stroke-width="2"/>
+ <rect x="526" y="414" width="33" height="45" rx="16" fill="#536b77" stroke="#344a55" stroke-width="2"/>
+ <!-- liner and bar through the ring -->
+ <circle cx="766" cy="330" r="48" fill="#b77f42" stroke="#855824" stroke-width="1.5"/>
+ <circle cx="766" cy="330" r="44" fill="#dce2e5" stroke="#394f5b" stroke-width="1.5"/>
+ <text x="766" y="334" text-anchor="middle" font-size="11" fill="#526672">Ø22</text>
+ <!-- transverse clamp bolts at split -->
+ <circle cx="766" cy="242" r="7" fill="#d8dee1" stroke="#394f5b" stroke-width="2"/>
+ <circle cx="766" cy="418" r="7" fill="#d8dee1" stroke="#394f5b" stroke-width="2"/>
+ <line x1="516" y1="330" x2="556" y2="330" class="axis" marker-end="url(#axisArrow)"/>
+ <text x="440" y="309" class="tiny">button</text>
+ <text x="440" y="326" class="tiny">press axis X</text>
+ <text x="595" y="530" class="tiny">Raised button caps and joystick knob are outside the radial cover.</text>
+
+ <!-- dimensions and internals -->
+ <rect x="875" y="170" width="205" height="324" rx="12" fill="#e9eef1" stroke="#bcc8ce"/>
+ <text x="897" y="202" class="lbl">PACKAGING</text>
+ <text x="897" y="232" class="tiny">Clamp: Ø50 outside</text>
+ <text x="897" y="257" class="tiny">Bore Ø24 + TPU liner</text>
+ <text x="897" y="282" class="tiny">to fit nominal Ø22 bar</text>
+ <text x="897" y="307" class="tiny">23 mm along bar</text>
+ <text x="897" y="332" class="tiny">per fit guidance¹</text>
+ <text x="897" y="374" class="tiny">Four controls</text>
+ <text x="897" y="399" class="tiny">at 18 mm pitch</text>
+ <text x="897" y="432" class="tiny">XIAO behind</text>
+ <text x="897" y="457" class="tiny">the button bodies</text>
+ <text x="897" y="482" class="tiny">Two M4 clamp bolts</text>
+ <text x="55" y="704" class="tiny">V0.5 concept. Control-head sizes are placeholders; confirm component fit and clamp strength before fabrication.</text>
+</svg>

@@ -1,12 +1,12 @@
-# Complete Mechanical CAD — V0.4 NAVCOMM-Referenced Concept
+# Complete Mechanical CAD — V0.5 NAVCOMM-Referenced Concept
 
-V0.4 uses the NAVCOMM as the mechanical and ergonomic reference: a compact control pod around a 22 mm handlebar, with a vertical row of three buttons and a lower joystick on the radial side of the housing. The button press axes are perpendicular to the bar. The body can be rotated around the bar to set the control angle, and a removable opposite clamp half is tightened with two M4 fasteners. The XIAO sits behind the controls.
+V0.5 corrects the control assembly: the radial cover openings go all the way through, and the button caps and joystick knob sit outside the enclosure and connect through the panel to their switch-body envelopes inside. It keeps the NAVCOMM-referenced layout: a compact pod around a 22 mm handlebar, three buttons in a row, and the joystick at the bottom. The button press axes are perpendicular to the bar. The body can be rotated around the bar to set the control angle, and a removable opposite clamp half is tightened with two M4 fasteners. The XIAO sits behind the controls.
 
-**Current parametric concept:** [complete-remote-v0.4.scad](../mechanical/cad/complete-remote-v0.4.scad)
+**Current parametric concept:** [complete-remote-v0.5.scad](../mechanical/cad/complete-remote-v0.5.scad)
 
-![Integrated split-ring concept with the NAVCOMM-style control arrangement and radial button face.](images/complete-remote-v0.4.svg)
+![Integrated split-ring concept with raised controls on the outside of the radial cover.](images/complete-remote-v0.5.svg)
 
-The OpenSCAD file builds the integrated main body, opposite clamp cap, radial control cover, split liner, and component envelopes. Set `show_internals = false` to hide the button and XIAO envelopes. Set `part_to_render` to `"housing"`, `"clamp_cap"`, `"cover"`, `"liner_main"`, or `"liner_cap"` to export a part. The SVG is a dimensioned concept view; the editable geometry is the SCAD file. Switches, joystick, and board are packaging envelopes rather than supplier STEP models.
+The OpenSCAD file builds the integrated main body, opposite clamp cap, perforated radial cover, exposed control heads, split liner, and internal component envelopes. Set `show_internals = false` to hide the switch-body and XIAO envelopes; the exterior control heads remain visible. Set `part_to_render` to `"housing"`, `"clamp_cap"`, `"cover"`, `"liner_main"`, or `"liner_cap"` to export a part. The SVG is a dimensioned concept view; the editable geometry is the SCAD file. Button heads and joystick knob are visual placeholders until exact supplier parts are selected and measured.
 
 ## NAVCOMM reference
 
@@ -46,7 +46,7 @@ V0.4 follows those functional and packaging cues while keeping original geometry
 
 Seeed lists the XIAO board at 21 × 17.8 mm and provides a [2D DXF drawing](https://wiki.seeedstudio.com/XIAO_BLE/). The purchased variant has pre-soldered headers; V0.4 places the board parallel to the radial control cover, behind the button bodies. The 6 mm header projection is an allowance, not a supplier dimension. The [Kiwi listing](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402) confirms the headers are pre-soldered. Check the actual header, USB-C, antenna, and component clearances against the printed cavity before finalizing it.
 
-The Ruffy [MHS datasheet](https://www.farnell.com/datasheets/4534112.pdf) specifies an M16 × 1 body, panel thickness 2–3 mm, and a nominal Ø0.622 in mounting callout. The drawing also contains a 0.291 in profile dimension and two rounded corners; V0.4 still models the nominal circle only. Its Ø20.1 mm body envelope nearly fills the axial cavity needed for the 23 mm package. Confirm the real joystick and print tolerance; this candidate may need replacement with a narrower part to preserve the compact width and a robust housing wall.
+The Ruffy [MHS datasheet](https://www.farnell.com/datasheets/4534112.pdf) specifies an M16 × 1 body, panel thickness 2–3 mm, and a nominal Ø0.622 in mounting callout. The drawing also contains a 0.291 in profile dimension and two rounded corners; V0.5 still models the nominal circle only. Its Ø20.1 mm body envelope nearly fills the axial cavity needed for the 23 mm package. Confirm the real joystick and print tolerance; this candidate may need replacement with a narrower part to preserve the compact width and a robust housing wall.
 
 APEM's [IS series page](https://www.apem.com/panel-switches/pushbutton-switches/is) gives the Ø13.6 mm panel cutout, 13 mm behind-panel depth, 1.5–4 mm panel range, and 15 mm reduced-bezel option. Order-code availability and the reduced-bezel variant's exact drawing must be confirmed before selecting the production switch.
 
@@ -65,4 +65,4 @@ The cover and clamp have preliminary screw-clearance holes, but the mating bosse
 - Choose the actual cable gland, cover seal, clamp bolts/nuts or inserts, and service fasteners; add their seats and access to the CAD.
 - Check printed-part tolerances, wall strength, fastener pull-out, glove reach, water ingress, vibration, and impact on physical prototypes. This concept does not establish an IP rating.
 
-This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, and fastener dimensions are initial design targets for measurement and prototype revision. V0.1–V0.3 remain available as earlier layouts for comparison.
+This is a **full-form CAD concept**, not yet a manufacturing release. Dimensions marked as sourced come from the linked supplier references; the enclosure, cable, clamp, control-head, and fastener dimensions are initial design targets for measurement and prototype revision. V0.1–V0.4 remain available as earlier layouts for comparison.
