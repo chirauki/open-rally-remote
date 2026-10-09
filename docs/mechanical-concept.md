@@ -12,6 +12,27 @@ The reference arrangement is three buttons with a five-way joystick below them. 
 
 This image is a layout reference, not a dimensioned CAD drawing. It shows one possible placement and should be checked against the builder's actual bar, levers, switchgear, guards, and riding position.
 
+## Preliminary dimensional layout
+
+![Dimensioned preliminary layout based on APEM IS pushbuttons and the Althen MHS joystick. Published dimensions are distinguished from estimated enclosure dimensions.](images/mechanical-preliminary-dimensions.svg)
+
+The following envelope is a first packaging estimate, not a final part specification:
+
+| Feature | Preliminary value | Basis / status |
+|---|---:|---|
+| Handlebar clamp interface | Ø22 mm nominal | Project target. Measure the actual bar at the selected location; many bars taper near the controls. |
+| Pod face | 32 mm wide × 90 mm high | Layout estimate. The joystick cap is about 16 mm across; the button spacing and edge margins determine the height. Validate with actual parts and glove tests. |
+| Pod depth | 30–35 mm placeholder | Not yet calculated. Confirm joystick rear clearance, PCB, connector, cable bend, gland, walls, and gasket before CAD. |
+| Button mounting holes | Ø13.6 mm | APEM IS series standard bezel drawing; the bushing is Ø12 mm. |
+| Button row pitch | 20 mm center-to-center | APEM IS standard matrix mounting. Three centers span 40 mm. |
+| Button rear clearance | 13 mm | APEM IS published behind-panel depth. Panel thickness: 1.5–4 mm. |
+| Joystick mounting | M16 × 1 thread; panel 2–3 mm | Althen MHS series. The datasheet drawing shows an approximately 16 mm actuator cap. Verify the exact cutout and rear geometry from the ordered variant's drawing before CAD. |
+| Button-to-joystick center spacing | 26 mm | Proposed layout value, leaving roughly 11 mm between a 13.6 mm button opening and a 16 mm joystick cap. Confirm actual bezel and cap boundaries. |
+
+The 90 mm face height places the first button center 12 mm from the top edge, uses two 20 mm button pitches, then 26 mm from the lowest button center to the joystick center. With a nominal 16 mm joystick cap this leaves about 4 mm below the cap and about 5 mm between the top button edge and the enclosure edge. The 32 mm face width allows about 8 mm on either side of a nominal 16 mm joystick cap. These are layout dimensions, not comfortable-glove clearances proven by testing.
+
+The button reference is the [APEM IS sealed momentary pushbutton series](https://www.apem.com/panel-switches/pushbutton-switches/is); its datasheet provides the 13 mm rear depth, Ø13.6 mm cutout, 20 mm standard pitch, IP67 front-panel sealing, and 1 million mechanical cycles. The joystick reference is the [Althen MHS datasheet](https://www.althensensors.com/uploads/products/datasheets/MHS-Series-compact-5-way-switching-joystick-en.pdf), which specifies an M16 × 1 threaded body, 2–3 mm panel, IP67 above-panel sealing, potted leads, and a five-way variant with a top switch.
+
 ## Concept A — compact vertical pod
 
 Arrange Button A, B, and C in a vertical column, with the joystick at the bottom. Point the control face generally toward the rider and slightly upward, while keeping it clear of the stock switchgear, brake/clutch lever travel, and hand movement. The exact angle and left/right mounting side must be adjustable during fit checks.

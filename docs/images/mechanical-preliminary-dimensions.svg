@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" role="img" aria-labelledby="title desc">
+  <title id="title">Preliminary dimensions for the Open Rally Remote pod</title>
+  <desc id="desc">Dimensioned concept showing a 32 by 90 millimeter remote face, three APEM IS series button locations at 20 millimeter pitch, a joystick location 26 millimeters below the last button, a provisional 30 to 35 millimeter body depth, and a 22 millimeter handlebar clamp concept.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M8 0L0 4l8 4" fill="none" stroke="#34414b" stroke-width="1.4"/></marker>
+    <marker id="orangeArrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M8 0L0 4l8 4" fill="none" stroke="#df6b18" stroke-width="1.4"/></marker>
+  </defs>
+  <rect width="1400" height="900" rx="24" fill="#f7f8fa"/>
+  <text x="60" y="62" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#25313a">PRELIMINARY MECHANICAL DIMENSIONS</text>
+  <text x="60" y="94" font-family="Arial,sans-serif" font-size="15" fill="#63717b">Reference component footprints · not a released CAD specification · all dimensions in mm</text>
+
+  <!-- Front face, 3 px/mm -->
+  <text x="180" y="150" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#34414b">FRONT VIEW · PROPOSED ARRANGEMENT</text>
+  <rect x="260" y="205" width="96" height="270" rx="16" fill="#e8791d" stroke="#a94e0e" stroke-width="4"/>
+  <rect x="269" y="214" width="78" height="252" rx="10" fill="#252c31" stroke="#11171b" stroke-width="3"/>
+  <!-- nominal 13.6 mm panel openings rendered as control symbols -->
+  <g fill="#dce1e3" stroke="#0f1417" stroke-width="4">
+    <circle cx="308" cy="241" r="20.4"/><circle cx="308" cy="301" r="20.4"/><circle cx="308" cy="361" r="20.4"/>
+  </g>
+  <g fill="#939da2"><circle cx="302" cy="236" r="5"/><circle cx="302" cy="296" r="5"/><circle cx="302" cy="356" r="5"/></g>
+  <!-- nominal 16 mm joystick actuator -->
+  <circle cx="308" cy="439" r="24" fill="#11171a" stroke="#050708" stroke-width="4"/>
+  <circle cx="308" cy="439" r="16" fill="#77838a" stroke="#d1d7da" stroke-width="2"/>
+  <circle cx="308" cy="439" r="6" fill="#e0e4e6"/>
+  <path d="M308 417v7m0 30v7m-22-22h7m30 0h7" stroke="#f3a13c" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Overall width and height dimensions -->
+  <path d="M260 190v-18M356 190v-18M260 178h96" fill="none" stroke="#34414b" stroke-width="1.7" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <rect x="286" y="155" width="44" height="22" rx="4" fill="#f7f8fa"/>
+  <text x="308" y="171" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#34414b">32*</text>
+  <path d="M244 205h-25M244 475h-25M226 205v270" fill="none" stroke="#34414b" stroke-width="1.7" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="208" y="344" text-anchor="middle" transform="rotate(-90 208 344)" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#34414b">90*</text>
+
+  <!-- Center pitch dimensions -->
+  <path d="M376 241h28M376 301h28M394 241v60" fill="none" stroke="#df6b18" stroke-width="1.8" marker-start="url(#orangeArrow)" marker-end="url(#orangeArrow)"/>
+  <text x="414" y="263" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#b5500c">20</text>
+  <path d="M376 301h28M376 361h28M394 301v60" fill="none" stroke="#df6b18" stroke-width="1.8" marker-start="url(#orangeArrow)" marker-end="url(#orangeArrow)"/>
+  <text x="414" y="323" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#b5500c">20</text>
+  <path d="M376 361h28M376 439h28M394 361v78" fill="none" stroke="#df6b18" stroke-width="1.8" marker-start="url(#orangeArrow)" marker-end="url(#orangeArrow)"/>
+  <text x="414" y="393" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#b5500c">26*</text>
+
+  <path d="M330 241L474 211h55" fill="none" stroke="#77848d" stroke-width="1.6"/>
+  <text x="538" y="207" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#34414b">APEM IS buttons</text>
+  <text x="538" y="230" font-family="Arial,sans-serif" font-size="14" fill="#63717b">Ø13.6 mounting hole · 20 mm standard pitch</text>
+  <text x="538" y="251" font-family="Arial,sans-serif" font-size="14" fill="#63717b">13 mm behind-panel depth</text>
+
+  <path d="M332 439L474 443h55" fill="none" stroke="#77848d" stroke-width="1.6"/>
+  <text x="538" y="440" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#34414b">Althen MHS joystick</text>
+  <text x="538" y="463" font-family="Arial,sans-serif" font-size="14" fill="#63717b">M16 × 1 threaded body · ~16 mm cap</text>
+
+  <!-- Side view -->
+  <text x="805" y="150" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#34414b">SIDE VIEW · BODY DEPTH</text>
+  <path d="M835 205h34v270h-34z" fill="#222a30" stroke="#11171b" stroke-width="3"/>
+  <path d="M869 205h96v270h-96z" fill="#e8791d" stroke="#a94e0e" stroke-width="4"/>
+  <path d="M869 241h-40M869 301h-40M869 361h-40" stroke="#87939a" stroke-width="3"/>
+  <path d="M869 439h-40" stroke="#87939a" stroke-width="3"/>
+  <path d="M965 190v-18M835 190v-18M835 178h130" fill="none" stroke="#34414b" stroke-width="1.7" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="900" y="170" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#34414b">30–35*</text>
+  <path d="M835 488h-14M869 488h-14M821 488h34" fill="none" stroke="#df6b18" stroke-width="1.8" marker-start="url(#orangeArrow)" marker-end="url(#orangeArrow)"/>
+  <text x="838" y="513" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#b5500c">13 mm button depth</text>
+  <text x="805" y="557" font-family="Arial,sans-serif" font-size="14" fill="#63717b">* Shell-depth range is a packaging placeholder.</text>
+  <text x="805" y="580" font-family="Arial,sans-serif" font-size="14" fill="#63717b">Joystick rear clearance and PCB/cable space</text>
+  <text x="805" y="603" font-family="Arial,sans-serif" font-size="14" fill="#63717b">must be measured before freezing enclosure depth.</text>
+  <text x="805" y="649" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#34414b">Panel interfaces</text>
+  <text x="805" y="673" font-family="Arial,sans-serif" font-size="14" fill="#63717b">Buttons: panel 1.5–4 mm</text>
+  <text x="805" y="696" font-family="Arial,sans-serif" font-size="14" fill="#63717b">Joystick: panel 2–3 mm</text>
+
+  <!-- Handlebar clamp cross-section -->
+  <text x="1080" y="150" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#34414b">MOUNT CONCEPT</text>
+  <circle cx="1180" cy="315" r="66" fill="#59656e" stroke="#26313a" stroke-width="5"/>
+  <circle cx="1180" cy="315" r="44" fill="#d8dde0" stroke="#9ba5ab" stroke-width="3"/>
+  <circle cx="1180" cy="315" r="36" fill="#89959d" stroke="#536069" stroke-width="2"/>
+  <path d="M1118 279a72 72 0 0 1 124 0l-13 14a55 55 0 0 0-98 0z" fill="#303a42" stroke="#11171b" stroke-width="3"/>
+  <path d="M1118 351a72 72 0 0 0 124 0l-13-14a55 55 0 0 1-98 0z" fill="#303a42" stroke="#11171b" stroke-width="3"/>
+  <path d="M1118 279l-19-12M1242 279l19-12M1118 351l-19 12M1242 351l19 12" stroke="#303a42" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1118 315h-48" stroke="#e8791d" stroke-width="8"/>
+  <text x="1180" y="322" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#fff">Ø22</text>
+  <text x="1080" y="435" font-family="Arial,sans-serif" font-size="14" fill="#63717b">Two-piece clamp + replaceable liner</text>
+  <text x="1080" y="458" font-family="Arial,sans-serif" font-size="14" fill="#63717b">Clocking and fit remain to be checked.</text>
+  <text x="1080" y="481" font-family="Arial,sans-serif" font-size="14" fill="#63717b">Clamp dimensions are not yet specified.</text>
+
+  <!-- Legend / math -->
+  <rect x="60" y="730" width="1280" height="120" rx="14" fill="#edf1f4" stroke="#d5dde2"/>
+  <circle cx="92" cy="768" r="7" fill="#34414b"/><text x="110" y="774" font-family="Arial,sans-serif" font-size="14" fill="#34414b">Published component value</text>
+  <circle cx="344" cy="768" r="7" fill="#df6b18"/><text x="362" y="774" font-family="Arial,sans-serif" font-size="14" fill="#34414b">Layout value derived from component spacing</text>
+  <circle cx="700" cy="768" r="7" fill="#8c979d"/><text x="718" y="774" font-family="Arial,sans-serif" font-size="14" fill="#34414b">Provisional packaging estimate (*)</text>
+  <text x="90" y="815" font-family="Arial,sans-serif" font-size="14" fill="#53616b">90 mm face height is an initial envelope: first button center 12 mm from top, button pitch 20 + 20, then 26 mm to joystick center.</text>
+  <text x="90" y="837" font-family="Arial,sans-serif" font-size="14" fill="#53616b">32 mm face width gives about 8 mm nominal margin either side of the 16 mm joystick cap; check actual actuator/bezel sizes before CAD.</text>
+</svg>
