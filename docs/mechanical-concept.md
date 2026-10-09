@@ -8,6 +8,10 @@ The remote should fit a 22 mm handlebar, occupy as little space as practical, an
 
 The reference arrangement is three buttons with a five-way joystick below them. The joystick has up, down, left, right, and optional center press. The lower-cost centerless version should remain possible if a suitable joystick variant is found.
 
+![Illustrative pod mounted beside the original left switchgear on a fictitious motorcycle handlebar. The illustration includes a grip, clutch and brake levers, handlebar tube, and remote controls; it is not to scale.](images/mechanical-handlebar-reference.svg)
+
+This image is a layout reference, not a dimensioned CAD drawing. It shows one possible placement and should be checked against the builder's actual bar, levers, switchgear, guards, and riding position.
+
 ## Concept A — compact vertical pod
 
 Arrange Button A, B, and C in a vertical column, with the joystick at the bottom. Point the control face generally toward the rider and slightly upward, while keeping it clear of the stock switchgear, brake/clutch lever travel, and hand movement. The exact angle and left/right mounting side must be adjustable during fit checks.
