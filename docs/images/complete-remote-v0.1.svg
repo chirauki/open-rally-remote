@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="760" viewBox="0 0 1120 760" role="img" aria-labelledby="title desc">
+  <title id="title">Complete rally remote mechanical CAD layout V0.1</title>
+  <desc id="desc">Dimensioned side and front views of a full remote assembly, showing the control face, two-piece weather gasket enclosure, XIAO board, cable entry and 22 millimetre handlebar clamp.</desc>
+  <defs>
+    <style>
+      text{font-family:Inter,Arial,sans-serif;fill:#253946}.title{font-size:23px;font-weight:700}.sub{font-size:14px;fill:#586d79}.lbl{font-size:14px;font-weight:600}.tiny{font-size:12px;fill:#526672}.line{stroke:#415966;stroke-width:2;fill:none}.thin{stroke:#71828e;stroke-width:1.2;fill:none}.dashed{stroke:#9a6a2a;stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+    </style>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0 0L7 3.5L0 7Z" fill="#415966"/></marker>
+  </defs>
+  <rect width="1120" height="760" rx="16" fill="#f5f7f8"/>
+  <text x="42" y="48" class="title">COMPLETE REMOTE · MECHANICAL V0.1</text>
+  <text x="42" y="74" class="sub">Assembly packaging schematic · dimensions in millimetres</text>
+
+  <!-- Face view, control pod outline 25 × 90 -->
+  <text x="65" y="120" class="lbl">FRONT / CONTROL FACE</text>
+  <rect x="126" y="145" width="130" height="468" rx="16" fill="#ced7dc" stroke="#445b68" stroke-width="2.4"/>
+  <rect x="137.5" y="145" width="107" height="468" rx="3" fill="#aab8c0" stroke="#6d808a" stroke-width="1.2"/>
+  <circle cx="191" cy="198" r="35.36" fill="#f5f7f8" stroke="#445b68" stroke-width="2"/>
+  <circle cx="191" cy="302" r="35.36" fill="#f5f7f8" stroke="#445b68" stroke-width="2"/>
+  <circle cx="191" cy="406" r="35.36" fill="#f5f7f8" stroke="#445b68" stroke-width="2"/>
+  <circle cx="191" cy="510" r="41.08" fill="#f5f7f8" stroke="#445b68" stroke-width="2"/>
+  <text x="191" y="203" text-anchor="middle" class="tiny">A</text><text x="191" y="307" text-anchor="middle" class="tiny">B</text><text x="191" y="411" text-anchor="middle" class="tiny">C</text><text x="191" y="514" text-anchor="middle" class="tiny">J</text>
+  <text x="118" y="646" class="lbl">25 × 90 outer envelope</text>
+  <line x1="126" y1="627" x2="256" y2="627" class="thin" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="285" y="343" class="tiny" transform="rotate(90 285 343)">20 mm control pitch</text>
+  <line x1="284" y1="198" x2="284" y2="510" class="thin" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="65" y="681" class="tiny">Cover screws sit outside the control field; raised back tub contains the electronics.</text>
+
+  <!-- Side packaging section; main enclosure depth 31 mm, clamp system below. -->
+  <text x="365" y="120" class="lbl">SIDE SECTION / PACKAGING</text>
+  <!-- Outer shell cross-section -->
+  <path d="M404 153 L544 153 L544 266 L404 266 Q396 266 396 258 L396 161 Q396 153 404 153Z" fill="#cbd5da" stroke="#445b68" stroke-width="2.4"/>
+  <!-- Lid and gasket seam -->
+  <rect x="396" y="153" width="148" height="13" fill="#8fa1aa" stroke="#445b68" stroke-width="1.4"/>
+  <line x1="397" y1="169" x2="543" y2="169" stroke="#242424" stroke-width="3"/>
+  <!-- Internal cavity -->
+  <rect x="405" y="169" width="130" height="87" fill="#f5f7f8" stroke="#7a8b94" stroke-width="1.2"/>
+  <!-- button bodies + joystick barrel -->
+  <rect x="432" y="170" width="26" height="32" rx="6" fill="#c18126" stroke="#70501e"/>
+  <rect x="432" y="205" width="26" height="32" rx="6" fill="#c18126" stroke="#70501e"/>
+  <rect x="432" y="240" width="26" height="13" rx="5" fill="#c18126" stroke="#70501e"/>
+  <rect x="426" y="217" width="38" height="39" rx="15" fill="none" stroke="#c18126" stroke-width="2" stroke-dasharray="4 3"/>
+  <!-- Board rear tray (behind control component depth) -->
+  <rect x="472" y="227" width="54" height="22" rx="3" fill="#4b8668" stroke="#22513a" stroke-width="1.5"/>
+  <text x="499" y="242" text-anchor="middle" font-size="10" fill="#fff">XIAO · 21 × 17.8</text>
+  <!-- rear shell floor -->
+  <line x1="405" y1="256" x2="535" y2="256" stroke="#405762" stroke-width="3"/>
+  <!-- cable exit -->
+  <path d="M535 247 Q560 247 572 258 L588 274" stroke="#3b4449" stroke-width="6" fill="none"/>
+  <text x="570" y="235" class="tiny">USB power pigtail</text>
+  <line x1="556" y1="242" x2="540" y2="249" class="thin"/>
+  <!-- clamp bridge and ring side section -->
+  <rect x="443" y="266" width="52" height="22" fill="#8c6b4d" stroke="#5d4936" stroke-width="1.5"/>
+  <path d="M410.6 323 A58.4 58.4 0 0 1 527.4 323 L512.8 323 A43.8 43.8 0 0 0 425.2 323 Z" fill="#667680" stroke="#415660" stroke-width="2"/>
+  <path d="M410.6 323 A58.4 58.4 0 0 0 527.4 323 L512.8 323 A43.8 43.8 0 0 1 425.2 323 Z" fill="#788790" stroke="#415660" stroke-width="2"/>
+  <circle cx="469" cy="323" r="43.8" fill="#d6dde1" stroke="#415660" stroke-width="1.5"/>
+  <circle cx="469" cy="323" r="40.15" fill="#b77f42" stroke="#855824" stroke-width="1"/>
+  <circle cx="469" cy="323" r="40.15" fill="#68757c" stroke="#415660" stroke-width="1"/>
+  <text x="469" y="328" text-anchor="middle" font-size="10" fill="#fff">Ø22 BAR</text>
+
+  <!-- labels and dimensions -->
+  <text x="372" y="399" class="tiny">2.5 mm face cover</text><line x1="424" y1="392" x2="414" y2="167" class="thin"/>
+  <text x="372" y="421" class="tiny">28.5 mm rear tub depth</text><line x1="489" y1="414" x2="506" y2="256" class="thin"/>
+  <text x="372" y="443" class="tiny">1.5 mm gasket in perimeter channel</text><line x1="534" y1="436" x2="536" y2="170" class="thin"/>
+  <text x="372" y="465" class="tiny">Split 32 mm clamp with 1 mm TPU liner</text><line x1="537" y1="458" x2="500" y2="344" class="thin"/>
+  <text x="372" y="487" class="tiny">M3 service screws · M3 clamp fasteners</text>
+
+  <!-- Exploded stack right side -->
+  <text x="700" y="120" class="lbl">EXPLODED STACK / SERVICE PARTS</text>
+  <g transform="translate(720,150)">
+    <rect x="10" y="0" width="250" height="23" rx="7" fill="#8fa1aa" stroke="#445b68" stroke-width="2"/>
+    <circle cx="65" cy="11.5" r="7" fill="#f5f7f8" stroke="#445b68"/><circle cx="112" cy="11.5" r="7" fill="#f5f7f8" stroke="#445b68"/><circle cx="159" cy="11.5" r="7" fill="#f5f7f8" stroke="#445b68"/><circle cx="213" cy="11.5" r="8" fill="#f5f7f8" stroke="#445b68"/>
+    <text x="274" y="16" class="tiny">control cover</text>
+    <path d="M10 33 H260" stroke="#292929" stroke-width="4"/>
+    <text x="274" y="38" class="tiny">perimeter gasket</text>
+    <path d="M20 48 h230 v56 h-230 z M35 58 h200 v34 h-200 z" fill="#cbd5da" fill-rule="evenodd" stroke="#445b68" stroke-width="2"/>
+    <text x="274" y="80" class="tiny">rear housing + inner tray</text>
+    <rect x="91" y="60" width="57" height="29" rx="4" fill="#4b8668" stroke="#22513a"/>
+    <text x="119" y="78" text-anchor="middle" font-size="10" fill="#fff">XIAO</text>
+    <path d="M83 118 h74 v22 h-74 z" fill="#75858e" stroke="#415660" stroke-width="2"/>
+    <text x="274" y="134" class="tiny">integral upper saddle</text>
+    <path d="M83 153 A37 37 0 0 1 157 153 L146 153 A26 26 0 0 0 94 153Z" fill="#b77f42" stroke="#855824"/>
+    <text x="274" y="169" class="tiny">replaceable TPU liner</text>
+    <path d="M83 177 A37 37 0 0 0 157 177 L146 177 A26 26 0 0 1 94 177Z" fill="#778690" stroke="#415660"/>
+    <text x="274" y="191" class="tiny">removable lower clamp</text>
+  </g>
+  <rect x="690" y="400" width="385" height="190" rx="10" fill="#e9eef1" stroke="#bcc8ce"/>
+  <text x="712" y="430" class="lbl">DESIGN ENVELOPE</text>
+  <text x="712" y="459" class="tiny">Body: 25 × 90 × 31 mm</text>
+  <text x="712" y="483" class="tiny">Control field: 20.5 mm wide · four centers at 20 mm pitch</text>
+  <text x="712" y="507" class="tiny">Handlebar axis: Ø22 mm with replaceable 1 mm liner</text>
+  <text x="712" y="531" class="tiny">Shell: 1.8 mm walls · 2 mm back · 2.5 mm cover</text>
+  <text x="712" y="555" class="tiny">USB lead enters through an 8.2 mm M8 gland seat</text>
+  <text x="690" y="628" class="lbl">NOTES</text>
+  <text x="690" y="654" class="tiny">This is an assembly-level packaging CAD, not an IP-rated or production-validated model.</text>
+  <text x="690" y="676" class="tiny">Joystick profile, gland, fasteners, print tolerances and XIAO header fit need checks.</text>
+  <text x="690" y="698" class="tiny">See the mechanical guide for sourced dimensions and remaining validation inputs.</text>
+</svg>
