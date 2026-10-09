@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="850" viewBox="0 0 620 850" role="img" aria-labelledby="title desc">
+  <title id="title">Button carrier V0.1 CAD render, top view</title>
+  <desc id="desc">Orthographic top view of a 23.5 by 63.5 millimetre plate with three 13.6 millimetre holes on 20 millimetre centers.</desc>
+  <defs>
+    <linearGradient id="plate" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d6dde2"/>
+      <stop offset="1" stop-color="#8997a2"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-20%" width="160%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#16232d" flood-opacity=".18"/>
+    </filter>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#334958"/>
+    </marker>
+    <style>
+      text { font-family: Inter, Arial, sans-serif; fill: #233746; }
+      .dim { stroke: #334958; stroke-width: 1.5; fill: none; marker-start: url(#arrow); marker-end: url(#arrow); }
+      .ext { stroke: #71828e; stroke-width: 1; }
+      .label { font-size: 17px; font-weight: 600; }
+      .small { font-size: 14px; fill: #526673; }
+    </style>
+  </defs>
+  <rect width="620" height="850" rx="20" fill="#f5f7f8"/>
+  <text x="48" y="56" font-size="24" font-weight="700">BUTTON CARRIER · V0.1</text>
+  <text x="48" y="83" class="small">CAD-derived orthographic render · top view</text>
+
+  <!-- Scale: 8 px/mm. CAD outline: 23.5 × 63.5 mm. -->
+  <g filter="url(#shadow)">
+    <rect x="216" y="151" width="188" height="508" rx="2" fill="url(#plate)" stroke="#566873" stroke-width="2"/>
+    <!-- Ø13.6 mm cutouts, centers 20 mm apart (160 px). -->
+    <circle cx="310" cy="245" r="54.4" fill="#f5f7f8" stroke="#566873" stroke-width="2"/>
+    <circle cx="310" cy="405" r="54.4" fill="#f5f7f8" stroke="#566873" stroke-width="2"/>
+    <circle cx="310" cy="565" r="54.4" fill="#f5f7f8" stroke="#566873" stroke-width="2"/>
+  </g>
+
+  <!-- Overall length -->
+  <line x1="216" y1="680" x2="404" y2="680" class="ext"/>
+  <line x1="216" y1="665" x2="216" y2="699" class="ext"/>
+  <line x1="404" y1="665" x2="404" y2="699" class="ext"/>
+  <line x1="220" y1="690" x2="400" y2="690" class="dim"/>
+  <rect x="277" y="677" width="66" height="25" fill="#f5f7f8"/>
+  <text x="310" y="695" text-anchor="middle" class="label">23.5 mm</text>
+
+  <!-- Overall width/length label -->
+  <line x1="435" y1="151" x2="472" y2="151" class="ext"/>
+  <line x1="435" y1="659" x2="472" y2="659" class="ext"/>
+  <line x1="461" y1="155" x2="461" y2="655" class="dim"/>
+  <text x="488" y="405" text-anchor="middle" class="label" transform="rotate(90 488 405)">63.5 mm</text>
+
+  <!-- Hole callout -->
+  <line x1="365" y1="245" x2="449" y2="218" stroke="#334958" stroke-width="1.5"/>
+  <circle cx="365" cy="245" r="3" fill="#334958"/>
+  <text x="456" y="211" class="label">3 × Ø13.6 mm</text>
+  <text x="456" y="234" class="small">through holes</text>
+
+  <!-- Pitch dimension -->
+  <line x1="145" y1="245" x2="272" y2="245" class="ext"/>
+  <line x1="145" y1="405" x2="272" y2="405" class="ext"/>
+  <line x1="160" y1="249" x2="160" y2="401" class="dim"/>
+  <text x="136" y="325" text-anchor="middle" class="label" transform="rotate(-90 136 325)">20 mm pitch</text>
+
+  <text x="48" y="760" class="label">Carrier thickness: 2.5 mm</text>
+  <text x="48" y="788" class="small">Three switch openings only; no joystick, enclosure, or clamp.</text>
+  <text x="48" y="812" class="small">3 mm edge margin is a provisional design allowance.</text>
+</svg>

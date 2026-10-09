@@ -4,6 +4,8 @@ The first CAD part is a dimensioned fit plate for three panel-mounted APEM IS-se
 
 **CAD source:** [button-carrier-v0.1.scad](../mechanical/cad/button-carrier-v0.1.scad)
 
+![Orthographic top-view render of the button carrier CAD, showing its three cutouts and principal dimensions.](images/button-carrier-v0.1-top.svg)
+
 ## Dimensions used
 
 | Feature | Dimension | Basis |
