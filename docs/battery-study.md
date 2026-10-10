@@ -4,15 +4,24 @@ This study looks at battery power for the remote and at [issue #1](https://githu
 
 **Status:** study only. Nothing here has been built or measured.
 
+## Direction chosen
+
+Decided on 2026-10-10, after the first version of this study:
+- **The main goal of issue #1 is to share one remote between several bikes.**
+- **No wiring to the bike.** The remote runs on its own battery only.
+- **Removable remote or swappable battery, not both.** Each one alone solves the battery problem; together they add a second seal, a second wear point and pod length for little gain.
+- **Therefore: a removable remote with a fixed LiPo pouch**, on a [bayonet around the bar](#removable-remote-issue-1) with one base per bike. It is charged off the bike through [sealed contacts](#charging-without-bike-wiring) on its back.
+- The swappable 16340 is not pursued. Its analysis stays below as the alternative for a remote that stays on one bike.
+
+Next steps wait for parts and measurements; see [Open measurements](#open-measurements).
+
 ## Summary
 
 - The V0.23 cavity has no room for a swappable cell. The free spaces are about 14 × 19 × 20.6 mm behind buttons A and B, and a 13 × 26 mm strip (in the plane of the clamp) in the solid shoulder between the cavity and the clamp ring.
-- A flat 6 × 20 × 22 mm LiPo, not swappable, fits in V0.23 without growing the housing. It crosses the cavity rear wall into the shoulder.
+- A flat 6 × 20 × 22 mm LiPo, not swappable, fits in V0.23 without growing the housing. It crosses the cavity rear wall into the shoulder. It still fits when the ring keep-out grows by up to 6 mm for the removable remote's saddle.
 - A swappable 16340 (RCR123A) cell needs a 20 × 44 mm footprint, including its tube and cap. That fits only if the upper end of the pod grows from 44 to about 64 mm above the bar axis, which makes the pod 20 mm longer.
 - The XIAO nRF52840 already has a LiPo charger and battery pads. It cannot take a primary cell (CR2450, CR123A) safely, because it would try to charge it.
-- A removable remote (issue #1) and a battery inside it fit together: the battery tube sits in the shoulder, which would move from the housing to the remote.
-
-The choices still open are listed at the end.
+- A twist mount like a bike-computer quarter-turn does not suit this remote: the twist would swing the 85 mm pod across the bar into the grip and switchgear. A bayonet that turns around the bar keeps the remote in its 23 mm slot.
 
 ## What the XIAO nRF52840 provides
 
@@ -31,7 +40,7 @@ From Seeed's XIAO nRF52840 V1.2 KiCad project, exported to a netlist with KiCad 
 Consequences:
 - **A rechargeable Li-ion or LiPo cell on the `BAT` pad is charged whenever the 5V pin or USB-C has power.** The charger enable is not wired to a GPIO, so the firmware cannot turn charging off.
 - **A primary lithium cell (CR2450, CR2477, CR123A) must not go on the `BAT` pad.** The charger would try to charge it whenever 5 V is present. A coin-cell design like the Remotek One needs its own board without a charger.
-- With 5 V present (bike cable or base contacts), the remote runs from 5 V and charges the cell at the same time.
+- With 5 V present (charge contacts or USB-C), the remote runs from 5 V and charges the cell at the same time.
 
 ## Battery options
 
@@ -43,7 +52,7 @@ Consequences:
 | 10440 Li-ion (AAA size) | Ø10.5 × 44.5 mm | about 350 mAh (typical, not verified) | Yes | No | Top end 44 → about 64 mm |
 | CR2450 coin cell | Ø24.5 × 5 mm | about 620 mAh (typical, not verified) | Yes | No | Not usable with the XIAO |
 
-The 16340 is the chosen candidate:
+The 16340 was the candidate for a swappable cell, before the [direction chosen](#direction-chosen) dropped it:
 - **Capacity.** It holds three to four times the energy of the pouch that fits.
 - **Supply.** Protected 16340 cells and their chargers are sold for flashlights.
 - **Sealing.** A screw cap with an O-ring, as on a flashlight, is a well-proven sealed battery closure.
@@ -65,20 +74,30 @@ The cell's footprint, including its tube and cap, is searched over positions and
 
 ![The same profile with the top end raised to 64 mm: a 16340 tube (red, 20 × 44 mm footprint) runs diagonally from behind button A into the upper shoulder. The cap end can open on the shoulder face.](images/battery-study-16340-tube.png)
 
+For the removable remote, the same search was rerun with the ring keep-out grown to leave room for a saddle around the ring:
+
+| Extra radial keep-out around the ring | 8 × 24 mm (6 mm pouch) | 10 × 24 mm (8 mm pouch, same outline) | 8 × 34 mm or longer |
+|---|---|---|---|
+| 0 mm (V0.23) | Fits, at −65° | Fits, at −60° | No fit |
+| 4 mm | Fits, at −45° | Fits, at −25° | No fit |
+| 6 mm | Fits, at −20° | Not checked | Not checked |
+
+An 8 mm thick pouch of the same 20 × 22 mm outline would hold more charge; its capacity has not been checked against a listing. A pouch longer than about 25 mm does not fit above the fold. The pouch is 20 mm along the bar, inside the 21 mm cavity of the 23 mm part.
+
 The 16340 tube runs diagonally, at 50° to the bar-to-cover direction, from the top of the cavity into the upper shoulder. The cap end can open on the shoulder face, where it can be reached with the remote on the bar. Growing the top end by 20 mm has not been checked against the bike: mirrors, brake reservoir and switchgear. It needs measuring before CAD work.
 
-## Power architecture for a 16340
+## Power architecture
 
 Two ways to connect the cell:
 
 | | A: cell on the XIAO `BAT` pad | B: cell into the 5V pin through a diode |
 |---|---|---|
-| Charging | On board, at 50 or 100 mA, from the bike cable, the base contacts or USB-C; also in an external 16340 charger | External charger only |
+| Charging | On board, at 50 or 100 mA, from the charge contacts or USB-C; a 16340 could also go in an external charger | External charger only |
 | Voltage loss | Only the MOSFET | Two Schottky drops, ours and the XIAO's (about 0.4–0.6 V together). At 3.0 V the 3.3 V rail falls to about 2.5 V. |
 | Primary CR123A | Unsafe: it gets charged | Allowed, but only with a diode that blocks any charge current |
 | Battery voltage reading | Built-in divider on AIN7 | Needs a divider on another pin |
 
-**Recommendation: A, with rechargeable cells only.** It needs no extra parts and keeps the full voltage. A 900 mAh cell takes about 18 h at 50 mA or 9 h at 100 mA. That is acceptable because the remote charges whenever the bike is on, and a spare cell can be charged outside.
+**Recommendation: A, with rechargeable cells only.** It needs no extra parts and keeps the full voltage. A 250 mAh pouch takes about 5 h at 50 mA or 2.5 h at 100 mA; a 900 mAh 16340 would take about 18 h or 9 h.
 
 The 100 mA rate should be checked against the cell's maximum charge current. The listings above do not all give a maximum charge current; check the chosen cell's datasheet.
 
@@ -108,38 +127,77 @@ The tube is a separate sealed volume from the electronics cavity. Only two wires
 
 ## Removable remote (issue #1)
 
-A concept, not yet modelled.
+A concept, not yet modelled. The goal is to move one remote between bikes without tools. Each bike keeps its own base.
 
-**Split.**
-- The base is the full clamp ring: both halves and the two M4 bolts, as now.
-- The remote is the pod plus the two shoulders. Its back is a saddle over the front half of the ring, wrapping no more than 180°, so it pulls off away from the bar.
-- The 16340 tube sits in the upper shoulder, so it stays with the remote.
+### Split
 
-**Location and lock.**
-- A radial key on the ring at the bar-axis height locates the remote and stops it turning around the bar.
-- A spring latch holds it on.
-- The pull-off direction is the direction button presses push the remote onto the base. So presses load the seat, not the latch.
+- **Base.** A clamp ring that stays on the bar, with two halves and two M4 bolts as now. It has no electronics. A base for each bike can be sized to that bike's bar.
+- **Remote.** The pod, the two shoulders, the XIAO, the joystick PCB and the LiPo pouch. Its back is a saddle around the front of the base ring.
 
-**Power.**
-- The base takes the bike cable and the 5 V protection, and moves the gland to the base.
-- Two spring pins in the base meet two flat pads on the remote's saddle. The pads are the XIAO 5V pin and GND.
-- With the remote fitted, the bike powers it and charges the cell. Off the bike it runs on the cell.
-- A second base with a USB cable charges it at home.
+### Why a bayonet around the bar
 
-**Points to solve.**
-- **Base pins are live when the remote is off.** In rain, 5 V on exposed pins corrodes them. Switch the pins on only when the remote is present, for example with a magnet in the remote and a reed or Hall switch with a load switch in the base. Or use a sealed magnetic pogo connector.
-- **USB-C and base power together.** The 5V pin is also USB-C VBUS (see above). With the remote on the base, USB-C must not be connected; in practice the remote is off the base when its cover is opened.
-- **Latch strength.** A printed spring latch wears and creeps. Use a steel spring plunger, or a steel pin with a printed lever, and test release force and vibration.
-- **Width.** The base and remote must stay within 23 mm along the bar, as now.
-- **Sealing.** The saddle pads are a new sealed feature on the remote's back wall. They replace the cable gland on the remote.
+A twist mount turns the device about an axis normal to its mating face. On this remote that face lies between the ring and the pod, so the axis is in the plane of the clamp. A quarter turn about it swings the pod's 85 mm length across the bar, into the grip, levers and switchgear, where the manual gives only 23 mm of free bar.
 
-The saddle adds material between the ring and the pod. Whether this moves the pod away from the bar has not been checked; it would affect reach to the turn-signal switch, which set the 20° fold.
+A dovetail sliding in the plane of the clamp avoids that sweep. It needs a flat platform on the round ring, which adds material and pushes the pod away from the bar.
+
+A bayonet that turns around the bar axis keeps the remote in its 23 mm slot, uses the round ring directly, and stays in the plane the pod already occupies.
+
+### Bayonet
+
+- **Base.** The ring carries two short circumferential lugs on its outer surface.
+- **Remote.** The saddle has a matching inner groove with an entry gap for each lug. It wraps no more than 180°, so it can go on over the ring from the front.
+- **Fitting.** Offer the remote to the ring turned by an entry angle, with the lugs in the gaps. Push it home and turn it about the bar to its working position. The lugs slide under the groove lips, which hold the remote against pull-off.
+- **Stops.** A hard stop ends the turn. A steel spring plunger in the saddle drops into a notch in the ring and stops it turning back. A printed spring would wear and creep, so the spring must be steel.
+- **Release.** Pull the plunger knob and turn the remote back to the entry angle.
+- **Tether.** A short lanyard from the remote to the base or the bar keeps a remote that comes loose off the trail.
+
+### Loads
+
+Button presses and joystick pushes make a torque about the bar axis:
+- Buttons A and B are on one side of the bar axis, at Y = 32 and 14 mm.
+- Button C (Y = −4 mm) and the joystick, below the fold, are on the other side.
+
+So presses load the bayonet in both directions. Put the hard stop on the side of A and B, the most used buttons. The plunger then takes the torque from the joystick and button C, plus shocks and vibration. Size the plunger force and the notch angle for that, and test both off the bike before riding.
+
+Pull-off loads go into the lugs and groove lips. Their strength in printed PETG or ASA has not been checked. Layer direction matters: the lips should not split along a layer line.
+
+### Geometry to check in CAD
+
+- **Radial build.** Today the clamp ring is 10 mm thick, from the Ø24 mm bore to Ø44 mm. Either the base ring stays at Ø44 mm and the saddle sits outside it, or the ring gets thinner and the saddle takes part of its section.
+  - **Saddle outside a Ø44 mm ring.** The pod moves out by the saddle thickness (about 3–4 mm). That changes reach to the turn-signal switch, which set the 20° fold. The pouch still fits; see [Fit method](#fit-method).
+  - **Thinner ring.** The clamp loses section, and its strength is not validated even now.
+- **Width.** Lugs, groove and plunger must stay inside 23 mm along the bar.
+- **Entry angle.** The remote turns through the entry angle near the brake lever, reservoir and mirror. A small angle (20–30°) sweeps less but gives shorter lugs. Check the sweep on each bike.
+- **Angle setting.** Today the rider sets the pod angle by turning the clamp before tightening. With a base, the angle is set by turning the base before tightening; the bayonet then always returns to the same angle.
+
+## Charging without bike wiring
+
+The remote is charged off the bike. The XIAO USB-C socket is inside the pod and can only be reached with the cover off, which disturbs the gasket. It stays for firmware recovery only.
+
+- **Charge contacts.** Two pads or a 2-pin magnetic pogo connector on the remote's back, inside the saddle. They are wired to the joystick PCB 5 V input and GND in place of the bike cable, so they go through its TVS diode and PTC fuse to the XIAO 5V pin.
+- **Covered when mounted.** On the base the contacts face the ring, out of the rain and mud.
+- **Dead when off the charger.** The XIAO feeds VIN from VBUS through a Schottky diode, and the battery reaches VIN through the power-path MOSFET. Neither path drives VBUS, so the pads carry no voltage when the remote runs on its battery. They cannot corrode from bias, and shorting them does no harm. This comes from the netlist and has not been measured.
+- **Charger.** A matching magnetic USB cable, or a small charging dock printed to the saddle shape with two spring pins.
+- **No cable gland.** The bike cable goes, so the gland and its lock nut go too. The gland lock nut set the 20° fold limit. The freed space at the bottom of the pod has not been searched for a larger cell.
+
+Points to solve:
+- **Sealing.** The pads or connector are a new sealed feature on the remote's back wall. Moulded-in pads or a connector with its own seal, potted from inside.
+- **Reverse polarity.** A magnetic connector is keyed; bare pads are not. On the joystick PCB a reversed supply makes the TVS diode D1 conduct and the PTC fuse F1 trip ([joystick PCB notes](../electronics/joystick-pcb/README.md#circuit)). So a reversed charger should not reach the XIAO, but it heats D1 and F1 until it is removed. Prefer a keyed connector or a keyed dock.
+- **USB-C and pads together.** Both are the XIAO VBUS net. Do not connect both at once; with the cover off on the bench this is the user's care.
+
+## Open measurements
+
+Before any CAD work, with the parts in hand:
+1. **Current.** Average current of the XIAO with this firmware, connected over BLE and idle, with a multimeter in series on the battery lead. It decides whether a 250 mAh pouch is enough.
+2. **Bars.** Bar diameter at the mounting point on each bike.
+3. **Sweep.** Free space around the mounting point on each bike for the remote turning through the entry angle: brake lever, reservoir, mirror and switchgear.
+4. **Pouch.** The chosen pouch's real thickness, outline and protection board, and its maximum charge current against the XIAO's 50 or 100 mA.
 
 ## Firmware
 
 - **Battery level.** Read AIN7 with P0.14 low. Report it over the BLE Battery Service; Bluefruit has `BLEBas`. Warn below about 3.5 V. Go to System OFF below about 3.3 V, ahead of the cell's protection cut-off.
 - **Charging.** Read P0.17 (`CHG`). Drive P0.13 low for 100 mA only if the cell allows it.
-- **Base or cable power.** The nRF52840 VBUS pin is on the same net as the 5V pin. Its USB power events can tell the firmware that external power is present, for example that the remote is on a powered base and the bike is on.
+- **Charger present.** The nRF52840 VBUS pin is on the same net as the 5V pin. Its USB power events can tell the firmware that the charge contacts are powered, for example to show charging or to stop advertising while on the charger.
 - **Sleep and wake.** When parked, or idle for a set time, go to System OFF and wake on any button or joystick switch through GPIO sense. Measure how long a bonded phone takes to reconnect, and whether the first press after wake is lost.
 - **Connection parameters.** Measure average current against connection interval and peripheral latency, against the input delay the rider notices.
 
@@ -149,11 +207,19 @@ The saddle adds material between the ring and the pod. Whether this moves the po
 - **Unprotected cells.** The BQ25101 is a charger, not a protection circuit. Use protected 16340 cells only.
 - **Heat.** A black remote in the sun can pass 45 °C, the usual maximum for charging Li-ion. The BQ25101 TS input is fixed by a resistor on the XIAO, so the XIAO has no cell temperature cut-off. Check the cell's charge temperature range.
 
-## Decisions needed
+With the fixed pouch chosen, the CR123A risk goes away: the pouch is soldered in and nobody can swap it for a primary cell. It applies again only if the 16340 alternative is taken up.
 
-1. Accept the pod growth for a swappable 16340 (top end 44 → about 64 mm, after checking the bike), or use the fixed pouch that fits now.
-2. Battery architecture A (on-board charging, Li-ion only) or B (external charging, primary cells allowed, lower voltage).
-3. Whether to go ahead with the removable remote, and keep the cable variant through the base contacts.
+## Decisions
+
+Made:
+1. Removable remote with a fixed LiPo pouch; no swappable cell.
+2. Architecture A: the pouch on the XIAO `BAT` pad, charged on board.
+3. No bike wiring and no base contacts. The base is mechanical only.
+
+Still open, after the [measurements](#open-measurements):
+1. Pouch size: 6 mm or 8 mm thick.
+2. Saddle outside the Ø44 mm ring, or a thinner ring.
+3. Bare pads or a magnetic connector for charging.
 
 ## Sources
 

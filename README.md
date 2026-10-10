@@ -12,7 +12,7 @@ The proposed [firmware specification](docs/firmware-spec.md) defines the first B
 
 The [development environment guide](docs/development-environment.md) explains how to set up Arduino IDE 2 for the purchased XIAO nRF52840, upload a smoke-test sketch, and use the Serial Monitor. The [mechanical CAD notes](docs/mechanical-concept.md) document the current NAVCOMM-referenced split-ring concept, with broad tapered shoulders joining the control pod to the clamp, raised external controls, and a 23 mm target width along the bar.
 
-The [battery study](docs/battery-study.md) compares battery options, a swappable 16340 cell, and a removable remote on a fixed base (issue #1); no design change has been made from it yet.
+The [battery study](docs/battery-study.md) compares battery options and settles on a removable remote with a fixed LiPo pouch, shared between bikes on a bayonet base and charged off the bike (issue #1). It waits on bench and bike measurements; no CAD has changed yet.
 
 The [joystick PCB](electronics/joystick-pcb/README.md) is a KiCad design for the four joystick switches and the 5 V input protection, with Gerbers and a BOM; it has not been built yet.
 
