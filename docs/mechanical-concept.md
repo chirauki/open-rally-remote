@@ -8,6 +8,8 @@ The joystick is a steel pin with a printed ball. The ball pivots against a seat 
 
 All printed housing parts are still slices of one outer solid: the convex hull of the pod outline and the Ø44 mm clamp circle, 23 mm wide along the bar, plus the 26 mm control end. Offsets of the folded front cut the cover and gasket from it; the diametral clamp split cuts the cap. Supplier and purchase unknowns remain open and are listed at the end; they are marked `MEASURE` in the CAD.
 
+The remote mounts on the left side of the bar only, never the right. The turn-signal switch that the folded front clears is on the left switchgear.
+
 **Current parametric concept:** [complete-remote-v0.23.scad](../mechanical/cad/complete-remote-v0.23.scad)
 
 ![V0.23 assembly, isometric view from the control side.](images/complete-remote-v0.23-iso.png)

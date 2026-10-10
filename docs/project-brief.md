@@ -18,6 +18,7 @@ The Hesa Parts NAVCOMM is a functional reference for a Bluetooth navigation/road
 - A simple two-layer PCB, locking connectors, and mechanical strain relief.
 - A two-piece printable enclosure for prototypes; a final design should use a perimeter gasket and sealed buttons. A 3D-printed enclosure alone is not proof of waterproofing.
 - A modular handlebar mount for a 22 mm tube in the control area. Builders will need to check clearance with their stock controls and levers.
+- The remote mounts on the left side of the handlebar only, between the grip and the left switchgear. There is no right-hand version.
 
 ## Expected compatibility and known limits
 

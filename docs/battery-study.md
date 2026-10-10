@@ -191,7 +191,8 @@ The remote is meant for any bike, so the design cannot rely on measuring bikes. 
 
 - **Bar diameter.** The remote never touches the bar. Each bar size gets its own base: a bore and liner for 22.2 mm (7/8 in) bars, and a variant for 25.4 mm (1 in) bars. Tapered 28.6 mm bars come down to 22.2 mm at the controls, where the remote sits. The liner takes up tolerance, as now.
 - **Width.** 23 mm along the bar, from the NAVCOMM manual's minimum free space between grip and switchgear, as now. It is an assumption taken from that manual, not a survey of bikes.
-- **Entry sweep.** The remote stays in its 23 mm slot while it turns, so only parts that cross that slot can be hit. The likely one is the lever blade, which runs in front of the grip. So:
+- **Side.** The remote goes on the left side of the bar only, never the right. One remote and one base handedness are enough; nothing needs mirroring.
+- **Entry sweep.** The remote stays in its 23 mm slot while it turns, so only parts that cross that slot can be hit. On the left side the likely one is the clutch lever blade, or the rear brake lever on scooters, which runs in front of the grip. So:
   - keep the entry angle small (20–30°);
   - turn the remote toward the rider to release it, away from the lever blade;
 - **Angle setting.** The rider sets the remote angle by turning the base on the bar before tightening, as with the clamp today.
