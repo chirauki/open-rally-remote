@@ -39,10 +39,10 @@ The firmware should configure these GPIOs as inputs with internal pull-ups. Each
 | D4 | SW5 | Joystick down |
 | D5 | SW6 | Joystick left |
 | D6 | SW7 | Joystick right |
-| D7 | SW8 | Joystick center press (optional) |
+| D7 | SW8 | Joystick center press (breadboard only) |
 | GND | Blue/negative rail | Shared switch ground |
 
-If building the joystick-without-center variant, leave D7 disconnected and disable that input in firmware. No 3.3 V or 5 V rail connection is needed for this switch circuit.
+The enclosure joystick has no center switch; the firmware reads a straight push as the center. On the breadboard that push cannot be made, so SW8 on D7 stands in for it: set `CENTER_FROM_CHORD` to `false` in the sketch. With the default `true`, D7 is not read. No 3.3 V or 5 V rail connection is needed for this switch circuit.
 
 ## Breadboard wiring diagram
 

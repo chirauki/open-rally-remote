@@ -39,7 +39,7 @@ The first firmware will be written and uploaded with **Arduino IDE 2** on a comp
 5. Select **Seeed XIAO nRF52840** under the Seeed nRF52 boards and choose the port that appears for the board.
 6. Open the project's `.ino` sketch, use **Verify** to compile, then **Upload** to flash it. Pair the remote from the phone's Bluetooth settings after the HID firmware is running.
 
-An initial diagnostic sketch is now available at [firmware/xiao-nrf52840/open-rally-remote.ino](../firmware/xiao-nrf52840/open-rally-remote.ino). It uses the Seeed nRF52 board package and its bundled Bluefruit HID keyboard API. It is a starting point and has not yet been compiled or checked on the purchased hardware.
+An initial diagnostic sketch is now available at [firmware/xiao-nrf52840/open-rally-remote.ino](../firmware/xiao-nrf52840/open-rally-remote.ino). It uses the Seeed nRF52 board package and its bundled Bluefruit HID keyboard API. It is a starting point. It compiles and implements the center chord below, but has not yet been checked on the purchased hardware.
 
 Seeed's [XIAO nRF52840 guide](https://wiki.seeedstudio.com/XIAO_BLE/) documents Arduino IDE setup and the board package. Arduino's [IDE 2 board manager tutorial](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-board-manager/) explains installing board support packages.
 

@@ -43,7 +43,7 @@ The LCSC land pattern for the KSC222JLFS (C221728) puts its pads 0.95 mm outside
 - **Rear zone.** 1.0 mm behind the whole board for solder joints, vias and screw heads, and 3.0 mm in the upper half and in the two side strips for the TVS diode (2.45 mm maximum), the PTC fuse and the soldered wires. The lower middle stays at 1.0 mm because a USB-C plug in the XIAO passes close behind it when the cover is off.
 - **PCB screws.** M2 × 8 button heads, at most Ø3.5 × 1.1 mm. A pan head (1.6 mm) would touch the 12 mm wide USB-C overmold envelope with the cover off.
 - **Power input.** The supply cable now goes to the joystick PCB, through a PTC fuse and a TVS diode, and the PCB feeds the XIAO's 5V pin.
-- **Firmware.** The specification now describes the four-switch chord as the centre press; D7 is unused. The diagnostic sketch still treats D7 as an optional centre switch.
+- **Firmware.** The specification now describes the four-switch chord as the centre press; D7 is unused. The diagnostic sketch implements the chord; a separate centre switch on D7 remains as a build option for the breadboard.
 
 ## V0.22 changes from V0.21, still current
 
@@ -241,7 +241,7 @@ APEM's [IS series page](https://www.apem.com/panel-switches/pushbutton-switches/
 These are the only items that block a confident first print. Each is a parameter in the CAD.
 
 - **Buttons:** exact APEM IS order codes, sealing rating, nut sizes behind the panel, terminal length, and wire exit.
-- **Joystick:** measure the KSC2 height and the printed plate, ball and disc; together with the standoffs they set the 0.05 mm rest gap (`joy_rest_gap`). The feel (4.7° to trip, 2 N per direction, about 8 N for the centre chord) and the Ø16 mm knob need a check with gloves. The diagnostic sketch still has to implement the four-switch chord.
+- **Joystick:** measure the KSC2 height and the printed plate, ball and disc; together with the standoffs they set the 0.05 mm rest gap (`joy_rest_gap`). The feel (4.7° to trip, 2 N per direction, about 8 N for the centre chord) and the Ø16 mm knob need a check with gloves.
 - **XIAO:** PCB thickness, header spacer height, pin length, and component height. Adjust `xiao_pcb`, `xiao_header_plastic`, `xiao_pin_length`, and `xiao_component_h`; the render stops if the pins reach the rear wall.
 - **Inserts:** hole diameters and depths for the actual M4 and M2 inserts.
 - **Handlebar and liner:** measured bar diameter, and the 0.8 mm clamping gap tuned to the printed TPU liner.

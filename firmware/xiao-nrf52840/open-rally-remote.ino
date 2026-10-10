@@ -1,8 +1,10 @@
 /*
  * Open Rally Remote - XIAO nRF52840 bench firmware
  *
- * Purpose: read the eight temporary active-low switches and send diagnostic
- * keyboard events over BLE HID. This is a desk prototype, not riding firmware.
+ * Purpose: read the active-low switches (three buttons, four joystick
+ * directions) and send diagnostic keyboard events over BLE HID. The joystick
+ * center press is the chord of three or more directions, or optionally a
+ * separate switch on D7. This is a desk prototype, not riding firmware.
  *
  * Board package: Seeed nRF52 Boards
  * Board: Seeed XIAO nRF52840
@@ -14,8 +16,10 @@
 
 // ---------- Build options ----------
 
-// Set false to build the joystick variant without a center switch.
-constexpr bool CENTER_SWITCH_FITTED = true;
+// Center press source. true: three or more direction switches closed
+// together, as on the V0.22+ joystick (D7 unused). false: a separate switch
+// on D7, as on the breadboard prototype.
+constexpr bool CENTER_FROM_CHORD = true;
 
 // Enable Serial Monitor diagnostics while developing.
 constexpr bool SERIAL_DEBUG = true;
@@ -26,6 +30,9 @@ constexpr uint32_t DEBOUNCE_MS = 30;
 constexpr uint32_t LONG_PRESS_MS = 600;
 constexpr uint32_t DOUBLE_PRESS_MS = 300;
 constexpr uint32_t TAP_HOLD_MS = 50;
+// Direction key-down is held back this long after the first direction closes,
+// so a straight push is reported as the center and not as a direction.
+constexpr uint32_t CHORD_WINDOW_MS = 40;
 
 // ---------- Hardware mapping ----------
 
@@ -105,12 +112,30 @@ bool lastReportValid = false;
 uint8_t lastReportKeys[6] = {};
 bool ignoreUntilRelease[CONTROL_COUNT] = {};
 
-bool centerInstalled() {
-  return CENTER_SWITCH_FITTED;
-}
+// Joystick direction handling (see docs/firmware-spec.md, section 5).
+enum JoystickMode : uint8_t {
+  JOY_IDLE,        // no direction closed
+  JOY_PENDING,     // a direction closed; waiting out the chord window
+  JOY_DIRECTIONS,  // reporting the held directions
+  JOY_SUPPRESSED,  // opposite directions closed: no keys until a chord or release
+  JOY_CENTER,      // chord: center held, no direction keys until all released
+  JOY_BLOCKED      // held at (re)connect: ignored until all released
+};
 
+JoystickMode joyMode = JOY_IDLE;
+uint32_t joyPendingSince = 0;
+uint8_t joySeenMask = 0;
+
+// Bits: up = 1, down = 2, left = 4, right = 8.
+constexpr uint8_t DIR_VERTICAL = 0x3;
+constexpr uint8_t DIR_HORIZONTAL = 0xC;
+const uint8_t DIRECTION_KEYS[4] = {
+  HID_KEY_ARROW_UP, HID_KEY_ARROW_DOWN, HID_KEY_ARROW_LEFT, HID_KEY_ARROW_RIGHT
+};
+
+// A physical input on its pin; in chord mode the center has no pin.
 bool controlIsInstalled(uint8_t control) {
-  return control != JOYSTICK_CENTER || centerInstalled();
+  return control != JOYSTICK_CENTER || !CENTER_FROM_CHORD;
 }
 
 void printControlEvent(uint8_t control, const char *eventName) {
@@ -161,19 +186,30 @@ void addKey(uint8_t keys[6], uint8_t keyCode) {
   }
 }
 
+uint8_t directionMask() {
+  uint8_t mask = 0;
+  for (uint8_t i = 0; i < 4; ++i) {
+    if (inputs[JOYSTICK_UP + i].stablePressed) mask |= 1 << i;
+  }
+  return mask;
+}
+
+// Opposing directions cancel; perpendicular directions may be held together.
+uint8_t cancelOpposites(uint8_t mask) {
+  if ((mask & DIR_VERTICAL) == DIR_VERTICAL) mask &= ~DIR_VERTICAL;
+  if ((mask & DIR_HORIZONTAL) == DIR_HORIZONTAL) mask &= ~DIR_HORIZONTAL;
+  return mask;
+}
+
 void buildCurrentReport(uint8_t keys[6]) {
   memset(keys, HID_KEY_NONE, 6);
 
-  const bool up = inputs[JOYSTICK_UP].stablePressed;
-  const bool down = inputs[JOYSTICK_DOWN].stablePressed;
-  const bool left = inputs[JOYSTICK_LEFT].stablePressed;
-  const bool right = inputs[JOYSTICK_RIGHT].stablePressed;
-
-  // Opposing directions cancel; perpendicular directions may be held together.
-  if (up && !down && !ignoreUntilRelease[JOYSTICK_UP]) addKey(keys, HID_KEY_ARROW_UP);
-  if (down && !up && !ignoreUntilRelease[JOYSTICK_DOWN]) addKey(keys, HID_KEY_ARROW_DOWN);
-  if (left && !right && !ignoreUntilRelease[JOYSTICK_LEFT]) addKey(keys, HID_KEY_ARROW_LEFT);
-  if (right && !left && !ignoreUntilRelease[JOYSTICK_RIGHT]) addKey(keys, HID_KEY_ARROW_RIGHT);
+  if (joyMode == JOY_DIRECTIONS) {
+    const uint8_t mask = cancelOpposites(directionMask());
+    for (uint8_t i = 0; i < 4; ++i) {
+      if (mask & (1 << i)) addKey(keys, DIRECTION_KEYS[i]);
+    }
+  }
 
   if (tapIsActive) addKey(keys, activeTapKey);
 }
@@ -209,7 +245,7 @@ void emitGesture(uint8_t control, GestureType gesture) {
   uint8_t tableRow;
   if (control <= BUTTON_C) {
     tableRow = control;
-  } else if (control == JOYSTICK_CENTER && centerInstalled()) {
+  } else if (control == JOYSTICK_CENTER) {
     tableRow = 3;
   } else {
     return;
@@ -279,10 +315,79 @@ void handleStableTransition(uint8_t control, bool pressed, uint32_t now) {
     return;
   }
 
-  // The current diagnostic profile maps joystick directions to held arrow keys.
-  (void)pressed;
+  // Directions are reported by updateJoystick().
+  printControlEvent(control, pressed ? "direction closed" : "direction opened");
+}
+
+void pressChordCenter(uint32_t now) {
+  joyMode = JOY_CENTER;
+  startGesture(JOYSTICK_CENTER, now);
+}
+
+// Turns the debounced direction switches into held arrow keys or, in chord
+// mode, the center press. Runs every loop so the chord window can expire.
+void updateJoystick(uint32_t now) {
+  const uint8_t mask = directionMask();
+  const uint8_t count = __builtin_popcount(mask);
+  const bool opposite = mask != cancelOpposites(mask);
+
+  switch (joyMode) {
+    case JOY_IDLE:
+      if (!mask) break;
+      if (!CENTER_FROM_CHORD) {
+        joyMode = JOY_DIRECTIONS;
+        break;
+      }
+      joyMode = JOY_PENDING;
+      joyPendingSince = now;
+      joySeenMask = 0;
+      [[fallthrough]];
+
+    case JOY_PENDING:
+      joySeenMask |= mask;
+      if (count >= 3) {
+        pressChordCenter(now);
+      } else if (!mask) {
+        // Released inside the window: send the tilt as a tap so it is not lost.
+        const uint8_t tapped = cancelOpposites(joySeenMask);
+        for (uint8_t i = 0; i < 4; ++i) {
+          if (tapped & (1 << i)) enqueueTap(DIRECTION_KEYS[i]);
+        }
+        joyMode = JOY_IDLE;
+      } else if ((uint32_t)(now - joyPendingSince) >= CHORD_WINDOW_MS) {
+        joyMode = opposite ? JOY_SUPPRESSED : JOY_DIRECTIONS;
+      }
+      break;
+
+    case JOY_DIRECTIONS:
+      if (!mask) {
+        joyMode = JOY_IDLE;
+      } else if (CENTER_FROM_CHORD && count >= 3) {
+        // A slow push: direction keys already sent are released here.
+        pressChordCenter(now);
+      } else if (CENTER_FROM_CHORD && opposite) {
+        joyMode = JOY_SUPPRESSED;
+      }
+      break;
+
+    case JOY_SUPPRESSED:
+      if (count >= 3) pressChordCenter(now);
+      else if (!mask) joyMode = JOY_IDLE;
+      break;
+
+    case JOY_CENTER:
+      if (!mask) {
+        finishGesture(JOYSTICK_CENTER, now);
+        joyMode = JOY_IDLE;
+      }
+      break;
+
+    case JOY_BLOCKED:
+      if (!mask) joyMode = JOY_IDLE;
+      break;
+  }
+
   publishReport();
-  printControlEvent(control, pressed ? "direction held" : "direction released");
 }
 
 void synchronizeInputs(uint32_t now) {
@@ -295,6 +400,7 @@ void synchronizeInputs(uint32_t now) {
     ignoreUntilRelease[i] = pressed;
   }
   resetGestureState();
+  joyMode = directionMask() ? JOY_BLOCKED : JOY_IDLE;
 }
 
 void scanInputs(uint32_t now) {
@@ -318,8 +424,8 @@ void scanInputs(uint32_t now) {
 void processGestureTimers(uint32_t now) {
   if (!Bluefruit.connected()) return;
 
+  // Directions never start a gesture; the chord center has no pin but does.
   for (uint8_t i = 0; i < CONTROL_COUNT; ++i) {
-    if (!controlIsInstalled(i)) continue;
     GestureState &state = gestures[i];
 
     if (state.isDown && !state.longSent &&
@@ -367,7 +473,7 @@ void beginBleKeyboard() {
 
   deviceInfo.setManufacturer("Open Rally Remote Project");
   deviceInfo.setModel("XIAO nRF52840 Bench Prototype");
-  deviceInfo.setSoftwareRev("0.1.0-diagnostic");
+  deviceInfo.setSoftwareRev("0.2.0-diagnostic");
   deviceInfo.begin();
 
   bleHid.begin();
@@ -390,7 +496,7 @@ void setup() {
     while (!Serial && (uint32_t)(millis() - serialWaitStarted) < 2000) {
       delay(10);
     }
-    Serial.println("Open Rally Remote diagnostic firmware 0.1.0");
+    Serial.println("Open Rally Remote diagnostic firmware 0.2.0");
     Serial.println("Released switch = HIGH; pressed switch = LOW");
   }
 
@@ -406,7 +512,9 @@ void setup() {
   if (SERIAL_DEBUG) {
     Serial.println("BLE advertising as: Open Rally Remote");
     Serial.println("Diagnostic letters: A-C = Button A, D-F = Button B,");
-    Serial.println("G-I = Button C, arrows = joystick, J-L = center switch.");
+    Serial.println("G-I = Button C, arrows = joystick, J-L = joystick center.");
+    Serial.println(CENTER_FROM_CHORD ? "Center: chord of three or more directions."
+                                     : "Center: separate switch on D7.");
   }
 }
 
@@ -428,6 +536,7 @@ void loop() {
   }
 
   scanInputs(now);
+  updateJoystick(now);
   processGestureTimers(now);
   processTapQueue(now);
 

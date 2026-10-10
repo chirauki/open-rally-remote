@@ -14,4 +14,4 @@ The [development environment guide](docs/development-environment.md) explains ho
 
 The [joystick PCB](electronics/joystick-pcb/README.md) is a KiCad design for the four joystick switches and the 5 V input protection, with Gerbers and a BOM; it has not been built yet.
 
-The first [XIAO diagnostic firmware](firmware/xiao-nrf52840/README.md) reads the breadboard switches and sends BLE HID keyboard events. It has not yet been compiled or tested on the purchased hardware; app profiles and mobile OTA updates remain future work.
+The first [XIAO diagnostic firmware](firmware/xiao-nrf52840/README.md) reads the breadboard switches and sends BLE HID keyboard events. It compiles and reads the joystick center as a chord of the direction switches, but has not yet been tested on the purchased hardware; app profiles and mobile OTA updates remain future work.

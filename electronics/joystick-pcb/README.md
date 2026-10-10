@@ -32,7 +32,7 @@ Board coordinates are seen from the front (switch side, facing the cover). +x is
 - **Centre press.** There is no fifth switch. Pushing the stick straight in closes all four; the firmware reads the chord as the centre press (see the [firmware specification](../../docs/firmware-spec.md)).
 - **F1.** Bourns MF-MSMF050-2, PTC resettable fuse, 1812: 0.5 A hold, 1 A trip, 15 V maximum.
 - **D1.** Littelfuse SMBJ5.0A, unidirectional TVS, 600 W, 5.0 V stand-off. It clamps transients on the supply. If the supply is reversed, it conducts forward and F1 trips. The 15 V rating of F1 also covers a supply wired to 12 V by mistake; 6 V polyfuses, common in 1206, would not.
-- The XIAO takes its supply from the 5V wire pad, not from the cable directly. Whether the XIAO isolates its 5V pin from USB VBUS has not been checked. Until it is, do not connect USB-C while the bike supply is connected.
+- The XIAO takes its supply from the 5V wire pad, not from the cable directly. In Seeed's XIAO nRF52840 V1.2 schematic (KiCad project dated 2026-08-28, from the Seeed wiki), the 5V header pin is the same net as the USB-C VBUS pins, with no diode or switch between them. The Schottky diode on the XIAO sits after that net, in front of its 3.3 V regulator. So the bike supply and a USB-C cable would be connected straight together, and each could feed current into the other. F1 limits that current to its 0.5 A hold rating, but that is still enough to stress a computer's USB port or the bike's socket. Do not connect USB-C while the bike supply is connected. The board revision bought may differ from V1.2; check its silkscreen.
 
 ## Placement against the enclosure
 
@@ -93,5 +93,5 @@ The project tables (`fp-lib-table`, `sym-lib-table`) add the local `orr` library
 ## Open points
 
 - Measure the switch height on the real parts: together with the printed plate, ball, disc and standoffs it sets the 0.05 mm rest gap under the disc.
-- Confirm that the XIAO 5V pin is the right input for the protected supply on the board revision bought, and how it behaves with USB-C connected.
+- Decide whether to add a series Schottky diode after F1, so that USB-C can stay connected with the bike supply on. It would cost about 0.3–0.4 V at the XIAO, ahead of its own diode and regulator, and it needs a place on the rear of the board.
 - Check the placement file rotations with the assembler's preview.
