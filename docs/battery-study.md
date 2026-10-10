@@ -131,7 +131,7 @@ A concept, not yet modelled. The goal is to move one remote between bikes withou
 
 ### Split
 
-- **Base.** A clamp ring that stays on the bar, with two halves and two M4 bolts as now. It has no electronics. A base for each bike can be sized to that bike's bar.
+- **Base.** A clamp ring that stays on the bar, with two halves and two M4 bolts as now. It has no electronics. Bases come in variants for each bar size; see [Universal fit](#universal-fit).
 - **Remote.** The pod, the two shoulders, the XIAO, the joystick PCB and the LiPo pouch. Its back is a saddle around the front of the base ring.
 
 ### Why a bayonet around the bar
@@ -167,7 +167,7 @@ Pull-off loads go into the lugs and groove lips. Their strength in printed PETG 
   - **Saddle outside a Ø44 mm ring.** The pod moves out by the saddle thickness (about 3–4 mm). That changes reach to the turn-signal switch, which set the 20° fold. The pouch still fits; see [Fit method](#fit-method).
   - **Thinner ring.** The clamp loses section, and its strength is not validated even now.
 - **Width.** Lugs, groove and plunger must stay inside 23 mm along the bar.
-- **Entry angle.** The remote turns through the entry angle near the brake lever, reservoir and mirror. A small angle (20–30°) sweeps less but gives shorter lugs. Check the sweep on each bike.
+- **Entry angle.** The remote turns through the entry angle near the brake lever, reservoir and mirror. A small angle (20–30°) sweeps less but gives shorter lugs. See [Universal fit](#universal-fit) for the release direction.
 - **Angle setting.** Today the rider sets the pod angle by turning the clamp before tightening. With a base, the angle is set by turning the base before tightening; the bayonet then always returns to the same angle.
 
 ## Charging without bike wiring
@@ -185,13 +185,24 @@ Points to solve:
 - **Reverse polarity.** A magnetic connector is keyed; bare pads are not. On the joystick PCB a reversed supply makes the TVS diode D1 conduct and the PTC fuse F1 trip ([joystick PCB notes](../electronics/joystick-pcb/README.md#circuit)). So a reversed charger should not reach the XIAO, but it heats D1 and F1 until it is removed. Prefer a keyed connector or a keyed dock.
 - **USB-C and pads together.** Both are the XIAO VBUS net. Do not connect both at once; with the cover off on the bench this is the user's care.
 
+## Universal fit
+
+The remote is meant for any bike, so the design cannot rely on measuring bikes. The rule is: **the remote is one universal part; everything that varies between bikes goes into the base.**
+
+- **Bar diameter.** The remote never touches the bar. Each bar size gets its own base: a bore and liner for 22.2 mm (7/8 in) bars, and a variant for 25.4 mm (1 in) bars. Tapered 28.6 mm bars come down to 22.2 mm at the controls, where the remote sits. The liner takes up tolerance, as now.
+- **Width.** 23 mm along the bar, from the NAVCOMM manual's minimum free space between grip and switchgear, as now. It is an assumption taken from that manual, not a survey of bikes.
+- **Entry sweep.** The remote stays in its 23 mm slot while it turns, so only parts that cross that slot can be hit. The likely one is the lever blade, which runs in front of the grip. So:
+  - keep the entry angle small (20–30°);
+  - turn the remote toward the rider to release it, away from the lever blade;
+- **Angle setting.** The rider sets the remote angle by turning the base on the bar before tightening, as with the clamp today.
+
+Not all bikes can be covered this way. A bike with less than 23 mm between grip and switchgear, or with a lever that crosses the slot close to the bar, will need its own base or will not take the remote. That limit should be stated in the user notes.
+
 ## Open measurements
 
-Before any CAD work, with the parts in hand:
+These are bench measurements on the parts, not on bikes:
 1. **Current.** Average current of the XIAO with this firmware, connected over BLE and idle, with a multimeter in series on the battery lead. It decides whether a 250 mAh pouch is enough.
-2. **Bars.** Bar diameter at the mounting point on each bike.
-3. **Sweep.** Free space around the mounting point on each bike for the remote turning through the entry angle: brake lever, reservoir, mirror and switchgear.
-4. **Pouch.** The chosen pouch's real thickness, outline and protection board, and its maximum charge current against the XIAO's 50 or 100 mA.
+2. **Pouch.** The chosen pouch's real thickness, outline and protection board, and its maximum charge current against the XIAO's 50 or 100 mA.
 
 ## Firmware
 
