@@ -23,6 +23,8 @@ Wire each normally-open switch between its GPIO and GND:
 | D6 | Joystick right | Hold Right Arrow |
 | D7 | Optional joystick center | Short `J`, long `K`, double `L` |
 
+The V0.22/V0.23 hardware has no D7 switch: the center press is all four direction switches closed together (see the [firmware specification](../../docs/firmware-spec.md#5-input-processing-and-gesture-rules)). This sketch does not implement that chord yet.
+
 All connected pins use `INPUT_PULLUP`: open/released reads HIGH, pressed reads LOW. Do not connect an input to 3.3 V or 5 V. If the center switch is not fitted, set `CENTER_SWITCH_FITTED` to `false` near the top of the sketch.
 
 ## First test

@@ -65,9 +65,11 @@ HOGP is the Bluetooth SIG profile for exposing HID input over BLE/GATT. Android 
 | D4 | Joystick down | HIGH | LOW |
 | D5 | Joystick left | HIGH | LOW |
 | D6 | Joystick right | HIGH | LOW |
-| D7 | Joystick center (optional) | HIGH | LOW |
+| D7 | Not used (reserved) | — | — |
 
-Configure every connected input as `INPUT_PULLUP`. A closed switch joins the input to GND. Do not connect a switch input to 3.3 V or 5 V. When the center-switch option is absent, D7 must be ignored and must not generate phantom events.
+Configure every connected input as `INPUT_PULLUP`. A closed switch joins the input to GND. Do not connect a switch input to 3.3 V or 5 V. D7 is not connected in the V0.22/V0.23 hardware and must be ignored.
+
+The joystick has no separate center switch. Its stick sits on four C&K KSC2 switches (see the [joystick PCB](../electronics/joystick-pcb/README.md)); tilting closes one switch, or two adjacent ones on a diagonal, and pushing the stick straight in closes all four. The knob reaches its push stop only after every switch has tripped, so a full push always closes all four. The firmware derives the center input from this chord (section 5).
 
 The final hardware may use a different pin map. Keep the pin assignments in one configuration table so they can be changed without rewriting input and HID logic.
 
@@ -82,7 +84,7 @@ These values are initial tunable settings, not final ergonomic decisions:
 | Long-press threshold | 600 ms | Emit one long-press action when the control remains pressed for this duration. |
 | Double-press window | 300 ms | Two short presses of the same control inside the window produce one double-press action. |
 
-Gesture state machine for Buttons A, B, C, and the optional center switch:
+Gesture state machine for Buttons A, B, C, and the derived center input:
 
 1. On a debounced press, record the start time; do not emit a key yet when short/double discrimination is active.
 2. If the control is still down at the long-press threshold, emit its long action once. Suppress short and double actions for that press.
@@ -91,6 +93,8 @@ Gesture state machine for Buttons A, B, C, and the optional center switch:
 5. A second press of a different control does not cancel the first control's pending short action.
 
 This means a short action can be delayed by up to the double-press window. Profiles that do not use double press may disable double recognition for the affected control and emit short actions on release. Record any profile-specific exception in the mapping table.
+
+Center chord: treat the center as pressed when at least three direction inputs are closed, and released when none is. When a direction first closes, hold its key-down for a chord window (initially 40 ms, tunable). If three or more directions close inside the window, report the center press instead and send no direction keys until all four are released. Otherwise send the held directions as usual. Two opposite directions closed together can only come from a push, so they also suppress direction keys. The window delays direction key-down by up to its length; measure whether that is noticeable on hardware.
 
 Joystick directions are held inputs: send the mapped key-down while the direction is held and the matching key-up on release. Do not synthesize repeated key-down reports in firmware. The host/app may repeat a held key; test whether this produces useful map panning and document device-specific behavior. Opposite directions pressed together should cancel each other. Other simultaneous directions must not corrupt the HID report.
 
@@ -129,7 +133,7 @@ For the first firmware build, compile-time profile selection is sufficient. Do n
 
 ## 8. Initial implementation phases
 
-1. **GPIO and BLE proof:** upload the [initial diagnostic sketch](../firmware/xiao-nrf52840/README.md), pair Android and iOS separately, and confirm every connected switch reports the expected key. Validate active-low behavior, the optional D7 variant, and key release.
+1. **GPIO and BLE proof:** upload the [initial diagnostic sketch](../firmware/xiao-nrf52840/README.md), pair Android and iOS separately, and confirm every connected switch reports the expected key. Validate active-low behavior, the center chord, and key release.
 2. **Gesture proof:** measure short/long/double recognition with the temporary switches. Adjust timings only after the initial values have been observed on hardware.
 3. **Reliability check:** test reconnect, held arrows, opposing direction cancellation, and release behavior after disconnect.
 4. **App mapping:** implement semantic profiles and bind tested HID usages to each action. Keep unverified bindings marked experimental.
@@ -140,7 +144,7 @@ For the first firmware build, compile-time profile selection is sufficient. Do n
 | Area | Pass condition | Android | iOS |
 |---|---|---|---|
 | Pairing | Appears as a keyboard/HID remote, pairs, and reconnects to the bonded phone | Pending | Pending |
-| Input scan | Each of D0–D6 works once; D7 works only on the center-switch build | Pending | Pending |
+| Input scan | Each of D0–D6 works once; D7 is ignored | Pending | Pending |
 | Debounce | One press produces one event; switch bounce produces no duplicates | Pending | Pending |
 | HID release | Every discrete key has a matching release; disconnect cannot leave a key stuck | Pending | Pending |
 | Directions | Held arrows pan as expected; release stops movement; opposing directions cancel | Pending | Pending |
@@ -148,7 +152,7 @@ For the first firmware build, compile-time profile selection is sufficient. Do n
 | TerraPirata | Required remote/compatibility mode accepts each mapped action | Pending | Pending |
 | OsmAnd | A/D, B/+, C/−, arrows, and center/C perform the intended actions | Pending | Pending |
 | DMD² | A follow, B zoom in, C zoom out, and joystick pan work through Generic Remote mapping | Pending | N/A |
-| Center variants | With and without D7 hardware, behavior and profile configuration are correct | Pending | Pending |
+| Center chord | A straight push gives one center event and no direction keys; tilts and diagonals give no center event | Pending | Pending |
 
 ## Product OTA validation checklist
 

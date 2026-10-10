@@ -12,4 +12,6 @@ The proposed [firmware specification](docs/firmware-spec.md) defines the first B
 
 The [development environment guide](docs/development-environment.md) explains how to set up Arduino IDE 2 for the purchased XIAO nRF52840, upload a smoke-test sketch, and use the Serial Monitor. The [mechanical CAD notes](docs/mechanical-concept.md) document the current NAVCOMM-referenced split-ring concept, with broad tapered shoulders joining the control pod to the clamp, raised external controls, and a 23 mm target width along the bar.
 
+The [joystick PCB](electronics/joystick-pcb/README.md) is a KiCad design for the four joystick switches and the 5 V input protection, with Gerbers and a BOM; it has not been built yet.
+
 The first [XIAO diagnostic firmware](firmware/xiao-nrf52840/README.md) reads the breadboard switches and sends BLE HID keyboard events. It has not yet been compiled or tested on the purchased hardware; app profiles and mobile OTA updates remain future work.

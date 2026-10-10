@@ -1,38 +1,51 @@
-# Complete Mechanical CAD — V0.22 Low-Cost Joystick and Wider Pod
+# Complete Mechanical CAD — V0.23 Joystick PCB
 
-V0.22 puts a joystick back on the lower facet, built from low-cost parts, and widens the control end of the pod from 23 to 26 mm. The clamp ring and the rear of the pod stay 23 mm wide along the bar.
+V0.23 fits the V0.22 joystick to a real PCB, now designed in KiCad: the [joystick PCB](../electronics/joystick-pcb/README.md) carries the four switches and the 5 V input protection. The housing, cover, gasket, stick and knob are unchanged from V0.22; the joystick plate's standoffs moved. The changes are listed under [Changes from V0.22](#changes-from-v022).
+
+V0.22 put a joystick back on the lower facet, built from low-cost parts, and widened the control end of the pod from 23 to 26 mm. The clamp ring and the rear of the pod stay 23 mm wide along the bar.
 
 The joystick is a steel pin with a printed ball. The ball pivots against a seat in a printed joystick plate. Under the ball, a cross-shaped disc rests on four C&K KSC2 sealed tact switches, whose springs centre the stick. Tilting the stick presses one switch; pushing it straight in presses all four, which the firmware reads as the centre press. The parts cost a few euros. The Ruffy MHS of V0.20 was listed at about £149, and the APEM NV, the closest commercial alternative found, at $143.
 
 All printed housing parts are still slices of one outer solid: the convex hull of the pod outline and the Ø44 mm clamp circle, 23 mm wide along the bar, plus the 26 mm control end. Offsets of the folded front cut the cover and gasket from it; the diametral clamp split cuts the cap. Supplier and purchase unknowns remain open and are listed at the end; they are marked `MEASURE` in the CAD.
 
-**Current parametric concept:** [complete-remote-v0.22.scad](../mechanical/cad/complete-remote-v0.22.scad)
+**Current parametric concept:** [complete-remote-v0.23.scad](../mechanical/cad/complete-remote-v0.23.scad)
 
-![V0.22 assembly, isometric view from the control side.](images/complete-remote-v0.22-iso.png)
+![V0.23 assembly, isometric view from the control side.](images/complete-remote-v0.23-iso.png)
 
-![V0.22 joystick knob on the lower facet, between the four lower cover screws. The engraved cross shows the four directions.](images/complete-remote-v0.22-joy.png)
+![V0.23 joystick knob on the lower facet, between the four lower cover screws. The engraved cross shows the four directions.](images/complete-remote-v0.23-joy.png)
 
-![V0.22 seen along the bar: the upper facet with buttons A, B, C and the lower facet with the joystick, turned 20 degrees toward the bar.](images/complete-remote-v0.22-side.png)
+![V0.23 seen along the bar: the upper facet with buttons A, B, C and the lower facet with the joystick, turned 20 degrees toward the bar.](images/complete-remote-v0.23-side.png)
 
-![V0.22 control cover seen from the rider's side.](images/complete-remote-v0.22-front.png)
+![V0.23 control cover seen from the rider's side.](images/complete-remote-v0.23-front.png)
 
-![V0.22 section through the joystick axis, drawn with the cover at the bottom: knob, cover, sheet gasket gripping the stick, joystick plate with the ball seat, ball and cross disc, switches, PCB on its standoffs.](images/complete-remote-v0.22-joy-section.png)
+![V0.23 section through the joystick axis, drawn with the cover at the bottom: knob, cover, sheet gasket gripping the stick, joystick plate with the ball seat, ball and cross disc, switches, PCB on its standoffs, and the rear component zone behind it.](images/complete-remote-v0.23-joy-section.png)
 
-![V0.22 section through the middle of the pod.](images/complete-remote-v0.22-section.png)
+![V0.23 section through the middle of the pod.](images/complete-remote-v0.23-section.png)
 
-![V0.22 from the back and below: the 45° chamfer between the 26 mm control end and the 23 mm clamp.](images/complete-remote-v0.22-rear.png)
+![V0.23 from the back and below: the 45° chamfer between the 26 mm control end and the 23 mm clamp.](images/complete-remote-v0.23-rear.png)
 
-![V0.22 interior with the upper axial wall removed. The joystick plate (yellow), the stick and the PCB sit behind the lower facet.](images/complete-remote-v0.22-interior-iso.png)
+![V0.23 interior with the upper axial wall removed. The joystick plate (yellow), the stick and the PCB sit behind the lower facet.](images/complete-remote-v0.23-interior-iso.png)
 
-![V0.22 cover in its print orientation, on its axial face.](images/complete-remote-v0.22-print-cover.png)
+![V0.23 cover in its print orientation, on its axial face.](images/complete-remote-v0.23-print-cover.png)
 
-![V0.22 joystick parts in their print orientations: the plate on its sheet side with the two PCB standoffs up, the ball and disc on the disc, the knob on its top face, and the Ø3 × 12 mm steel pin (bought).](images/complete-remote-v0.22-print-joy.png)
+![V0.23 joystick parts in their print orientations: the plate on its sheet side with the two PCB standoffs up, the ball and disc on the disc, the knob on its top face, and the Ø3 × 12 mm steel pin (bought).](images/complete-remote-v0.23-print-joy.png)
 
-![V0.22 gasket unfolded flat: wall land on the upper facet, a full sheet with the stick hole on the lower facet.](images/complete-remote-v0.22-gasket-flat.png)
+![V0.23 gasket unfolded flat: wall land on the upper facet, a full sheet with the stick hole on the lower facet.](images/complete-remote-v0.23-gasket-flat.png)
 
-All images are direct OpenSCAD renders of the V0.22 file.
+All images are direct OpenSCAD renders of the V0.23 file. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb/README.md).
 
-## Changes from V0.21
+## Changes from V0.22
+
+The LCSC land pattern for the KSC222JLFS (C221728) puts its pads 0.95 mm outside the switch body, on two opposite sides. The V0.22 layout had not allowed for that.
+- **Switch orientation.** All four switches turn 90°. The pad rows of the up and down switches run along the facet; those of the two bar-axis switches run across it. The nearest pads of neighbouring switches are then 1.55 mm apart.
+- **Standoffs.** They move from (∓5.6, ±5.4) to (∓6.0, ±6.4) mm in the joystick frame, 0.55 mm clear of the switch pads.
+- **PCB outline.** A 20.6 × 22.4 mm rectangle with a 3.3 mm radius notch around each lower cover-screw boss. The boss ends reach 0.25 mm past the PCB front face, so the board must clear them. The CAD and the KiCad board use the same numbers.
+- **Rear zone.** 1.0 mm behind the whole board for solder joints, vias and screw heads, and 3.0 mm in the upper half and in the two side strips for the TVS diode (2.45 mm maximum), the PTC fuse and the soldered wires. The lower middle stays at 1.0 mm because a USB-C plug in the XIAO passes close behind it when the cover is off.
+- **PCB screws.** M2 × 8 button heads, at most Ø3.5 × 1.1 mm. A pan head (1.6 mm) would touch the 12 mm wide USB-C overmold envelope with the cover off.
+- **Power input.** The supply cable now goes to the joystick PCB, through a PTC fuse and a TVS diode, and the PCB feeds the XIAO's 5V pin.
+- **Firmware.** The specification now describes the four-switch chord as the centre press; D7 is unused. The diagnostic sketch still treats D7 as an optional centre switch.
+
+## V0.22 changes from V0.21, still current
 
 V0.21 replaced the joystick with four Ø7 mm keys. That direction was dropped, for three reasons:
 - Ø7 mm keys with 1.6 mm between them are too small for gloves; a reference guideline asks for at least Ø10 mm for a bare fingertip.
@@ -46,14 +59,14 @@ V0.22 keeps from V0.21 the sheet gasket and the plate that clamps it, and replac
   - The stick is a Ø3 × 12 mm steel dowel pin (ISO 8734). It passes through a Ø5.6 mm hole in the cover, and the sheet gasket grips it through a Ø2.4 mm hole. Steel is stronger than a printed Ø3 mm stick, and its smooth surface seals better against the sheet.
   - A printed Ø6 mm ball bears against the back edge of a Ø3.6 mm hole in the 1.5 mm joystick plate. That edge is the pivot, 7.0 mm behind the outer face. The pin is pressed into a bore through the ball and disc.
   - A cross disc, 1.2 mm thick, under the ball rests 0.05 mm above the actuators of four KSC2 switches. The switches are 6.75 mm from the axis, two along the facet (up toward button C, down) and two along the bar.
-  - The PCB screws to two standoffs on the plate. Its front face is 10.85 mm behind the outer face, and the rear solder space ends at 13.45 mm. The MHS body reached 16 mm.
+  - The PCB screws to two standoffs on the plate. Its front face is 10.85 mm behind the outer face; the rear zone ends at 13.45 mm, or 15.45 mm where the rear parts are (V0.23). The MHS body reached 16 mm.
   - The ball and disc are one printed part. The knob slides onto the pin from outside after assembly, and an M2 × 4 grub screw in a radial M2 heat-set insert clamps it. It comes off with a hex key; nothing is glued.
 - **Feel and limits.**
   - A direction trips at no more than 4.7° of tilt. At that point the knob top has moved at most 1.0 mm.
   - The knob rim meets the cover at 8.2° of tilt, and the hub at 0.7 mm of push. That is past the switches' 0.55 mm worst case (rest gap plus 0.5 mm maximum travel), so a hard press with a glove ends on the cover, not on the switches.
   - The disc has room to tilt 9.5° before it meets the plate.
   - The switches' own springs centre the stick and hold the ball on its seat. There is no separate spring.
-- **Centre press.** Pushing the stick straight in presses all four switches. The firmware reads that chord as the centre press and reports a direction only when a single switch is pressed. A fifth switch would have to sit on the axis, where the ball and disc are. The firmware specification still describes D7 as an optional centre switch; it needs updating for the chord.
+- **Centre press.** Pushing the stick straight in presses all four switches. The firmware reads that chord as the centre press (three or more switches within a short window) and otherwise reports the held directions. A fifth switch would have to sit on the axis, where the ball and disc are.
 - **Wider control end.** For X below −38 mm, which covers the cover, the buttons and the joystick, the pod is 26 mm wide with 2 mm axial walls, leaving a 22 mm cavity. A 45° chamfer of 1.5 mm per side (`pod_step`) joins it to the 23 mm part; the walls in the chamfer are at least 1.1 mm thick, and the chamfer faces up when the housing prints. The clamp ring, the shoulders and the XIAO area keep 23 mm with 1 mm walls. The 23 mm comes from the NAVCOMM manual's minimum free space on the bar between grip and switchgear. It applies to what sits on the bar, not to the control end 40–60 mm from the bar axis. The 2 mm walls give four perimeters instead of two, which seals and prints better. The cover screws stay 3.25 mm from the outer faces, so their bosses intrude 1 mm less into the cavity.
 - **Joystick plate.** It is the V0.21 keypad plate with a seat hole, a 0.6 mm pocket in front so the sheet can follow the stick, and 6.25 mm standoffs for the PCB. The four lower cover screws (M2 × 10) still clamp it and the sheet.
 
@@ -81,7 +94,7 @@ The OpenSCAD console reports these values; the boolean checks below were run on 
 | Check | Result |
 |---|---|
 | Button bodies vs housing, cover, gasket | No overlap |
-| Joystick switches and PCB vs housing, cover, gasket, stick | No overlap |
+| Joystick switches, pads and PCB with its rear zone vs housing, cover, gasket, stick | No overlap |
 | Joystick switches and PCB vs joystick plate | Contact only (PCB on the standoffs) |
 | Stick and knob vs cover, plate, housing at rest | No overlap; the ball touches its seat |
 | Stick vs gasket | 1.5 mm³ overlap by design: the Ø2.4 mm sheet hole is stretched over the Ø3 mm stick |
@@ -90,7 +103,8 @@ The OpenSCAD console reports these values; the boolean checks below were run on 
 | Pin vs ball and disc | 0.67 mm³ overlap by design: press fit in the Ø2.95 mm bore |
 | Stick and knob pushed to the knob stop (0.7 mm) | Clear of the plate, cover and housing |
 | Joystick plate vs housing, cover | No overlap; contact with the shortened bosses |
-| Plate, stick and PCB vs buttons, XIAO, XIAO slide-in path, USB-C plug, gland nut, vent | No overlap |
+| Plate, stick and PCB vs buttons, XIAO, XIAO slide-in path, gland nut, vent | No overlap |
+| PCB rear zone and screw heads vs USB-C plug (cover off) | Contact only (0.00 mm³) at the lower screw head |
 | Cover screws vs joystick, buttons, XIAO; countersinks vs knob | No overlap |
 | XIAO envelope vs housing | No overlap in place, and none along a 22 mm slide-in path |
 | Wiring space between button rear ends and XIAO component side | 5.5 mm |
@@ -104,12 +118,13 @@ The OpenSCAD console reports these values; the boolean checks below were run on 
 
 The tightest points are now:
 - the 1.4 mm behind the XIAO pins;
-- 0.35–0.55 mm between the PCB standoffs and the switch bodies (modelled at their 6.5 mm maximum);
+- the lower PCB screw head against the USB-C plug envelope with the cover off (contact). With a plug wider than 12 mm, lift the joystick plate out first; it is loose once the cover is off;
+- 0.55 mm between the PCB standoffs and the switch pads, and 0.3 mm between the PCB notches and the lower cover-screw bosses;
 - the stack that sets the 0.05 mm rest gap under the disc: switch height, printed plate, ball and disc, and the standoffs. If the stick rattles or a switch is pressed at rest, shim or sand under the PCB standoffs.
 
 ## Sealing
 
-V0.22 aims for rain and spray resistance, not an IP rating. It has not been tested.
+V0.23 aims for rain and spray resistance, not an IP rating. It has not been tested.
 
 1. **Buttons.** Use buttons rated for front-panel sealing (IP67 or better), with their panel gasket. This has not been verified for the APEM IS order codes; check the datasheets before buying.
 2. **Joystick.** The cover hole is open to the outside. The sheet gasket is the seal there: it is clamped all round the hole and grips the stick. A printed TPU sheet that flexes with every stick movement may tear or creep; a cast silicone sheet would last longer.
@@ -144,10 +159,10 @@ No part needs supports.
 
 1. Press the two M4 inserts into the housing split face and the ten M2 inserts into the housing screw bosses with a soldering iron.
 2. Mount the three buttons in the cover.
-3. Solder the four KSC2 switches to the joystick PCB.
-4. Push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the PCB onto the plate standoffs with two M2 × 8 thread-forming screws; the disc rests on the switches.
-5. Solder five wires from the joystick PCB to the XIAO: one per direction to D3–D6, and one to GND. Solder the button wires as before.
-6. Pass the power cable through the gland in the bottom end wall, and solder its wires to the XIAO 5V and GND pins. The USB-C plug cannot pass through an M8 gland.
+3. Solder the four KSC2 switches to the front of the joystick PCB, and the PTC fuse and TVS diode to the rear (or order the board assembled).
+4. Push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the PCB onto the plate standoffs with two M2 × 8 button-head screws (head at most Ø3.5 × 1.1 mm); the disc rests on the switches.
+5. Solder six wires from the rear pads of the joystick PCB to the XIAO: U, D, L, R to D3–D6, G to GND and 5V to the 5V pin. Lead them away from the top edge of the PCB. Solder the button wires as before.
+6. Pass the power cable through the gland in the bottom end wall, lead it along the side wall, and solder its wires to the VIN and GND pads on the rear of the joystick PCB. The USB-C plug cannot pass through an M8 gland.
 7. Slide the XIAO into the rails along +Y until it stops. Secure its free end with a drop of hot glue or silicone. Apply conformal coating to both boards.
 8. Stick the vent label inside over the vent hole.
 9. Lay the cover face down and the gasket on it, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the plate on the lower-facet sheet with its screw holes over the cover's.
@@ -167,15 +182,15 @@ To program over USB, remove the cover. Take the knob off first by loosening its 
 | M2 × 10 ISO 10642 countersunk screw (lower facet) | 4 |
 | M2 heat-set insert, about 4 mm long (hole Ø3.2 × 6 mm in CAD) | 10 |
 | C&K KSC2 sealed tact switch, 2 N, J-bend (for example KSC222JLFS) | 4 |
-| Joystick PCB, about 21 × 21 mm, 1.6 mm (not designed yet) | 1 |
-| M2 × 8 thread-forming screw for plastics (joystick PCB) | 2 |
+| [Joystick PCB](../electronics/joystick-pcb/README.md), 20.6 × 22.4 mm, 1.6 mm, with the Bourns MF-MSMF050-2 PTC fuse and Littelfuse SMBJ5.0A TVS diode | 1 |
+| M2 × 8 button-head screw, head at most Ø3.5 × 1.1 mm (joystick PCB) | 2 |
 | M8 × 1.25 IP68 cable gland for 3–5 mm cable | 1 |
 | Adhesive ePTFE vent label, about Ø10 mm, for a Ø3 mm hole | 1 |
 | Ø3 × 12 mm steel dowel pin, ISO 8734 (joystick stick) | 1 |
 | M2 × 4 grub screw and M2 heat-set insert (knob) | 1 each |
 | Conformal coating, neutral-cure silicone | small amounts |
 
-The KSC2 J-bend terminals sit under the switch body and are hard to solder with an iron. Use hot air or have the PCB assembled. The gull-wing version (`G`) is easier by hand. Its terminals stick out beyond the body; their overall length is not in the datasheet copy used here, so it has not been checked against the standoffs.
+The KSC2 J-bend terminals sit under the switch body. The LCSC land pattern used on the PCB extends 0.95 mm beyond the body, so a fine iron tip or hot air can reach the joints; having the board assembled is the easier option. The gull-wing version (`G`) has a different land pattern and does not fit this PCB.
 
 ## NAVCOMM reference
 
@@ -208,8 +223,8 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | Cover gasket | 0.6 mm compressed (0.8 mm printed or cut) | Upper facet: 1 mm on the walls, 4 mm with the lip, Ø6 mm around each screw. Lower facet: full sheet on the joystick plate, Ø2.4 mm hole stretched over the stick |
 | Pod width | 23 mm along the bar at the clamp and the rear of the pod; 26 mm for X < −38 mm | 23 mm from the NAVCOMM manual's minimum free space on the bar; the control end is 40–60 mm from the bar axis |
 | Joystick | Ø16 mm knob 5.5 mm proud, hub 0.7 mm and rim 1.15 mm above the cover; Ø3 × 12 mm steel pin; Ø6 mm ball on a Ø3.6 mm seat edge, pivot 7.0 mm behind the face; 1.2 mm cross disc 0.05 mm above four KSC2 at 6.75 mm | Trips at ≤ 4.7° tilt; knob stop at 8.2° or 0.7 mm push; disc room 9.5° |
-| Joystick plate | 1.5 mm, behind the sheet; Ø3.6 mm seat hole opening to Ø4.8 mm at the front; Ø10 × 0.6 mm sheet pocket; two Ø3.6 mm standoffs, 6.25 mm tall | Printed PETG; clamped by the four lower cover screws |
-| Joystick PCB | Front face 10.85 mm behind the outer face, 1.6 mm thick, 1 mm solder space behind | Not designed yet; outline is the hull of the switches and standoffs |
+| Joystick plate | 1.5 mm, behind the sheet; Ø3.6 mm seat hole opening to Ø4.8 mm at the front; Ø10 × 0.6 mm sheet pocket; two Ø3.6 mm standoffs, 6.25 mm tall, at (∓6.0, ±6.4) mm from the stick axis | Printed PETG; clamped by the four lower cover screws |
+| Joystick PCB | 20.6 × 22.4 mm with four R3.3 mm boss notches; front face 10.85 mm behind the outer face, 1.6 mm thick; rear zone 1.0 mm, 3.0 mm in the upper half and the side strips | KiCad design in electronics/joystick-pcb; switch land pattern from LCSC C221728 |
 | Cable entry | Ø8.2 mm hole in a 3 mm area of the bottom end wall | Seat for an M8 gland; verify after selecting the gland and cable |
 | Vent | Ø3 mm hole in the axial wall at the low end, Ø10 mm flat area inside | For an adhesive ePTFE vent; verify against the chosen vent |
 | USB cable jacket | 3–5 mm range candidate | Hummel M8 gland example; measure actual cable |
@@ -226,7 +241,7 @@ APEM's [IS series page](https://www.apem.com/panel-switches/pushbutton-switches/
 These are the only items that block a confident first print. Each is a parameter in the CAD.
 
 - **Buttons:** exact APEM IS order codes, sealing rating, nut sizes behind the panel, terminal length, and wire exit.
-- **Joystick:** the PCB is not designed yet. Measure the KSC2 height and the printed plate, ball and disc; together with the standoffs they set the 0.05 mm rest gap (`joy_rest_gap`). The feel (4.7° to trip, 2 N per direction, about 8 N for the centre chord) and the Ø16 mm knob need a check with gloves. The firmware must be changed to read the four-switch chord as the centre press.
+- **Joystick:** measure the KSC2 height and the printed plate, ball and disc; together with the standoffs they set the 0.05 mm rest gap (`joy_rest_gap`). The feel (4.7° to trip, 2 N per direction, about 8 N for the centre chord) and the Ø16 mm knob need a check with gloves. The diagnostic sketch still has to implement the four-switch chord.
 - **XIAO:** PCB thickness, header spacer height, pin length, and component height. Adjust `xiao_pcb`, `xiao_header_plastic`, `xiao_pin_length`, and `xiao_component_h`; the render stops if the pins reach the rear wall.
 - **Inserts:** hole diameters and depths for the actual M4 and M2 inserts.
 - **Handlebar and liner:** measured bar diameter, and the 0.8 mm clamping gap tuned to the printed TPU liner.
@@ -239,4 +254,4 @@ Not addressed by this concept: IP rating, impact, vibration, and fatigue strengt
 
 ## Earlier versions
 
-V0.1–V0.21 remain available for comparison. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.
+V0.1–V0.22 remain available for comparison. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.
