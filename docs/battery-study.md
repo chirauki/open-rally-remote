@@ -181,7 +181,7 @@ The remote is charged off the bike. The XIAO USB-C socket is inside the pod and 
 An earlier step of this branch used two bare brass contacts and a charging dock with spring pins. USB-C replaced them: it needs no dock, it only fits one way, and it is a standard. The contacts' only advantage was dropping the remote onto a dock without plugging a cable in.
 
 Points to solve:
-- **Part choice.** A receptacle rated IP67 when unplugged, sealed through its body, with a panel gasket. The CAD uses typical sizes until a part is chosen.
+- **Part choice.** GCT USB4736-GF-A with its USBTJ-06 gasket (kit USB4736-GF-A-KIT): 6 contacts, charge only, IP67 with the gasket. It is the only part found that is sealed and keeps the CC lines; it is not sold on Amazon. The V0.24 CAD follows GCT's recommended panel from its drawing.
 - **Sealing.** Pot the back of the receptacle and its PCB from inside as a second barrier.
 - **Two USB-C ports.** The XIAO's USB-C and the charging receptacle are the same VBUS net. Never connect both at once; with the cover off on the bench this is the user's care.
 
@@ -226,12 +226,12 @@ Made:
 2. Architecture A: the pouch on the XIAO `BAT` pad, charged on board.
 3. No bike wiring and no base contacts. The base is mechanical only.
 4. A sliding interrupted dovetail on a flat platform, with a spring-loaded M3 lock (V0.24). No saddle around the ring.
-5. A sealed, charge-only USB-C receptacle for charging, rather than contacts and a dock.
+5. A sealed, charge-only USB-C receptacle for charging, rather than contacts and a dock: GCT USB4736-GF-A-KIT.
 
 Still open, after the [measurements](#open-measurements):
 1. Pouch size: 6 mm (modelled) or 8 mm thick.
 2. The dovetail clearance and strip preload, on the first print.
-3. The USB-C receptacle part, and its real dimensions in the CAD.
+3. The small receptacle PCB.
 
 ## Sources
 
@@ -252,4 +252,5 @@ Still open, after the [measurements](#open-measurements):
   - [nRF52840 battery life estimation (Nordic DevZone)](https://devzone.nordicsemi.com/f/nordic-q-a/63521/nrf52840-battery-life-estimation);
   - [Current consumption for BLE nRF52840 (Nordic DevZone)](https://devzone.nordicsemi.com/f/nordic-q-a/122135/current-consumption-for-ble-nrf52840);
   - [Zephyr XIAO nRF52840 low power](https://github.com/qarnet/Zephyr-XIAO-nRF52840-Ultra-Low-Power).
+- GCT [USB4736 on DigiKey](https://www.digikey.com/en/products/detail/gct/USB4736-GF-A/26795947) (6 contacts, charge only, IP67) the [USB4736 drawing via SnapEDA](https://www.snapeda.com/parts/USB4736-GF-A/Global%20Connector%20Technology/datasheet/), and the [USBTJ-06 gasket datasheet](https://www.farnell.com/datasheets/4553239.pdf).
 - [Remotek One](https://www.remotek.no/product-page/remote1) (CR2450, "will last for years"; no current or interval published).

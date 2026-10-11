@@ -148,18 +148,33 @@ lock_knob_h = 6.0;
 lock_screw_length = 20.0;    // M3 x 20; MEASURE with the knob insert and nut
 
 // --- Charging: sealed USB-C receptacle in the rear face ---------------------------------
-// A charge-only (6-contact) IP67 USB-C receptacle on a small PCB that carries the two 5.1 kohm
-// CC pull-downs, so USB-C chargers supply 5 V. Its front sits flush with the rear face, above
-// the groove, where the platform covers it on the bike. Its panel gasket bears on a land
-// thinned from inside to usbc_panel_t. VBUS and GND go to the joystick PCB input.
-// All sizes are typical values: MEASURE the chosen part.
-usbc_y = 29.5;               // centre of the opening; long side along the bar
-usbc_shell = [8.94,3.26];    // receptacle shell, along Z and Y
-usbc_slot_clear = 0.15;      // all round the shell
-usbc_gasket = [10.8,5.2];    // panel gasket outline, along Z and Y
-usbc_panel_t = 1.5;          // wall at the receptacle
-usbc_body_len = 7.5;         // shell and body behind the front face
-usbc_pcb = [14.0,12.0,1.6];  // breakout PCB inside the cavity, under the shell: along Z, along X, thickness
+// GCT USB4736-GF-A: a charge-only (6-contact) USB-C receptacle, top mount, horizontal, IP67 with
+// its USBTJ-06 silicone gasket (kit USB4736-GF-A-KIT). It sits on a small PCB that carries the
+// two 5.1 kohm CC pull-downs, so USB-C chargers supply 5 V. VBUS and GND go to the joystick PCB
+// input. It sits above the groove, where the platform covers it on the bike.
+// Dimensions from GCT drawing USB4736, revision A, 9 April 2025:
+//   - recommended panel: 1.80 mm thick; through slot 9.14 x 3.36 mm, R1.43; on the inside a
+//     gasket pocket 11.00 x 5.90 mm, R1.60, 0.60 mm deep;
+//   - gasket USBTJ-06: 10.64 x 4.86 x 0.90 mm, R1.60; compress 35-45 % (0.315 mm minimum);
+//   - receptacle: nose 8.94 x 3.16 mm, 1.20 mm long; body 9.99 wide, 4.61 mm above the PCB,
+//     8.60 mm long overall; shell axis 2.38 mm above the PCB; PCB 1.20 mm thick.
+// The wall is thinned from inside to the 1.80 mm panel over a clearance pocket for the body
+// and the PCB.
+usbc_y = 29.5;               // shell axis; long side along the bar
+usbc_panel_t = 1.80;
+usbc_slot = [9.14,3.36];     // along Z, along Y
+usbc_slot_r = 1.43;
+usbc_pocket = [11.00,5.90];
+usbc_pocket_r = 1.60;
+usbc_pocket_depth = 0.60;
+usbc_gasket = [10.64,4.86];
+usbc_gasket_t = 0.90;
+usbc_gasket_r = 1.60;
+usbc_nose = [8.94,3.16,1.20];   // along Z, along Y, along X
+usbc_body = [9.99,4.61,8.60];   // width, height above the PCB, overall length
+usbc_axis_h = 2.38;          // shell axis above the PCB top
+usbc_pcb = [14.0,12.0,1.20]; // breakout PCB inside the cavity: along Z, along X, thickness
+usbc_squeeze = 0.37;         // gasket compression, about 41 %
 usbc_plug = [12.4,6.5,20.0]; // cable plug overmold envelope: along Z, along Y, length
 
 // --- LiPo pouch, fixed (MEASURE the bought cell) -----------------------------------------
@@ -603,14 +618,21 @@ module lock_hole() {
     at_x_minus(rear_x+0.1,lock_y,axial_width/2) cylinder(d=lock_hole_d,h=rear_x+0.1-lock_hole_bottom_x);
 }
 
-// Slot through the rear wall for the receptacle shell, and the land for its gasket.
+// Rounded rectangle centred on the origin, w along Z (local X here) and h along Y.
+module rrect_2d(w,h,r) { offset(r=r) square([w-2*r,h-2*r],center=true); }
+
+// USB-C panel features cut into the rear wall, following GCT's recommended panel.
+// Local frame at the outer face on the shell axis: +Z points into the remote (-X global).
+module at_usbc(x=rear_x) { translate([x,usbc_y,axial_width/2]) rotate([0,-90,0]) children(); }   // local X = Z, local Y = Y
 module usbc_cuts() {
-    zc = axial_width/2;
-    translate([rear_x-usbc_panel_t-0.01,usbc_y,zc]) {
-        translate([-0.1,-usbc_shell[1]/2-usbc_slot_clear,-usbc_shell[0]/2-usbc_slot_clear])
-            cube([usbc_panel_t+0.3,usbc_shell[1]+2*usbc_slot_clear,usbc_shell[0]+2*usbc_slot_clear]);
-        translate([-(rear_x-usbc_panel_t-pod_cavity_x1)-0.5,-usbc_gasket[1]/2,-usbc_gasket[0]/2])
-            cube([rear_x-usbc_panel_t-pod_cavity_x1+0.5,usbc_gasket[1],usbc_gasket[0]]);
+    clear_y0 = -usbc_axis_h-usbc_pcb[2]-1.5;      // below the PCB, for its parts
+    clear_y1 = usbc_body[1]-usbc_axis_h+0.4;
+    at_usbc(rear_x+0.1) {
+        linear_extrude(height=usbc_panel_t+0.2) rrect_2d(usbc_slot[0],usbc_slot[1],usbc_slot_r);
+        translate([0,0,0.1+usbc_panel_t-usbc_pocket_depth])
+            linear_extrude(height=usbc_pocket_depth+0.01) rrect_2d(usbc_pocket[0],usbc_pocket[1],usbc_pocket_r);
+        translate([0,0,0.1+usbc_panel_t]) linear_extrude(height=10)
+            translate([-usbc_pcb[0]/2-0.5,clear_y0]) square([usbc_pcb[0]+1,clear_y1-clear_y0]);
     }
 }
 
@@ -925,18 +947,22 @@ module pouch_envelope() {
         cube([pouch_x1-pouch_x0,pouch_l+2*pouch_clear,pouch_w+2*pouch_clear]);
 }
 
-// USB-C receptacle, gasket and breakout PCB inside the rear wall.
+// USB-C receptacle, compressed gasket and breakout PCB, in place.
 module usbc_envelope() {
-    zc = axial_width/2;
-    color([0.75,0.75,0.78]) translate([rear_x-usbc_body_len,usbc_y-usbc_shell[1]/2,zc-usbc_shell[0]/2])
-        cube([usbc_body_len,usbc_shell[1],usbc_shell[0]]);
-    color([0.15,0.15,0.15]) translate([pod_cavity_x1-0.4,usbc_y-usbc_gasket[1]/2+0.1,zc-usbc_gasket[0]/2+0.1])
-        cube([rear_x-usbc_panel_t-pod_cavity_x1+0.4,usbc_gasket[1]-0.2,usbc_gasket[0]-0.2]);
-    color([0.15,0.48,0.32]) translate([pod_cavity_x1-0.2-usbc_pcb[1],usbc_y-usbc_shell[1]/2-usbc_pcb[2],zc-usbc_pcb[0]/2])
-        cube([usbc_pcb[1],usbc_pcb[2],usbc_pcb[0]]);
-    // resistors and solder joints under the PCB
-    color([0.3,0.3,0.3]) translate([pod_cavity_x1-0.2-usbc_pcb[1],usbc_y-usbc_shell[1]/2-usbc_pcb[2]-1.0,zc-usbc_pcb[0]/2+0.5])
-        cube([usbc_pcb[1],1.0,usbc_pcb[0]-1.0]);
+    nose_back = usbc_panel_t-usbc_pocket_depth+usbc_gasket_t-usbc_squeeze;  // from the outer face
+    at_usbc() {
+        color([0.75,0.75,0.78]) translate([0,0,nose_back-usbc_nose[2]])
+            linear_extrude(height=usbc_nose[2]) rrect_2d(usbc_nose[0],usbc_nose[1],1.5);   // rounded shell ends
+        color([0.15,0.15,0.15]) translate([0,0,usbc_panel_t-usbc_pocket_depth])
+            linear_extrude(height=nose_back-(usbc_panel_t-usbc_pocket_depth))
+                difference() { rrect_2d(usbc_gasket[0],usbc_gasket[1],usbc_gasket_r); rrect_2d(usbc_nose[0],usbc_nose[1],1.5); }
+        color([0.2,0.2,0.2]) translate([-usbc_body[0]/2,-usbc_axis_h,nose_back])
+            cube([usbc_body[0],usbc_body[1],usbc_body[2]-usbc_nose[2]]);
+        color([0.15,0.48,0.32]) translate([-usbc_pcb[0]/2,-usbc_axis_h-usbc_pcb[2],usbc_panel_t+0.05])
+            cube([usbc_pcb[0],usbc_pcb[2],usbc_pcb[1]]);
+        color([0.3,0.3,0.3]) translate([-usbc_pcb[0]/2+0.5,-usbc_axis_h-usbc_pcb[2]-1.0,usbc_panel_t+0.05])
+            cube([usbc_pcb[0]-1,1.0,usbc_pcb[1]]);
+    }
 }
 
 // Cable plug in the receptacle (remote off the base).
