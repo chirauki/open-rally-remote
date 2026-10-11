@@ -1,5 +1,7 @@
 # Open Rally Remote
 
+> **Designed entirely with AI.** This project, including its requirements, CAD models, electronics, firmware and documentation, has been designed with AI assistants (ChatGPT and Claude). Review it accordingly before building or riding with it.
+
 An open-source Bluetooth handlebar remote for motorcycle navigation and digital roadbooks. The project aims to keep the unit compact, rugged, affordable, and buildable one unit at a time by individual makers.
 
 ## Project status
