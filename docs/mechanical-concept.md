@@ -1,18 +1,36 @@
-# Complete Mechanical CAD — V0.23 Joystick PCB
+# Complete Mechanical CAD — V0.24 Removable Remote
 
-V0.23 fits the V0.22 joystick to a real PCB, now designed in KiCad: the [joystick PCB](../electronics/joystick-pcb/README.md) carries the four switches and the 5 V input protection. The housing, cover, gasket, stick and knob are unchanged from V0.22; the joystick plate's standoffs moved. The changes are listed under [Changes from V0.22](#changes-from-v022).
+V0.24 makes the remote removable and battery powered, following the [battery study](battery-study.md) and issue #1. A base stays clamped on each bike; the remote slides onto it on an interrupted dovetail and is held by a spring-loaded lock. A fixed LiPo pouch powers it, and it is charged off the bike through two contacts on its back. Everything in front of the remote's rear face is the V0.23 pod, unchanged. The changes are listed under [Changes from V0.23](#changes-from-v023).
 
-V0.22 put a joystick back on the lower facet, built from low-cost parts, and widened the control end of the pod from 23 to 26 mm. The clamp ring and the rear of the pod stay 23 mm wide along the bar.
+V0.23 fitted the V0.22 joystick to a real PCB, designed in KiCad: the [joystick PCB](../electronics/joystick-pcb/README.md) carries the four switches and the 5 V input protection. V0.22 put a joystick back on the lower facet, built from low-cost parts, and widened the control end of the pod from 23 to 26 mm. The base and the rear of the pod stay 23 mm wide along the bar.
 
 The joystick is a steel pin with a printed ball. The ball pivots against a seat in a printed joystick plate. Under the ball, a cross-shaped disc rests on four C&K KSC2 sealed tact switches, whose springs centre the stick. Tilting the stick presses one switch; pushing it straight in presses all four, which the firmware reads as the centre press. The parts cost a few euros. The Ruffy MHS of V0.20 was listed at about £149, and the APEM NV, the closest commercial alternative found, at $143.
 
-All printed housing parts are still slices of one outer solid: the convex hull of the pod outline and the Ø44 mm clamp circle, 23 mm wide along the bar, plus the 26 mm control end. Offsets of the folded front cut the cover and gasket from it; the diametral clamp split cuts the cap. Supplier and purchase unknowns remain open and are listed at the end; they are marked `MEASURE` in the CAD.
+The remote's printed parts are slices of one outer solid: the pod outline cut flat at the rear face, 23 mm wide along the bar, plus the 26 mm control end. Offsets of the folded front cut the cover and gasket from it. The base is two separate halves split through the bar axis. Supplier and purchase unknowns remain open and are listed at the end; they are marked `MEASURE` in the CAD.
 
 The remote mounts on the left side of the bar only, never the right. The turn-signal switch that the folded front clears is on the left switchgear.
 
-**Current parametric concept:** [complete-remote-v0.23.scad](../mechanical/cad/complete-remote-v0.23.scad)
+**Current parametric concept:** [complete-remote-v0.24.scad](../mechanical/cad/complete-remote-v0.24.scad)
 
-![V0.23 assembly, isometric view from the control side.](images/complete-remote-v0.23-iso.png)
+![V0.24 on its base, from the control side.](images/complete-remote-v0.24-iso.png)
+
+![V0.24 on its base, from behind the bar: the base platform under the remote's rear face, and the lock knob below the clamp ring.](images/complete-remote-v0.24-rear.png)
+
+![V0.24 entry position: the remote held off the platform, 9 mm below its working position, with the lock knob pulled. The groove's wide openings line up with the two rail segments.](images/complete-remote-v0.24-entry.png)
+
+![V0.24 fitting and removal, animated. Left: pull the knob, press the remote onto the platform 9 mm low, slide it up to the stop, release the knob; then pull the knob, slide down and lift off. Right: the same, cut at mid-width and seen along the bar, with the rails in the groove and the lock head (orange) in its hole.](images/complete-remote-v0.24-fit.gif)
+
+![V0.24 base on the bar: the clamp ring, the platform with two dovetail rail segments, the two black TPU anti-rattle strips, and the lock screw head below the rails.](images/complete-remote-v0.24-base.png)
+
+![V0.24 remote seen from the bar side: the rear face with the lock hole (left), the interrupted dovetail groove (centre) and the two charge contacts (right).](images/complete-remote-v0.24-back.png)
+
+![V0.24 dovetail section through the lower rail: the 45-degree rail on the base (right) inside the groove in the remote's rear wall (left), and the TPU strips either side, drawn at their uncompressed thickness.](images/complete-remote-v0.24-dovetail.png)
+
+![V0.24 section through the middle of the pod and the base.](images/complete-remote-v0.24-section.png)
+
+![V0.24 interior with the upper axial wall removed: the LiPo pouch envelope (red) in the lower rear of the cavity, below the XIAO; the charge contacts at the top of the rear wall.](images/complete-remote-v0.24-interior.png)
+
+The control end is unchanged from V0.23. These V0.23 renders still show it:
 
 ![V0.23 joystick knob on the lower facet, between the four lower cover screws. The engraved cross shows the four directions.](images/complete-remote-v0.23-joy.png)
 
@@ -22,21 +40,58 @@ The remote mounts on the left side of the bar only, never the right. The turn-si
 
 ![V0.23 section through the joystick axis, drawn with the cover at the bottom: knob, cover, sheet gasket gripping the stick, joystick plate with the ball seat, ball and cross disc, switches, PCB on its standoffs, and the rear component zone behind it.](images/complete-remote-v0.23-joy-section.png)
 
-![V0.23 section through the middle of the pod.](images/complete-remote-v0.23-section.png)
-
-![V0.23 from the back and below: the 45° chamfer between the 26 mm control end and the 23 mm clamp.](images/complete-remote-v0.23-rear.png)
-
-![V0.23 interior with the upper axial wall removed. The joystick plate (yellow), the stick and the PCB sit behind the lower facet.](images/complete-remote-v0.23-interior-iso.png)
-
 ![V0.23 cover in its print orientation, on its axial face.](images/complete-remote-v0.23-print-cover.png)
 
 ![V0.23 joystick parts in their print orientations: the plate on its sheet side with the two PCB standoffs up, the ball and disc on the disc, the knob on its top face, and the Ø3 × 12 mm steel pin (bought).](images/complete-remote-v0.23-print-joy.png)
 
 ![V0.23 gasket unfolded flat: wall land on the upper facet, a full sheet with the stick hole on the lower facet.](images/complete-remote-v0.23-gasket-flat.png)
 
-All images are direct OpenSCAD renders of the V0.23 file. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb/README.md).
+All images are direct OpenSCAD renders of the V0.24 or V0.23 file. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb/README.md).
 
-## Changes from V0.22
+## Changes from V0.23
+
+### Base and remote
+
+- **Base.** The clamp ring stays on the bar: two halves split through the bar axis, two M4 × 16 bolts, M4 inserts in the front half, a 1 mm TPU liner. Its outside grows from Ø44 to Ø46 mm, and the bolts move from ±17 to ±18.5 mm, so the same layout suits a 25.4 mm bore. In front of the bar the base is cut flat at X = −17.2 mm (`platform_x`), 3.5 mm in front of the 25.4 mm bore with its liner. That flat platform runs from Y = −36 to +27 mm.
+- **Bar sizes.** One base per bar size: `bar_diameter` = 22.2 (7/8 in) or 25.4 (1 in). The bore changes; nothing that meets the remote does. Tapered 28.6 mm bars come down to 22.2 mm at the controls.
+- **Remote.** The V0.23 pod without the ring and the shoulders, cut flat at X = −17.4 mm (`rear_x`). The cavity's rear wall moves from X = −22 to −21.2 mm, which gives the XIAO pins 2.2 mm instead of 1.4 mm.
+
+### Why a sliding dovetail, not a bayonet around the bar
+
+The [battery study](battery-study.md) first proposed a bayonet turning around the bar. Modelling showed that the clamp bolts at about ±17 mm stand where the remote's saddle would have to turn: the remote could only turn through about ±25°, with short lugs. A dovetail that slides along the pod's long axis keeps clear of the bolts, needs no ring around the bar inside the remote, and leaves the pod where it was.
+
+### Dovetail and fitting
+
+- **Rails.** Two 8 mm rail segments on the platform, at Y = −12.5 to −4.5 and 4.5 to 12.5 mm, with a 9 mm gap. Each is 10 mm wide at the platform and 15 mm at its top, 2.5 mm high, with 45° flanks.
+- **Groove.** In the remote's rear face, the dovetail grown by 0.2 mm (`dt_c`). Two 7 mm lip segments hold the rails. Between and beyond the lips the opening is as wide as the rail heads.
+- **Fitting.**
+  1. Pull the lock knob.
+  2. Hold the remote 9 mm (`slide`) below its working position and press it onto the platform; the rails pass through the wide openings.
+  3. Slide it up (+Y) until the lower rail meets the closed end of the groove. The lock drops into its hole.
+- **Removal.** Pull the knob, slide the remote 9 mm down, and lift it off.
+- **Loads.**
+  - Button presses push the remote onto the platform.
+  - A joystick push has an upward component (sin 20° of the push, from the 20° lower facet), which drives the remote against the stop.
+  - Pulls away from the platform load the dovetail lips.
+  - Only forces that slide the remote down load the lock: tilting the joystick down, shocks, and gravity, depending on how the unit is mounted.
+- **Anti-rattle.** Two TPU strips, 4 × 50 mm, sit in 0.6 mm pockets on the platform either side of the rails and stand 0.8 mm proud. They push the remote off the platform until the dovetail flanks seat, with the rear face 0.48 mm off the platform, which leaves the strips about 0.3 mm compressed. A firm press moves the remote back onto the platform by up to 0.48 mm. Whether that feels loose on the buttons needs a test.
+
+### Lock
+
+- An M3 × 20 ISO 4762 screw is the lock pin: its Ø5.5 × 3 mm head runs in a Ø6 mm pocket in the platform at Y = −30 mm, below the clamp ring and clear of the lower bolt.
+- A compression spring under the head pushes it 2 mm out of the platform, into a Ø5.8 mm hole in the remote's rear face. A positive stop, not a detent: the remote cannot slide down until the head is pulled in.
+- The shank runs back through the base to a Ø12 mm printed knob with an M3 insert, locked by a nut. The knob rests on the back of the platform block (X = −5 mm) and sets how far the head stands out.
+- Pulling the knob 2 mm pulls the head flush. When the remote is pressed on at the entry position, its rear face pushes the head in; the head springs out when the hole comes over it.
+- Only 1 mm of the head stays in its pocket when locked. The shank, guided over 5 mm in the base, takes the moment.
+
+### Battery, charging and vent
+
+- **LiPo pouch.** A fixed pouch in the lower rear of the cavity, below the XIAO and behind the USB-C plug zone: envelope X = −29 to −22, Y = −33.5 to −2.5 mm, 21 mm along the bar. It takes a 6 × 20 × 30 mm pouch (602030, about 300 mAh in listings, not verified) with 0.5 mm all round. That space was free in V0.23 apart from the cable route; the earlier fit search had excluded everything below the fold. The pouch is held with foam tape and wired to the XIAO `BAT` pads.
+- **Charge contacts.** Two M2 brass heat-set inserts through the 3.8 mm rear wall, at Y = 24.5 mm and 3.5 mm from each axial face. They are above the groove, so the platform (to Y = +27 mm) covers them on the bike. Inside, M2 × 4 screws hold the wire ring tags; the wires go to the joystick PCB 5 V input, through its PTC fuse and TVS diode. A charging dock, a base-shaped block with two spring pins and a USB-C input, is not modelled yet.
+- **No cable gland.** The bike cable, the gland and its lock nut are gone.
+- **Vent.** It moves from the axial wall to the bottom end wall at X = −32 mm, where the gland was, so the pouch does not cover it.
+
+## V0.23 changes from V0.22, still current
 
 The LCSC land pattern for the KSC222JLFS (C221728) puts its pads 0.95 mm outside the switch body, on two opposite sides. The V0.22 layout had not allowed for that.
 - **Switch orientation.** All four switches turn 90°. The pad rows of the up and down switches run along the facet; those of the two bar-axis switches run across it. The nearest pads of neighbouring switches are then 1.55 mm apart.
@@ -44,7 +99,7 @@ The LCSC land pattern for the KSC222JLFS (C221728) puts its pads 0.95 mm outside
 - **PCB outline.** A 20.6 × 22.4 mm rectangle with a 3.3 mm radius notch around each lower cover-screw boss. The boss ends reach 0.25 mm past the PCB front face, so the board must clear them. The CAD and the KiCad board use the same numbers.
 - **Rear zone.** 1.0 mm behind the whole board for solder joints, vias and screw heads, and 3.0 mm in the upper half and in the two side strips for the TVS diode (2.45 mm maximum), the PTC fuse and the soldered wires. The lower middle stays at 1.0 mm because a USB-C plug in the XIAO passes close behind it when the cover is off.
 - **PCB screws.** M2 × 8 button heads, at most Ø3.5 × 1.1 mm. A pan head (1.6 mm) would touch the 12 mm wide USB-C overmold envelope with the cover off.
-- **Power input.** The supply cable now goes to the joystick PCB, through a PTC fuse and a TVS diode, and the PCB feeds the XIAO's 5V pin.
+- **Power input.** The 5 V input goes to the joystick PCB, through a PTC fuse and a TVS diode, and the PCB feeds the XIAO's 5V pin. In V0.24 that input comes from the charge contacts instead of the bike cable.
 - **Firmware.** The specification now describes the four-switch chord as the centre press; D7 is unused. The diagnostic sketch implements the chord; a separate centre switch on D7 remains as a build option for the breadboard.
 
 ## V0.22 changes from V0.21, still current
@@ -85,13 +140,35 @@ V0.22 keeps from V0.21 the sheet gasket and the plate that clamps it, and replac
 - **Cover gasket.** 0.6 mm when compressed: printed 0.8 mm thick in a soft TPU, or cut from 0.8–1 mm silicone or EPDM sheet using the flat model as a template. On the upper facet the housing land is the wall plus a 3 mm lip inside both axial walls, and a Ø6 mm pad around every screw.
 - **Cover screws.** Ten countersunk M2 screws in pairs at five positions. The largest spacing along the perimeter is 21.8 mm.
 - **Cover printing.** The cover prints on its axial face, because the fold would need support face down.
-- **Cable gland.** In the bottom end wall at X = −32 mm. `cable_at_bottom = false` moves it to the top end wall.
-- **Vent.** A Ø3 mm hole in the Z = 0 axial wall at the low end takes an adhesive ePTFE vent label inside.
+- **Cable gland.** Removed in V0.24; it was in the bottom end wall at X = −32 mm.
+- **Vent.** In V0.24, a Ø3 mm hole in the bottom end wall at X = −32 mm takes an adhesive ePTFE vent label inside.
 - **XIAO.** At Y = 10 mm, so a USB-C plug clears the lower screw bosses when the cover is off.
 
 ## Interior space check
 
-The OpenSCAD console reports these values; the boolean checks below were run on the rendered meshes.
+The OpenSCAD console reports these values; the boolean checks below were run on the rendered meshes. The V0.24 checks cover the base, the dovetail, the lock, the pouch and the contacts. The control-end checks were run on V0.23 and not repeated: nothing in front of the remote's rear face changed except the rear wall, which moved 0.8 mm away from the controls.
+
+V0.24:
+
+| Check | Result |
+|---|---|
+| Remote vs base front, base cap, liners, bolts, lock (locked) | No overlap |
+| Remote at the entry position, pressed on (lock pushed flush) | No overlap with the base |
+| Remote at the entry position, 1 and 1.5 mm before it reaches the platform | No overlap: the rails pass through the wide openings |
+| Remote part way along the slide (2, 4.5 and 7 mm from the stop) | No overlap with the base or the flush lock |
+| TPU strips vs remote | Overlap by design: the strips are compressed |
+| Lock knob vs base and bolts, locked and pulled | Contact only, where it rests on the platform block |
+| Pouch envelope vs housing, XIAO, USB-C plug (cover off), joystick, cover bosses, contacts, vent label | No overlap |
+| Charge-contact inserts and ring tags vs housing, XIAO, its rails, cover bosses | No overlap |
+| XIAO envelope vs housing | No overlap in place, nor 11 and 22 mm along its slide-in path |
+| XIAO pin tips to cavity rear wall | 2.2 mm |
+| Groove floor to cavity; lock hole bottom to cavity | 1.3 mm; 1.6 mm |
+| Platform in front of the 25.4 mm bore with its liner | 3.5 mm |
+| M4 bolt hole to the 25.4 mm bore; insert hole to the base outside | 2.65 mm; 1.7 mm |
+| 25.4 mm base variant: remote vs base | No overlap |
+| Housing, base front, base cap | Each one closed solid |
+
+V0.23, control end, unchanged:
 
 | Check | Result |
 |---|---|
@@ -105,92 +182,112 @@ The OpenSCAD console reports these values; the boolean checks below were run on 
 | Pin vs ball and disc | 0.67 mm³ overlap by design: press fit in the Ø2.95 mm bore |
 | Stick and knob pushed to the knob stop (0.7 mm) | Clear of the plate, cover and housing |
 | Joystick plate vs housing, cover | No overlap; contact with the shortened bosses |
-| Plate, stick and PCB vs buttons, XIAO, XIAO slide-in path, gland nut, vent | No overlap |
 | PCB rear zone and screw heads vs USB-C plug (cover off) | Contact only (0.00 mm³) at the lower screw head |
 | Cover screws vs joystick, buttons, XIAO; countersinks vs knob | No overlap |
-| XIAO envelope vs housing | No overlap in place, and none along a 22 mm slide-in path |
 | Wiring space between button rear ends and XIAO component side | 5.5 mm |
-| XIAO pin tips to cavity rear wall | 1.4 mm |
-| USB-C plug (12 × 6.5 × 25 mm overmold) with the cover off | Clear of the housing and the gland nut |
-| Gland lock nut (Ø15 × 4 mm envelope); vent label area | Contact only with the housing faces they sit on |
-| Wall around the M2 and M4 insert holes | At least 0.8 mm and 1.2 mm |
-| Cover vs housing; gasket vs cover and housing; cap vs housing | Contact only, no overlap |
-| Bar and liner (Ø24 mm) leaving the body toward the cap side | Clear |
-| Each printed part | One closed solid |
+| Cover vs housing; gasket vs cover and housing | Contact only, no overlap |
 
 The tightest points are now:
-- the 1.4 mm behind the XIAO pins;
+- the 0.2 mm dovetail clearance (`dt_c`). Printed tolerances decide whether the remote slides on freely or rattles; the strips take up some play, but the first print may need `dt_c` adjusted;
+- 1 mm of the lock head left in its pocket when locked;
 - the lower PCB screw head against the USB-C plug envelope with the cover off (contact). With a plug wider than 12 mm, lift the joystick plate out first; it is loose once the cover is off;
 - 0.55 mm between the PCB standoffs and the switch pads, and 0.3 mm between the PCB notches and the lower cover-screw bosses;
 - the stack that sets the 0.05 mm rest gap under the disc: switch height, printed plate, ball and disc, and the standoffs. If the stick rattles or a switch is pressed at rest, shim or sand under the PCB standoffs.
 
 ## Sealing
 
-V0.23 aims for rain and spray resistance, not an IP rating. It has not been tested.
+V0.24 aims for rain and spray resistance, not an IP rating. It has not been tested.
 
 1. **Buttons.** Use buttons rated for front-panel sealing (IP67 or better), with their panel gasket. This has not been verified for the APEM IS order codes; check the datasheets before buying.
 2. **Joystick.** The cover hole is open to the outside. The sheet gasket is the seal there: it is clamped all round the hole and grips the stick. A printed TPU sheet that flexes with every stick movement may tear or creep; a cast silicone sheet would last longer.
-3. **Cover joint.** The gasket and ten screws. On the lower facet the sheet is clamped over the whole facet. Elsewhere the land is now the 2 mm wall of the wide part.
-4. **Cable.** An IP68 M8 gland matched to the cable diameter. Seal the outer thread with neutral-cure silicone.
-5. **Vent.** An adhesive ePTFE vent label over the Ø3 mm hole, inside. Without it, temperature cycles pump humid air into a sealed box, and the water condenses inside. Mount the unit so the vent faces down or sideways, not into spray.
-6. **Electronics.** Coat the XIAO, the joystick PCB and all solder joints with conformal coating (acrylic or silicone). Keep it off the USB-C socket, the switch actuators, and the vent membrane.
-7. **Printed walls.** The narrow rear part still has 1 mm walls, only two perimeters with a 0.4 mm nozzle, and FDM layers can leak. Print PETG hot and slow for good layer bonding, or seal the outside with a thin coat of epoxy or lacquer.
+3. **Cover joint.** The gasket and ten screws. On the lower facet the sheet is clamped over the whole facet. Elsewhere the land is the 2 mm wall of the wide part.
+4. **Charge contacts.** The two brass inserts pass through the rear wall. Pot them from inside with epoxy around the inserts and the ring tags. The groove and the lock hole are blind and do not open into the cavity.
+5. **Vent.** An adhesive ePTFE vent label over the Ø3 mm hole in the bottom end wall, inside. Without it, temperature cycles pump humid air into a sealed box, and the water condenses inside. Mount the base so the vent faces down or sideways, not into spray.
+6. **Electronics.** Coat the XIAO, the joystick PCB and all solder joints with conformal coating (acrylic or silicone). Keep it off the USB-C socket, the switch actuators, the pouch, and the vent membrane.
+7. **Printed walls.** The narrow rear part still has 1 mm axial walls, only two perimeters with a 0.4 mm nozzle, and FDM layers can leak. Print PETG hot and slow for good layer bonding, or seal the outside with a thin coat of epoxy or lacquer.
 
 ## Printing
 
 | Part | Mode | Orientation | Material (suggested) |
 |---|---|---|---|
 | Housing | `print_housing` | Upper facet on the bed | PETG or ASA |
-| Clamp cap | `print_cap` | Axial face on the bed | PETG or ASA |
+| Base front | `print_base_front` | Axial face on the bed | PETG or ASA |
+| Base cap | `print_base_cap` | Axial face on the bed | PETG or ASA |
+| Lock knob | `print_lock_knob` | Flat face on the bed | PETG |
 | Control cover | `print_cover` | Axial face on the bed | PETG or ASA |
 | Joystick plate | `print_joy_plate` | Sheet side on the bed | PETG |
 | Ball and disc | `print_ball_disc` | Disc on the bed | PETG |
 | Knob | `print_knob` | Top face on the bed | PETG or ASA |
 | Gasket | `print_gasket` | Flat, 0.8 mm | Soft TPU (85A or softer), or cut from silicone/EPDM sheet |
 | Liners ×2 | `liner_main`, `liner_cap` | Axial face on the bed | TPU 95A |
+| Anti-rattle strips ×2 | not modelled as print parts | 4 × 50 × 1.4 mm | TPU, or cut from rubber sheet |
 
 No part needs supports.
-- **Housing:** the walls are vertical, the lower facet is an open edge in the air, the lower screw bosses lean 20°, and the cavity's rear wall bridges 21 mm. The XIAO rails have 45° chamfers. It stands on its thin front rim, so use a brim.
+- **Housing:** the walls are vertical, the lower facet is an open edge in the air, the lower screw bosses lean 20°, and the cavity's rear wall bridges 21 mm. The XIAO rails have 45° chamfers. The groove is at the top: its lips narrow upward at 45°, and the lock and contact holes open upward. It stands on its thin front rim, so use a brim.
+- **Base front:** the rail flanks are at 45° to the bed. The lock pocket and the bolt holes run horizontally and are small enough to bridge.
 - **Cover:** the Ø5 mm stick hole is small enough to bridge. It stands on a 2.5 mm edge, so use a brim.
 - **Ball and disc:** the ball above the disc narrows upward. Test the press fit of the pin in the Ø2.95 mm bore (`pin_bore`) before assembly.
 - **Knob:** the radial insert hole is horizontal and small enough to bridge.
-- **Inserts:** use 100% infill or at least four perimeters around the M4 insert holes.
+- **Inserts:** use 100% infill or at least four perimeters around the M4 insert holes and the rails.
 - **Gasket:** TPU 95A is probably too hard to seal at 0.2 mm compression; prefer a softer TPU or a cut sheet gasket. If you cut the sheet, punch the Ø2.4 mm stick hole.
 
 ## Assembly
 
-1. Press the two M4 inserts into the housing split face and the ten M2 inserts into the housing screw bosses with a soldering iron.
+Remote:
+1. Press the ten M2 inserts into the housing screw bosses, and the two M2 charge-contact inserts into the rear wall from outside, flush with the rear face.
 2. Mount the three buttons in the cover.
 3. Solder the four KSC2 switches to the front of the joystick PCB, and the PTC fuse and TVS diode to the rear (or order the board assembled).
 4. Push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the PCB onto the plate standoffs with two M2 × 8 button-head screws (head at most Ø3.5 × 1.1 mm); the disc rests on the switches.
 5. Solder six wires from the rear pads of the joystick PCB to the XIAO: U, D, L, R to D3–D6, G to GND and 5V to the 5V pin. Lead them away from the top edge of the PCB. Solder the button wires as before.
-6. Pass the power cable through the gland in the bottom end wall, lead it along the side wall, and solder its wires to the VIN and GND pads on the rear of the joystick PCB. The USB-C plug cannot pass through an M8 gland.
+6. Crimp or solder ring tags to two wires and screw them to the charge-contact inserts from inside with M2 × 4 screws. Solder the other ends to the VIN and GND pads on the rear of the joystick PCB. Mark which contact is positive on the rear face. Pot the inserts from inside.
 7. Slide the XIAO into the rails along +Y until it stops. Secure its free end with a drop of hot glue or silicone. Apply conformal coating to both boards.
-8. Stick the vent label inside over the vent hole.
-9. Lay the cover face down and the gasket on it, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the plate on the lower-facet sheet with its screw holes over the cover's.
-10. Lower the housing onto the stack; its walls locate the plate. Turn the assembly over and fit the six M2 × 8 screws on the upper facet and the four M2 × 10 screws on the lower facet. Tighten evenly in a cross pattern.
-11. Press the M2 insert into the knob. Slide the knob onto the pin with a 0.7 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw on the pin.
-12. Fit the liner halves, place the housing on the bar, fit the cap from behind, and tighten the two M4 × 16 bolts evenly.
+8. Solder the pouch leads to the XIAO `BAT` pads, red to `BAT+`. Stick the pouch to the rear wall in the lower rear of the cavity with foam tape. Check the polarity before connecting USB-C or the charge contacts.
+9. Stick the vent label inside over the vent hole in the bottom end wall.
+10. Lay the cover face down and the gasket on it, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the plate on the lower-facet sheet with its screw holes over the cover's.
+11. Lower the housing onto the stack; its walls locate the plate. Turn the assembly over and fit the six M2 × 8 screws on the upper facet and the four M2 × 10 screws on the lower facet. Tighten evenly in a cross pattern.
+12. Press the M2 insert into the knob. Slide the knob onto the pin with a 0.7 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw on the pin.
 
-To program over USB, remove the cover. Take the knob off first by loosening its grub screw. The USB-C socket is on the component side at the lower end of the board and opens toward the bottom of the pod; a plug fits there with the cover off. Each opening disturbs the gasket, so BLE firmware updates remain a firmware requirement.
+Base:
+1. Press the two M4 inserts into the base front's split face.
+2. Drop the lock spring into the pocket, push the M3 × 20 screw through it from the platform side, and fit the lock knob (with its M3 insert) on the shank from behind. Turn the knob until the head stands 2 mm proud with the knob on the block, then lock it with an M3 nut.
+3. Glue the two TPU strips into their pockets.
+4. Fit the liner halves, place the base on the bar with the platform where the remote should sit, fit the cap from behind, set the angle, and tighten the two M4 × 16 bolts evenly.
+
+Fitting: pull the lock knob, press the remote onto the platform 9 mm below its working position, and slide it up until it stops and the lock clicks in. Removal is the reverse.
+
+To program over USB, remove the remote from the base and its cover. Take the knob off first by loosening its grub screw. The USB-C socket is on the component side at the lower end of the board and opens toward the bottom of the pod; a plug fits there with the cover off. USB-C and the charge contacts are the same supply net: never connect both. Each opening disturbs the gasket, so BLE firmware updates remain a firmware requirement.
 
 ## Hardware
+
+Remote:
+
+| Item | Qty |
+|---|---:|
+| M2 × 8 ISO 10642 countersunk screw (upper facet) | 6 |
+| M2 × 10 ISO 10642 countersunk screw (lower facet) | 4 |
+| M2 heat-set insert, about 4 mm long (hole Ø3.2 × 6 mm in CAD) | 10 |
+| M2 brass heat-set insert, up to 3.8 mm long (charge contacts) | 2 |
+| M2 × 4 screw and M2 ring tag (charge contacts) | 2 each |
+| LiPo pouch with protection board, 6 × 20 × 30 mm (602030), about 300 mAh in listings | 1 |
+| Double-sided foam tape (pouch) | small amount |
+| C&K KSC2 sealed tact switch, 2 N, J-bend (for example KSC222JLFS) | 4 |
+| [Joystick PCB](../electronics/joystick-pcb/README.md), 20.6 × 22.4 mm, 1.6 mm, with the Bourns MF-MSMF050-2 PTC fuse and Littelfuse SMBJ5.0A TVS diode | 1 |
+| M2 × 8 button-head screw, head at most Ø3.5 × 1.1 mm (joystick PCB) | 2 |
+| Adhesive ePTFE vent label, about Ø10 mm, for a Ø3 mm hole | 1 |
+| Ø3 × 12 mm steel dowel pin, ISO 8734 (joystick stick) | 1 |
+| M2 × 4 grub screw and M2 heat-set insert (knob) | 1 each |
+| Conformal coating, epoxy, neutral-cure silicone | small amounts |
+
+Base, one per bike:
 
 | Item | Qty |
 |---|---:|
 | M4 × 16 ISO 4762 socket-head screw | 2 |
 | M4 heat-set insert, short (hole Ø5.6 × 8.1 mm in CAD) | 2 |
-| M2 × 8 ISO 10642 countersunk screw (upper facet) | 6 |
-| M2 × 10 ISO 10642 countersunk screw (lower facet) | 4 |
-| M2 heat-set insert, about 4 mm long (hole Ø3.2 × 6 mm in CAD) | 10 |
-| C&K KSC2 sealed tact switch, 2 N, J-bend (for example KSC222JLFS) | 4 |
-| [Joystick PCB](../electronics/joystick-pcb/README.md), 20.6 × 22.4 mm, 1.6 mm, with the Bourns MF-MSMF050-2 PTC fuse and Littelfuse SMBJ5.0A TVS diode | 1 |
-| M2 × 8 button-head screw, head at most Ø3.5 × 1.1 mm (joystick PCB) | 2 |
-| M8 × 1.25 IP68 cable gland for 3–5 mm cable | 1 |
-| Adhesive ePTFE vent label, about Ø10 mm, for a Ø3 mm hole | 1 |
-| Ø3 × 12 mm steel dowel pin, ISO 8734 (joystick stick) | 1 |
-| M2 × 4 grub screw and M2 heat-set insert (knob) | 1 each |
-| Conformal coating, neutral-cure silicone | small amounts |
+| M3 × 20 ISO 4762 socket-head screw (lock pin) | 1 |
+| Compression spring, about Ø5 mm outside, over Ø3 mm, about 4 mm when compressed (lock) | 1 |
+| M3 heat-set insert and M3 nut (lock knob) | 1 each |
+| TPU strip, 4 × 50 × 1.4 mm | 2 |
 
 The KSC2 J-bend terminals sit under the switch body. The LCSC land pattern used on the PCB extends 0.95 mm beyond the body, so a fine iron tip or hot air can reach the joints; having the board assembled is the easier option. The gull-wing version (`G`) has a different land pattern and does not fit this PCB.
 
@@ -208,28 +305,29 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | APEM IS button panel opening | Ø13.6 mm | APEM IS series drawing |
 | APEM reduced bezel option | 15 mm | APEM IS series options; confirm exact ordered variant |
 | KSC2 switch | 6.2 (+0.3) × 6.2 (+0.3) mm body, 3.5 mm to the actuator top, Ø2.9 mm actuator; 2 N, 0.35 ± 0.15 mm travel (KSC22x) | C&K KSC2 datasheet; modelled at 6.5 mm |
-| Handlebar | Ø22 mm nominal | Project target; measure the actual straight section |
-| Integrated clamp | Ø44 mm outer diameter, Ø24 mm bore | Diametral split into two 180-degree halves with a 0.8 mm clamping gap |
-| Clamp radial section | 10 mm | Derived from Ø44 mm outer diameter and Ø24 mm bore; not strength-validated |
-| Pod-to-clamp shoulders | Tangent lines from the 7 mm rear pod corners to the Ø44 mm ring | Convex hull of pod outline and clamp circle, following the marked silhouette |
+| Handlebar | Ø22.2 mm (7/8 in) or Ø25.4 mm (1 in) | One base per bar size; measure the actual straight section |
+| Base clamp | Ø46 mm outer diameter, Ø24.2 or Ø27.4 mm bore, flat platform at X = −17.2 mm from Y = −36 to +27 mm | Diametral split into two halves with a 0.8 mm clamping gap; not strength-validated |
+| Remote rear face | Flat at X = −17.4 mm | 0.2 mm clear of the platform |
+| Dovetail | Rails 10 mm wide at the platform, 15 mm at the top, 2.5 mm high, 45° flanks; two 8 mm segments with a 9 mm gap; 7 mm lips; 0.2 mm clearance; 9 mm slide | Prints without supports on both parts; clearance to tune on the first print |
+| Lock | M3 × 20 ISO 4762 head (Ø5.5 × 3 mm) 2 mm proud, in a Ø6 mm pocket at Y = −30 mm; Ø5.8 mm hole in the remote; Ø12 × 6 mm knob | ISO 4762 head size; spring not yet chosen |
+| Charge contacts | Two M2 inserts through the 3.8 mm rear wall at Y = 24.5 mm, 3.5 mm from each axial face | Covered by the platform on the bike |
+| LiPo pouch | 6 × 20 × 30 mm envelope with 0.5 mm clearance, X = −29 to −22, Y = −33.5 to −2.5 mm | 602030 listings; measure the bought cell |
 | Pod front corners | 3 mm radius | Leaves a flat cover face for the M2 screws |
 | Folded front | Upper facet normal to the pod axis; lower facet turned 20° toward the bar, fold 12.5 mm below the bar axis | Clears the thumb's path to the turn-signal switch; the angle is a parameter |
 | Pod cavity corners | 2 mm front, 6 mm rear | 1 mm inset from the outer corners |
-| Clamp liner | 1 mm radial TPU liner gives Ø22 mm nominal inner diameter | Parametric target; tune to measured bar and print process |
-| Enclosure envelope | 79.5 × 84.7 mm in the plane of the clamp; 23 mm along the bar at the clamp, 26 mm at the control end | Bar footprint from the manual's 23 mm installation clearance |
+| Clamp liner | 1 mm radial TPU liner | Parametric target; tune to measured bar and print process |
+| Remote envelope | 40.1 × 84.7 mm in the plane of the clamp (X = −57.5 to −17.4 mm); 23 mm along the bar at the rear, 26 mm at the control end | Bar footprint from the manual's 23 mm installation clearance |
 | Button direction | Button axes perpendicular to the handlebar axis | Layout requirement |
 | Case wall / cover | 2.0 mm axial walls at the control end, 1.0 mm in the narrow part and at the ends / 2.5 mm cover | Cover within the APEM IS panel range |
 | Control layout | Buttons at Y = 32, 14, −4 mm (18 mm pitch) on the upper facet; joystick axis 14.5 mm below the fold on the lower facet, 23 mm from button C measured over the surface | Layout target; confirm glove access and supplier bezel sizes |
-| Clamp fasteners | Two parallel M4 × 16 ISO 4762 bolts at ±17 mm from the bar axis; Ø7.6 mm counterbores 8 mm from the split face; Ø5.6 × 8.1 mm insert holes | 7.6 mm grip, 7.6 mm engagement, 2.85 mm wall to bore; confirm against the bought bolts and inserts |
+| Clamp fasteners | Two parallel M4 × 16 ISO 4762 bolts at ±18.5 mm from the bar axis; Ø7.6 mm counterbores 8 mm from the split face; Ø5.6 × 8.1 mm insert holes | 7.6 mm grip, 7.6 mm engagement, 2.65 mm wall to the 25.4 mm bore; confirm against the bought bolts and inserts |
 | Cover fasteners | Six M2 × 8 (upper facet) and four M2 × 10 (lower facet, through the joystick plate) ISO 10642 countersunk screws; Ø3.2 × 6 mm insert holes in Ø6 mm bosses | Spaced 16.5–21.8 mm along the perimeter to compress the gasket; confirm against the bought inserts |
 | Cover gasket | 0.6 mm compressed (0.8 mm printed or cut) | Upper facet: 1 mm on the walls, 4 mm with the lip, Ø6 mm around each screw. Lower facet: full sheet on the joystick plate, Ø2.4 mm hole stretched over the stick |
-| Pod width | 23 mm along the bar at the clamp and the rear of the pod; 26 mm for X < −38 mm | 23 mm from the NAVCOMM manual's minimum free space on the bar; the control end is 40–60 mm from the bar axis |
+| Pod width | 23 mm along the bar at the base and the rear of the pod; 26 mm for X < −38 mm | 23 mm from the NAVCOMM manual's minimum free space on the bar; the control end is 40–60 mm from the bar axis |
 | Joystick | Ø16 mm knob 5.5 mm proud, hub 0.7 mm and rim 1.15 mm above the cover; Ø3 × 12 mm steel pin; Ø6 mm ball on a Ø3.6 mm seat edge, pivot 7.0 mm behind the face; 1.2 mm cross disc 0.05 mm above four KSC2 at 6.75 mm | Trips at ≤ 4.7° tilt; knob stop at 8.2° or 0.7 mm push; disc room 9.5° |
 | Joystick plate | 1.5 mm, behind the sheet; Ø3.6 mm seat hole opening to Ø4.8 mm at the front; Ø10 × 0.6 mm sheet pocket; two Ø3.6 mm standoffs, 6.25 mm tall, at (∓6.0, ±6.4) mm from the stick axis | Printed PETG; clamped by the four lower cover screws |
 | Joystick PCB | 20.6 × 22.4 mm with four R3.3 mm boss notches; front face 10.85 mm behind the outer face, 1.6 mm thick; rear zone 1.0 mm, 3.0 mm in the upper half and the side strips | KiCad design in electronics/joystick-pcb; switch land pattern from LCSC C221728 |
-| Cable entry | Ø8.2 mm hole in a 3 mm area of the bottom end wall | Seat for an M8 gland; verify after selecting the gland and cable |
-| Vent | Ø3 mm hole in the axial wall at the low end, Ø10 mm flat area inside | For an adhesive ePTFE vent; verify against the chosen vent |
-| USB cable jacket | 3–5 mm range candidate | Hummel M8 gland example; measure actual cable |
+| Vent | Ø3 mm hole in the bottom end wall at X = −32 mm, Ø10 mm flat area inside | For an adhesive ePTFE vent; verify against the chosen vent |
 | XIAO PCB / header spacer / pins | 1.2 / 2.5 / 6 mm | Allowances for the pre-soldered version; measure the bought board |
 
 Seeed lists the XIAO board at 21 × 17.8 mm and provides a [2D DXF drawing](https://wiki.seeedstudio.com/XIAO_BLE/). The purchased variant has pre-soldered headers; V0.22 keeps the board parallel to the control cover, behind the control bodies, with the header pins pointing away from the controls. The 2.5 mm spacer and 6 mm pin length are allowances, not supplier dimensions. The [Kiwi listing](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402) confirms the headers are pre-soldered. Check the actual header, USB-C, antenna, and component clearances against the printed cavity before finalizing it.
@@ -245,15 +343,18 @@ These are the only items that block a confident first print. Each is a parameter
 - **Buttons:** exact APEM IS order codes, sealing rating, nut sizes behind the panel, terminal length, and wire exit.
 - **Joystick:** measure the KSC2 height and the printed plate, ball and disc; together with the standoffs they set the 0.05 mm rest gap (`joy_rest_gap`). The feel (4.7° to trip, 2 N per direction, about 8 N for the centre chord) and the Ø16 mm knob need a check with gloves.
 - **XIAO:** PCB thickness, header spacer height, pin length, and component height. Adjust `xiao_pcb`, `xiao_header_plastic`, `xiao_pin_length`, and `xiao_component_h`; the render stops if the pins reach the rear wall.
-- **Inserts:** hole diameters and depths for the actual M4 and M2 inserts.
+- **Inserts:** hole diameters and depths for the actual M4 and M2 inserts, and a charge-contact insert no longer than the 3.8 mm rear wall.
 - **Handlebar and liner:** measured bar diameter, and the 0.8 mm clamping gap tuned to the printed TPU liner.
-- **Cable gland:** thread, lock-nut size (Ø15 × 4 mm assumed), and cable diameter.
+- **Dovetail:** the 0.2 mm clearance (`dt_c`) against the printer, and the strip material and thickness for the preload. Whether the 0.48 mm the remote can move toward the platform feels loose on the buttons.
+- **Lock:** a spring that fits a Ø6 mm pocket over a Ø3 mm shank and holds the head out firmly; its compressed length sets `lock_spring_solid`. The pull force, and whether 1 mm of head in the pocket is enough.
+- **Pouch:** the bought cell's size, protection board and lead exit, and its maximum charge current against the XIAO's 50 or 100 mA.
+- **Charging dock:** not designed yet; it needs spring pins that meet the contacts on a base-shaped block.
 - **Vent:** label diameter and required hole size.
 - **Gasket:** material, whether 0.2 mm of compression seals on a 1 mm land, and how long a printed TPU sheet lasts flexing with the stick.
-- **Fold angle:** 20° is chosen to clear the turn-signal switch while keeping the gland at the bottom, but it has not been checked on the bike.
+- **Fold angle:** 20° is chosen to clear the turn-signal switch. The gland that kept it from 30° is gone in V0.24, but 30° has not been rechecked, and neither angle has been checked on a bike.
 
 Not addressed by this concept: IP rating, impact, vibration, and fatigue strength. These need physical testing.
 
 ## Earlier versions
 
-V0.1–V0.22 remain available for comparison. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.
+V0.1–V0.23 remain available for comparison. V0.23 is the fixed, cable-powered version: its clamp ring and shoulders are part of the housing. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23 or V0.24. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.

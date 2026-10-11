@@ -1,8 +1,8 @@
 # Battery Power and Removable Remote — Study
 
-This study looks at battery power for the remote and at [issue #1](https://github.com/chirauki/open-rally-remote/issues/1), a removable remote on a fixed handlebar base. It starts from V0.23 ([mechanical notes](mechanical-concept.md), [joystick PCB](../electronics/joystick-pcb/README.md)). No CAD has changed yet; the fits below are 2D checks against the V0.23 geometry.
+This study looks at battery power for the remote and at [issue #1](https://github.com/chirauki/open-rally-remote/issues/1), a removable remote on a fixed handlebar base. It starts from V0.23. The chosen direction is now modelled as V0.24; see the [mechanical notes](mechanical-concept.md) and the [joystick PCB](../electronics/joystick-pcb/README.md). The 2D fit checks below were run against the V0.23 geometry.
 
-**Status:** study only. Nothing here has been built or measured.
+**Status:** study and CAD concept (V0.24). Nothing here has been built or measured.
 
 ## Direction chosen
 
@@ -10,18 +10,21 @@ Decided on 2026-10-10, after the first version of this study:
 - **The main goal of issue #1 is to share one remote between several bikes.**
 - **No wiring to the bike.** The remote runs on its own battery only.
 - **Removable remote or swappable battery, not both.** Each one alone solves the battery problem; together they add a second seal, a second wear point and pod length for little gain.
-- **Therefore: a removable remote with a fixed LiPo pouch**, on a [bayonet around the bar](#removable-remote-issue-1) with one base per bike. It is charged off the bike through [sealed contacts](#charging-without-bike-wiring) on its back.
+- **Therefore: a removable remote with a fixed LiPo pouch**, on an [interrupted dovetail](#removable-remote-issue-1) with one base per bike. It is charged off the bike through [sealed contacts](#charging-without-bike-wiring) on its back.
 - The swappable 16340 is not pursued. Its analysis stays below as the alternative for a remote that stays on one bike.
+
+A bayonet turning around the bar was the first proposal. The V0.24 CAD showed it clashes with the clamp bolts, so V0.24 uses a sliding dovetail instead; see [Why a dovetail](#why-a-sliding-dovetail).
 
 Next steps wait for parts and measurements; see [Open measurements](#open-measurements).
 
 ## Summary
 
 - The V0.23 cavity has no room for a swappable cell. The free spaces are about 14 × 19 × 20.6 mm behind buttons A and B, and a 13 × 26 mm strip (in the plane of the clamp) in the solid shoulder between the cavity and the clamp ring.
-- A flat 6 × 20 × 22 mm LiPo, not swappable, fits in V0.23 without growing the housing. It crosses the cavity rear wall into the shoulder. It still fits when the ring keep-out grows by up to 6 mm for the removable remote's saddle.
+- A flat 6 × 20 × 22 mm LiPo, not swappable, fits in V0.23 without growing the housing. It crosses the cavity rear wall into the shoulder.
+- Without the cable gland, a longer 6 × 20 × 30 mm pouch (602030) fits below the XIAO. V0.24 puts it there.
 - A swappable 16340 (RCR123A) cell needs a 20 × 44 mm footprint, including its tube and cap. That fits only if the upper end of the pod grows from 44 to about 64 mm above the bar axis, which makes the pod 20 mm longer.
 - The XIAO nRF52840 already has a LiPo charger and battery pads. It cannot take a primary cell (CR2450, CR123A) safely, because it would try to charge it.
-- A twist mount like a bike-computer quarter-turn does not suit this remote: the twist would swing the 85 mm pod across the bar into the grip and switchgear. A bayonet that turns around the bar keeps the remote in its 23 mm slot.
+- A twist mount like a bike-computer quarter-turn does not suit this remote: the twist would swing the 85 mm pod across the bar into the grip and switchgear. A bayonet around the bar clashes with the clamp bolts. A dovetail sliding along the pod's long axis fits.
 
 ## What the XIAO nRF52840 provides
 
@@ -84,6 +87,10 @@ For the removable remote, the same search was rerun with the ring keep-out grown
 
 An 8 mm thick pouch of the same 20 × 22 mm outline would hold more charge; its capacity has not been checked against a listing. A pouch longer than about 25 mm does not fit above the fold. The pouch is 20 mm along the bar, inside the 21 mm cavity of the 23 mm part.
 
+This search excluded everything below the fold, which was too cautious. Behind the joystick, below the XIAO, the cavity was only used by the cable from the gland. Without the cable, V0.24 places a 6 × 20 × 30 mm pouch there (X = −29 to −22, Y = −33.5 to −2.5 mm with clearance), clear of the USB-C plug zone. An 8 mm pouch would leave 0.45 mm to that zone.
+
+The saddle rows of the table above no longer apply: V0.24 has no saddle around the ring.
+
 The 16340 tube runs diagonally, at 50° to the bar-to-cover direction, from the top of the cavity into the upper shoulder. The cap end can open on the shoulder face, where it can be reached with the remote on the bar. Growing the top end by 20 mm has not been checked against the bike: mirrors, brake reservoir and switchgear. It needs measuring before CAD work.
 
 ## Power architecture
@@ -121,68 +128,59 @@ These are continuous-connection figures. With the firmware sleeping while the bi
 |---|---|---|
 | Battery tube cap (new) | Radial O-ring on a smooth land inside the tube mouth, not on the thread | An FDM bore is rough and slightly oval; the land may need reaming, a glued-in sleeve, or a printed and sanded land. Measure leakage on a test piece. |
 | Cap electrical contact | Spring in the cap on the cell's negative end, closing through a contact ring at the tube mouth inside the O-ring | The contact and its wire stay inside the seal. Contacts corrode if water gets past the O-ring. |
-| Cable gland (current) | Unchanged, if the cable stays | — |
+| Cable gland (V0.23) | Removed in V0.24 | — |
+| Charge contacts (V0.24) | Brass inserts through the rear wall, potted from inside | The potting must cover the insert knurl and the ring tag. |
 
 The tube is a separate sealed volume from the electronics cavity. Only two wires pass from the tube into the cavity, sealed when printed or potted. A leak at the cap then wets the cell and its contacts, not the boards.
 
 ## Removable remote (issue #1)
 
-A concept, not yet modelled. The goal is to move one remote between bikes without tools. Each bike keeps its own base.
+Modelled in V0.24; the [mechanical notes](mechanical-concept.md#changes-from-v023) give the dimensions and the checks. The goal is to move one remote between bikes without tools. Each bike keeps its own base.
 
 ### Split
 
-- **Base.** A clamp ring that stays on the bar, with two halves and two M4 bolts as now. It has no electronics. Bases come in variants for each bar size; see [Universal fit](#universal-fit).
-- **Remote.** The pod, the two shoulders, the XIAO, the joystick PCB and the LiPo pouch. Its back is a saddle around the front of the base ring.
+- **Base.** A clamp ring that stays on the bar, with two halves and two M4 bolts as before, and a flat platform in front of the bar. It has no electronics. Bases come in variants for each bar size; see [Universal fit](#universal-fit).
+- **Remote.** The V0.23 pod without the ring and shoulders, cut flat at the rear, with the XIAO, the joystick PCB and the LiPo pouch.
 
-### Why a bayonet around the bar
+### Why a sliding dovetail
 
-A twist mount turns the device about an axis normal to its mating face. On this remote that face lies between the ring and the pod, so the axis is in the plane of the clamp. A quarter turn about it swings the pod's 85 mm length across the bar, into the grip, levers and switchgear, where the manual gives only 23 mm of free bar.
+A twist mount turns the device about an axis normal to its mating face. On this remote that face lies between the base and the pod, so the axis is in the plane of the clamp. A quarter turn about it swings the pod's 85 mm length across the bar, into the grip, levers and switchgear, where the manual gives only 23 mm of free bar.
 
-A dovetail sliding in the plane of the clamp avoids that sweep. It needs a flat platform on the round ring, which adds material and pushes the pod away from the bar.
+The first version of this study proposed a bayonet turning around the bar axis, with the remote's saddle wrapping the front of the ring. In CAD the two clamp bolts, at about ±17 mm from the bar axis, stand where the saddle would turn. The remote could only turn through about ±25°, with short lugs.
 
-A bayonet that turns around the bar axis keeps the remote in its 23 mm slot, uses the round ring directly, and stays in the plane the pod already occupies.
+A dovetail that slides along the pod's long axis, in the plane of the clamp, avoids both problems. The first version of this study expected the flat platform to push the pod away from the bar. It does not: the base is cut flat 3.5 mm in front of the largest bore, at X = −17.2 mm, and the remote's rear face sits there. The rest of the pod stays where it was in V0.23.
 
-### Bayonet
+### Dovetail
 
-- **Base.** The ring carries two short circumferential lugs on its outer surface.
-- **Remote.** The saddle has a matching inner groove with an entry gap for each lug. It wraps no more than 180°, so it can go on over the ring from the front.
-- **Fitting.** Offer the remote to the ring turned by an entry angle, with the lugs in the gaps. Push it home and turn it about the bar to its working position. The lugs slide under the groove lips, which hold the remote against pull-off.
-- **Stops.** A hard stop ends the turn. A steel spring plunger in the saddle drops into a notch in the ring and stops it turning back. A printed spring would wear and creep, so the spring must be steel.
-- **Release.** Pull the plunger knob and turn the remote back to the entry angle.
-- **Tether.** A short lanyard from the remote to the base or the bar keeps a remote that comes loose off the trail.
+![V0.24 fitting and removal, animated: 3D view and mid-width section.](images/complete-remote-v0.24-fit.gif)
+
+- **Base.** Two short dovetail rail segments on the platform, with a gap between them.
+- **Remote.** A groove in the rear face, with two lip segments. Between and beyond the lips the groove opens as wide as the rail heads.
+- **Fitting.** Hold the remote 9 mm below its working position and press it onto the platform; the rails pass through the wide openings. Slide it up until the lower rail meets the closed end of the groove. The lips then sit over the rails and hold the remote against pull-off.
+- **Lock.** A spring-loaded M3 screw head in the platform drops into a hole in the remote's rear face. It is a positive stop, not a detent. Pull its knob, behind the platform below the clamp ring, to release.
+- **Anti-rattle.** TPU strips on the platform push the remote off the platform until the dovetail flanks seat.
+- **Tether.** A short lanyard from the remote to the base or the bar keeps a remote that comes loose off the trail. No eye for it is modelled yet.
 
 ### Loads
 
-Button presses and joystick pushes make a torque about the bar axis:
-- Buttons A and B are on one side of the bar axis, at Y = 32 and 14 mm.
-- Button C (Y = −4 mm) and the joystick, below the fold, are on the other side.
-
-So presses load the bayonet in both directions. Put the hard stop on the side of A and B, the most used buttons. The plunger then takes the torque from the joystick and button C, plus shocks and vibration. Size the plunger force and the notch angle for that, and test both off the bike before riding.
-
-Pull-off loads go into the lugs and groove lips. Their strength in printed PETG or ASA has not been checked. Layer direction matters: the lips should not split along a layer line.
-
-### Geometry to check in CAD
-
-- **Radial build.** Today the clamp ring is 10 mm thick, from the Ø24 mm bore to Ø44 mm. Either the base ring stays at Ø44 mm and the saddle sits outside it, or the ring gets thinner and the saddle takes part of its section.
-  - **Saddle outside a Ø44 mm ring.** The pod moves out by the saddle thickness (about 3–4 mm). That changes reach to the turn-signal switch, which set the 20° fold. The pouch still fits; see [Fit method](#fit-method).
-  - **Thinner ring.** The clamp loses section, and its strength is not validated even now.
-- **Width.** Lugs, groove and plunger must stay inside 23 mm along the bar.
-- **Entry angle.** The remote turns through the entry angle near the brake lever, reservoir and mirror. A small angle (20–30°) sweeps less but gives shorter lugs. See [Universal fit](#universal-fit) for the release direction.
-- **Angle setting.** Today the rider sets the pod angle by turning the clamp before tightening. With a base, the angle is set by turning the base before tightening; the bayonet then always returns to the same angle.
+- Button presses push the remote onto the platform.
+- A joystick push on the 20° lower facet has an upward component that drives the remote against the stop.
+- Pull-off loads go into the dovetail lips. Their strength in printed PETG or ASA has not been checked. In the housing's print orientation the bending stress in the lips runs along the layers, the stronger direction.
+- Only forces that slide the remote down load the lock: tilting the joystick down, shocks, and gravity, depending on how the unit is mounted.
 
 ## Charging without bike wiring
 
 The remote is charged off the bike. The XIAO USB-C socket is inside the pod and can only be reached with the cover off, which disturbs the gasket. It stays for firmware recovery only.
 
-- **Charge contacts.** Two pads or a 2-pin magnetic pogo connector on the remote's back, inside the saddle. They are wired to the joystick PCB 5 V input and GND in place of the bike cable, so they go through its TVS diode and PTC fuse to the XIAO 5V pin.
-- **Covered when mounted.** On the base the contacts face the ring, out of the rain and mud.
+- **Charge contacts.** V0.24 uses two M2 brass inserts through the remote's rear wall, above the dovetail groove. They are wired to the joystick PCB 5 V input and GND in place of the bike cable, so they go through its TVS diode and PTC fuse to the XIAO 5V pin.
+- **Covered when mounted.** On the base the contacts face the platform, out of the rain and mud.
 - **Dead when off the charger.** The XIAO feeds VIN from VBUS through a Schottky diode, and the battery reaches VIN through the power-path MOSFET. Neither path drives VBUS, so the pads carry no voltage when the remote runs on its battery. They cannot corrode from bias, and shorting them does no harm. This comes from the netlist and has not been measured.
-- **Charger.** A matching magnetic USB cable, or a small charging dock printed to the saddle shape with two spring pins.
-- **No cable gland.** The bike cable goes, so the gland and its lock nut go too. The gland lock nut set the 20° fold limit. The freed space at the bottom of the pod has not been searched for a larger cell.
+- **Charger.** A small charging dock: a base-shaped block with the same rails, two spring pins under the contacts and a USB-C input. Not designed yet.
+- **No cable gland.** The bike cable goes, so the gland and its lock nut go too. The gland lock nut set the 20° fold limit. The freed space at the bottom of the pod now holds the pouch.
 
 Points to solve:
-- **Sealing.** The pads or connector are a new sealed feature on the remote's back wall. Moulded-in pads or a connector with its own seal, potted from inside.
-- **Reverse polarity.** A magnetic connector is keyed; bare pads are not. On the joystick PCB a reversed supply makes the TVS diode D1 conduct and the PTC fuse F1 trip ([joystick PCB notes](../electronics/joystick-pcb/README.md#circuit)). So a reversed charger should not reach the XIAO, but it heats D1 and F1 until it is removed. Prefer a keyed connector or a keyed dock.
+- **Sealing.** The inserts are a new opening in the remote's rear wall. Pot them from inside.
+- **Reverse polarity.** Bare contacts are not keyed. On the joystick PCB a reversed supply makes the TVS diode D1 conduct and the PTC fuse F1 trip ([joystick PCB notes](../electronics/joystick-pcb/README.md#circuit)). So a reversed charger should not reach the XIAO, but it heats D1 and F1 until it is removed. The dock's rails key it: the remote only slides on one way round.
 - **USB-C and pads together.** Both are the XIAO VBUS net. Do not connect both at once; with the cover off on the bench this is the user's care.
 
 ## Universal fit
@@ -192,9 +190,7 @@ The remote is meant for any bike, so the design cannot rely on measuring bikes. 
 - **Bar diameter.** The remote never touches the bar. Each bar size gets its own base: a bore and liner for 22.2 mm (7/8 in) bars, and a variant for 25.4 mm (1 in) bars. Tapered 28.6 mm bars come down to 22.2 mm at the controls, where the remote sits. The liner takes up tolerance, as now.
 - **Width.** 23 mm along the bar, from the NAVCOMM manual's minimum free space between grip and switchgear, as now. It is an assumption taken from that manual, not a survey of bikes.
 - **Side.** The remote goes on the left side of the bar only, never the right. One remote and one base handedness are enough; nothing needs mirroring.
-- **Entry sweep.** The remote stays in its 23 mm slot while it turns, so only parts that cross that slot can be hit. On the left side the likely one is the clutch lever blade, or the rear brake lever on scooters, which runs in front of the grip. So:
-  - keep the entry angle small (20–30°);
-  - turn the remote toward the rider to release it, away from the lever blade;
+- **Entry sweep.** The remote stays in its 23 mm slot while it slides 9 mm along its own long axis, so only parts that cross that slot can be hit. On the left side the likely one is the clutch lever blade, or the rear brake lever on scooters, which runs in front of the grip. The slide is short, and the base angle on the bar sets which way it points.
 - **Angle setting.** The rider sets the remote angle by turning the base on the bar before tightening, as with the clamp today.
 
 Not all bikes can be covered this way. A bike with less than 23 mm between grip and switchgear, or with a lever that crosses the slot close to the bar, will need its own base or will not take the remote. That limit should be stated in the user notes.
@@ -228,10 +224,13 @@ Made:
 2. Architecture A: the pouch on the XIAO `BAT` pad, charged on board.
 3. No bike wiring and no base contacts. The base is mechanical only.
 
+4. A sliding interrupted dovetail on a flat platform, with a spring-loaded M3 lock (V0.24). No saddle around the ring.
+5. Bare brass contacts and a charging dock, rather than a magnetic connector.
+
 Still open, after the [measurements](#open-measurements):
-1. Pouch size: 6 mm or 8 mm thick.
-2. Saddle outside the Ø44 mm ring, or a thinner ring.
-3. Bare pads or a magnetic connector for charging.
+1. Pouch size: 6 mm (modelled) or 8 mm thick.
+2. The dovetail clearance and strip preload, on the first print.
+3. The charging dock design.
 
 ## Sources
 
