@@ -10,7 +10,7 @@ Decided on 2026-10-10, after the first version of this study:
 - **The main goal of issue #1 is to share one remote between several bikes.**
 - **No wiring to the bike.** The remote runs on its own battery only.
 - **Removable remote or swappable battery, not both.** Each one alone solves the battery problem; together they add a second seal, a second wear point and pod length for little gain.
-- **Therefore: a removable remote with a fixed LiPo pouch**, on an [interrupted dovetail](#removable-remote-issue-1) with one base per bike. It is charged off the bike through [sealed contacts](#charging-without-bike-wiring) on its back.
+- **Therefore: a removable remote with a fixed LiPo pouch**, on an [interrupted dovetail](#removable-remote-issue-1) with one base per bike. It is charged off the bike through a [sealed USB-C receptacle](#charging-without-bike-wiring) on its back.
 - The swappable 16340 is not pursued. Its analysis stays below as the alternative for a remote that stays on one bike.
 
 A bayonet turning around the bar was the first proposal. The V0.24 CAD showed it clashes with the clamp bolts, so V0.24 uses a sliding dovetail instead; see [Why a dovetail](#why-a-sliding-dovetail).
@@ -43,7 +43,7 @@ From Seeed's XIAO nRF52840 V1.2 KiCad project, exported to a netlist with KiCad 
 Consequences:
 - **A rechargeable Li-ion or LiPo cell on the `BAT` pad is charged whenever the 5V pin or USB-C has power.** The charger enable is not wired to a GPIO, so the firmware cannot turn charging off.
 - **A primary lithium cell (CR2450, CR2477, CR123A) must not go on the `BAT` pad.** The charger would try to charge it whenever 5 V is present. A coin-cell design like the Remotek One needs its own board without a charger.
-- With 5 V present (charge contacts or USB-C), the remote runs from 5 V and charges the cell at the same time.
+- With 5 V present (either USB-C port), the remote runs from 5 V and charges the cell at the same time.
 
 ## Battery options
 
@@ -99,7 +99,7 @@ Two ways to connect the cell:
 
 | | A: cell on the XIAO `BAT` pad | B: cell into the 5V pin through a diode |
 |---|---|---|
-| Charging | On board, at 50 or 100 mA, from the charge contacts or USB-C; a 16340 could also go in an external charger | External charger only |
+| Charging | On board, at 50 or 100 mA, from either USB-C port; a 16340 could also go in an external charger | External charger only |
 | Voltage loss | Only the MOSFET | Two Schottky drops, ours and the XIAO's (about 0.4–0.6 V together). At 3.0 V the 3.3 V rail falls to about 2.5 V. |
 | Primary CR123A | Unsafe: it gets charged | Allowed, but only with a diode that blocks any charge current |
 | Battery voltage reading | Built-in divider on AIN7 | Needs a divider on another pin |
@@ -129,7 +129,7 @@ These are continuous-connection figures. With the firmware sleeping while the bi
 | Battery tube cap (new) | Radial O-ring on a smooth land inside the tube mouth, not on the thread | An FDM bore is rough and slightly oval; the land may need reaming, a glued-in sleeve, or a printed and sanded land. Measure leakage on a test piece. |
 | Cap electrical contact | Spring in the cap on the cell's negative end, closing through a contact ring at the tube mouth inside the O-ring | The contact and its wire stay inside the seal. Contacts corrode if water gets past the O-ring. |
 | Cable gland (V0.23) | Removed in V0.24 | — |
-| Charge contacts (V0.24) | Brass inserts through the rear wall, potted from inside | The potting must cover the insert knurl and the ring tag. |
+| Charging USB-C (V0.24) | IP67 receptacle with its panel gasket on a thinned land, potted from inside | Depends on the part chosen; covered by the base on the bike. |
 
 The tube is a separate sealed volume from the electronics cavity. Only two wires pass from the tube into the cavity, sealed when printed or potted. A leak at the cap then wets the cell and its contacts, not the boards.
 
@@ -170,18 +170,20 @@ A dovetail that slides along the pod's long axis, in the plane of the clamp, avo
 
 ## Charging without bike wiring
 
-The remote is charged off the bike. The XIAO USB-C socket is inside the pod and can only be reached with the cover off, which disturbs the gasket. It stays for firmware recovery only.
+The remote is charged off the bike. The XIAO USB-C socket is inside the pod and can only be reached with the cover off, which disturbs the gasket. It stays for programming and firmware recovery only.
 
-- **Charge contacts.** V0.24 uses two M2 brass inserts through the remote's rear wall, above the dovetail groove. They are wired to the joystick PCB 5 V input and GND in place of the bike cable, so they go through its TVS diode and PTC fuse to the XIAO 5V pin.
-- **Covered when mounted.** On the base the contacts face the platform, out of the rain and mud.
-- **Dead when off the charger.** The XIAO feeds VIN from VBUS through a Schottky diode, and the battery reaches VIN through the power-path MOSFET. Neither path drives VBUS, so the pads carry no voltage when the remote runs on its battery. They cannot corrode from bias, and shorting them does no harm. This comes from the netlist and has not been measured.
-- **Charger.** A small charging dock: a base-shaped block with the same rails, two spring pins under the contacts and a USB-C input. Not designed yet.
+- **Charging USB-C.** V0.24 has a second, sealed USB-C receptacle in the remote's rear face, above the dovetail groove. It is charge-only: VBUS and GND go to the joystick PCB 5 V input, so they pass its TVS diode and PTC fuse to the XIAO 5V pin. Any USB-C cable and charger work, so no charging dock is needed.
+- **CC pull-downs.** A USB-C charger only supplies 5 V when the device pulls both CC lines down through 5.1 kΩ. The receptacle sits on a small breakout PCB that carries them.
+- **Covered when mounted.** On the base the receptacle faces the platform, out of the rain and mud. To charge, take the remote off.
+- **Dead when unplugged.** The XIAO feeds VIN from VBUS through a Schottky diode, and the battery reaches VIN through the power-path MOSFET. Neither path drives VBUS, so the receptacle carries no voltage when the remote runs on its battery. Its contacts cannot corrode from bias. This comes from the netlist and has not been measured.
 - **No cable gland.** The bike cable goes, so the gland and its lock nut go too. The gland lock nut set the 20° fold limit. The freed space at the bottom of the pod now holds the pouch.
 
+An earlier step of this branch used two bare brass contacts and a charging dock with spring pins. USB-C replaced them: it needs no dock, it only fits one way, and it is a standard. The contacts' only advantage was dropping the remote onto a dock without plugging a cable in.
+
 Points to solve:
-- **Sealing.** The inserts are a new opening in the remote's rear wall. Pot them from inside.
-- **Reverse polarity.** Bare contacts are not keyed. On the joystick PCB a reversed supply makes the TVS diode D1 conduct and the PTC fuse F1 trip ([joystick PCB notes](../electronics/joystick-pcb/README.md#circuit)). So a reversed charger should not reach the XIAO, but it heats D1 and F1 until it is removed. The dock's rails key it: the remote only slides on one way round.
-- **USB-C and pads together.** Both are the XIAO VBUS net. Do not connect both at once; with the cover off on the bench this is the user's care.
+- **Part choice.** A receptacle rated IP67 when unplugged, sealed through its body, with a panel gasket. The CAD uses typical sizes until a part is chosen.
+- **Sealing.** Pot the back of the receptacle and its PCB from inside as a second barrier.
+- **Two USB-C ports.** The XIAO's USB-C and the charging receptacle are the same VBUS net. Never connect both at once; with the cover off on the bench this is the user's care.
 
 ## Universal fit
 
@@ -205,7 +207,7 @@ These are bench measurements on the parts, not on bikes:
 
 - **Battery level.** Read AIN7 with P0.14 low. Report it over the BLE Battery Service; Bluefruit has `BLEBas`. Warn below about 3.5 V. Go to System OFF below about 3.3 V, ahead of the cell's protection cut-off.
 - **Charging.** Read P0.17 (`CHG`). Drive P0.13 low for 100 mA only if the cell allows it.
-- **Charger present.** The nRF52840 VBUS pin is on the same net as the 5V pin. Its USB power events can tell the firmware that the charge contacts are powered, for example to show charging or to stop advertising while on the charger.
+- **Charger present.** The nRF52840 VBUS pin is on the same net as the 5V pin. Its USB power events can tell the firmware that a charger is connected, for example to show charging or to stop advertising while on the charger.
 - **Sleep and wake.** When parked, or idle for a set time, go to System OFF and wake on any button or joystick switch through GPIO sense. Measure how long a bonded phone takes to reconnect, and whether the first press after wake is lost.
 - **Connection parameters.** Measure average current against connection interval and peripheral latency, against the input delay the rider notices.
 
@@ -223,14 +225,13 @@ Made:
 1. Removable remote with a fixed LiPo pouch; no swappable cell.
 2. Architecture A: the pouch on the XIAO `BAT` pad, charged on board.
 3. No bike wiring and no base contacts. The base is mechanical only.
-
 4. A sliding interrupted dovetail on a flat platform, with a spring-loaded M3 lock (V0.24). No saddle around the ring.
-5. Bare brass contacts and a charging dock, rather than a magnetic connector.
+5. A sealed, charge-only USB-C receptacle for charging, rather than contacts and a dock.
 
 Still open, after the [measurements](#open-measurements):
 1. Pouch size: 6 mm (modelled) or 8 mm thick.
 2. The dovetail clearance and strip preload, on the first print.
-3. The charging dock design.
+3. The USB-C receptacle part, and its real dimensions in the CAD.
 
 ## Sources
 

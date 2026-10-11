@@ -13,7 +13,8 @@
 //   - TPU strips on the platform push the remote off the platform, so the dovetail flanks
 //     seat without play.
 //   - a fixed LiPo pouch in the lower rear of the cavity, freed by removing the cable gland;
-//     two M2 brass inserts in the groove floor are the charge contacts for a charging dock.
+//     a sealed, charge-only USB-C receptacle in the rear face, above the groove, covered by the
+//     base on the bike. Any USB-C cable charges it off the bike.
 //   - the vent moves to the bottom end wall, where the gland was.
 // Everything in front of the remote's rear face is the V0.23 pod, unchanged.
 //
@@ -119,7 +120,7 @@ groove_y1 = rail_y[1][1]+slide+0.5;
 groove_floor_x = platform_x-dt_h-dt_c;
 floor_wall = 1.3;            // groove floor to cavity
 base_y0 = -36.0;             // platform extent along Y
-base_y1 = 27.0;             // covers the charge contacts
+base_y1 = 33.5;             // covers the USB-C receptacle
 base_back_x = -5.0;          // rear face of the platform block below and above the ring
 // Anti-rattle: TPU strips in pockets on the platform, either side of the rails.
 strip_z = [1.5,5.5];         // from the Z = 0 face; mirrored for the other side
@@ -146,14 +147,20 @@ lock_knob_d = 12.0;
 lock_knob_h = 6.0;
 lock_screw_length = 20.0;    // M3 x 20; MEASURE with the knob insert and nut
 
-// --- Charge contacts: M2 brass heat-set inserts through the rear wall ---------------------
-// In the rear face beside the groove, above its top end, so the platform covers them on the
-// bike. The wall there is solid from rear_x to pod_cavity_x1, so the inserts need no boss
-// (a boss would hang from the cavity ceiling when the housing prints). M2 screws from inside
-// hold the wire ring tags. A charging dock with spring pins in its platform meets them.
-pad_y = 24.5;
-pad_z = [3.5,19.5];
-pad_insert_d = 3.2;          // MEASURE against insert datasheet; insert length up to the wall
+// --- Charging: sealed USB-C receptacle in the rear face ---------------------------------
+// A charge-only (6-contact) IP67 USB-C receptacle on a small PCB that carries the two 5.1 kohm
+// CC pull-downs, so USB-C chargers supply 5 V. Its front sits flush with the rear face, above
+// the groove, where the platform covers it on the bike. Its panel gasket bears on a land
+// thinned from inside to usbc_panel_t. VBUS and GND go to the joystick PCB input.
+// All sizes are typical values: MEASURE the chosen part.
+usbc_y = 29.5;               // centre of the opening; long side along the bar
+usbc_shell = [8.94,3.26];    // receptacle shell, along Z and Y
+usbc_slot_clear = 0.15;      // all round the shell
+usbc_gasket = [10.8,5.2];    // panel gasket outline, along Z and Y
+usbc_panel_t = 1.5;          // wall at the receptacle
+usbc_body_len = 7.5;         // shell and body behind the front face
+usbc_pcb = [14.0,12.0,1.6];  // breakout PCB inside the cavity, under the shell: along Z, along X, thickness
+usbc_plug = [12.4,6.5,20.0]; // cable plug overmold envelope: along Z, along Y, length
 
 // --- LiPo pouch, fixed (MEASURE the bought cell) -----------------------------------------
 pouch_t = 6.0;               // 602030 listings: 6 x 20 x 30 mm, about 300 mAh (not verified)
@@ -296,7 +303,6 @@ seat_gap = dt_c*sqrt(2);                               // remote moves this far 
 strip_squeeze = strip_t-strip_pocket-(dt_c+seat_gap);  // strip compression with the flanks seated
 lock_pocket_floor_x = platform_x+lock_pocket_depth;
 lock_head_x = platform_x-lock_out;                     // outer face of the head when locked
-pad_wall = rear_x-pod_cavity_x1;                       // rear wall the charge inserts pass through
 pouch_x1 = pod_cavity_x1-0.8;                          // pouch envelope, with clearance
 pouch_x0 = pouch_x1-pouch_t-2*pouch_clear;
 assert(platform_wall >= 3.0, "Platform too close to the largest bore");
@@ -597,8 +603,15 @@ module lock_hole() {
     at_x_minus(rear_x+0.1,lock_y,axial_width/2) cylinder(d=lock_hole_d,h=rear_x+0.1-lock_hole_bottom_x);
 }
 
-module pad_holes() {
-    for (z=pad_z) at_x_minus(rear_x+0.1,pad_y,z) cylinder(d=pad_insert_d,h=pad_wall+0.2,$fn=24);
+// Slot through the rear wall for the receptacle shell, and the land for its gasket.
+module usbc_cuts() {
+    zc = axial_width/2;
+    translate([rear_x-usbc_panel_t-0.01,usbc_y,zc]) {
+        translate([-0.1,-usbc_shell[1]/2-usbc_slot_clear,-usbc_shell[0]/2-usbc_slot_clear])
+            cube([usbc_panel_t+0.3,usbc_shell[1]+2*usbc_slot_clear,usbc_shell[0]+2*usbc_slot_clear]);
+        translate([-(rear_x-usbc_panel_t-pod_cavity_x1)-0.5,-usbc_gasket[1]/2,-usbc_gasket[0]/2])
+            cube([rear_x-usbc_panel_t-pod_cavity_x1+0.5,usbc_gasket[1],usbc_gasket[0]]);
+    }
 }
 
 module xiao_rail() {
@@ -672,7 +685,7 @@ module housing() {
         vent_hole();
         groove_cut();
         lock_hole();
-        pad_holes();
+        usbc_cuts();
     }
 }
 
@@ -912,12 +925,23 @@ module pouch_envelope() {
         cube([pouch_x1-pouch_x0,pouch_l+2*pouch_clear,pouch_w+2*pouch_clear]);
 }
 
-// Charge-contact inserts and the M2 screws behind them, inside the cavity.
-module pad_envelope() {
-    for (z=pad_z) at_x_minus(rear_x,pad_y,z) {
-        color([0.8,0.65,0.3]) cylinder(d=pad_insert_d,h=pad_wall,$fn=24);
-        color([0.3,0.3,0.3]) translate([0,0,pad_wall]) cylinder(d=4.5,h=2.5,$fn=24);  // ring tag and screw head
-    }
+// USB-C receptacle, gasket and breakout PCB inside the rear wall.
+module usbc_envelope() {
+    zc = axial_width/2;
+    color([0.75,0.75,0.78]) translate([rear_x-usbc_body_len,usbc_y-usbc_shell[1]/2,zc-usbc_shell[0]/2])
+        cube([usbc_body_len,usbc_shell[1],usbc_shell[0]]);
+    color([0.15,0.15,0.15]) translate([pod_cavity_x1-0.4,usbc_y-usbc_gasket[1]/2+0.1,zc-usbc_gasket[0]/2+0.1])
+        cube([rear_x-usbc_panel_t-pod_cavity_x1+0.4,usbc_gasket[1]-0.2,usbc_gasket[0]-0.2]);
+    color([0.15,0.48,0.32]) translate([pod_cavity_x1-0.2-usbc_pcb[1],usbc_y-usbc_shell[1]/2-usbc_pcb[2],zc-usbc_pcb[0]/2])
+        cube([usbc_pcb[1],usbc_pcb[2],usbc_pcb[0]]);
+    // resistors and solder joints under the PCB
+    color([0.3,0.3,0.3]) translate([pod_cavity_x1-0.2-usbc_pcb[1],usbc_y-usbc_shell[1]/2-usbc_pcb[2]-1.0,zc-usbc_pcb[0]/2+0.5])
+        cube([usbc_pcb[1],1.0,usbc_pcb[0]-1.0]);
+}
+
+// Cable plug in the receptacle (remote off the base).
+module usbc_plug_envelope() {
+    translate([rear_x,usbc_y-usbc_plug[1]/2,axial_width/2-usbc_plug[0]/2]) cube([usbc_plug[2],usbc_plug[1],usbc_plug[0]]);
 }
 
 module controls_and_board() {
@@ -925,7 +949,7 @@ module controls_and_board() {
     joy_envelope();
     xiao_envelope();
     color([0.75,0.2,0.2]) pouch_envelope();
-    pad_envelope();
+    usbc_envelope();
 }
 
 module control_heads() {
