@@ -261,36 +261,7 @@ To program over USB, remove the remote from the base and its cover. Take the kno
 
 ## Hardware
 
-Remote:
-
-| Item | Qty |
-|---|---:|
-| M2 × 8 ISO 10642 countersunk screw (upper facet) | 6 |
-| M2 × 10 ISO 10642 countersunk screw (lower facet) | 4 |
-| M2 heat-set insert, about 4 mm long (hole Ø3.2 × 6 mm in CAD) | 10 |
-| GCT USB4736-GF-A-KIT: USB-C receptacle, 6-contact, charge only, IP67, with USBTJ-06 gasket | 1 |
-| [USB-C charging PCB](../electronics/usbc-pcb/README.md), 14 × 13.6 mm, 1.2 mm thick, with two 5.1 kΩ 0603 CC pull-downs | 1 |
-| M2 × 4 thread-forming button-head screw, head at most Ø3.5 × 1.1 mm (USB-C PCB) | 2 |
-| LiPo pouch with protection board, 6 × 20 × 30 mm (602030), about 300 mAh in listings | 1 |
-| Double-sided foam tape (pouch) | small amount |
-| C&K KSC2 sealed tact switch, 2 N, J-bend (for example KSC222JLFS) | 4 |
-| [Joystick PCB](../electronics/joystick-pcb/README.md), 20.6 × 22.4 mm, 1.6 mm, with the Bourns MF-MSMF050-2 PTC fuse and Littelfuse SMBJ5.0A TVS diode | 1 |
-| M2 × 8 button-head screw, head at most Ø3.5 × 1.1 mm (joystick PCB) | 2 |
-| Adhesive ePTFE vent label, about Ø10 mm, for a Ø3 mm hole | 1 |
-| Ø3 × 12 mm steel dowel pin, ISO 8734 (joystick stick) | 1 |
-| M2 × 4 grub screw and M2 heat-set insert (knob) | 1 each |
-| Conformal coating, epoxy, neutral-cure silicone | small amounts |
-
-Base, one per bike:
-
-| Item | Qty |
-|---|---:|
-| M4 × 16 ISO 4762 socket-head screw | 2 |
-| M4 heat-set insert, short (hole Ø5.6 × 8.1 mm in CAD) | 2 |
-| M3 × 20 ISO 4762 socket-head screw (lock pin) | 1 |
-| Compression spring, about Ø5 mm outside, over Ø3 mm, about 4 mm when compressed (lock) | 1 |
-| M3 heat-set insert and M3 nut (lock knob) | 1 each |
-| TPU strip, 4 × 50 × 1.4 mm | 2 |
+All parts for the remote and the base, with sources, are in the [bill of materials](bom.md).
 
 The KSC2 J-bend terminals sit under the switch body. The LCSC land pattern used on the PCB extends 0.95 mm beyond the body, so a fine iron tip or hot air can reach the joints; having the board assembled is the easier option. The gull-wing version (`G`) has a different land pattern and does not fit this PCB.
 

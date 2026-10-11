@@ -4,20 +4,9 @@
 
 This guide uses a Seeed XIAO nRF52840 and eight momentary switches to represent the three buttons and a joystick with four directions and an optional center press. It keeps the XIAO off the breadboard and connects it with Dupont leads. Power and programming come from the XIAO's USB-C connector.
 
-## Parts and Spain purchase options
+## Parts
 
-Prices and stock were checked on 2026-10-07. The list is consolidated into two shops: Kiwi Electronics for the XIAO and Conectrol for the remaining parts. Prices include VAT where the shop displays it, but exclude shipping. Stock and delivery charges can change.
-
-| Qty | Part | Example purchase | Price checked | Notes |
-|---:|---|---|---:|---|
-| 1 | Seeed XIAO nRF52840, standard pre-soldered model (MPN `102010631`) | [Kiwi Electronics](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402) | €9.99 before VAT; approx. €12.09 with Spain's 21% VAT | This is the board purchased for this prototype. It has headers already soldered and is the non-Sense model. The product page showed stock when checked. |
-| 1 | 400-point solderless breadboard | [Conectrol](https://conectrol.com/producto/placa-protoboard-400-puntos-84x55x85mm/) | €2.00 | Includes side power rails. |
-| 1 set | 40 Dupont jumper wires, male-to-female, 20 cm | [Conectrol](https://conectrol.com/producto/kit-cables-dupont-1p-para-protoboard-m-h-40-unds/) | €3.00 | Use at least nine: eight GPIO signals and one XIAO GND lead. Female ends fit the XIAO headers; male ends fit the breadboard. |
-| 1 set | 65 Dupont jumper wires, male-to-male | [Conectrol](https://conectrol.com/producto/kit-cables-dupont-1p-para-protoboard-m-m-65-unds/) | €3.00 | Use eight to connect the switches' ground-side rows to the blue rail. |
-| 8 | 6×6×5 mm normally-open tactile switch | [Conectrol](https://conectrol.com/producto/pulsador-tactil-off-on-no-6x6x5mm-pcb-rojo/) | €0.20 each; €1.60 total | Three buttons, four joystick directions, and one center press. These tiny switches are only bench stand-ins. |
-| 1 | USB-A to USB-C data cable, 1 m | [Conectrol](https://conectrol.com/producto/cable-usb-3-0-tipo-a-usb-tipo-c-3-1-m-m-1mt/) | €6.90 | Optional if you already have a data-capable cable. A charge-only cable will not allow programming. |
-
-**Estimated parts total:** approx. €21.69 without a USB cable, or €28.59 with the listed cable, before shipping. The XIAO total uses the seller's €9.99 pre-tax listing plus an estimated 21% Spanish VAT; confirm the final tax and shipping at checkout. The parts are available from two shops. For a lower-cost alternative, the unheadered standard XIAO (MPN `102010448`) was listed at €9.56 including VAT by [Reichelt Spain](https://www.reichelt.com/es/es/shop/producto/xiao_nrf52840_bt5_0_sin_cabezal-358357); it would need 2×7 2.54 mm headers soldered on, available from Conectrol.
+The parts, with example Spanish shops and the prices checked on 2026-10-07, are in the [bill of materials](bom.md#bench-prototype).
 
 ## Tools
 
