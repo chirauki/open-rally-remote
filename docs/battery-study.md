@@ -227,6 +227,7 @@ Made:
 3. No bike wiring and no base contacts. The base is mechanical only.
 4. A sliding interrupted dovetail on a flat platform, with a spring-loaded M3 lock (V0.24). No saddle around the ring.
 5. A sealed, charge-only USB-C receptacle for charging, rather than contacts and a dock: GCT USB4736-GF-A-KIT.
+6. Two USB-C ports stay separate: the sealed one only charges; firmware goes over BLE, and the XIAO's own USB-C is reached by opening the cover when needed. A single port through a sealed USB-C extension into the XIAO was considered and set aside (2026-10-11): the XIAO brings its USB data lines to no pad, and the retail sealed extensions found have no drawings.
 
 Still open, after the [measurements](#open-measurements):
 1. Pouch size: 6 mm (modelled) or 8 mm thick.
