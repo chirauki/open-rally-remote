@@ -52,7 +52,7 @@ All images are direct OpenSCAD renders of the V0.24 or V0.23 file. The PCB image
 
 ### Base and remote
 
-- **Base.** The clamp ring stays on the bar: two halves split through the bar axis, two M4 × 16 bolts, M4 inserts in the front half, a 1 mm TPU liner. Its outside grows from Ø44 to Ø46 mm, and the bolts move from ±17 to ±18.5 mm, so the same layout suits a 25.4 mm bore. In front of the bar the base is cut flat at X = −17.2 mm (`platform_x`), 3.5 mm in front of the 25.4 mm bore with its liner. That flat platform runs from Y = −36 to +33.5 mm.
+- **Base.** The clamp ring stays on the bar: two halves split through the bar axis, two M4 × 16 bolts, M4 inserts in the front half, a 1 mm TPU liner. Its outside grows from Ø44 to Ø46 mm, and the bolts move from ±17 to ±18.5 mm, so the same layout suits a 25.4 mm bore. In front of the bar the base is cut flat at X = −17.2 mm (`platform_x`), 3.5 mm in front of the 25.4 mm bore with its liner. That flat platform runs from Y = −41 to +33.5 mm.
 - **Bar sizes.** One base per bar size: `bar_diameter` = 22.2 (7/8 in) or 25.4 (1 in). The bore changes; nothing that meets the remote does. Tapered 28.6 mm bars come down to 22.2 mm at the controls.
 - **Remote.** The V0.23 pod without the ring and the shoulders, cut flat at X = −17.4 mm (`rear_x`). The cavity's rear wall moves from X = −22 to −21.2 mm, which gives the XIAO pins 2.2 mm instead of 1.4 mm.
 
@@ -76,12 +76,21 @@ The [battery study](battery-study.md) first proposed a bayonet turning around th
   - Only forces that slide the remote down load the lock: tilting the joystick down, shocks, and gravity, depending on how the unit is mounted.
 - **Anti-rattle.** Two TPU strips, 4 × 50 mm, sit in 0.6 mm pockets on the platform either side of the rails and stand 0.8 mm proud. They push the remote off the platform until the dovetail flanks seat, with the rear face 0.48 mm off the platform, which leaves the strips about 0.3 mm compressed. A firm press moves the remote back onto the platform by up to 0.48 mm. Whether that feels loose on the buttons needs a test.
 
+### Buttons
+
+- **APEM ISR3SAD200.** Sealed IP67 pushbutton: round curved black actuator, normally open, solder lugs, gold-plated contacts, standard Ø17.5 mm bezel with a flat seal, M12 × 0.75 bushing and a 14 mm A/F hex nut. The datasheet gives 4 ± 3 N, 1.7 mm travel, 10 g vibration and 100 g shock.
+- **Cut-out.** Ø13.6 mm with APEM's anti-rotation flat, 12.9 mm across, in place of the round cut-out with a 45° top.
+- **Layout.** The bezels need a flat seat on the upper facet, so the buttons move up 1 mm to Y = 33, 15 and −3 mm, the pod top from 44 to 45.5 mm, and the upper-facet cover screws to 40.5, 24 and 6 mm. Each bezel stays 0.75 mm from the fold and from the top corner radius. The pitch stays 18 mm; APEM recommends 20 mm.
+- **Nuts.** A hex nut can stop at any angle, so the CAD checks a Ø16.2 mm circle (its corners) behind each button: clear of the housing, the gasket, the joystick and each other once the gasket lip is 2.8 mm wide instead of 3 mm. There are 1.8 mm between nut corners at 18 mm pitch, so the nuts need an open-end wrench, not a socket.
+
 ### Lock
 
-- An M3 × 20 ISO 4762 screw is the lock pin: its Ø5.5 × 3 mm head runs in a Ø6 mm pocket in the platform at Y = −30 mm, below the clamp ring and clear of the lower bolt.
-- A compression spring under the head pushes it 2 mm out of the platform, into a Ø5.8 mm hole in the remote's rear face. A positive stop, not a detent: the remote cannot slide down until the head is pulled in.
-- The shank runs back through the base to a Ø12 mm printed knob with an M3 insert, locked by a nut. The knob rests on the back of the platform block (X = −5 mm) and sets how far the head stands out.
-- Pulling the knob 2 mm pulls the head flush. When the remote is pressed on at the entry position, its rear face pushes the head in; the head springs out when the hole comes over it.
+- An M3 × 22 ISO 4762 screw is the lock pin: its Ø5.5 × 3 mm head runs in a Ø6 mm pocket in the platform at Y = −32 mm, below the clamp ring and clear of the lower bolt.
+- A 0.5 × 5 × 10 mm stainless compression spring (wire × outside diameter × free length) under the head pushes it 2 mm out of the platform, with about 3.4 N (estimated, not measured), into a Ø5.8 mm hole in the remote's rear face. A positive stop, not a detent: the remote cannot slide down until the head is pulled in.
+- The shank runs back through the base to a Ø16 × 8 mm printed knob with an M3 insert, locked by a nut. The knob rests on the back of the platform block (X = −5 mm) and sets how far the head stands out.
+- **Quarter turn.** The knob is a cup over a Ø9 × 3.5 mm boss on the back of the block. Two Ø1.5 × 4 mm steel dowel pins through the cup wall run in L-slots in the boss. Locked, the pins sit in the circumferential part of the slots and the knob cannot be pulled; turning it 90° brings them to the axial part, and then it pulls out 2 mm. The CAD checks the knob locked, turned 45° and 90°, and pulled, with no overlap, and that it cannot be pulled while locked or half-turned.
+- **Vibration.** Vibration alone should not pull the head in: the moving parts weigh about 2.5 g, so the 3.4 N spring needs about 140 g along the pin axis to be overcome (an estimate). The quarter turn is against a branch or a strap pulling the knob.
+- Turning the knob 90° and pulling it 2 mm pulls the head flush. When the remote is pressed on at the entry position, its rear face pushes the head in; the head springs out when the hole comes over it.
 - Only 1 mm of the head stays in its pocket when locked. The shank, guided over 5 mm in the base, takes the moment.
 
 ### Battery, charging and vent
@@ -136,7 +145,7 @@ V0.22 keeps from V0.21 the sheet gasket and the plate that clamps it, and replac
 
 - **Folded front.** The fold line is 12.5 mm below the bar axis, between button C and the joystick. The lower facet is 30 mm long and turns 20° toward the bar (`fold_angle`), so its lower end sits 10.3 mm closer to the bar. This clears the thumb's path to the turn-signal switch, which the straight V0.19 face obstructed. The joystick axis is 14.5 mm below the fold.
 - **Why 20° and not 30°.** At 30° the end wall becomes too short for the gland lock nut beside the corner screw bosses. The 30° values are noted next to `fold_angle` in the CAD.
-- **Pod length.** Buttons at Y = 32, 14, −4 mm; the pod spans Y = −40.7 to 44 mm (84.7 mm). The axis-to-button-C distance is 57.5 mm perpendicular to the bar.
+- **Pod length.** In V0.24 the buttons are at Y = 33, 15, −3 mm and the pod spans Y = −40.7 to 45.5 mm (86.2 mm), 1.5 mm longer than in V0.23 (32, 14, −4; 44 mm), to fit the real APEM bezels. The axis-to-button-C distance is 57.5 mm perpendicular to the bar.
 - **Cover gasket.** 0.6 mm when compressed: printed 0.8 mm thick in a soft TPU, or cut from 0.8–1 mm silicone or EPDM sheet using the flat model as a template. On the upper facet the housing land is the wall plus a 3 mm lip inside both axial walls, and a Ø6 mm pad around every screw.
 - **Cover screws.** Ten countersunk M2 screws in pairs at five positions. The largest spacing along the perimeter is 21.8 mm.
 - **Cover printing.** The cover prints on its axial face, because the fold would need support face down.
@@ -200,7 +209,7 @@ The tightest points are now:
 
 V0.24 aims for rain and spray resistance, not an IP rating. It has not been tested.
 
-1. **Buttons.** Use buttons rated for front-panel sealing (IP67 or better), with their panel gasket. This has not been verified for the APEM IS order codes; check the datasheets before buying.
+1. **Buttons.** APEM ISR3SAD200, IP67 front-panel sealing (IEC 60529) with the flat seal under the bezel. The Ø17.5 mm bezel and its seal sit on the flat upper facet, 0.75 mm from the fold and from the top corner radius.
 2. **Joystick.** The cover hole is open to the outside. The sheet gasket is the seal there: it is clamped all round the hole and grips the stick. A printed TPU sheet that flexes with every stick movement may tear or creep; a cast silicone sheet would last longer.
 3. **Cover joint.** The gasket and ten screws. On the lower facet the sheet is clamped over the whole facet. Elsewhere the land is the 2 mm wall of the wide part.
 4. **USB-C.** The GCT USB4736 is rated IP67 with its USBTJ-06 gasket compressed on the thinned land; GCT says the gasket is fitted after the receptacle is soldered. Pot the back of the receptacle and its PCB with epoxy as a second barrier. On the bike the platform covers it. The groove and the lock hole are blind and do not open into the cavity.
@@ -251,7 +260,7 @@ Remote:
 
 Base:
 1. Press the two M4 inserts into the base front's split face.
-2. Drop the lock spring into the pocket, push the M3 × 20 screw through it from the platform side, and fit the lock knob (with its M3 insert) on the shank from behind. Turn the knob until the head stands 2 mm proud with the knob on the block, then lock it with an M3 nut.
+2. Press the two Ø1.5 × 4 mm dowel pins into the lock knob, and its M3 insert from inside the cup. Drop the lock spring into the pocket and push the M3 × 22 screw through it from the platform side. Fit the knob over the boss with the pins in the axial slots, thread it onto the shank until the head stands 2 mm proud with the knob on the block, turn it to the locked position, and lock it with an M3 nut.
 3. Glue the two TPU strips into their pockets.
 4. Fit the liner halves, place the base on the bar with the platform where the remote should sit, fit the cap from behind, set the angle, and tighten the two M4 × 16 bolts evenly.
 
@@ -276,27 +285,27 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | Feature | CAD value | Basis |
 |---|---:|---|
 | XIAO nRF52840 board outline | 21 × 17.8 mm | Seeed Studio published dimensions |
-| APEM IS button panel opening | Ø13.6 mm | APEM IS series drawing |
-| APEM reduced bezel option | 15 mm | APEM IS series options; confirm exact ordered variant |
+| APEM ISR3SAD200 panel cut-out | Ø13.6 mm with an anti-rotation flat 12.9 mm across | APEM IS series datasheet (16/08/2024); the flat is at the cover's print top, where it bridges |
+| APEM ISR3SAD200 head and nut | Ø12 mm actuator, Ø17.5 mm bezel, 5.0 mm above the panel; M12 × 0.75 bushing, 13 mm behind the panel; 14 mm A/F hex nut | APEM IS series datasheet; the reduced Ø15 mm bezel (option 234) was not found at distributors |
 | KSC2 switch | 6.2 (+0.3) × 6.2 (+0.3) mm body, 3.5 mm to the actuator top, Ø2.9 mm actuator; 2 N, 0.35 ± 0.15 mm travel (KSC22x) | C&K KSC2 datasheet; modelled at 6.5 mm |
 | Handlebar | Ø22.2 mm (7/8 in) or Ø25.4 mm (1 in) | One base per bar size; measure the actual straight section |
-| Base clamp | Ø46 mm outer diameter, Ø24.2 or Ø27.4 mm bore, flat platform at X = −17.2 mm from Y = −36 to +33.5 mm | Diametral split into two halves with a 0.8 mm clamping gap; not strength-validated |
+| Base clamp | Ø46 mm outer diameter, Ø24.2 or Ø27.4 mm bore, flat platform at X = −17.2 mm from Y = −41 to +33.5 mm | Diametral split into two halves with a 0.8 mm clamping gap; not strength-validated |
 | Remote rear face | Flat at X = −17.4 mm | 0.2 mm clear of the platform |
 | Dovetail | Rails 10 mm wide at the platform, 15 mm at the top, 2.5 mm high, 45° flanks; two 8 mm segments with a 9 mm gap; 7 mm lips; 0.2 mm clearance; 9 mm slide | Prints without supports on both parts; clearance to tune on the first print |
-| Lock | M3 × 20 ISO 4762 head (Ø5.5 × 3 mm) 2 mm proud, in a Ø6 mm pocket at Y = −30 mm; Ø5.8 mm hole in the remote; Ø12 × 6 mm knob | ISO 4762 head size; spring not yet chosen |
+| Lock | M3 × 22 ISO 4762 head (Ø5.5 × 3 mm) 2 mm proud, in a Ø6 mm pocket at Y = −32 mm; Ø5.8 mm hole in the remote; 0.5 × 5 × 10 mm spring; Ø16 × 8 mm quarter-turn knob on a Ø9 × 3.5 mm boss, two Ø1.5 × 4 mm pins | ISO 4762 head size; spring force estimated |
 | USB-C receptacle | GCT USB4736-GF-A; shell axis at Y = 29.5 mm in the rear face, long side along the bar; 1.80 mm panel, 9.14 × 3.36 mm slot, 11.00 × 5.90 × 0.60 mm gasket pocket; USBTJ-06 gasket 10.64 × 4.86 × 0.90 mm; body 9.99 wide, 4.61 mm above its PCB, 8.60 mm long | GCT drawing USB4736 rev. A (9 April 2025) |
 | LiPo pouch | 6 × 20 × 30 mm envelope with 0.5 mm clearance, X = −29 to −22, Y = −33.5 to −2.5 mm | 602030 listings; measure the bought cell |
 | Pod front corners | 3 mm radius | Leaves a flat cover face for the M2 screws |
 | Folded front | Upper facet normal to the pod axis; lower facet turned 20° toward the bar, fold 12.5 mm below the bar axis | Clears the thumb's path to the turn-signal switch; the angle is a parameter |
 | Pod cavity corners | 2 mm front, 6 mm rear | 1 mm inset from the outer corners |
 | Clamp liner | 1 mm radial TPU liner | Parametric target; tune to measured bar and print process |
-| Remote envelope | 40.1 × 84.7 mm in the plane of the clamp (X = −57.5 to −17.4 mm); 23 mm along the bar at the rear, 26 mm at the control end | Bar footprint from the manual's 23 mm installation clearance |
+| Remote envelope | 40.1 × 86.2 mm in the plane of the clamp (X = −57.5 to −17.4 mm); 23 mm along the bar at the rear, 26 mm at the control end | Bar footprint from the manual's 23 mm installation clearance |
 | Button direction | Button axes perpendicular to the handlebar axis | Layout requirement |
 | Case wall / cover | 2.0 mm axial walls at the control end, 1.0 mm in the narrow part and at the ends / 2.5 mm cover | Cover within the APEM IS panel range |
-| Control layout | Buttons at Y = 32, 14, −4 mm (18 mm pitch) on the upper facet; joystick axis 14.5 mm below the fold on the lower facet, 23 mm from button C measured over the surface | Layout target; confirm glove access and supplier bezel sizes |
+| Control layout | Buttons at Y = 33, 15, −3 mm (18 mm pitch) on the upper facet; joystick axis 14.5 mm below the fold on the lower facet, 24 mm from button C measured over the surface | APEM recommends 20 mm between IS buttons; 18 mm leaves 0.5 mm between bezels and 1.8 mm between nut corners, so the nuts need an open-end wrench. To judge on the first print |
 | Clamp fasteners | Two parallel M4 × 16 ISO 4762 bolts at ±18.5 mm from the bar axis; Ø7.6 mm counterbores 8 mm from the split face; Ø5.6 × 8.1 mm insert holes | 7.6 mm grip, 7.6 mm engagement, 2.65 mm wall to the 25.4 mm bore; confirm against the bought bolts and inserts |
 | Cover fasteners | Six M2 × 8 (upper facet) and four M2 × 10 (lower facet, through the joystick plate) ISO 10642 countersunk screws; Ø3.2 × 6 mm insert holes in Ø6 mm bosses | Spaced 16.5–21.8 mm along the perimeter to compress the gasket; confirm against the bought inserts |
-| Cover gasket | 0.6 mm compressed (0.8 mm printed or cut) | Upper facet: 1 mm on the walls, 4 mm with the lip, Ø6 mm around each screw. Lower facet: full sheet on the joystick plate, Ø2.4 mm hole stretched over the stick |
+| Cover gasket | 0.6 mm compressed (0.8 mm printed or cut) | Upper facet: 1 mm on the walls, 3.8 mm with the lip (4 mm before V0.24; the APEM nuts need the room), Ø6 mm around each screw. Lower facet: full sheet on the joystick plate, Ø2.4 mm hole stretched over the stick |
 | Pod width | 23 mm along the bar at the base and the rear of the pod; 26 mm for X < −38 mm | 23 mm from the NAVCOMM manual's minimum free space on the bar; the control end is 40–60 mm from the bar axis |
 | Joystick | Ø16 mm knob 5.5 mm proud, hub 0.7 mm and rim 1.15 mm above the cover; Ø3 × 12 mm steel pin; Ø6 mm ball on a Ø3.6 mm seat edge, pivot 7.0 mm behind the face; 1.2 mm cross disc 0.05 mm above four KSC2 at 6.75 mm | Trips at ≤ 4.7° tilt; knob stop at 8.2° or 0.7 mm push; disc room 9.5° |
 | Joystick plate | 1.5 mm, behind the sheet; Ø3.6 mm seat hole opening to Ø4.8 mm at the front; Ø10 × 0.6 mm sheet pocket; two Ø3.6 mm standoffs, 6.25 mm tall, at (∓6.0, ±6.4) mm from the stick axis | Printed PETG; clamped by the four lower cover screws |
@@ -314,7 +323,7 @@ APEM's [IS series page](https://www.apem.com/panel-switches/pushbutton-switches/
 
 These are the only items that block a confident first print. Each is a parameter in the CAD.
 
-- **Buttons:** exact APEM IS order codes, sealing rating, nut sizes behind the panel, terminal length, and wire exit.
+- **Buttons:** APEM ISR3SAD200 chosen; measure the nut thickness (`button_nut_h`, 2.5 mm assumed) and check the 18 mm pitch with gloves and a wrench on the first print.
 - **Joystick:** measure the KSC2 height and the printed plate, ball and disc; together with the standoffs they set the 0.05 mm rest gap (`joy_rest_gap`). The feel (4.7° to trip, 2 N per direction, about 8 N for the centre chord) and the Ø16 mm knob need a check with gloves.
 - **XIAO:** PCB thickness, header spacer height, pin length, and component height. Adjust `xiao_pcb`, `xiao_header_plastic`, `xiao_pin_length`, and `xiao_component_h`; the render stops if the pins reach the rear wall.
 - **Inserts:** hole diameters and depths for the actual M4 and M2 inserts.

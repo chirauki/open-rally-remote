@@ -16,6 +16,10 @@
 //     a sealed, charge-only USB-C receptacle in the rear face, above the groove, covered by the
 //     base on the bike. Any USB-C cable charges it off the bike.
 //   - the vent moves to the bottom end wall, where the gland was.
+//   - APEM ISR3SAD200 buttons: cut-out with APEM's anti-rotation flat, real bezel, actuator and nut;
+//     the buttons move up 1 mm and the pod top 1.5 mm so the Ø17.5 bezels sit on the flat facet.
+//   - the lock knob is a quarter-turn cup with two steel pins in L-slots: it cannot be pulled until
+//     it is turned 90 degrees.
 // Everything in front of the remote's rear face is the V0.23 pod, unchanged.
 //
 // V0.20 folds the control face between button C and the lower control: the upper facet (A, B, C)
@@ -95,7 +99,7 @@ fold_angle = 20;             // lower facet turns this far toward the bar; the g
                              // 20 deg is gone in V0.24, but 30 deg has not been rechecked
                              // (V0.20 joystick values: centre 16.5, lower_facet_length 32, lower screws at 5 and 27.6)
 lower_facet_length = 30.0;   // outer surface, fold to lower end; sized for the corner cover screws
-pod_top_y = 44.0;
+pod_top_y = 45.5;           // 44 until the APEM bezels were modelled
 pod_max_x = -15.0;
 pod_rear_corner = 7.0;       // sets the tangent diagonals to the clamp ring
 pod_front_corner = 3.0;
@@ -119,7 +123,7 @@ groove_y0 = rail_y[0][0];    // stop: the lower rail's end bears here
 groove_y1 = rail_y[1][1]+slide+0.5;
 groove_floor_x = platform_x-dt_h-dt_c;
 floor_wall = 1.3;            // groove floor to cavity
-base_y0 = -36.0;             // platform extent along Y
+base_y0 = -41.0;             // platform extent along Y; covers the lock knob
 base_y1 = 33.5;             // covers the USB-C receptacle
 base_back_x = -5.0;          // rear face of the platform block below and above the ring
 // Anti-rattle: TPU strips in pockets on the platform, either side of the rails.
@@ -133,19 +137,34 @@ strip_t = 1.4;               // proud by strip_t-strip_pocket; compressed when t
 // pushes it out into a hole in the remote's rear face. The shank runs back through the base
 // to a knob with an M3 insert, locked by a nut; the knob bears on base_back_x and sets how far
 // the head stands out. Pull the knob to release.
-lock_y = -30.0;              // below the ring, clear of the lower clamp bolt
+lock_y = -32.0;              // below the ring, clear of the lower clamp bolt; the Ø16 knob clears the ring
 lock_head_d = 5.5;           // ISO 4762 M3
 lock_head_h = 3.0;
 lock_out = 2.0;              // head proud of the platform when locked
 lock_pocket_d = 6.0;
-lock_spring_solid = 4.0;     // spring length with the head fully in; MEASURE chosen spring
+lock_spring_solid = 4.0;     // spring length with the head fully in. Spring 0.5 x 5 x 10 mm (wire x OD x free
+                             // length), stainless: about 3.4 N locked, 5 N pulled; MEASURE the one bought
 lock_pocket_depth = lock_head_h+lock_spring_solid;
 lock_shank_hole = 3.4;
 lock_hole_d = 5.8;           // in the remote
 lock_hole_depth = lock_out+0.4;
-lock_knob_d = 12.0;
-lock_knob_h = 6.0;
-lock_screw_length = 20.0;    // M3 x 20; MEASURE with the knob insert and nut
+// Quarter-turn knob: a cup over a boss on the back of the platform block. Two Ø1.5 steel pins
+// through the cup wall run in L-slots in the boss. Locked, the pins sit in the circumferential
+// slots and the knob cannot be pulled; turn it 90 degrees to bring them to the axial slots, then
+// pull. This stops a branch or a strap pulling the knob by accident.
+lock_knob_d = 16.0;
+lock_knob_h = 8.0;
+lock_boss_d = 9.0;
+lock_boss_h = 3.5;
+lock_bore_d = 9.4;           // in the knob, over the boss
+lock_bore_h = 4.0;
+lock_pin_d = 1.5;            // ISO 8734 dowel pin, 1.5 x 4
+lock_pin_len = 4.0;
+lock_pin_z = 1.2;            // pin axis from the knob rim
+lock_pin_r_in = 3.7;         // inner end of the pin, radius
+lock_slot_r = 3.3;           // slot floor radius in the boss
+lock_slot_w = 1.9;           // slot width for the pin
+lock_screw_length = 22.0;    // M3 x 22: through the boss and the knob insert, 2.8 mm left for a lock nut; MEASURE
 
 // --- Charging: sealed USB-C receptacle in the rear face ---------------------------------
 // GCT USB4736-GF-A: a charge-only (6-contact) USB-C receptacle, top mount, horizontal, IP67 with
@@ -192,7 +211,8 @@ pouch_y0 = -33.5;
 pod_cavity_x1 = groove_floor_x-floor_wall;
 pod_cavity_front_corner = 2.0;
 pod_cavity_rear_corner = 6.0;
-lip_width = 3.0;             // gasket land added inside the axial walls along the upper facet
+lip_width = 2.8;             // gasket land added inside the axial walls along the upper facet;
+                             // 3.0 until V0.24: the APEM nuts (16.2 across corners) need the room
 lip_depth = 2.0;
 
 fold_d = [sin(fold_angle), -cos(fold_angle)];   // down the lower facet
@@ -209,13 +229,21 @@ function front_point(facet,u) = facet==0 ? [cover_front_x,u] : fold_p+u*fold_d;
 function front_normal(facet) = facet==0 ? [1,0] : fold_n;
 
 // --- Controls (envelopes from supplier drawings; MEASURE exact order codes) ------------
-button_cutout = 13.6;        // APEM IS
-button_y = [32.0, 14.0, -4.0];  // A, B, C on the upper facet, 18 mm pitch
-button_body_d = 12.0;
-switch_depth = 13.0;
-button_head_projection = 1.8;
-button_head_diameter = 10.0;
-teardrop_cap = 0.0;          // flat cutout top this far above the circle (cover prints on its side)
+// APEM ISR3SAD200 (IS series datasheet, 16/08/2024): sealed IP67 pushbutton, round curved
+// actuator, NO, solder lugs, M12 x 0.75 bushing, standard Ø17.5 bezel with flat seal, 14 mm A/F
+// hex nut behind the panel.
+button_cutout = 13.6;        // panel cut-out diameter
+button_cutout_flat = 12.9;   // across the anti-rotation flat
+button_y = [33.0, 15.0, -3.0];  // A, B, C on the upper facet, 18 mm pitch (APEM matrix: 20 mm);
+                             // the Ø17.5 bezels keep 0.75 mm from the fold and from the top corner radius
+button_body_d = 12.0;        // M12 bushing and body behind the panel
+switch_depth = 13.0;         // behind the panel, terminals included
+button_head_projection = 5.0;   // actuator top above the panel
+button_head_diameter = 12.0;    // actuator
+button_bezel_d = 17.5;
+button_bezel_h = 3.8;        // bezel and flat seal; the actuator stands 1.2 above it
+button_nut_af = 14.0;        // U166 hex nut
+button_nut_h = 2.5;          // MEASURE the nut supplied
 
 // --- Joystick: steel pin stick, printed ball and disc, four C&K KSC2 sealed tact switches -
 // Joystick frame (at_joy): origin on the outer cover face at the stick axis, +Z into the pod
@@ -278,7 +306,7 @@ joy_standoff_pilot = 1.6;
 // --- Cover fasteners: M2 ISO 10642 countersunk into M2 heat-set inserts ----------------
 // [facet, u]; each position has a screw near both axial walls. Lower-facet screws also pass
 // through the joystick plate, so they are longer and their bosses start behind the plate.
-cover_screws = [[0,39.5],[0,23.0],[0,5.0],[1,3.5],[1,25.3]];
+cover_screws = [[0,40.5],[0,24.0],[0,6.0],[1,3.5],[1,25.3]];
 cover_screw_z = [pod_z0+3.25, pod_z1-3.25];
 cover_screw_length = 8.0;
 cover_screw_length_lower = 10.0;
@@ -739,10 +767,28 @@ module rails() {
     for (r=rail_y) along_y(r[0],r[1]) dovetail_2d(0,0.5);
 }
 
+// Frame on the back of the platform block at the lock axis: local +Z points along +X (out of
+// the block), local X along global -Z.
+module at_lock_back() { translate([base_back_x,lock_y,axial_width/2]) rotate([0,90,0]) children(); }
+
 module lock_cuts() {
     zc = axial_width/2;
     at_x_minus(lock_pocket_floor_x,lock_y,zc) cylinder(d=lock_pocket_d,h=lock_pocket_depth+0.1);
-    at_x_minus(base_back_x+0.1,lock_y,zc) cylinder(d=lock_shank_hole,h=base_back_x+0.2-lock_pocket_floor_x,$fn=24);
+    at_x_minus(base_back_x+lock_boss_h+0.1,lock_y,zc)
+        cylinder(d=lock_shank_hole,h=base_back_x+lock_boss_h+0.2-lock_pocket_floor_x,$fn=24);
+    // L-slots in the boss: circumferential at the pin height from the locked angle (0, 180) to
+    // the release angle (90, 270), then axial to the top of the boss.
+    at_lock_back() for (a=[0,180]) rotate(a) {
+        da = asin(lock_slot_w/2/lock_slot_r)+3;   // past the pin at both ends
+        translate([0,0,lock_pin_z-lock_slot_w/2]) rotate(-da) rotate_extrude(angle=90+2*da)
+            translate([lock_slot_r,0]) square([lock_boss_d/2-lock_slot_r+1,lock_slot_w]);
+        rotate(90) translate([lock_slot_r,-lock_slot_w/2,lock_pin_z-lock_slot_w/2])
+            cube([lock_boss_d/2-lock_slot_r+1,lock_slot_w,lock_boss_h+1]);
+    }
+}
+
+module lock_boss() {
+    at_lock_back() translate([0,0,-0.01]) cylinder(d=lock_boss_d,h=lock_boss_h+0.01);
 }
 
 module strip_pockets() {
@@ -755,6 +801,7 @@ module base_front() {
         union() {
             linear_extrude(height=axial_width) base_front_2d();
             rails();
+            lock_boss();
         }
         body_bolt_cuts();
         lock_cuts();
@@ -769,13 +816,21 @@ module base_cap() {
     }
 }
 
-// Lock knob: printed, with an M3 heat-set insert from its front face and a nut behind.
+// Lock knob in its own frame: rim at z = 0 on the platform block, top at lock_knob_h. A cup over
+// the boss; an M3 heat-set insert from inside the cup, a nut on top; two radial pin holes.
 module lock_knob_shape() {
     difference() {
         cylinder(d=lock_knob_d,h=lock_knob_h);
+        translate([0,0,-0.1]) cylinder(d=lock_bore_d,h=lock_bore_h+0.1);
         translate([0,0,-0.1]) cylinder(d=4.0,h=lock_knob_h+0.2,$fn=24);   // M3 insert hole; MEASURE
+        for (a=[0,180]) rotate(a) translate([lock_pin_r_in,0,lock_pin_z]) rotate([0,90,0])
+            cylinder(d=lock_pin_d-0.05,h=lock_knob_d,$fn=16);                 // press fit; MEASURE
         for (a=[0:30:330]) rotate(a) translate([lock_knob_d/2+0.6,0,-0.1]) cylinder(d=2,h=lock_knob_h+0.2,$fn=12);
     }
+}
+
+module lock_pins() {
+    for (a=[0,180]) rotate(a) translate([lock_pin_r_in,0,lock_pin_z]) rotate([0,90,0]) cylinder(d=lock_pin_d,h=lock_pin_len,$fn=16);
 }
 
 // Lock parts in place: head proud of the platform (locked) or flush (pulled, 'out' = 0).
@@ -788,7 +843,11 @@ module lock_parts(out=lock_out) {
     }
     color([0.8,0.8,0.8,0.6]) at_x_minus(lock_pocket_floor_x,lock_y,zc)
         difference() { cylinder(d=5.0,h=lock_pocket_depth-lock_head_h+out,$fn=24); translate([0,0,-1]) cylinder(d=3.4,h=20,$fn=24); }
-    color([0.85,0.45,0.15]) translate([base_back_x+dx,lock_y,zc]) rotate([0,90,0]) lock_knob_shape();
+    // Pulled, the knob has been turned 90 degrees to the release position first.
+    translate([base_back_x+dx,lock_y,zc]) rotate([0,90,0]) rotate(out<lock_out ? 90 : 0) {
+        color([0.85,0.45,0.15]) lock_knob_shape();
+        color([0.7,0.7,0.72]) lock_pins();
+    }
 }
 
 module strips() {
@@ -901,23 +960,21 @@ module stick() { at_joy() stick_shape(); }
 module ball_disc() { at_joy() ball_disc_shape(); }
 module knob() { at_joy() knob_shape(); }
 
-// Round cutout with its top (+Z, the print direction of the cover) capped at 45 degrees,
-// so it prints without support. Local frame of along(): local X is global -Z here.
-module teardrop_cut(d,h) {
-    r = d/2;
-    linear_extrude(height=h) hull() {
-        circle(d=d);
-        intersection() {
-            rotate(135) square(r);
-            translate([-r-teardrop_cap,-r]) square([r+teardrop_cap,2*r]);
-        }
+// APEM panel cut-out: Ø13.6 with an anti-rotation flat 12.9 across. The flat is at the top
+// (+Z, the print direction of the cover), where it prints as a short bridge.
+// Local frame of along(): local X is global -Z here.
+module button_cut(h) {
+    r = button_cutout/2;
+    linear_extrude(height=h) intersection() {
+        circle(d=button_cutout);
+        translate([-(button_cutout_flat-r),-r-1]) square([button_cutout_flat+1,2*r+2]);
     }
 }
 
 module face_cover() {
     difference() {
         translate([0,0,pod_z0]) linear_extrude(height=pod_width) cover_profile_2d();
-        at_buttons(-0.1) teardrop_cut(button_cutout,face_cover_thickness+0.5);
+        at_buttons(-0.1) button_cut(face_cover_thickness+0.5);
         at_joy(-0.1) cylinder(d=cover_stick_hole,h=face_cover_thickness+0.5);
         at_cover_screws() {
             translate([0,0,-0.1]) cylinder(d=cover_screw_clear_d,h=face_cover_thickness+0.2);
@@ -996,18 +1053,25 @@ module usbc_plug_envelope() {
 
 module controls_and_board() {
     color([0.85,0.55,0.20]) at_buttons(cover_back_off) cylinder(d=button_body_d,h=switch_depth);
+    button_nuts();
     joy_envelope();
     xiao_envelope();
     color([0.75,0.2,0.2]) pouch_envelope();
     usbc_envelope();
 }
 
+// Hex nuts behind the cover, flats facing the axial walls.
+module button_nuts() {
+    color([0.6,0.6,0.62]) at_buttons(cover_back_off) rotate(30) cylinder(d=button_nut_af/cos(30),h=button_nut_h,$fn=6);
+}
+
 module control_heads() {
     at_buttons() {
-        color([0.30,0.36,0.39])
-            translate([0,0,-0.8]) difference() { cylinder(d=15,h=0.8); translate([0,0,-0.1]) cylinder(d=button_head_diameter+0.8,h=1.0); }
-        color([0.16,0.21,0.24])
-            translate([0,0,-button_head_projection]) cylinder(d=button_head_diameter,h=face_cover_thickness+button_head_projection);
+        color([0.30,0.36,0.39]) translate([0,0,-button_bezel_h])
+            difference() { cylinder(d=button_bezel_d,h=button_bezel_h); translate([0,0,-0.1]) cylinder(d=button_head_diameter+0.6,h=button_bezel_h+0.2); }
+        color([0.16,0.21,0.24]) translate([0,0,-button_head_projection]) {
+            cylinder(d=button_head_diameter,h=button_head_projection+face_cover_thickness);
+        }
     }
     color([0.14,0.18,0.20]) knob();
 }
@@ -1170,7 +1234,7 @@ module print_housing() { translate([0,0,-housing_front_x]) rotate([0,-90,0]) hou
 // degrees. Lock knob: on its rear face.
 module print_base_front() { base_front(); }
 module print_base_cap() { base_cap(); }
-module print_lock_knob() { lock_knob_shape(); }
+module print_lock_knob() { translate([0,0,lock_knob_h]) mirror([0,0,1]) lock_knob_shape(); }   // top on the bed
 // Cover: axial face down. The folded profile is an extrusion along Z; the control cutouts are
 // horizontal and capped at 45 degrees (hidden under the bezels).
 module print_cover() { face_cover(); }

@@ -2,7 +2,7 @@
 
 This is the single parts list for the project: the bench prototype and the V0.24 removable, battery-powered remote with its base. Design details stay in the linked documents; this page lists what to buy.
 
-**Status:** nothing in the V0.24 list has been built or tested. Items marked *to choose* have no part number yet.
+**Status:** nothing in the V0.24 list has been built or tested.
 
 Sourcing preference: parts that builders can buy from mainstream retailers (for example Amazon) come first. Distributor-only parts are used only where no retail part meets the requirement, and the reason is given.
 
@@ -40,7 +40,7 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 | 1 | [USB-C charging PCB](../electronics/usbc-pcb/README.md), 14 × 13.6 × **1.2** mm | JLCPCB or another board house | Order at 1.2 mm. Files in `electronics/usbc-pcb/fab/`. |
 | 1 | GCT USB4736-GF-A-KIT: USB-C receptacle, 6 contacts, charge only, IP67 with USBTJ-06 gasket | DigiKey, Mouser, Farnell, TME | Distributor part: the sealed USB-C parts sold on Amazon either lack the CC pins or are too large for the rear face. |
 | 2 | 5.1 kΩ 1 % resistor, 0603 (UNI-ROYAL 0603WAF5101T5E) | LCSC C23186 | On the USB-C PCB. |
-| 3 | Panel pushbutton, APEM IS series, Ø13.6 mm panel cutout, sealed (*to choose*) | *to choose* | Buttons A, B, C. Order code, sealing rating, nut size and terminals still to confirm. |
+| 3 | APEM ISR3SAD200 sealed pushbutton: round curved black actuator, NO, solder lugs, IP67, standard bezel, nut and flat seal supplied | DigiKey, RS, L'impulsion | Buttons A, B, C. Distributor part: no retail sealed button with a datasheet was found. About USD 11 each at DigiKey (2026-10-11). |
 | — | Hook-up wire, about 28–30 AWG, silicone insulated | Retail | Buttons, joystick PCB and USB-C PCB to the XIAO. |
 
 ### Hardware
@@ -77,15 +77,16 @@ Print settings and orientations are in the [mechanical notes](mechanical-concept
 |---:|---|---|---|
 | 2 | M4 × 16 socket-head screw, ISO 4762 | Retail | Clamp. |
 | 2 | M4 heat-set insert, short | Retail | Hole Ø5.6 × 8.1 mm in the CAD; check against the insert bought. |
-| 1 | M3 × 20 socket-head screw, ISO 4762 | Retail | Its head is the lock pin. |
-| 1 | Compression spring, about Ø5 mm outside, fits over Ø3 mm, about 4 mm long when compressed (*to choose*) | Retail | Lock. |
+| 1 | M3 × 22 socket-head screw, ISO 4762 | Retail | Its head is the lock pin. |
+| 1 | Compression spring 0.5 × 5 × 10 mm, stainless (wire × outside diameter × free length) | Retail (spring assortments; cut a longer one to length if needed) | Lock. About 3.4 N locked, estimated. |
+| 2 | Ø1.5 × 4 mm steel dowel pin, ISO 8734 | Retail | Quarter-turn lock knob. |
 | 1 | M3 heat-set insert | Retail | Lock knob. |
 | 1 | M3 nut | Retail | Locks the knob on the screw. |
 | 2 | TPU strip, 4 × 50 × 1.4 mm | Printed TPU, or cut from rubber sheet | Anti-rattle, glued into the platform pockets. |
 | 1 | Base front | PETG or ASA, `print_base_front` | Set `bar_diameter` to 22.2 or 25.4 mm before exporting. |
 | 1 | Base cap | PETG or ASA, `print_base_cap` | |
 | 2 | Bar liner half | TPU 95A, `liner_main`, `liner_cap` | |
-| 1 | Lock knob | PETG, `print_lock_knob` | |
+| 1 | Lock knob, Ø16 mm quarter turn | PETG, `print_lock_knob` | Top face on the bed. |
 
 ## Consumables
 
