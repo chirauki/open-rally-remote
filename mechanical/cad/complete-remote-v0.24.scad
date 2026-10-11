@@ -173,7 +173,12 @@ usbc_gasket_r = 1.60;
 usbc_nose = [8.94,3.16,1.20];   // along Z, along Y, along X
 usbc_body = [9.99,4.61,8.60];   // width, height above the PCB, overall length
 usbc_axis_h = 2.38;          // shell axis above the PCB top
-usbc_pcb = [14.0,12.0,1.20]; // breakout PCB inside the cavity: along Z, along X, thickness
+usbc_pcb = [14.0,13.6,1.20]; // receptacle PCB (electronics/usbc-pcb): along Z, along X, thickness
+usbc_pcb_edge = 0.53+1.70;   // PCB front edge behind the outer face: nose recess + nose overhang (GCT)
+usbc_pcb_holes = [[-5.4,10.6],[5.4,10.6]];  // M2 holes: Z offset, distance from the PCB front edge
+usbc_rib_h = 3.5;            // rib under the PCB, full cavity width, for M2 thread-forming screws
+usbc_pilot_d = 1.6;          // MEASURE pilot for the chosen screw
+usbc_screw = [3.5,1.1,4.0];  // M2 x 4 button head: head diameter, head height, length
 usbc_squeeze = 0.37;         // gasket compression, about 41 %
 usbc_plug = [12.4,6.5,20.0]; // cable plug overmold envelope: along Z, along Y, length
 
@@ -624,6 +629,20 @@ module rrect_2d(w,h,r) { offset(r=r) square([w-2*r,h-2*r],center=true); }
 // USB-C panel features cut into the rear wall, following GCT's recommended panel.
 // Local frame at the outer face on the shell axis: +Z points into the remote (-X global).
 module at_usbc(x=rear_x) { translate([x,usbc_y,axial_width/2]) rotate([0,-90,0]) children(); }   // local X = Z, local Y = Y
+// Rib under the receptacle PCB, from the rear wall into the cavity, across its full width so
+// its underside bridges between the axial walls when the housing prints.
+module usbc_rib() {
+    pcb_bottom = usbc_y-usbc_axis_h-usbc_pcb[2];
+    x_end = rear_x-usbc_pcb_edge-max([for (h=usbc_pcb_holes) h[1]])-2.0;
+    translate([x_end,pcb_bottom-usbc_rib_h,case_wall-0.1])
+        cube([pod_cavity_x1+0.5-x_end,usbc_rib_h,axial_width-2*case_wall+0.2]);
+}
+
+module usbc_pilots() {
+    for (h=usbc_pcb_holes) at_usbc() translate([h[0],-usbc_axis_h-usbc_pcb[2]+0.01,usbc_pcb_edge+h[1]])
+        rotate([90,0,0]) cylinder(d=usbc_pilot_d,h=usbc_screw[2]-usbc_pcb[2]+0.5,$fn=24);
+}
+
 module usbc_cuts() {
     clear_y0 = -usbc_axis_h-usbc_pcb[2]-1.5;      // below the PCB, for its parts
     clear_y1 = usbc_body[1]-usbc_axis_h+0.4;
@@ -670,7 +689,7 @@ module housing_body() {
         cavity_solid();
     }
     intersection() {
-        union() { cover_bosses(); gasket_lip(); xiao_rails(); }
+        union() { cover_bosses(); gasket_lip(); xiao_rails(); usbc_rib(); }
         outer_solid();
     }
 }
@@ -708,6 +727,7 @@ module housing() {
         groove_cut();
         lock_hole();
         usbc_cuts();
+        usbc_pilots();
     }
 }
 
@@ -947,7 +967,7 @@ module pouch_envelope() {
         cube([pouch_x1-pouch_x0,pouch_l+2*pouch_clear,pouch_w+2*pouch_clear]);
 }
 
-// USB-C receptacle, compressed gasket and breakout PCB, in place.
+// USB-C receptacle, compressed gasket, charging PCB and its screws, in place.
 module usbc_envelope() {
     nose_back = usbc_panel_t-usbc_pocket_depth+usbc_gasket_t-usbc_squeeze;  // from the outer face
     at_usbc() {
@@ -958,10 +978,14 @@ module usbc_envelope() {
                 difference() { rrect_2d(usbc_gasket[0],usbc_gasket[1],usbc_gasket_r); rrect_2d(usbc_nose[0],usbc_nose[1],1.5); }
         color([0.2,0.2,0.2]) translate([-usbc_body[0]/2,-usbc_axis_h,nose_back])
             cube([usbc_body[0],usbc_body[1],usbc_body[2]-usbc_nose[2]]);
-        color([0.15,0.48,0.32]) translate([-usbc_pcb[0]/2,-usbc_axis_h-usbc_pcb[2],usbc_panel_t+0.05])
+        color([0.15,0.48,0.32]) translate([-usbc_pcb[0]/2,-usbc_axis_h-usbc_pcb[2],usbc_pcb_edge])
             cube([usbc_pcb[0],usbc_pcb[2],usbc_pcb[1]]);
-        color([0.3,0.3,0.3]) translate([-usbc_pcb[0]/2+0.5,-usbc_axis_h-usbc_pcb[2]-1.0,usbc_panel_t+0.05])
-            cube([usbc_pcb[0]-1,1.0,usbc_pcb[1]]);
+        // resistors, wire pads and wires on the top, behind the receptacle
+        color([0.3,0.3,0.3]) translate([-3.5,-usbc_axis_h,usbc_pcb_edge+usbc_body[2]-1.70])
+            cube([7.0,1.5,usbc_pcb[1]-(usbc_body[2]-1.70)]);
+        // M2 screw heads
+        color([0.25,0.25,0.27]) for (h=usbc_pcb_holes) translate([h[0],-usbc_axis_h,usbc_pcb_edge+h[1]])
+            rotate([-90,0,0]) cylinder(d=usbc_screw[0],h=usbc_screw[1],$fn=24);
     }
 }
 

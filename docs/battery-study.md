@@ -173,7 +173,7 @@ A dovetail that slides along the pod's long axis, in the plane of the clamp, avo
 The remote is charged off the bike. The XIAO USB-C socket is inside the pod and can only be reached with the cover off, which disturbs the gasket. It stays for programming and firmware recovery only.
 
 - **Charging USB-C.** V0.24 has a second, sealed USB-C receptacle in the remote's rear face, above the dovetail groove. It is charge-only: VBUS and GND go to the joystick PCB 5 V input, so they pass its TVS diode and PTC fuse to the XIAO 5V pin. Any USB-C cable and charger work, so no charging dock is needed.
-- **CC pull-downs.** A USB-C charger only supplies 5 V when the device pulls both CC lines down through 5.1 kΩ. The receptacle sits on a small breakout PCB that carries them.
+- **CC pull-downs.** A USB-C charger only supplies 5 V when the device pulls both CC lines down through 5.1 kΩ. The receptacle sits on the [USB-C charging PCB](../electronics/usbc-pcb/README.md), which carries them.
 - **Covered when mounted.** On the base the receptacle faces the platform, out of the rain and mud. To charge, take the remote off.
 - **Dead when unplugged.** The XIAO feeds VIN from VBUS through a Schottky diode, and the battery reaches VIN through the power-path MOSFET. Neither path drives VBUS, so the receptacle carries no voltage when the remote runs on its battery. Its contacts cannot corrode from bias. This comes from the netlist and has not been measured.
 - **No cable gland.** The bike cable goes, so the gland and its lock nut go too. The gland lock nut set the 20° fold limit. The freed space at the bottom of the pod now holds the pouch.
@@ -231,7 +231,7 @@ Made:
 Still open, after the [measurements](#open-measurements):
 1. Pouch size: 6 mm (modelled) or 8 mm thick.
 2. The dovetail clearance and strip preload, on the first print.
-3. The small receptacle PCB.
+3. Checking the hand-drawn receptacle footprint on the [USB-C charging PCB](../electronics/usbc-pcb/README.md) against the real part.
 
 ## Sources
 

@@ -28,7 +28,7 @@ The remote mounts on the left side of the bar only, never the right. The turn-si
 
 ![V0.24 section through the middle of the pod and the base.](images/complete-remote-v0.24-section.png)
 
-![V0.24 interior with the upper axial wall removed: the LiPo pouch envelope (red) in the lower rear of the cavity, below the XIAO; the USB-C receptacle and its breakout PCB (green) at the top of the rear wall.](images/complete-remote-v0.24-interior.png)
+![V0.24 interior with the upper axial wall removed: the LiPo pouch envelope (red) in the lower rear of the cavity, below the XIAO; the USB-C receptacle on its charging PCB (green), resting on its rib at the top of the rear wall.](images/complete-remote-v0.24-interior.png)
 
 The control end is unchanged from V0.23. These V0.23 renders still show it:
 
@@ -87,7 +87,7 @@ The [battery study](battery-study.md) first proposed a bayonet turning around th
 ### Battery, charging and vent
 
 - **LiPo pouch.** A fixed pouch in the lower rear of the cavity, below the XIAO and behind the USB-C plug zone: envelope X = −29 to −22, Y = −33.5 to −2.5 mm, 21 mm along the bar. It takes a 6 × 20 × 30 mm pouch (602030, about 300 mAh in listings, not verified) with 0.5 mm all round. That space was free in V0.23 apart from the cable route; the earlier fit search had excluded everything below the fold. The pouch is held with foam tape and wired to the XIAO `BAT` pads.
-- **USB-C charging.** A GCT USB4736-GF-A charge-only (6-contact) USB-C receptacle in the rear face, IP67 with its USBTJ-06 silicone gasket (both in the kit USB4736-GF-A-KIT), centred at Y = 29.5 mm with its long side along the bar. It sits above the groove, so the platform (to Y = +33.5 mm) covers it on the bike; any USB-C cable charges the remote off the bike, and no charging dock is needed. The receptacle is on a small breakout PCB with the two 5.1 kΩ CC pull-downs, without which a USB-C charger supplies no 5 V. Its front is flush with the rear face; the wall is thinned from inside to 1.5 mm (`usbc_panel_t`) for its panel gasket. VBUS and GND go to the joystick PCB 5 V input, through its PTC fuse and TVS diode. This port only charges: the XIAO's own USB-C stays for programming. The CAD follows GCT's drawing (USB4736, revision A, 9 April 2025, via SnapEDA): the wall is thinned from inside to GCT's 1.80 mm panel, with a 9.14 × 3.36 mm slot (R1.43) and an 11.00 × 5.90 mm gasket pocket (R1.60) 0.60 mm deep. The 0.90 mm USBTJ-06 gasket is squeezed to about 0.53 mm (41 %; GCT asks for 35–45 %). The receptacle's 1.20 mm nose sits in the slot, 0.53 mm back from the rear face. It is the only part found that is sealed and keeps the CC lines; the waterproof USB-C parts sold on Amazon either lack CC pins (so USB-C chargers give no power) or are too large for the 23 mm rear face. It is sold by DigiKey, Mouser, Farnell and TME, not on Amazon. Earlier in this branch the charge path was two brass contacts and a charging dock; USB-C replaced them because it needs no dock, is keyed, and is a standard.
+- **USB-C charging.** A GCT USB4736-GF-A charge-only (6-contact) USB-C receptacle in the rear face, IP67 with its USBTJ-06 silicone gasket (both in the kit USB4736-GF-A-KIT), centred at Y = 29.5 mm with its long side along the bar. It sits above the groove, so the platform (to Y = +33.5 mm) covers it on the bike; any USB-C cable charges the remote off the bike, and no charging dock is needed. The receptacle is on a small breakout PCB with the two 5.1 kΩ CC pull-downs, without which a USB-C charger supplies no 5 V. Its front is flush with the rear face; the wall is thinned from inside to 1.5 mm (`usbc_panel_t`) for its panel gasket. VBUS and GND go to the joystick PCB 5 V input, through its PTC fuse and TVS diode. This port only charges: the XIAO's own USB-C stays for programming. The CAD follows GCT's drawing (USB4736, revision A, 9 April 2025, via SnapEDA): the wall is thinned from inside to GCT's 1.80 mm panel, with a 9.14 × 3.36 mm slot (R1.43) and an 11.00 × 5.90 mm gasket pocket (R1.60) 0.60 mm deep. The 0.90 mm USBTJ-06 gasket is squeezed to about 0.53 mm (41 %; GCT asks for 35–45 %). The receptacle's 1.20 mm nose sits in the slot, 0.53 mm back from the rear face. It is soldered to the [USB-C charging PCB](../electronics/usbc-pcb/README.md), a 14 × 13.6 × 1.2 mm board that lies flat on a rib spanning the cavity and is held by two M2 × 4 thread-forming screws; the screws fix where the receptacle squeezes its gasket. It is the only part found that is sealed and keeps the CC lines; the waterproof USB-C parts sold on Amazon either lack CC pins (so USB-C chargers give no power) or are too large for the 23 mm rear face. It is sold by DigiKey, Mouser, Farnell and TME, not on Amazon. Earlier in this branch the charge path was two brass contacts and a charging dock; USB-C replaced them because it needs no dock, is keyed, and is a standard.
 - **No cable gland.** The bike cable, the gland and its lock nut are gone.
 - **Vent.** It moves from the axial wall to the bottom end wall at X = −32 mm, where the gland was, so the pouch does not cover it.
 
@@ -159,8 +159,9 @@ V0.24:
 | TPU strips vs remote | Overlap by design: the strips are compressed |
 | Lock knob vs base and bolts, locked and pulled | Contact only, where it rests on the platform block |
 | Pouch envelope vs housing, XIAO, USB-C plug (cover off), joystick, cover bosses, USB-C receptacle and PCB, vent label | No overlap |
-| USB-C receptacle, gasket and breakout PCB vs housing, XIAO, its rails, cover bosses, buttons, joystick | No overlap; the gasket only touches its land |
+| USB-C receptacle, gasket, PCB and screw heads vs housing, XIAO, its rails, cover bosses, buttons, joystick | No overlap; the gasket only touches its land |
 | USB-C cable plug (12.4 × 6.5 mm overmold) vs housing, remote off the base | No overlap |
+| USB-C PCB rib vs XIAO, its rails and slide-in path, pouch, buttons, USB-C plug (cover off) | No overlap |
 | XIAO envelope vs housing | No overlap in place, nor 11 and 22 mm along its slide-in path |
 | XIAO pin tips to cavity rear wall | 2.2 mm |
 | Groove floor to cavity; lock hole bottom to cavity | 1.3 mm; 1.6 mm |
@@ -240,7 +241,7 @@ Remote:
 3. Solder the four KSC2 switches to the front of the joystick PCB, and the PTC fuse and TVS diode to the rear (or order the board assembled).
 4. Push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the PCB onto the plate standoffs with two M2 × 8 button-head screws (head at most Ø3.5 × 1.1 mm); the disc rests on the switches.
 5. Solder six wires from the rear pads of the joystick PCB to the XIAO: U, D, L, R to D3–D6, G to GND and 5V to the 5V pin. Lead them away from the top edge of the PCB. Solder the button wires as before.
-6. Solder two wires from VBUS and GND of the USB-C breakout PCB to the VIN and GND pads on the rear of the joystick PCB. Push the receptacle through its slot from inside, with its gasket on the land, and pot its back and the PCB with epoxy, keeping epoxy out of the opening.
+6. Solder the receptacle to the USB-C charging PCB, then fit its gasket. Solder two wires from its VBUS and GND pads to the VIN and GND pads on the rear of the joystick PCB. Slide the board along the rib until the nose enters the slot and the gasket sits in its pocket, and fix it with the two M2 × 4 screws. Pot the back of the receptacle with epoxy, keeping it out of the opening.
 7. Slide the XIAO into the rails along +Y until it stops. Secure its free end with a drop of hot glue or silicone. Apply conformal coating to both boards.
 8. Solder the pouch leads to the XIAO `BAT` pads, red to `BAT+`. Stick the pouch to the rear wall in the lower rear of the cavity with foam tape. Check the polarity before connecting either USB-C port.
 9. Stick the vent label inside over the vent hole in the bottom end wall.
@@ -268,7 +269,8 @@ Remote:
 | M2 × 10 ISO 10642 countersunk screw (lower facet) | 4 |
 | M2 heat-set insert, about 4 mm long (hole Ø3.2 × 6 mm in CAD) | 10 |
 | GCT USB4736-GF-A-KIT: USB-C receptacle, 6-contact, charge only, IP67, with USBTJ-06 gasket | 1 |
-| Small PCB for the receptacle, 1.20 mm thick, with two 5.1 kΩ CC pull-downs (not designed yet) | 1 |
+| [USB-C charging PCB](../electronics/usbc-pcb/README.md), 14 × 13.6 mm, 1.2 mm thick, with two 5.1 kΩ 0603 CC pull-downs | 1 |
+| M2 × 4 thread-forming button-head screw, head at most Ø3.5 × 1.1 mm (USB-C PCB) | 2 |
 | LiPo pouch with protection board, 6 × 20 × 30 mm (602030), about 300 mAh in listings | 1 |
 | Double-sided foam tape (pouch) | small amount |
 | C&K KSC2 sealed tact switch, 2 N, J-bend (for example KSC222JLFS) | 4 |
@@ -349,7 +351,7 @@ These are the only items that block a confident first print. Each is a parameter
 - **Dovetail:** the 0.2 mm clearance (`dt_c`) against the printer, and the strip material and thickness for the preload. Whether the 0.48 mm the remote can move toward the platform feels loose on the buttons.
 - **Lock:** a spring that fits a Ø6 mm pocket over a Ø3 mm shank and holds the head out firmly; its compressed length sets `lock_spring_solid`. The pull force, and whether 1 mm of head in the pocket is enough.
 - **Pouch:** the bought cell's size, protection board and lead exit, and its maximum charge current against the XIAO's 50 or 100 mA.
-- **USB-C PCB:** design the small receptacle PCB (1.20 mm thick, as GCT recommends) with the USB4736 footprint from GCT's drawing and the two 5.1 kΩ CC pull-downs, and a way to hold it against the gasket.
+- **USB-C PCB:** check its hand-drawn USB4736 footprint against the real part or GCT's footprint files, and the Ø1.6 mm screw pilots against the chosen screws.
 - **Vent:** label diameter and required hole size.
 - **Gasket:** material, whether 0.2 mm of compression seals on a 1 mm land, and how long a printed TPU sheet lasts flexing with the stick.
 - **Fold angle:** 20° is chosen to clear the turn-signal switch. The gland that kept it from 30° is gone in V0.24, but 30° has not been rechecked, and neither angle has been checked on a bike.

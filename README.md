@@ -16,6 +16,6 @@ The [development environment guide](docs/development-environment.md) explains ho
 
 The [battery study](docs/battery-study.md) compares battery options and settles on a removable remote with a fixed LiPo pouch, shared between bikes on a sliding dovetail base and charged off the bike (issue #1). V0.24 models it; see the [mechanical CAD notes](docs/mechanical-concept.md). Nothing of it has been built or measured.
 
-The [joystick PCB](electronics/joystick-pcb/README.md) is a KiCad design for the four joystick switches and the 5 V input protection, with Gerbers and a BOM; it has not been built yet.
+The [joystick PCB](electronics/joystick-pcb/README.md) is a KiCad design for the four joystick switches and the 5 V input protection, with Gerbers and a BOM; it has not been built yet. The [USB-C charging PCB](electronics/usbc-pcb/README.md) carries the sealed charge-only receptacle of V0.24 and its CC pull-downs; it has not been built either.
 
 The first [XIAO diagnostic firmware](firmware/xiao-nrf52840/README.md) reads the breadboard switches and sends BLE HID keyboard events. It compiles and reads the joystick center as a chord of the direction switches, but has not yet been tested on the purchased hardware; app profiles and mobile OTA updates remain future work.
