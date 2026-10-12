@@ -1,5 +1,5 @@
 (kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0") (uuid "833b0e16-e344-55ff-950b-5905c14c3b42") (paper "A5")
-(title_block (title "Open Rally Remote - USB-C charging PCB") (date "2026-10-11") (rev "V0.24") (comment 1 "GCT USB4736 charge-only receptacle with 5.1 k CC pull-downs"))
+(title_block (title "Open Rally Remote - USB-C charging PCB") (date "2026-10-12") (rev "V0.24") (comment 1 "GCT USB4736 charge-only receptacle with 5.1 k CC pull-downs, and the charge LED"))
 (lib_symbols
 	(symbol "Connector:USB_C_Receptacle_PowerOnly_6P"
 		(pin_names
@@ -1018,6 +1018,336 @@
 		)
 		(embedded_fonts no)
 	)
+	(symbol "Device:LED"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 1.016)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "D"
+			(at 0 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LED"
+			(at 0 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "LED diode"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "LED_0_1"
+			(polyline
+				(pts
+					(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.27 0) (xy 1.27 0)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.27 -1.27) (xy -1.27 1.27)
+				)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+				)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "LED_1_1"
+			(pin passive line
+				(at -3.81 0 0)
+				(length 2.54)
+				(name "K"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 3.81 0 180)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "Connector_Generic:Conn_01x01"
+		(pin_names
+			(offset 1.016)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 0 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x01"
+			(at 0 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "Connector*:*_1x??_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Conn_01x01_1_1"
+			(rectangle
+				(start -1.27 1.27)
+				(end 1.27 -1.27)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(rectangle
+				(start -1.27 0.127)
+				(end 0 -0.127)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(pin passive line
+				(at -5.08 0 0)
+				(length 3.81)
+				(name "Pin_1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
 	(symbol "power:PWR_FLAG"
 		(power global)
 		(pin_numbers
@@ -1160,13 +1490,26 @@
 (symbol (lib_id "power:VBUS") (at 101.60 50.80 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "66c153d2-ae16-5382-8ed0-4bf0cd4c4297") (property "Reference" "#PWR06" (at 101.60 54.61 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "VBUS" (at 101.60 46.99 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 101.60 50.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 101.60 50.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "232a8e13-4ad6-5c0a-9047-ab4e03707171")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "#PWR06") (unit 1)))))
 (wire (pts (xy 106.68 53.34) (xy 101.60 53.34)) (stroke (width 0) (type default)) (uuid "00bcf504-fdd2-5b46-8063-bf9d9334b6b0"))
 (symbol (lib_id "power:GND") (at 101.60 53.34 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "ae5d515d-37ff-5eb3-b72b-f01bf7951d46") (property "Reference" "#PWR07" (at 101.60 57.15 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "GND" (at 101.60 58.42 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 101.60 53.34 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 101.60 53.34 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "91fe7581-7cf5-5387-acf4-cad6042efbdc")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "#PWR07") (unit 1)))))
-(symbol (lib_id "power:VBUS") (at 129.54 45.72 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "b37f253b-8b4f-5fd1-a4e0-278fc79e4bf3") (property "Reference" "#PWR08" (at 129.54 49.53 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "VBUS" (at 129.54 41.91 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 129.54 45.72 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 129.54 45.72 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "734eb8d5-ee69-528f-902d-2390937e538a")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "#PWR08") (unit 1)))))
-(wire (pts (xy 129.54 45.72) (xy 139.70 45.72)) (stroke (width 0) (type default)) (uuid "337e4ab4-3dd5-5e95-b7ad-ff96a04e3342"))
-(symbol (lib_id "power:PWR_FLAG") (at 139.70 45.72 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "1791eb38-ae32-5329-b9cf-44d385c239b3") (property "Reference" "#FLG09" (at 139.70 49.53 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "PWR_FLAG" (at 139.70 41.91 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 139.70 45.72 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 139.70 45.72 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "e7d915cf-882b-5490-a4aa-617a9644bb29")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "#FLG09") (unit 1)))))
-(symbol (lib_id "power:GND") (at 129.54 60.96 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "b9e163e3-a012-5a75-938b-ac39bd64fffe") (property "Reference" "#PWR10" (at 129.54 64.77 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "GND" (at 129.54 66.04 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 129.54 60.96 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 129.54 60.96 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "3ce19f74-d059-5b23-b47d-6aa809e5bb8c")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "#PWR10") (unit 1)))))
-(wire (pts (xy 129.54 60.96) (xy 139.70 60.96)) (stroke (width 0) (type default)) (uuid "d58e3cd0-f01e-5071-92b6-a1ad4a269d08"))
-(symbol (lib_id "power:PWR_FLAG") (at 139.70 60.96 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "0965ec26-aaaf-5548-b546-81250ef63fb1") (property "Reference" "#FLG11" (at 139.70 64.77 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "PWR_FLAG" (at 139.70 57.15 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 139.70 60.96 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 139.70 60.96 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "c079f428-2c2b-557b-93f0-7fdd8800ca3f")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "#FLG11") (unit 1)))))
-(text "Charge-only USB-C input. R1 and R2 pull CC1 and CC2 down to 5.1 k, which tells a USB-C\ncharger to supply 5 V. VBUS and GND go by wire to the VIN and GND pads of the joystick PCB,\nwhich carries the PTC fuse and the TVS diode. Do not connect this port and the XIAO's own\nUSB-C at the same time: both are the XIAO VBUS net." (exclude_from_sim no) (at 25.40 91.44 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "e6422f9e-47c0-5922-8a02-8fe80b6b19c9"))
+(symbol (lib_id "Device:LED") (at 139.70 91.44 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c0b72f03-88ed-520f-923d-1fe85976a183") (property "Reference" "D1" (at 139.70 85.09 0) (effects (font (size 1.27 1.27)))) (property "Value" "Red" (at 139.70 99.06 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "orr:LED_LiteOn_LTST-S270" (at 139.70 91.44 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 139.70 91.44 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Lite-On" (at 139.70 91.44 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "LTST-S270KRKT" (at 139.70 91.44 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "LCSC" "C125114" (at 139.70 91.44 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "Red side-looking chip LED, charge indicator" (at 139.70 91.44 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "cf4c71a9-b9cd-5635-b9f4-38acaa8fd0ee")) (pin "2" (uuid "734eb8d5-ee69-528f-902d-2390937e538a")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "D1") (unit 1)))))
+(symbol (lib_id "Device:R") (at 134.62 76.20 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "00c367bc-d5ab-5149-b914-5cc2b34dbf4a") (property "Reference" "R3" (at 132.08 74.93 0) (effects (font (size 1.27 1.27)) (justify right))) (property "Value" "1k" (at 132.08 77.47 0) (effects (font (size 1.27 1.27)) (justify right))) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 134.62 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 134.62 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "0603WAF1001T5E" (at 134.62 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "UNI-ROYAL" (at 134.62 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "LCSC" "C21190" (at 134.62 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "2f940408-117c-5326-8cfa-22919d2ae033")) (pin "2" (uuid "5fd8164a-dad1-5c60-9cbc-ef2a5761b9c9")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "R3") (unit 1)))))
+(symbol (lib_id "Connector_Generic:Conn_01x01") (at 157.48 71.12 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "9ef11ef8-fe18-5af9-830f-b695d1574d71") (property "Reference" "J3" (at 157.48 63.50 0) (effects (font (size 1.27 1.27)))) (property "Value" "To XIAO D8" (at 157.48 83.82 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "orr:WirePad_1x01" (at 157.48 71.12 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 157.48 71.12 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "e7d915cf-882b-5490-a4aa-617a9644bb29")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "J3") (unit 1)))))
+(wire (pts (xy 135.89 91.44) (xy 133.35 91.44)) (stroke (width 0) (type default)) (uuid "9c283e67-b029-50b5-81be-819d15d8577e"))
+(symbol (lib_id "power:GND") (at 133.35 91.44 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "15d21b69-6009-5a0c-80a7-8046929899df") (property "Reference" "#PWR08" (at 133.35 95.25 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "GND" (at 133.35 96.52 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 133.35 91.44 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 133.35 91.44 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "d8716ac7-ddb4-5747-b1a1-b973c77bda8f")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "#PWR08") (unit 1)))))
+(wire (pts (xy 143.51 91.44) (xy 146.05 91.44)) (stroke (width 0) (type default)) (uuid "9e0d7407-7263-5861-a94a-3f5ef9141587"))
+(label "LED_A" (at 146.05 91.44 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "6822ba56-b822-5bbc-9026-a97d96ab1113"))
+(wire (pts (xy 134.62 72.39) (xy 134.62 69.85)) (stroke (width 0) (type default)) (uuid "023c0f48-3d7e-5b3b-86b2-08b8417a287c"))
+(label "LED_A" (at 134.62 69.85 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "f96321d5-b014-5b63-b0a5-0e3271a4ce0c"))
+(wire (pts (xy 134.62 80.01) (xy 134.62 82.55)) (stroke (width 0) (type default)) (uuid "76fe2b48-ea14-51f1-a63c-e53d7711c7ca"))
+(label "LED" (at 134.62 82.55 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "f6691cdc-0bef-53ae-9cbb-391e9f3af1e1"))
+(wire (pts (xy 152.40 71.12) (xy 147.32 71.12)) (stroke (width 0) (type default)) (uuid "3381eca3-d43c-54c5-884d-17b202897524"))
+(label "LED" (at 147.32 71.12 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "be23cce6-f203-53c2-919c-d500f08fa920"))
+(symbol (lib_id "power:VBUS") (at 129.54 45.72 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "8467008c-7295-5968-8ac8-1c2220cf944b") (property "Reference" "#PWR09" (at 129.54 49.53 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "VBUS" (at 129.54 41.91 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 129.54 45.72 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 129.54 45.72 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "5729470d-d8f4-5779-a58e-02c7a2e1ff0f")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "#PWR09") (unit 1)))))
+(wire (pts (xy 129.54 45.72) (xy 139.70 45.72)) (stroke (width 0) (type default)) (uuid "ba878339-19f8-58c1-b6de-9b526209b958"))
+(symbol (lib_id "power:PWR_FLAG") (at 139.70 45.72 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "12be661e-870d-5baf-b988-d8a6d4a464de") (property "Reference" "#FLG10" (at 139.70 49.53 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "PWR_FLAG" (at 139.70 41.91 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 139.70 45.72 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 139.70 45.72 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "2fdd2267-fded-527c-8fce-9f6bb5f54712")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "#FLG10") (unit 1)))))
+(symbol (lib_id "power:GND") (at 129.54 60.96 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "5deb910b-7639-5b19-b436-9ab6ec34a0a4") (property "Reference" "#PWR11" (at 129.54 64.77 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "GND" (at 129.54 66.04 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 129.54 60.96 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 129.54 60.96 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "1d640fb7-c060-5cbc-8ecb-48356d158128")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "#PWR11") (unit 1)))))
+(wire (pts (xy 129.54 60.96) (xy 139.70 60.96)) (stroke (width 0) (type default)) (uuid "ff8564f2-7c6c-5a21-acb2-1ae79bdc7dc5"))
+(symbol (lib_id "power:PWR_FLAG") (at 139.70 60.96 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "773470d3-328c-5684-afc3-36c80286cb15") (property "Reference" "#FLG12" (at 139.70 64.77 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "PWR_FLAG" (at 139.70 57.15 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 139.70 60.96 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 139.70 60.96 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "b190f3e9-5886-5f9d-81c8-0148157fe322")) (instances (project "usbc" (path "/833b0e16-e344-55ff-950b-5905c14c3b42" (reference "#FLG12") (unit 1)))))
+(text "Charge-only USB-C input. R1 and R2 pull CC1 and CC2 down to 5.1 k, which tells a USB-C\ncharger to supply 5 V. VBUS and GND go by wire to the VIN and GND pads of the joystick PCB,\nwhich carries the PTC fuse and the TVS diode. Do not connect this port and the XIAO's own\nUSB-C at the same time: both are the XIAO VBUS net.\nD1 lights while the cell charges: the firmware reads the charger's CHG pin and drives LED\nfrom a XIAO GPIO (D8) through J3." (exclude_from_sim no) (at 25.40 91.44 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "28fcd33a-60ca-5700-ad7a-e9a58500ac67"))
 (sheet_instances (path "/" (page "1")))
 (embedded_fonts no)
 )

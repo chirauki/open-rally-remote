@@ -130,6 +130,7 @@ These are continuous-connection figures. With the firmware sleeping while the bi
 | Cap electrical contact | Spring in the cap on the cell's negative end, closing through a contact ring at the tube mouth inside the O-ring | The contact and its wire stay inside the seal. Contacts corrode if water gets past the O-ring. |
 | Cable gland (V0.23) | Removed in V0.24 | — |
 | Charging USB-C (V0.24) | IP67 receptacle with its panel gasket on a thinned land, potted from inside | Depends on the part chosen; covered by the base on the bike. |
+| Charge LED window (V0.24) | Ø1.6 mm hole through the 1.80 mm panel, filled with clear epoxy or UV resin | A poor fill or a gap round the plug leaks; covered by the base on the bike. |
 
 The tube is a separate sealed volume from the electronics cavity. Only two wires pass from the tube into the cavity, sealed when printed or potted. A leak at the cap then wets the cell and its contacts, not the boards.
 
@@ -207,8 +208,12 @@ These are bench measurements on the parts, not on bikes:
 
 - **Battery level.** Read AIN7 with P0.14 low. Report it over the BLE Battery Service; Bluefruit has `BLEBas`. Warn below about 3.5 V. Go to System OFF below about 3.3 V, ahead of the cell's protection cut-off.
 - **Charging.** Read P0.17 (`CHG`). Drive P0.13 low for 100 mA only if the cell allows it.
-- **Charger present.** The nRF52840 VBUS pin is on the same net as the 5V pin. Its USB power events can tell the firmware that a charger is connected, for example to show charging or to stop advertising while on the charger.
-- **Sleep and wake.** When parked, or idle for a set time, go to System OFF and wake on any button or joystick switch through GPIO sense. Measure how long a bonded phone takes to reconnect, and whether the first press after wake is lost.
+- **Charge LED.** While a charger is connected, drive D8 high while `CHG` is low (charging) and low otherwise. The LED is on the [USB-C charging PCB](../electronics/usbc-pcb/README.md) and shows through a window beside the charging port: on while charging, off when the cell is full. It is not used for anything else, and on the bike the base hides it.
+- **Charger present.** The nRF52840 VBUS pin is on the same net as the 5V pin. Its USB power events tell the firmware that a charger is connected. Connecting a charger also wakes the nRF52840 from System OFF (USB VBUS detect is a System OFF wake source; Nordic's errata list a failure only on Engineering A silicon). Check this on the XIAO. Wake is on a VBUS change, so a remote put to sleep while plugged in stays asleep until the cable is pulled and plugged again. The firmware stays awake while VBUS is present, to drive the LED.
+- **Power off.** Holding A, B and C together for 3 s turns the remote off (System OFF). While two or more of A, B and C are held, they produce no gestures. The firmware waits until all three are released before it sleeps, otherwise the held buttons would wake it at once. The three buttons are 18 mm apart, so this takes two fingers or two hands: it is meant for the parked bike, and cannot happen by accident while riding.
+- **Auto-off.** After 6 h without any button or joystick input, and without a charger, go to System OFF. A ride with no input for less than 6 h is not interrupted. Below about 3.3 V the firmware sleeps at once, as above.
+- **Wake.** Any button or joystick switch wakes the remote through GPIO sense. Arm sense only on inputs that are released when it sleeps, so a switch held down (for example by a bag) cannot wake it again at once and drain the cell. The wake press itself is not sent. Measure how long a bonded phone takes to reconnect.
+- **No power switch.** There is no mechanical switch: it would be another sealed opening. System OFF draws 2–3 µA, about 0.07 mAh a day, which is less than the pouch loses to self-discharge.
 - **Connection parameters.** Measure average current against connection interval and peripheral latency, against the input delay the rider notices.
 
 ## Risks
@@ -228,6 +233,7 @@ Made:
 4. A sliding interrupted dovetail on a flat platform, with a spring-loaded M3 lock (V0.24). No saddle around the ring.
 5. A sealed, charge-only USB-C receptacle for charging, rather than contacts and a dock: GCT USB4736-GF-A-KIT.
 6. Two USB-C ports stay separate: the sealed one only charges; firmware goes over BLE, and the XIAO's own USB-C is reached by opening the cover when needed. A single port through a sealed USB-C extension into the XIAO was considered and set aside (2026-10-11): the XIAO brings its USB data lines to no pad, and the retail sealed extensions found have no drawings.
+7. Status and power (2026-10-12): one red LED beside the charging port, lit only while the cell charges; no power switch; A + B + C held for 3 s turns the remote off; auto-off after 6 h without input; any button wakes it. See [Firmware](#firmware).
 
 Still open, after the [measurements](#open-measurements):
 1. Pouch size: 6 mm (modelled) or 8 mm thick.

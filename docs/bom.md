@@ -37,9 +37,11 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 | 4 | C&K KSC222JLFS sealed tact switch, 2 N, J-bend | LCSC C221728 | On the joystick PCB. Distributor part: no retail sealed switch with this footprint was found. The gull-wing `G` version does not fit. |
 | 1 | Bourns MF-MSMF050-2 PTC fuse, 1812 | LCSC C17313 | On the joystick PCB. |
 | 1 | Littelfuse SMBJ5.0A TVS diode, SMB | LCSC C83333 | On the joystick PCB. |
-| 1 | [USB-C charging PCB](../electronics/usbc-pcb/README.md), 14 × 13.6 × **1.2** mm | JLCPCB or another board house | Order at 1.2 mm. Files in `electronics/usbc-pcb/fab/`. |
+| 1 | [USB-C charging PCB](../electronics/usbc-pcb/README.md), 19 × 13.6 × **1.2** mm | JLCPCB or another board house | Order at 1.2 mm. Files in `electronics/usbc-pcb/fab/`. |
 | 1 | GCT USB4736-GF-A-KIT: USB-C receptacle, 6 contacts, charge only, IP67 with USBTJ-06 gasket | DigiKey, Mouser, Farnell, TME | Distributor part: the sealed USB-C parts sold on Amazon either lack the CC pins or are too large for the rear face. |
 | 2 | 5.1 kΩ 1 % resistor, 0603 (UNI-ROYAL 0603WAF5101T5E) | LCSC C23186 | On the USB-C PCB. |
+| 1 | Lite-On LTST-S270KRKT red side-looking chip LED | LCSC C125114 | Charge LED, on the USB-C PCB. Extended part at JLCPCB. |
+| 1 | 1 kΩ 1 % resistor, 0603 (UNI-ROYAL 0603WAF1001T5E) | LCSC C21190 | Charge LED resistor, on the USB-C PCB. |
 | 3 | APEM ISR3SAD200 sealed pushbutton: round curved black actuator, NO, solder lugs, IP67, standard bezel, nut and flat seal supplied | DigiKey, RS, L'impulsion | Buttons A, B, C. Distributor part: no retail sealed button with a datasheet was found. About USD 11 each at DigiKey (2026-10-11). |
 | — | Hook-up wire, about 28–30 AWG, silicone insulated | Retail | Buttons, joystick PCB and USB-C PCB to the XIAO. |
 
@@ -94,11 +96,12 @@ Print settings and orientations are in the [mechanical notes](mechanical-concept
 |---|---|
 | Conformal coating, acrylic or silicone | XIAO, joystick PCB and solder joints. Keep it off the USB-C sockets, the switch actuators, the pouch and the vent. |
 | Two-part epoxy | Potting the back of the charging USB-C receptacle. |
+| Clear epoxy or UV-cure resin | Filling the charge LED window. |
 | Neutral-cure silicone | Sealing where the notes call for it. |
 | Hot glue or silicone | Holding the XIAO's free end in its rails. |
 
 ## Ordering notes
 
 - The two PCBs can share one board-house order. The USB-C PCB is 1.2 mm thick and the joystick PCB 1.6 mm, so they are two separate boards in the order.
-- The cheapest route for both is to have the small SMD parts assembled (switches, resistors) and to hand-solder the rest: F1 and D1 on the joystick PCB, and the USB4736 on the USB-C PCB.
-- LCSC numbers and GCT availability were checked on 2026-10-10 and 2026-10-11; stock and prices change.
+- The cheapest route for both is to have the small SMD parts assembled (switches, resistors, the charge LED) and to hand-solder the rest: F1 and D1 on the joystick PCB, and the USB4736 on the USB-C PCB.
+- LCSC numbers and GCT availability were checked on 2026-10-10, 2026-10-11 and 2026-10-12; stock and prices change.

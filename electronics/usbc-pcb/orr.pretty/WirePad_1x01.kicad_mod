@@ -1,0 +1,12 @@
+(footprint "WirePad_1x01"
+	(version 20240108)
+	(generator "pcbnew")
+	(layer "F.Cu")
+	(descr "One SMD pad, 1.8 mm square, for a soldered signal wire")
+	(tags "wire solder pad")
+	(property "Reference" "REF**" (at 0 -1.65 0) (layer "F.Fab") (effects (font (size 0.6 0.6) (thickness 0.1))))
+	(property "Value" "WirePad_1x01" (at 0 1.65 0) (layer "F.Fab") (effects (font (size 0.6 0.6) (thickness 0.1))))
+	(attr smd exclude_from_pos_files exclude_from_bom)
+	(fp_rect (start -1.05 -1.05) (end 1.05 1.05) (stroke (width 0.05) (type solid)) (fill no) (layer "F.CrtYd"))
+	(pad "1" smd roundrect (at 0 0) (size 1.8 1.8) (layers "F.Cu" "F.Mask") (roundrect_rratio 0.15))
+)

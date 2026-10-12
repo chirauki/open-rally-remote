@@ -110,6 +110,9 @@ place("J1", "orr", "GCT_USB4736", *d.J1_XY)
 place("R1", "Resistor_SMD", "R_0603_1608Metric", *d.R1_XY, rot=90)
 place("R2", "Resistor_SMD", "R_0603_1608Metric", *d.R2_XY, rot=90)
 place("J2", "orr", "WirePads_1x02_P2.4mm", *d.J2_XY, rot=90)
+place("D1", "orr", "LED_LiteOn_LTST-S270", *d.D1_XY)
+place("R3", "Resistor_SMD", "R_0603_1608Metric", *d.R3_XY, rot=90)
+place("J3", "orr", "WirePad_1x01", *d.J3_XY)
 # The ground wire pad sits between the VBUS pad, the resistors and the board edge, where the
 # pour cannot reach it with two thermal spokes; connect it solid.
 for pad in fps["J2"].Pads():

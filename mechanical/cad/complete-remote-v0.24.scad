@@ -20,6 +20,8 @@
 //     the buttons move up 1 mm and the pod top 1.5 mm so the Ø17.5 bezels sit on the flat facet.
 //   - the lock knob is a quarter-turn cup with two steel pins in L-slots: it cannot be pulled until
 //     it is turned 90 degrees.
+//   - a charge LED: a side-looking LED on the USB-C PCB shines through a Ø1.6 mm hole beside the
+//     receptacle, filled with clear epoxy. The firmware lights it while the cell charges.
 // Everything in front of the remote's rear face is the V0.23 pod, unchanged.
 //
 // V0.20 folds the control face between button C and the lower control: the upper facet (A, B, C)
@@ -192,7 +194,7 @@ usbc_gasket_r = 1.60;
 usbc_nose = [8.94,3.16,1.20];   // along Z, along Y, along X
 usbc_body = [9.99,4.61,8.60];   // width, height above the PCB, overall length
 usbc_axis_h = 2.38;          // shell axis above the PCB top
-usbc_pcb = [14.0,13.6,1.20]; // receptacle PCB (electronics/usbc-pcb): along Z, along X, thickness
+usbc_pcb = [19.0,13.6,1.20]; // receptacle PCB (electronics/usbc-pcb): along Z, along X, thickness
 usbc_pcb_edge = 0.53+1.70;   // PCB front edge behind the outer face: nose recess + nose overhang (GCT)
 usbc_pcb_holes = [[-5.4,10.6],[5.4,10.6]];  // M2 holes: Z offset, distance from the PCB front edge
 usbc_rib_h = 3.5;            // rib under the PCB, full cavity width, for M2 thread-forming screws
@@ -200,6 +202,14 @@ usbc_pilot_d = 1.6;          // MEASURE pilot for the chosen screw
 usbc_screw = [3.5,1.1,4.0];  // M2 x 4 button head: head diameter, head height, length
 usbc_squeeze = 0.37;         // gasket compression, about 41 %
 usbc_plug = [12.4,6.5,20.0]; // cable plug overmold envelope: along Z, along Y, length
+// Charge LED: Lite-On LTST-S270KRKT, side-looking, on the PCB top beside the receptacle (D1 in
+// electronics/usbc-pcb), lens facing the wall. Datasheet DS22-2000-210 rev G: body 1.65 long,
+// 1.15 deep with the lens, 0.60 tall; emitter about 0.30 above the PCB.
+usbc_led_x = 7.5;            // Z offset from the receptacle axis (+Z)
+usbc_led = [1.65,0.60,1.15]; // along Z, height above the PCB, depth along X
+usbc_led_set = 0.10;         // lens behind the PCB front edge
+usbc_led_h = 0.30;           // emitter above the PCB top
+usbc_led_hole_d = 1.6;       // through the 1.80 mm panel; filled with clear epoxy
 
 // --- LiPo pouch, fixed (MEASURE the bought cell) -----------------------------------------
 pouch_t = 6.0;               // 602030 listings: 6 x 20 x 30 mm, about 300 mAh (not verified)
@@ -420,6 +430,13 @@ echo(str("Cover screws M2x",cover_screw_length,", thread into insert ",cover_scr
     cover_screw_length_lower,", ",cover_screw_thread_lower," mm"));
 echo(str("Wiring gap button rear to XIAO component side (mm): ",wire_gap));
 echo(str("XIAO pin tips to cavity rear wall (mm): ",pod_cavity_x1-xiao_pin_tip_x));
+led_hole_to_pocket = usbc_led_x-usbc_led_hole_d/2-usbc_pocket[0]/2;
+led_hole_to_plug = usbc_led_x-usbc_led_hole_d/2-usbc_plug[0]/2;
+led_pcb_side = usbc_pcb[0]/2-(axial_width/2-case_wall);
+echo(str("Charge LED window: ",led_hole_to_pocket," mm beside the gasket pocket, ",led_hole_to_plug,
+    " mm beside the plug overmold; USB-C PCB edge to the axial wall ",-led_pcb_side," mm"));
+assert(led_hole_to_pocket >= 0.8, "LED window too close to the gasket pocket");
+assert(led_pcb_side <= -0.5, "USB-C PCB too wide for the cavity");
 
 // ======================================================================================
 // 2D profiles
@@ -680,6 +697,8 @@ module usbc_cuts() {
             linear_extrude(height=usbc_pocket_depth+0.01) rrect_2d(usbc_pocket[0],usbc_pocket[1],usbc_pocket_r);
         translate([0,0,0.1+usbc_panel_t]) linear_extrude(height=10)
             translate([-usbc_pcb[0]/2-0.5,clear_y0]) square([usbc_pcb[0]+1,clear_y1-clear_y0]);
+        // charge LED window, on the emitter axis
+        translate([usbc_led_x,-usbc_axis_h+usbc_led_h,0]) cylinder(d=usbc_led_hole_d,h=usbc_panel_t+0.3,$fn=24);
     }
 }
 
@@ -1040,6 +1059,11 @@ module usbc_envelope() {
         // resistors, wire pads and wires on the top, behind the receptacle
         color([0.3,0.3,0.3]) translate([-3.5,-usbc_axis_h,usbc_pcb_edge+usbc_body[2]-1.70])
             cube([7.0,1.5,usbc_pcb[1]-(usbc_body[2]-1.70)]);
+        // charge LED (D1), its resistor, wire pad and wire, on the top beside the receptacle
+        color([0.85,0.15,0.1]) translate([usbc_led_x-usbc_led[0]/2,-usbc_axis_h,usbc_pcb_edge+usbc_led_set])
+            cube([usbc_led[0],usbc_led[1],usbc_led[2]]);
+        color([0.3,0.3,0.3]) translate([usbc_led_x-1.55,-usbc_axis_h,usbc_pcb_edge+usbc_led_set+usbc_led[2]+0.1])
+            cube([usbc_pcb[0]/2-usbc_led_x+1.55,1.5,usbc_pcb[1]-usbc_led_set-usbc_led[2]-0.1]);
         // M2 screw heads
         color([0.25,0.25,0.27]) for (h=usbc_pcb_holes) translate([h[0],-usbc_axis_h,usbc_pcb_edge+h[1]])
             rotate([-90,0,0]) cylinder(d=usbc_screw[0],h=usbc_screw[1],$fn=24);

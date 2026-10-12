@@ -32,8 +32,8 @@ class Sheet(base.Sheet):
         libs = "\n".join(b for b, _ in self.libs.values())
         body = "\n".join(self.items)
         s = ('(kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0") (uuid "%s") (paper "A5")\n'
-             '(title_block (title "Open Rally Remote - USB-C charging PCB") (date "2026-10-11") (rev "V0.24")'
-             ' (comment 1 "GCT USB4736 charge-only receptacle with 5.1 k CC pull-downs"))\n'
+             '(title_block (title "Open Rally Remote - USB-C charging PCB") (date "2026-10-12") (rev "V0.24")'
+             ' (comment 1 "GCT USB4736 charge-only receptacle with 5.1 k CC pull-downs, and the charge LED"))\n'
              '(lib_symbols\n%s\n)\n%s\n(sheet_instances (path "/" (page "1")))\n(embedded_fonts no)\n)\n'
              % (d.ROOT_UUID, libs, body))
         s = s.replace('(project "joystick"', '(project "usbc"')
@@ -78,6 +78,12 @@ def main(pinmap):
     for p, pin in j2.items():
         n = net("J2", p)
         sh.stub(pin, n, length=5.08)
+    d1 = place("D1", 139.70, 91.44)
+    r3 = place("R3", 134.62, 76.20, side=True)
+    j3 = place("J3", 157.48, 71.12)
+    for ref, pins in (("D1", d1), ("R3", r3), ("J3", j3)):
+        for p, pin in pins.items():
+            sh.stub(pin, net(ref, p), length=5.08 if ref == "J3" else 2.54)
     # Power flags: the supply enters through J1 (or J2 from the other side).
     for kind, y in (("VBUS", 45.72), ("GND", 60.96)):
         sh.power(kind, 129.54, y)
@@ -86,6 +92,8 @@ def main(pinmap):
     sh.text("Charge-only USB-C input. R1 and R2 pull CC1 and CC2 down to 5.1 k, which tells a USB-C\n"
             "charger to supply 5 V. VBUS and GND go by wire to the VIN and GND pads of the joystick PCB,\n"
             "which carries the PTC fuse and the TVS diode. Do not connect this port and the XIAO's own\n"
-            "USB-C at the same time: both are the XIAO VBUS net.",
+            "USB-C at the same time: both are the XIAO VBUS net.\n"
+            "D1 lights while the cell charges: the firmware reads the charger's CHG pin and drives LED\n"
+            "from a XIAO GPIO (D8) through J3.",
             25.4, 91.44)
     sh.write(os.path.join(HERE, "usbc.kicad_sch"))

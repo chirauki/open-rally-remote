@@ -66,10 +66,13 @@ HOGP is the Bluetooth SIG profile for exposing HID input over BLE/GATT. Android 
 | D5 | Joystick left | HIGH | LOW |
 | D6 | Joystick right | HIGH | LOW |
 | D7 | Not used (reserved) | — | — |
+| D8 | Charge LED output (V0.24), active high | — | — |
 
 Configure every connected input as `INPUT_PULLUP`. A closed switch joins the input to GND. Do not connect a switch input to 3.3 V or 5 V. D7 is not connected in the V0.22/V0.23 hardware and must be ignored.
 
 The joystick has no separate center switch. Its stick sits on four C&K KSC2 switches (see the [joystick PCB](../electronics/joystick-pcb/README.md)); tilting closes one switch, or two adjacent ones on a diagonal, and pushing the stick straight in closes all four. The knob reaches its push stop only after every switch has tripped, so a full push always closes all four. The firmware derives the center input from this chord (section 5).
+
+D8 drives the charge LED on the [USB-C charging PCB](../electronics/usbc-pcb/README.md) through a 1 kΩ resistor; it is an output, not an input. It is high only while a charger is connected and the charger's `CHG` signal (P0.17, active low) shows charging. Power off, auto-off, wake and the charge LED are specified in the [battery study](battery-study.md#firmware).
 
 The final hardware may use a different pin map. Keep the pin assignments in one configuration table so they can be changed without rewriting input and HID logic.
 
@@ -153,6 +156,9 @@ For the first firmware build, compile-time profile selection is sufficient. Do n
 | OsmAnd | A/D, B/+, C/−, arrows, and center/C perform the intended actions | Pending | Pending |
 | DMD² | A follow, B zoom in, C zoom out, and joystick pan work through Generic Remote mapping | Pending | N/A |
 | Center chord | A straight push gives one center event and no direction keys; tilts and diagonals give no center event | Pending | Pending |
+| Power off | A + B + C held 3 s sleeps after release, with no gesture events; any button then wakes it | Pending | Pending |
+| Auto-off | Sleeps after 6 h without input and without a charger (test with a shortened timeout) | Pending | Pending |
+| Charge LED | Charger in: wakes from System OFF and the LED lights; LED goes out when charging ends and when the charger is removed | Pending | Pending |
 
 ## Product OTA validation checklist
 
