@@ -101,6 +101,12 @@ The [battery study](battery-study.md) first proposed a bayonet turning around th
 - **No cable gland.** The bike cable, the gland and its lock nut are gone.
 - **Vent.** It moves from the axial wall to the bottom end wall at X = −32 mm, where the gland was, so the pouch does not cover it.
 
+### Joystick switches
+
+- **Part.** The joystick PCB now uses the C&K KSC221JLFS (LCSC C221726). The KSC222JLFS (C221728) was out of stock at LCSC on 2026-10-13. Both have 2 ± 0.5 N force, the same body and the same J-bend land pattern, so the PCB layout is unchanged. The KSC221J has standard silver contacts instead of long-life silver: 500,000 operations instead of 1,000,000.
+- **Knob.** The KSC221J can travel up to 0.65 mm instead of 0.5 mm, so the knob push gap grows from 0.7 to 0.9 mm (`knob_gap`) and the knob from 5.5 to 5.7 mm proud (`knob_proud`). The knob keeps 0.8 mm over the pin. The radial insert moves to 3.2 mm below the knob top (`knob_insert_z`, was 2.9 mm), between the rim underside and the engraved cross.
+- **Checks.** A direction trips at no more than 5.9° of tilt (4.7° before); the knob stop stays at 8.2°. The knob tilted to the stop in four directions and on a diagonal, and pushed to the stop, stays clear of the cover, housing, plate and button heads. The only overlap, 0.04 mm³, is the faceted ball on its seat.
+
 ## V0.23 changes from V0.22, still current
 
 The LCSC land pattern for the KSC222JLFS (C221728) puts its pads 0.95 mm outside the switch body, on two opposite sides. The V0.22 layout had not allowed for that.
@@ -122,15 +128,16 @@ V0.21 replaced the joystick with four Ø7 mm keys. That direction was dropped, f
 V0.22 keeps from V0.21 the sheet gasket and the plate that clamps it, and replaces the keys with a joystick.
 
 - **Joystick mechanism.** In the joystick frame, from the outside in:
-  - A Ø16 mm knob stands 5.5 mm proud. A Ø9.2 mm hub on its underside is 0.7 mm above the cover; its rim is 1.15 mm above.
+  - A Ø16 mm knob stands 5.7 mm proud. A Ø9.2 mm hub on its underside is 0.9 mm above the cover; its rim is 1.15 mm above. (5.5 and 0.7 mm before the V0.24 switch change.)
   - The stick is a Ø3 × 12 mm steel dowel pin (ISO 8734). It passes through a Ø5.6 mm hole in the cover, and the sheet gasket grips it through a Ø2.4 mm hole. Steel is stronger than a printed Ø3 mm stick, and its smooth surface seals better against the sheet.
   - A printed Ø6 mm ball bears against the back edge of a Ø3.6 mm hole in the 1.5 mm joystick plate. That edge is the pivot, 7.0 mm behind the outer face. The pin is pressed into a bore through the ball and disc.
   - A cross disc, 1.2 mm thick, under the ball rests 0.05 mm above the actuators of four KSC2 switches. The switches are 6.75 mm from the axis, two along the facet (up toward button C, down) and two along the bar.
   - The PCB screws to two standoffs on the plate. Its front face is 10.85 mm behind the outer face; the rear zone ends at 13.45 mm, or 15.45 mm where the rear parts are (V0.23). The MHS body reached 16 mm.
   - The ball and disc are one printed part. The knob slides onto the pin from outside after assembly, and an M2 × 4 grub screw in a radial M2 heat-set insert clamps it. It comes off with a hex key; nothing is glued.
 - **Feel and limits.**
-  - A direction trips at no more than 4.7° of tilt. At that point the knob top has moved at most 1.0 mm.
-  - The knob rim meets the cover at 8.2° of tilt, and the hub at 0.7 mm of push. That is past the switches' 0.55 mm worst case (rest gap plus 0.5 mm maximum travel), so a hard press with a glove ends on the cover, not on the switches.
+  - A direction trips at no more than 5.9° of tilt. At that point the knob top has moved at most 1.3 mm.
+  - The knob rim meets the cover at 8.2° of tilt, and the hub at 0.9 mm of push. That is past the switches' 0.70 mm worst case (0.05 mm rest gap plus the KSC221J's 0.65 mm maximum travel), so every switch has tripped before the knob stops.
+  - With switches nearer the 0.35 mm nominal travel, the disc reaches the bottom of the switch travel before the knob stop, and a hard press loads the switches. The datasheet gives no overtravel or maximum force for the soft actuator; check on the bench whether the knob stop is reached and whether the gap should close.
   - The disc has room to tilt 9.5° before it meets the plate.
   - The switches' own springs centre the stick and hold the ball on its seat. There is no separate spring.
 - **Centre press.** Pushing the stick straight in presses all four switches. The firmware reads that chord as the centre press (three or more switches within a short window) and otherwise reports the held directions. A fifth switch would have to sit on the axis, where the ball and disc are.
@@ -193,7 +200,7 @@ V0.23, control end, unchanged:
 | Stick and knob tilted to the knob stop (8.2°), four directions and one diagonal | Clear of the plate, cover and housing; the disc only meets the switch actuators, the rim only touches the cover |
 | Knob (also tilted) vs button bezels and caps | No overlap |
 | Pin vs ball and disc | 0.67 mm³ overlap by design: press fit in the Ø2.95 mm bore |
-| Stick and knob pushed to the knob stop (0.7 mm) | Clear of the plate, cover and housing |
+| Stick and knob pushed to the knob stop (0.9 mm) | Clear of the plate, cover and housing |
 | Joystick plate vs housing, cover | No overlap; contact with the shortened bosses |
 | PCB rear zone and screw heads vs USB-C plug (cover off) | Contact only (0.00 mm³) at the lower screw head |
 | Cover screws vs joystick, buttons, XIAO; countersinks vs knob | No overlap |
@@ -258,7 +265,7 @@ Remote:
 9. Stick the vent label inside over the vent hole in the bottom end wall.
 10. Lay the cover face down and the gasket on it, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the plate on the lower-facet sheet with its screw holes over the cover's.
 11. Lower the housing onto the stack; its walls locate the plate. Turn the assembly over and fit the six M2 × 8 screws on the upper facet and the four M2 × 10 screws on the lower facet. Tighten evenly in a cross pattern.
-12. Press the M2 insert into the knob. Slide the knob onto the pin with a 0.7 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw on the pin.
+12. Press the M2 insert into the knob. Slide the knob onto the pin with a 0.9 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw on the pin.
 
 Base:
 1. Press the two M4 inserts into the base front's split face.
@@ -289,7 +296,7 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | XIAO nRF52840 board outline | 21 × 17.8 mm | Seeed Studio published dimensions |
 | APEM ISR3SAD200 panel cut-out | Ø13.6 mm with an anti-rotation flat 12.9 mm across | APEM IS series datasheet (16/08/2024); the flat is at the cover's print top, where it bridges |
 | APEM ISR3SAD200 head and nut | Ø12 mm actuator, Ø17.5 mm bezel, 5.0 mm above the panel; M12 × 0.75 bushing, 13 mm behind the panel; 14 mm A/F hex nut | APEM IS series datasheet; the reduced Ø15 mm bezel (option 234) was not found at distributors |
-| KSC2 switch | 6.2 (+0.3) × 6.2 (+0.3) mm body, 3.5 mm to the actuator top, Ø2.9 mm actuator; 2 N, 0.35 ± 0.15 mm travel (KSC22x) | C&K KSC2 datasheet; modelled at 6.5 mm |
+| KSC2 switch | KSC221JLFS: 6.2 (+0.3) × 6.2 (+0.3) mm body, 3.5 mm to the actuator top, Ø2.9 mm actuator; 2 ± 0.5 N, 0.35 +0.3/−0.1 mm travel, 500,000 operations | C&K KSC datasheet (B-52, 1 Mar 2017); modelled at 6.5 mm |
 | Handlebar | Ø22.2 mm (7/8 in) or Ø25.4 mm (1 in) | One base per bar size; measure the actual straight section |
 | Base clamp | Ø46 mm outer diameter, Ø24.2 or Ø27.4 mm bore, flat platform at X = −17.2 mm from Y = −41 to +33.5 mm | Diametral split into two halves with a 0.8 mm clamping gap; not strength-validated |
 | Remote rear face | Flat at X = −17.4 mm | 0.2 mm clear of the platform |
@@ -309,15 +316,15 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | Cover fasteners | Six M2 × 8 (upper facet) and four M2 × 10 (lower facet, through the joystick plate) ISO 10642 countersunk screws; Ø3.2 × 6 mm insert holes in Ø6 mm bosses | Spaced 16.5–21.8 mm along the perimeter to compress the gasket; confirm against the bought inserts |
 | Cover gasket | 0.6 mm compressed (0.8 mm printed or cut) | Upper facet: 1 mm on the walls, 3.8 mm with the lip (4 mm before V0.24; the APEM nuts need the room), Ø6 mm around each screw. Lower facet: full sheet on the joystick plate, Ø2.4 mm hole stretched over the stick |
 | Pod width | 23 mm along the bar at the base and the rear of the pod; 26 mm for X < −38 mm | 23 mm from the NAVCOMM manual's minimum free space on the bar; the control end is 40–60 mm from the bar axis |
-| Joystick | Ø16 mm knob 5.5 mm proud, hub 0.7 mm and rim 1.15 mm above the cover; Ø3 × 12 mm steel pin; Ø6 mm ball on a Ø3.6 mm seat edge, pivot 7.0 mm behind the face; 1.2 mm cross disc 0.05 mm above four KSC2 at 6.75 mm | Trips at ≤ 4.7° tilt; knob stop at 8.2° or 0.7 mm push; disc room 9.5° |
+| Joystick | Ø16 mm knob 5.7 mm proud, hub 0.9 mm and rim 1.15 mm above the cover; Ø3 × 12 mm steel pin; Ø6 mm ball on a Ø3.6 mm seat edge, pivot 7.0 mm behind the face; 1.2 mm cross disc 0.05 mm above four KSC2 at 6.75 mm | Trips at ≤ 5.9° tilt; knob stop at 8.2° or 0.9 mm push; disc room 9.5° |
 | Joystick plate | 1.5 mm, behind the sheet; Ø3.6 mm seat hole opening to Ø4.8 mm at the front; Ø10 × 0.6 mm sheet pocket; two Ø3.6 mm standoffs, 6.25 mm tall, at (∓6.0, ±6.4) mm from the stick axis | Printed PETG; clamped by the four lower cover screws |
-| Joystick PCB | 20.6 × 22.4 mm with four R3.3 mm boss notches; front face 10.85 mm behind the outer face, 1.6 mm thick; rear zone 1.0 mm, 3.0 mm in the upper half and the side strips | KiCad design in electronics/joystick-pcb; switch land pattern from LCSC C221728 |
+| Joystick PCB | 20.6 × 22.4 mm with four R3.3 mm boss notches; front face 10.85 mm behind the outer face, 1.6 mm thick; rear zone 1.0 mm, 3.0 mm in the upper half and the side strips | KiCad design in electronics/joystick-pcb; switch land pattern from LCSC C221728, the same C&K J-bend layout as the KSC221J (C221726) |
 | Vent | Ø3 mm hole in the bottom end wall at X = −32 mm, Ø10 mm flat area inside | For an adhesive ePTFE vent; verify against the chosen vent |
 | XIAO PCB / header spacer / pins | 1.2 / 2.5 / 6 mm | Allowances for the pre-soldered version; measure the bought board |
 
 Seeed lists the XIAO board at 21 × 17.8 mm and provides a [2D DXF drawing](https://wiki.seeedstudio.com/XIAO_BLE/). The purchased variant has pre-soldered headers; V0.22 keeps the board parallel to the control cover, behind the control bodies, with the header pins pointing away from the controls. The 2.5 mm spacer and 6 mm pin length are allowances, not supplier dimensions. The [Kiwi listing](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402) confirms the headers are pre-soldered. Check the actual header, USB-C, antenna, and component clearances against the printed cavity before finalizing it.
 
-The C&K [KSC2 datasheet](https://www.ckswitches.com/products/switches/product-details/Tactile/KSC2) gives the 6.2 × 6.2 mm body with +0.3 mm tolerance, the 3.5 mm soft-actuator height, a Ø2.9 mm actuator, the IP67 rating, and the travel per force code: 0.3 ± 0.2 mm at 1.6 N, 0.35 mm at 2 N, and 0.5 ± 0.2 mm at 3.5 N and 5.5 N. The knob stop at 0.7 mm of push covers the 2 N types (0.05 mm rest gap plus 0.5 mm maximum travel); the 3.5 N and 5.5 N types can travel 0.7 mm and would need a larger gap. V0.20's Ruffy MHS joystick was listed at about £149 for one unit at Farnell UK, and the APEM NV 5-way (NVH1D1C1CP2S) at $143.34 at Mouser.
+The C&K KSC series datasheet ([copy at LCSC](https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/1809211731_C-K-KSC221JLFS_C221726.pdf), pages B-49 to B-52) gives the 6.2 × 6.2 mm body with +0.3 mm tolerance, the 3.5 mm soft-actuator height, a Ø2.9 mm actuator, the IP67 rating, and per type the force, life and travel: KSC201 1.6 N, 5,000,000 operations, 0.3 ± 0.2 mm; KSC221 2 N, 500,000, 0.35 +0.3/−0.1 mm; KSC222 2 N, 1,000,000, 0.35 ± 0.15 mm; KSC241 and KSC251 3.5 and 5.5 N, 300,000, 0.5 ± 0.2 mm. The knob stop at 0.9 mm of push covers every type up to 0.85 mm of maximum travel, so all of these. V0.20's Ruffy MHS joystick was listed at about £149 for one unit at Farnell UK, and the APEM NV 5-way (NVH1D1C1CP2S) at $143.34 at Mouser.
 
 APEM's [IS series page](https://www.apem.com/panel-switches/pushbutton-switches/is) gives the Ø13.6 mm panel cutout, 13 mm behind-panel depth, 1.5–4 mm panel range, and 15 mm reduced-bezel option. Order-code availability and the reduced-bezel variant's exact drawing must be confirmed before selecting the production switch.
 
@@ -326,7 +333,7 @@ APEM's [IS series page](https://www.apem.com/panel-switches/pushbutton-switches/
 These are the only items that block a confident first print. Each is a parameter in the CAD.
 
 - **Buttons:** APEM ISR3SAD200 chosen; measure the nut thickness (`button_nut_h`, 2.5 mm assumed) and check the 18 mm pitch with gloves and a wrench on the first print.
-- **Joystick:** measure the KSC2 height and the printed plate, ball and disc; together with the standoffs they set the 0.05 mm rest gap (`joy_rest_gap`). The feel (4.7° to trip, 2 N per direction, about 8 N for the centre chord) and the Ø16 mm knob need a check with gloves.
+- **Joystick:** measure the KSC2 height and the printed plate, ball and disc; together with the standoffs they set the 0.05 mm rest gap (`joy_rest_gap`). The feel (5.9° to trip, 2 N per direction, about 8 N for the centre chord) and the Ø16 mm knob need a check with gloves.
 - **XIAO:** PCB thickness, header spacer height, pin length, and component height. Adjust `xiao_pcb`, `xiao_header_plastic`, `xiao_pin_length`, and `xiao_component_h`; the render stops if the pins reach the rear wall.
 - **Inserts:** hole diameters and depths for the actual M4 and M2 inserts.
 - **Handlebar and liner:** measured bar diameter, and the 0.8 mm clamping gap tuned to the printed TPU liner.

@@ -6,7 +6,7 @@ The joystick PCB carries the four C&K KSC2 switches under the stick's cross disc
 
 ![Rear: input pads, PTC fuse (pads only, no 3D model in the stock library), TVS diode and the six wire pads to the XIAO.](../../docs/images/joystick-pcb-v0.23-rear.png)
 
-![Schematic.](../../docs/images/joystick-pcb-v0.23-schematic.png)
+![Schematic.](../../docs/images/joystick-pcb-v0.24-schematic.png)
 
 Status: designed and checked in KiCad (ERC, DRC and schematic parity clean). Not yet built.
 
@@ -47,14 +47,16 @@ Route the supply cable from the gland along the side wall to the VIN and GND pad
 
 | Ref | Part | LCSC | Side |
 |---|---|---|---|
-| SW1–SW4 | C&K KSC222JLFS, sealed tact switch, 2 N | C221728 | Front |
+| SW1–SW4 | C&K KSC221JLFS, sealed tact switch, 2 N | C221726 | Front |
 | F1 | Bourns MF-MSMF050-2 | C17313 | Rear |
 | D1 | Littelfuse SMBJ5.0A | C83333 | Rear |
 | J1, J2 | Wire pads (no part) | — | Rear |
 
 The LCSC numbers were checked against the LCSC listings and the EasyEDA part data on 2026-10-10; stock and prices change.
 
-The KSC2 land pattern comes from the LCSC/EasyEDA footprint for C221728. Its pads reach 0.95 mm beyond the body, so the joints can be reached with a fine iron tip or hot air.
+The switches were the KSC222JLFS (C221728) until 2026-10-13, when LCSC had none in stock. The KSC221JLFS has the same force, body and J-bend land pattern (C&K KSC datasheet, B-50 and B-52), so the board did not change. It has standard instead of long-life silver contacts (500,000 instead of 1,000,000 operations) and up to 0.65 mm travel instead of 0.5 mm; the knob push gap in the V0.24 CAD grew to 0.9 mm to match. The KSC222JLFS still fits if it is sourced elsewhere.
+
+The KSC2 land pattern comes from the LCSC/EasyEDA footprint for C221728; C&K gives one J-bend pad layout for the whole KSC2 range. Its pads reach 0.95 mm beyond the body, so the joints can be reached with a fine iron tip or hot air.
 
 ## Fabrication files
 
@@ -88,7 +90,7 @@ $K sch export bom --fields 'Reference,Value,Footprint,Manufacturer,MPN,LCSC,${QU
 
 Tested with KiCad 10.0.6 on macOS. Run without a configured KiCad (no global library tables), ERC and DRC also report that the stock `Fuse`, `Diode_SMD` and symbol libraries are not configured; those warnings go away once KiCad has been opened once and has created its default tables.
 
-The project tables (`fp-lib-table`, `sym-lib-table`) add the local `orr` library: the KSC2 footprint and 3D model, the wire-pad footprints, the standoff hole and the KSC222JLFS symbol.
+The project tables (`fp-lib-table`, `sym-lib-table`) add the local `orr` library: the KSC2 footprint and 3D model, the wire-pad footprints, the standoff hole and the KSC221JLFS symbol.
 
 ## Open points
 

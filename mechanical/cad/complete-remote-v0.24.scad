@@ -22,7 +22,10 @@
 //     it is turned 90 degrees.
 //   - a charge LED: a side-looking LED on the USB-C PCB shines through a Ø1.6 mm hole beside the
 //     receptacle, filled with clear epoxy. The firmware lights it while the cell charges.
-// Everything in front of the remote's rear face is the V0.23 pod, unchanged.
+//   - joystick switches: KSC221JLFS instead of the KSC222JLFS, which is out of stock at LCSC.
+//     Same force and land pattern, but up to 0.65 mm travel, so the knob push gap grows from
+//     0.7 to 0.9 mm and the knob from 5.5 to 5.7 mm above the cover.
+// Everything else in front of the remote's rear face is the V0.23 pod, unchanged.
 //
 // V0.20 folds the control face between button C and the lower control: the upper facet (A, B, C)
 // stays normal to X, the lower facet turns fold_angle toward the bar so the lower end of the
@@ -267,7 +270,7 @@ ksc_body = 6.5;              // KSC2 6.2 +0.3 / 0 mm
 ksc_h = 3.5;                 // soft actuator top above the PCB
 ksc_body_h = 2.9;
 ksc_actuator_d = 2.9;
-ksc_travel_max = 0.5;        // KSC22x: 0.35 +/- 0.15 mm to trip
+ksc_travel_max = 0.65;       // KSC221J: 0.35 +0.3/-0.1 mm to trip (KSC222J: 0.35 +/- 0.15)
 joy_rest_gap = 0.05;         // disc to actuators at rest; tune with shims under the PCB
 stick_d = 3.0;               // ISO 8734 steel dowel pin, through the cover and the sheet
 stick_len = 12.0;            // pin length: from the disc underside into the knob
@@ -279,14 +282,14 @@ disc_arm_w = 5.0;            // cross arms over the actuators
 disc_reach = joy_sw_r+ksc_actuator_d/2+0.8;
 disc_top_clear = 1.5;        // disc top below the plate back, room to tilt
 knob_d = 16.0;
-knob_proud = 5.5;            // knob top above the cover face
+knob_proud = 5.7;            // knob top above the cover face
 knob_hub_d = 9.2;            // central boss on the knob underside: push stop
-knob_gap = 0.7;              // knob hub to cover: push stop
+knob_gap = 0.9;              // knob hub to cover: push stop
 knob_edge_gap = 1.15;        // knob rim to cover: tilt stop
 knob_bore = 4.0;             // depth of the pin hole in the knob
 knob_insert_d = 3.2;         // radial M2 heat-set insert for an M2 x 4 grub screw; MEASURE
 knob_insert_len = 4.0;
-knob_insert_z = -2.9;
+knob_insert_z = -3.2;         // centred between the rim underside and the engraved top
 cover_stick_hole = 5.6;
 sheet_stick_hole = 2.4;      // stretched over the stick
 plate_sheet_pocket_d = 10.0; // room for the sheet to follow the stick in the plate front

@@ -82,11 +82,11 @@ STANDOFFS_K = [(6.0, -6.4), (-6.0, 6.4)]
 
 NETS = ["GND", "+5V", "/VIN", "/UP", "/DOWN", "/LEFT", "/RIGHT"]
 
-LCSC = {"KSC222JLFS": "C221728", "MF-MSMF050-2": "C17313", "SMBJ5.0A": "C83333"}
+LCSC = {"KSC221JLFS": "C221726", "MF-MSMF050-2": "C17313", "SMBJ5.0A": "C83333"}
 SYMBOLS = {}
 for ref in SWITCHES:
-    SYMBOLS[ref] = {"lib_id": "orr:KSC222JLFS", "value": "KSC222JLFS", "footprint": "orr:KSC2_SMD_6.2x6.2mm",
-                    "fields": {"Manufacturer": "C&K", "MPN": "KSC222JLFS", "LCSC": "C221728"}}
+    SYMBOLS[ref] = {"lib_id": "orr:KSC221JLFS", "value": "KSC221JLFS", "footprint": "orr:KSC2_SMD_6.2x6.2mm",
+                    "fields": {"Manufacturer": "C&K", "MPN": "KSC221JLFS", "LCSC": "C221726"}}
 SYMBOLS["F1"] = {"lib_id": "Device:Polyfuse", "value": "MF-MSMF050-2", "footprint": "Fuse:Fuse_1812_4532Metric",
                  "fields": {"Manufacturer": "Bourns", "MPN": "MF-MSMF050-2", "LCSC": "C17313",
                             "Description": "PTC resettable fuse, 0.5 A hold, 1 A trip, 15 V, 1812"}}

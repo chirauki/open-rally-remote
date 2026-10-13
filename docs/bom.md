@@ -50,7 +50,7 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 | 1 | Seeed XIAO nRF52840 | As in the bench list | Header spacer and pin length are `MEASURE` values in the CAD. |
 | 1 | LiPo pouch with protection board, 6 × 20 × 30 mm (602030), about 300 mAh in listings | Retail | Capacity varies by seller; check the size, the protection board and the maximum charge current (the XIAO charges at 50 or 100 mA). Rechargeable Li-ion/LiPo only. |
 | 1 | [Joystick PCB](../electronics/joystick-pcb/README.md), 20.6 × 22.4 × 1.6 mm | JLCPCB or another board house | Gerbers, BOM and placement file in `electronics/joystick-pcb/fab/`. |
-| 4 | C&K KSC222JLFS sealed tact switch, 2 N, J-bend | LCSC C221728 | On the joystick PCB. Distributor part: no retail sealed switch with this footprint was found. The gull-wing `G` version does not fit. |
+| 4 | C&K KSC221JLFS sealed tact switch, 2 N, J-bend | LCSC C221726 | On the joystick PCB. Distributor part: no retail sealed switch with this footprint was found. The gull-wing `G` version does not fit. The KSC222JLFS (C221728, long-life contacts) also fits. |
 | 1 | Bourns MF-MSMF050-2 PTC fuse, 1812 | LCSC C17313 | On the joystick PCB. |
 | 1 | Littelfuse SMBJ5.0A TVS diode, SMB | LCSC C83333 | On the joystick PCB. |
 | 1 | [USB-C charging PCB](../electronics/usbc-pcb/README.md), 19 × 13.6 × **1.2** mm | JLCPCB or another board house | Order at 1.2 mm. Files in `electronics/usbc-pcb/fab/`. |
@@ -71,27 +71,12 @@ Estimated cost: about €100–125.
   - Bare boards: 5 of each at about USD 2 per design.
   - Economic assembly: USD 8 setup, USD 1.50 stencil and USD 3 per extended part, for each board.
   - Assembled boards: at least 2 of each.
-  - Joystick switches: 8 × USD 0.77.
+  - Joystick switches: 8 × USD 0.61 (KSC221JLFS, 10+ price).
   - Shipping to Spain: about USD 12–20.
 - F1, D1, resistors and the LED: under €2.
 - Hook-up wire: €5–8, not checked.
 
-The KSC222JLFS (LCSC C221728) was **out of stock** at LCSC on 2026-10-13, at USD 0.94 for one. LCSC lists the KSC221JLFS (C221726) in stock, at USD 0.77 for one.
-
-According to the C&K KSC datasheet (B-52), the two parts share these:
-- force: 2 ± 0.5 N;
-- the 6.2 mm body and 3.5 mm height;
-- the J-bend land pattern.
-
-They differ in these:
-
-| | KSC222JLFS | KSC221JLFS |
-|---|---|---|
-| Contacts | Long-life silver | Standard silver |
-| Life | 1,000,000 operations | 500,000 operations |
-| Travel | 0.35 ± 0.15 mm | 0.35 +0.3/−0.1 mm, up to 0.65 mm |
-
-The extra travel breaks the V0.24 CAD check that the knob hub stops a push only after the switches trip: the knob gap is 0.7 mm and needs more than 0.05 + 0.65 mm. A knob gap of 0.9 mm with the knob 0.2 mm taller (`knob_gap = 0.9`, `knob_proud = 5.7`) passes every joystick check. Do not order the KSC221JLFS without that change.
+The joystick switches changed from the KSC222JLFS (LCSC C221728) to the KSC221JLFS (C221726) on 2026-10-13, because LCSC had no KSC222JLFS in stock. The KSC221JLFS is USD 0.77 for one. Same force, body and land pattern; half the rated life (500,000 operations); up to 0.65 mm travel, so the V0.24 knob push gap grew from 0.7 to 0.9 mm. See the [mechanical notes](mechanical-concept.md#joystick-switches).
 
 ### Hardware
 
