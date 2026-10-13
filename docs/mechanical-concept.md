@@ -217,6 +217,7 @@ V0.25:
 | Pouch (6 × 20 × 50 mm envelope) vs housing, battery cap and its gasket, XIAO, USB-C receptacle and plug, joystick, XIAO USB-C plug, vent label | No overlap |
 | Pouch slid straight up from below the cap opening into place | No overlap with the housing |
 | XIAO envelope (rear joint zone 1.0 mm) vs housing | No overlap in place, nor 11 and 22 mm along its slide-in path |
+| XIAO put in through the front: edge-first (60–90°), turned flat at X = −40 mm, back to the rails, slid up 22 mm in 1 mm steps | No overlap (0.0007 mm³ in the turn, faceting); flat, it would hit the lips (128 mm³) |
 | XIAO rear joints to the pouch cell | 2.4 mm |
 | Battery cap vs housing; cap gasket vs cap and housing | Contact only |
 | Remote with cap vs base front, base cap, lock (locked) | No overlap; the TPU strips overlap by design as in V0.24 |
@@ -324,13 +325,17 @@ Remote:
 4. Push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the PCB onto the plate standoffs with two M2 × 8 button-head screws (head at most Ø3.5 × 1.1 mm); the disc rests on the switches.
 5. Solder six wires from the rear pads of the joystick PCB to the front of the XIAO's pads: U, D, L, R to D3–D6, G to GND and 5V to the 5V pin. Lead them away from the top edge of the PCB. Solder the button wires as before. Keep the joints small: the outer 0.8 mm of each pad is under a rail lip. Solder two wires, about 60 mm long, to the `BAT+` and `BAT−` pads on the XIAO's rear.
 6. Solder the receptacle to the USB-C charging PCB, then fit its gasket. Solder two wires from its VBUS and GND pads to the VIN and GND pads on the rear of the joystick PCB. Solder a wire from its LED pad to XIAO D8. Slide the board along the rib until the nose enters the slot and the gasket sits in its pocket, and fix it with the two M2 × 4 screws. Pot the back of the receptacle with epoxy, keeping it out of the opening. With the housing rear face up, fill the LED window from outside with clear epoxy or UV resin, flush with the face; keep it off the USB-C opening and the gasket.
-7. Slide the XIAO into the rails along +Y until it stops, with the two battery wires running down behind it to the bottom opening. Secure its free end with a drop of hot glue or silicone. Apply conformal coating to both boards.
+7. Put the XIAO in edge-first (turned 60–90° about its long axis; at 17.8 mm wide it does not pass the 16.4 mm between the gasket lips flat), about 22 mm below its place, turn it flat at about X = −40 mm, move it back to the rails and slide it up along +Y until it stops. Run the two battery wires down behind it and out of the bottom opening. Secure its free end with a drop of hot glue or silicone. Apply conformal coating to both boards.
 8. Stick the vent label inside over the vent hole in the bottom end wall.
 9. Stick a thin foam strip on the rear wall where the pouch lies. Splice the battery wires to the pouch leads outside the opening, red to `BAT+`, with heat-shrink over each joint. Slide the pouch up through the opening, protection board end down, and tuck the splice under it. Check the polarity before connecting either USB-C port.
 10. Stick a foam pad on the inside of the battery cap, lay the cap gasket on the housing face, and fit the cap with three M2 × 8 countersunk screws. Tighten evenly.
 11. Lay the cover face down and the gasket on it, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the plate on the lower-facet sheet with its screw holes over the cover's.
 12. Lower the housing onto the stack; its walls locate the plate. Turn the assembly over and fit the six M2 × 8 screws on the upper facet and the four M2 × 10 screws on the lower facet. Tighten evenly in a cross pattern.
 13. Press the M2 insert into the knob. Slide the knob onto the pin with a 0.9 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw on the pin.
+
+The animation below shows steps 5 to 10. The position of the `BAT` pads on the XIAO's rear and the wire routing are drawn schematically; the source is [battery-assembly-v0.25.scad](../mechanical/cad/battery-assembly-v0.25.scad).
+
+![V0.25 battery and XIAO assembly, animated: wires on the XIAO's BAT pads; the XIAO in edge-first, turned flat and slid up its rails; the wires run down behind it and out of the bottom opening; heat-shrink on, red spliced to red and black to black, sleeves shrunk (close-up); the pouch slid up with its protection board end down and the splice tucked under it; foam pad, gasket and cap with three screws.](images/complete-remote-v0.25-battery-assembly.gif)
 
 Base:
 1. Press the two M4 inserts into the base front's split face.
