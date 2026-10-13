@@ -1,6 +1,8 @@
-# Complete Mechanical CAD — V0.24 Removable Remote
+# Complete Mechanical CAD — V0.25 Removable Remote
 
-V0.24 makes the remote removable and battery powered, following the [battery study](battery-study.md) and issue #1. A base stays clamped on each bike; the remote slides onto it on an interrupted dovetail and is held by a spring-loaded lock. A fixed LiPo pouch powers it, and it is charged off the bike through a sealed USB-C receptacle on its back, with a charge LED beside it. Everything in front of the remote's rear face is the V0.23 pod, unchanged. The changes are listed under [Changes from V0.23](#changes-from-v023).
+V0.25 drops the XIAO's pin headers and fits a 6 × 20 × 50 mm pouch (602050, 600 mAh in the listing) instead of the 602030. The pouch now slides in from below, through a separate battery cap in the bottom end: an assembly study showed that no 20 mm wide pouch, the V0.24 one included, can pass the front opening. The changes are listed under [Changes from V0.24](#changes-from-v024).
+
+V0.24 makes the remote removable and battery powered, following the [battery study](battery-study.md) and issue #1. A base stays clamped on each bike; the remote slides onto it on an interrupted dovetail and is held by a spring-loaded lock. A fixed LiPo pouch powers it, and it is charged off the bike through a sealed USB-C receptacle on its back, with a charge LED beside it. Everything in front of the remote's rear face is the V0.23 pod, unchanged. The changes are listed under [Changes from V0.23](#v024-changes-from-v023-still-current).
 
 V0.23 fitted the V0.22 joystick to a real PCB, designed in KiCad: the [joystick PCB](../electronics/joystick-pcb/README.md) carries the four switches and the 5 V input protection. V0.22 put a joystick back on the lower facet, built from low-cost parts, and widened the control end of the pod from 23 to 26 mm. The base and the rear of the pod stay 23 mm wide along the bar.
 
@@ -10,7 +12,17 @@ The remote's printed parts are slices of one outer solid: the pod outline cut fl
 
 The remote mounts on the left side of the bar only, never the right. The turn-signal switch that the folded front clears is on the left switchgear.
 
-**Current parametric concept:** [complete-remote-v0.24.scad](../mechanical/cad/complete-remote-v0.24.scad)
+**Current parametric concept:** [complete-remote-v0.25.scad](../mechanical/cad/complete-remote-v0.25.scad)
+
+![V0.25 battery cap, exploded from below: the housing with its bottom opening and the cap gasket land, the pouch envelope (red), the cap gasket and the cap with its three countersunk screw holes. The vent hole is in front of the opening.](images/complete-remote-v0.25-battery-cap.png)
+
+![V0.25 section through the middle of the pod and the base: the 50 mm pouch behind the XIAO, and the cap at the rear of the bottom end with the front screw boss.](images/complete-remote-v0.25-section.png)
+
+![V0.25 interior with the upper axial wall removed: the pouch envelope (red) behind the XIAO, from the cap up to Y = 17.5 mm.](images/complete-remote-v0.25-interior.png)
+
+![V0.25 remote seen from the bar side. The bottom band (left) is 26 mm wide for the cap gasket.](images/complete-remote-v0.25-back.png)
+
+The renders below are of V0.24; apart from the bottom end, the remote and the base are unchanged.
 
 ![V0.24 on its base, from the control side.](images/complete-remote-v0.24-iso.png)
 
@@ -46,9 +58,42 @@ The control end is unchanged from V0.23. These V0.23 renders still show it:
 
 ![V0.23 gasket unfolded flat: wall land on the upper facet, a full sheet with the stick hole on the lower facet.](images/complete-remote-v0.23-gasket-flat.png)
 
-All images are direct OpenSCAD renders of the V0.24 or V0.23 file. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb/README.md).
+All images are direct OpenSCAD renders of the V0.25, V0.24 or V0.23 file. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb/README.md).
 
-## Changes from V0.23
+## Changes from V0.24
+
+### Why the pouch moved to a bottom cap
+
+V0.24 left the pouch to go in through the front with the cover off. That was never checked, and it does not work. A sweep of the pouch from the front to its place, run on the meshes with the cell 0.2 mm larger than nominal, shows:
+- The gasket lip leaves 16.4 mm across the front opening along the upper facet, less than the 20 mm pouch. Edge-first, the pouch passes the lip (0 mm³), but turning it flat inside always meets the lower cover-screw bosses (at best 26 mm³ in V0.24).
+- Flat, through the lower facet opening (no lip there) at about 23° and then back: 0.02 mm³ with the V0.24 bosses, and a clean path with 0.4 mm per side only after lengthening the lower facet by 2 mm and moving the lowest screw 2 mm down; 6 of 112 path variants pass. With the 50 mm pouch the XIAO rails are also in the way (about 470 mm³).
+- Through the bottom end, straight up along +Y: no overlap with the rails, bosses, USB-C rib, XIAO or joystick. Only the bottom wall and the R6 inner rear-bottom corner are in the way (95 mm³; 13 mm³ at R3, 0.7 at R1.5, 0.01 at R1).
+
+Two ways to close the bottom were compared. Extending the cover round the bottom end would need one rigid cover to squeeze gaskets facing X and Y at once: fitted along X, it would not compress the bottom face at all, and fitted at 45° it would give about 71 % on each face with as much sliding. It would also reach the rear face next to the lock hole. A separate cap squeezes its own flat gasket along Y, and a strip of housing between the two openings keeps the two gaskets apart, with no T-joint. V0.25 uses the cap.
+
+### XIAO without headers
+
+- **Board.** The XIAO without headers (Seeed 102010448). The signal wires solder to the front of its pads, the battery wires to the `BAT` pads on the rear. The rear keeps 1.0 mm for joints and leads (`xiao_rear_h`) instead of the 2.5 mm spacer and 6 mm pins, between the rail lips.
+- **Rails.** The slot drops the spacer room and keeps 0.3 mm each side for solder on the edge pads under the lips (`xiao_fillet`).
+- **Bench board.** The pre-soldered XIAO stays on the breadboard; the remote needs a second, unheadered one.
+
+### Pouch and battery cap
+
+- **Pouch.** A 6 × 20 × 50 mm pouch (602050; 600 mAh in the [listing](https://es.aliexpress.com/item/32878657347.html), not verified; €4.69 there on 2026-10-13 before shipping). Envelope X = −29 to −22, Y = −33.5 to 17.5 mm, behind the XIAO, 2.4 mm from its rear joints to the cell. Cells up to 54 mm long, protection board included, fit (checked at 50, 52, 53 and 54 mm; 12 mm³ at 55). With the V0.24 pins a 50 mm cell would overlap them (101 mm³), and an 8 mm thick one does not fit.
+- **Opening.** The pouch slides in along +Y through an opening in the bottom end from X = −31 mm (`cap_open_x0`) to the cavity rear wall, the full 21 mm cavity width. The inner rear-bottom corner drops from R6 to R1 (`cavity_rear_bottom_corner`) and the outer one from R7 to R2 (`pod_rear_bottom_corner`), so the cell slides past and the cap's rear edge is not a feather.
+- **Cap.** The pod below Y = −37.7 mm (`cap_y`) from X = −35 mm (`cap_front_x`) back is a separate printed cap, 2.4 mm thick, held by three M2 × 8 countersunk screws along Y into Ø1.6 mm pilots: one in a Ø5 mm boss on the front block, two in the rear wall 7 mm either side of the centre, clear of the lock hole. The screws take 5.0 mm of thread in the housing.
+- **Gasket.** A flat gasket, 0.8 mm printed or cut, squeezed to 0.6 mm like the cover gasket (`gasket_gap`). Its lands: 3.8 mm on the front block, 3.8 mm on the rear wall and 2.5 mm on each side.
+- **Wider bottom band.** Below Y = −36 mm (`cap_wide_y`) the pod is 26 mm wide, with a 45° chamfer back to 23 mm, so the side walls there are 2.5 mm and carry the gasket. This band is 44 mm or more from the bar axis, like the 26 mm control end; check it against the switchgear on the bike.
+- **Front block.** A block across the cavity from X = −35.5 to −31 mm carries the front land and the screw boss. Its −X face bridges the cavity width when the housing prints, like the rear wall.
+- **Lock.** The cap face is 2.8 mm below the lock hole.
+- **Vent.** It moves to X = −41 mm, in front of the cap; its Ø10 mm label area is clear of the block and the bosses.
+- **Battery wires.** The `BAT` pads face the pouch once the XIAO is in. Solder two wires to them before sliding the XIAO in, run them down past the pouch to the opening, and splice them to the pouch leads there. The protection board end of the pouch goes down; the leads and the splice sit in the 5 mm between the cell and the cap.
+- **Holding the pouch.** It slides, so it cannot go in on adhesive tape. A foam pad on the cap holds it up and a foam strip on the rear wall holds it against the XIAO side.
+- **Battery change.** The cap comes off with the remote on the bench, without opening the cover.
+
+## V0.24 changes from V0.23, still current
+
+The pouch, vent and rear-bottom corner below were changed again in V0.25 (see above).
 
 ### Base and remote
 
@@ -95,11 +140,11 @@ The [battery study](battery-study.md) first proposed a bayonet turning around th
 
 ### Battery, charging and vent
 
-- **LiPo pouch.** A fixed pouch in the lower rear of the cavity, below the XIAO and behind the USB-C plug zone: envelope X = −29 to −22, Y = −33.5 to −2.5 mm, 21 mm along the bar. It takes a 6 × 20 × 30 mm pouch (602030, about 300 mAh in listings, not verified) with 0.5 mm all round. That space was free in V0.23 apart from the cable route; the earlier fit search had excluded everything below the fold. The pouch is held with foam tape and wired to the XIAO `BAT` pads.
+- **LiPo pouch.** Replaced in V0.25. A fixed pouch in the lower rear of the cavity, below the XIAO and behind the USB-C plug zone: envelope X = −29 to −22, Y = −33.5 to −2.5 mm, 21 mm along the bar. It takes a 6 × 20 × 30 mm pouch (602030, about 300 mAh in listings, not verified) with 0.5 mm all round. That space was free in V0.23 apart from the cable route; the earlier fit search had excluded everything below the fold. The pouch is held with foam tape and wired to the XIAO `BAT` pads.
 - **USB-C charging.** A GCT USB4736-GF-A charge-only (6-contact) USB-C receptacle in the rear face, IP67 with its USBTJ-06 silicone gasket (both in the kit USB4736-GF-A-KIT), centred at Y = 29.5 mm with its long side along the bar. It sits above the groove, so the platform (to Y = +33.5 mm) covers it on the bike; any USB-C cable charges the remote off the bike, and no charging dock is needed. The receptacle is on a small breakout PCB with the two 5.1 kΩ CC pull-downs, without which a USB-C charger supplies no 5 V. VBUS and GND go to the joystick PCB 5 V input, through its PTC fuse and TVS diode. This port only charges: the XIAO's own USB-C stays for programming. The CAD follows GCT's drawing (USB4736, revision A, 9 April 2025, via SnapEDA): the wall is thinned from inside to GCT's 1.80 mm panel, with a 9.14 × 3.36 mm slot (R1.43) and an 11.00 × 5.90 mm gasket pocket (R1.60) 0.60 mm deep. The 0.90 mm USBTJ-06 gasket is squeezed to about 0.53 mm (41 %; GCT asks for 35–45 %). The receptacle's 1.20 mm nose sits in the slot, 0.53 mm back from the rear face. It is soldered to the [USB-C charging PCB](../electronics/usbc-pcb/README.md), a 19 × 13.6 × 1.2 mm board that lies flat on a rib spanning the cavity and is held by two M2 × 4 thread-forming screws; the screws fix where the receptacle squeezes its gasket. It is the only part found that is sealed and keeps the CC lines; the waterproof USB-C parts sold on Amazon either lack CC pins (so USB-C chargers give no power) or are too large for the 23 mm rear face. It is sold by DigiKey, Mouser, Farnell and TME, not on Amazon. Earlier in this branch the charge path was two brass contacts and a charging dock; USB-C replaced them because it needs no dock, is keyed, and is a standard.
 - **Charge LED.** A red side-looking LED (Lite-On LTST-S270KRKT) on the same PCB, at its front edge 7.5 mm to the +Z side of the receptacle axis, shines through a Ø1.6 mm hole in the panel (`usbc_led_*`). The hole is on the emitter axis, 0.30 mm above the board, 1.2 mm beside the gasket pocket and 0.5 mm beside a 12.4 mm plug overmold, so it stays visible with the cable in. It is filled with clear epoxy or UV resin, flush outside. The firmware lights it while the cell charges and turns it off when charging ends; see the [battery study](battery-study.md#firmware). On the bike the platform covers it. The board grew from 14 to 19 mm wide to carry it, and leaves 1.0 mm to each axial wall. There is no power switch: the remote sleeps (System OFF) after 6 h without input or when A, B and C are held for 3 s, and any button wakes it.
 - **No cable gland.** The bike cable, the gland and its lock nut are gone.
-- **Vent.** It moves from the axial wall to the bottom end wall at X = −32 mm, where the gland was, so the pouch does not cover it.
+- **Vent.** It moves from the axial wall to the bottom end wall at X = −32 mm, where the gland was, so the pouch does not cover it. V0.25 moves it to X = −41 mm, in front of the battery cap.
 
 ### Joystick switches
 
@@ -165,6 +210,21 @@ V0.22 keeps from V0.21 the sheet gasket and the plate that clamps it, and replac
 
 The OpenSCAD console reports these values; the boolean checks below were run on the rendered meshes. The V0.24 checks cover the base, the dovetail, the lock, the pouch and the USB-C receptacle. The control-end checks were run on V0.23 and not repeated: nothing in front of the remote's rear face changed except the rear wall, which moved 0.8 mm away from the controls.
 
+V0.25:
+
+| Check | Result |
+|---|---|
+| Pouch (6 × 20 × 50 mm envelope) vs housing, battery cap and its gasket, XIAO, USB-C receptacle and plug, joystick, XIAO USB-C plug, vent label | No overlap |
+| Pouch slid straight up from below the cap opening into place | No overlap with the housing |
+| XIAO envelope (rear joint zone 1.0 mm) vs housing | No overlap in place, nor 11 and 22 mm along its slide-in path |
+| XIAO rear joints to the pouch cell | 2.4 mm |
+| Battery cap vs housing; cap gasket vs cap and housing | Contact only |
+| Remote with cap vs base front, base cap, lock (locked) | No overlap; the TPU strips overlap by design as in V0.24 |
+| Remote with cap at the entry position | No overlap with the base |
+| Housing vs cover, gasket, joystick plate | Contact only, as in V0.24 |
+| Vent label area vs housing | No overlap |
+| Cap face to lock hole; cap thickness; screw thread in the housing | 2.8 mm; 2.4 mm; 5.0 mm |
+
 V0.24:
 
 | Check | Result |
@@ -223,8 +283,9 @@ V0.24 aims for rain and spray resistance, not an IP rating. It has not been test
 3. **Cover joint.** The gasket and ten screws. On the lower facet the sheet is clamped over the whole facet. Elsewhere the land is the 2 mm wall of the wide part.
 4. **USB-C.** The GCT USB4736 is rated IP67 with its USBTJ-06 gasket compressed on the thinned land; GCT says the gasket is fitted after the receptacle is soldered. Pot the back of the receptacle and its PCB with epoxy as a second barrier. The charge LED window beside it is a Ø1.6 mm hole filled flush with clear epoxy or UV resin. On the bike the platform covers both. The groove and the lock hole are blind and do not open into the cavity.
 5. **Vent.** An adhesive ePTFE vent label over the Ø3 mm hole in the bottom end wall, inside. Without it, temperature cycles pump humid air into a sealed box, and the water condenses inside. Mount the base so the vent faces down or sideways, not into spray.
-6. **Electronics.** Coat the XIAO, the joystick PCB and all solder joints with conformal coating (acrylic or silicone). Keep it off the USB-C socket, the switch actuators, the pouch, and the vent membrane.
-7. **Printed walls.** The narrow rear part still has 1 mm axial walls, only two perimeters with a 0.4 mm nozzle, and FDM layers can leak. Print PETG hot and slow for good layer bonding, or seal the outside with a thin coat of epoxy or lacquer.
+6. **Battery cap.** A flat gasket squeezed to 0.6 mm by three M2 screws, on 3.8 mm lands front and rear and 2.5 mm at the sides. A 3.8 mm strip of housing separates it from the cover gasket. The cap faces down and gets spray from the wheel; this joint is new and untested.
+7. **Electronics.** Coat the XIAO, the joystick PCB and all solder joints with conformal coating (acrylic or silicone). Keep it off the USB-C socket, the switch actuators, the pouch, and the vent membrane.
+8. **Printed walls.** The narrow rear part still has 1 mm axial walls, only two perimeters with a 0.4 mm nozzle, and FDM layers can leak. Print PETG hot and slow for good layer bonding, or seal the outside with a thin coat of epoxy or lacquer.
 
 ## Printing
 
@@ -239,15 +300,18 @@ V0.24 aims for rain and spray resistance, not an IP rating. It has not been test
 | Ball and disc | `print_ball_disc` | Disc on the bed | PETG |
 | Knob | `print_knob` | Top face on the bed | PETG or ASA |
 | Gasket | `print_gasket` | Flat, 0.8 mm | Soft TPU (85A or softer), or cut from silicone/EPDM sheet |
+| Battery cap | `print_battery_cap` | Outer face on the bed | PETG or ASA |
+| Cap gasket | `print_cap_gasket` | Flat, 0.8 mm | As the cover gasket |
 | Liners ×2 | `liner_main`, `liner_cap` | Axial face on the bed | TPU 95A |
 | Anti-rattle strips ×2 | not modelled as print parts | 4 × 50 × 1.4 mm | TPU, or cut from rubber sheet |
 
 No part needs supports.
-- **Housing:** the walls are vertical, the lower facet is an open edge in the air, the lower screw bosses lean 20°, and the cavity's rear wall bridges 21 mm. The XIAO rails have 45° chamfers. The groove is at the top: its lips narrow upward at 45°, and the lock hole and the USB-C slot open upward; the gasket land is a shallow recess in the bridged rear wall. It stands on its thin front rim, so use a brim.
+- **Housing:** the walls are vertical, the lower facet is an open edge in the air, the lower screw bosses lean 20°, and the cavity's rear wall and the battery cap's front block bridge 21 mm. The XIAO rails have 45° chamfers. The groove is at the top: its lips narrow upward at 45°, and the lock hole and the USB-C slot open upward; the gasket land is a shallow recess in the bridged rear wall. It stands on its thin front rim, so use a brim.
 - **Base front:** the rail flanks are at 45° to the bed. The lock pocket and the bolt holes run horizontally and are small enough to bridge.
 - **Cover:** the Ø5 mm stick hole is small enough to bridge. It stands on a 2.5 mm edge, so use a brim.
 - **Ball and disc:** the ball above the disc narrows upward. Test the press fit of the pin in the Ø2.95 mm bore (`pin_bore`) before assembly.
 - **Knob:** the radial insert hole is horizontal and small enough to bridge.
+- **Battery cap:** the countersinks open toward the bed at 45°.
 - **Inserts:** use 100% infill or at least four perimeters around the M4 insert holes and the rails.
 - **Gasket:** TPU 95A is probably too hard to seal at 0.2 mm compression; prefer a softer TPU or a cut sheet gasket. If you cut the sheet, punch the Ø2.4 mm stick hole.
 
@@ -258,14 +322,15 @@ Remote:
 2. Mount the three buttons in the cover.
 3. Solder the four KSC2 switches to the front of the joystick PCB, and the PTC fuse and TVS diode to the rear (or order the board assembled).
 4. Push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the PCB onto the plate standoffs with two M2 × 8 button-head screws (head at most Ø3.5 × 1.1 mm); the disc rests on the switches.
-5. Solder six wires from the rear pads of the joystick PCB to the XIAO: U, D, L, R to D3–D6, G to GND and 5V to the 5V pin. Lead them away from the top edge of the PCB. Solder the button wires as before.
+5. Solder six wires from the rear pads of the joystick PCB to the front of the XIAO's pads: U, D, L, R to D3–D6, G to GND and 5V to the 5V pin. Lead them away from the top edge of the PCB. Solder the button wires as before. Keep the joints small: the outer 0.8 mm of each pad is under a rail lip. Solder two wires, about 60 mm long, to the `BAT+` and `BAT−` pads on the XIAO's rear.
 6. Solder the receptacle to the USB-C charging PCB, then fit its gasket. Solder two wires from its VBUS and GND pads to the VIN and GND pads on the rear of the joystick PCB. Solder a wire from its LED pad to XIAO D8. Slide the board along the rib until the nose enters the slot and the gasket sits in its pocket, and fix it with the two M2 × 4 screws. Pot the back of the receptacle with epoxy, keeping it out of the opening. With the housing rear face up, fill the LED window from outside with clear epoxy or UV resin, flush with the face; keep it off the USB-C opening and the gasket.
-7. Slide the XIAO into the rails along +Y until it stops. Secure its free end with a drop of hot glue or silicone. Apply conformal coating to both boards.
-8. Solder the pouch leads to the XIAO `BAT` pads, red to `BAT+`. Stick the pouch to the rear wall in the lower rear of the cavity with foam tape. Check the polarity before connecting either USB-C port.
-9. Stick the vent label inside over the vent hole in the bottom end wall.
-10. Lay the cover face down and the gasket on it, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the plate on the lower-facet sheet with its screw holes over the cover's.
-11. Lower the housing onto the stack; its walls locate the plate. Turn the assembly over and fit the six M2 × 8 screws on the upper facet and the four M2 × 10 screws on the lower facet. Tighten evenly in a cross pattern.
-12. Press the M2 insert into the knob. Slide the knob onto the pin with a 0.9 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw on the pin.
+7. Slide the XIAO into the rails along +Y until it stops, with the two battery wires running down behind it to the bottom opening. Secure its free end with a drop of hot glue or silicone. Apply conformal coating to both boards.
+8. Stick the vent label inside over the vent hole in the bottom end wall.
+9. Stick a thin foam strip on the rear wall where the pouch lies. Splice the battery wires to the pouch leads outside the opening, red to `BAT+`, with heat-shrink over each joint. Slide the pouch up through the opening, protection board end down, and tuck the splice under it. Check the polarity before connecting either USB-C port.
+10. Stick a foam pad on the inside of the battery cap, lay the cap gasket on the housing face, and fit the cap with three M2 × 8 countersunk screws. Tighten evenly.
+11. Lay the cover face down and the gasket on it, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the plate on the lower-facet sheet with its screw holes over the cover's.
+12. Lower the housing onto the stack; its walls locate the plate. Turn the assembly over and fit the six M2 × 8 screws on the upper facet and the four M2 × 10 screws on the lower facet. Tighten evenly in a cross pattern.
+13. Press the M2 insert into the knob. Slide the knob onto the pin with a 0.9 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw on the pin.
 
 Base:
 1. Press the two M4 inserts into the base front's split face.
@@ -303,7 +368,8 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | Dovetail | Rails 10 mm wide at the platform, 15 mm at the top, 2.5 mm high, 45° flanks; two 8 mm segments with a 9 mm gap; 7 mm lips; 0.2 mm clearance; 9 mm slide | Prints without supports on both parts; clearance to tune on the first print |
 | Lock | M3 × 22 ISO 4762 head (Ø5.5 × 3 mm) 2 mm proud, in a Ø6 mm pocket at Y = −32 mm; Ø5.8 mm hole in the remote; 0.5 × 5 × 10 mm spring; Ø16 × 8 mm quarter-turn knob on a Ø9 × 3.5 mm boss, two Ø1.5 × 4 mm pins | ISO 4762 head size; spring force estimated |
 | USB-C receptacle | GCT USB4736-GF-A; shell axis at Y = 29.5 mm in the rear face, long side along the bar; 1.80 mm panel, 9.14 × 3.36 mm slot, 11.00 × 5.90 × 0.60 mm gasket pocket; USBTJ-06 gasket 10.64 × 4.86 × 0.90 mm; body 9.99 wide, 4.61 mm above its PCB, 8.60 mm long | GCT drawing USB4736 rev. A (9 April 2025) |
-| LiPo pouch | 6 × 20 × 30 mm envelope with 0.5 mm clearance, X = −29 to −22, Y = −33.5 to −2.5 mm | 602030 listings; measure the bought cell |
+| LiPo pouch | 6 × 20 × 50 mm envelope with 0.5 mm clearance, X = −29 to −22, Y = −33.5 to 17.5 mm | 602050 listing; cells to 54 mm fit; measure the bought cell |
+| Battery cap | Pod below Y = −37.7 mm from X = −35 mm back, 2.4 mm thick; opening X = −31 to −21.2 mm, 21 mm wide; three M2 × 8 countersunk screws; 0.6 mm gasket | Assembly study (V0.25); 2.8 mm below the lock hole |
 | Pod front corners | 3 mm radius | Leaves a flat cover face for the M2 screws |
 | Folded front | Upper facet normal to the pod axis; lower facet turned 20° toward the bar, fold 12.5 mm below the bar axis | Clears the thumb's path to the turn-signal switch; the angle is a parameter |
 | Pod cavity corners | 2 mm front, 6 mm rear | 1 mm inset from the outer corners |
@@ -319,8 +385,8 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | Joystick | Ø16 mm knob 5.7 mm proud, hub 0.9 mm and rim 1.15 mm above the cover; Ø3 × 12 mm steel pin; Ø6 mm ball on a Ø3.6 mm seat edge, pivot 7.0 mm behind the face; 1.2 mm cross disc 0.05 mm above four KSC2 at 6.75 mm | Trips at ≤ 5.9° tilt; knob stop at 8.2° or 0.9 mm push; disc room 9.5° |
 | Joystick plate | 1.5 mm, behind the sheet; Ø3.6 mm seat hole opening to Ø4.8 mm at the front; Ø10 × 0.6 mm sheet pocket; two Ø3.6 mm standoffs, 6.25 mm tall, at (∓6.0, ±6.4) mm from the stick axis | Printed PETG; clamped by the four lower cover screws |
 | Joystick PCB | 20.6 × 22.4 mm with four R3.3 mm boss notches; front face 10.85 mm behind the outer face, 1.6 mm thick; rear zone 1.0 mm, 3.0 mm in the upper half and the side strips | KiCad design in electronics/joystick-pcb; switch land pattern from LCSC C221728, the same C&K J-bend layout as the KSC221J (C221726) |
-| Vent | Ø3 mm hole in the bottom end wall at X = −32 mm, Ø10 mm flat area inside | For an adhesive ePTFE vent; verify against the chosen vent |
-| XIAO PCB / header spacer / pins | 1.2 / 2.5 / 6 mm | Allowances for the pre-soldered version; measure the bought board |
+| Vent | Ø3 mm hole in the bottom end wall at X = −41 mm, Ø10 mm flat area inside | For an adhesive ePTFE vent; verify against the chosen vent |
+| XIAO PCB / rear joint zone | 1.2 / 1.0 mm | No headers in V0.25; measure the bought board and the joints |
 
 Seeed lists the XIAO board at 21 × 17.8 mm and provides a [2D DXF drawing](https://wiki.seeedstudio.com/XIAO_BLE/). The purchased variant has pre-soldered headers; V0.22 keeps the board parallel to the control cover, behind the control bodies, with the header pins pointing away from the controls. The 2.5 mm spacer and 6 mm pin length are allowances, not supplier dimensions. The [Kiwi listing](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402) confirms the headers are pre-soldered. Check the actual header, USB-C, antenna, and component clearances against the printed cavity before finalizing it.
 
@@ -334,12 +400,13 @@ These are the only items that block a confident first print. Each is a parameter
 
 - **Buttons:** APEM ISR3SAD200 chosen; measure the nut thickness (`button_nut_h`, 2.5 mm assumed) and check the 18 mm pitch with gloves and a wrench on the first print.
 - **Joystick:** measure the KSC2 height and the printed plate, ball and disc; together with the standoffs they set the 0.05 mm rest gap (`joy_rest_gap`). The feel (5.9° to trip, 2 N per direction, about 8 N for the centre chord) and the Ø16 mm knob need a check with gloves.
-- **XIAO:** PCB thickness, header spacer height, pin length, and component height. Adjust `xiao_pcb`, `xiao_header_plastic`, `xiao_pin_length`, and `xiao_component_h`; the render stops if the pins reach the rear wall.
+- **XIAO:** PCB thickness, component height and the height of the rear joints. Adjust `xiao_pcb`, `xiao_component_h` and `xiao_rear_h`; the render stops if the rear joints reach the pouch envelope.
 - **Inserts:** hole diameters and depths for the actual M4 and M2 inserts.
 - **Handlebar and liner:** measured bar diameter, and the 0.8 mm clamping gap tuned to the printed TPU liner.
 - **Dovetail:** the 0.2 mm clearance (`dt_c`) against the printer, and the strip material and thickness for the preload. Whether the 0.48 mm the remote can move toward the platform feels loose on the buttons.
 - **Lock:** a spring that fits a Ø6 mm pocket over a Ø3 mm shank and holds the head out firmly; its compressed length sets `lock_spring_solid`. The pull force, and whether 1 mm of head in the pocket is enough.
-- **Pouch:** the bought cell's size, protection board and lead exit, and its maximum charge current against the XIAO's 50 or 100 mA.
+- **Pouch:** the bought cell's size (up to 54 mm long, 6 mm thick), its real capacity, protection board and lead exit, and its maximum charge current against the XIAO's 50 or 100 mA.
+- **Battery cap:** whether the flat gasket seals on the 2.5 mm side lands, whether M2 screws hold in Ø1.6 mm pilots in PETG after a few battery changes, and whether the 26 mm bottom band clears the switchgear on the bike.
 - **USB-C PCB:** check its hand-drawn USB4736 footprint against the real part or GCT's footprint files, and the Ø1.6 mm screw pilots against the chosen screws.
 - **Charge LED:** whether the LED shows well enough through the filled Ø1.6 mm window (`usbc_led_hole_d`), and whether the printed hole needs drilling out to size.
 - **Vent:** label diameter and required hole size.
@@ -350,4 +417,4 @@ Not addressed by this concept: IP rating, impact, vibration, and fatigue strengt
 
 ## Earlier versions
 
-V0.1–V0.23 remain available for comparison. V0.23 is the fixed, cable-powered version: its clamp ring and shoulders are part of the housing. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23 or V0.24. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.
+V0.1–V0.24 remain available for comparison. V0.23 is the fixed, cable-powered version: its clamp ring and shoulders are part of the housing. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23 or later. V0.24 places a 602030 pouch that cannot be put in through the front opening (see [Changes from V0.24](#changes-from-v024)); build V0.25. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.

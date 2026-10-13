@@ -1,8 +1,8 @@
-# Bill of Materials — V0.24
+# Bill of Materials — V0.25
 
-This is the single parts list for the project: the bench prototype and the V0.24 removable, battery-powered remote with its base. Design details stay in the linked documents; this page lists what to buy.
+This is the single parts list for the project: the bench prototype and the V0.25 removable, battery-powered remote with its base. Design details stay in the linked documents; this page lists what to buy.
 
-**Status:** nothing in the V0.24 list has been built or tested.
+**Status:** nothing in the V0.25 list has been built or tested.
 
 Sourcing preference: parts that builders can buy from mainstream retailers (for example Amazon) come first. Distributor-only parts are used only where no retail part meets the requirement, and the reason is given.
 
@@ -47,8 +47,8 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 
 | Qty | Part | Source | Notes |
 |---:|---|---|---|
-| 1 | Seeed XIAO nRF52840 | As in the bench list | Header spacer and pin length are `MEASURE` values in the CAD. |
-| 1 | LiPo pouch with protection board, 6 × 20 × 30 mm (602030), about 300 mAh in listings | Retail | Capacity varies by seller; check the size, the protection board and the maximum charge current (the XIAO charges at 50 or 100 mA). Rechargeable Li-ion/LiPo only. |
+| 1 | Seeed XIAO nRF52840 **without headers** (MPN `102010448`) | [Reichelt Spain](https://www.reichelt.com/es/es/shop/producto/xiao_nrf52840_bt5_0_sin_cabezal-358357), €9.56 with VAT | V0.25 has no room for headers: the pouch sits behind the board. The pre-soldered bench board stays on the breadboard. |
+| 1 | LiPo pouch with protection board, 6 × 20 × 50 mm (602050), 600 mAh in the listing | [AliExpress](https://es.aliexpress.com/item/32878657347.html), €4.69 before shipping and taxes (2026-10-13) | Capacity not verified. Up to 54 mm long including the protection board, 6 mm thick (8 mm does not fit). Check the maximum charge current (the XIAO charges at 50 or 100 mA). Rechargeable Li-ion/LiPo only. |
 | 1 | [Joystick PCB](../electronics/joystick-pcb/README.md), 20.6 × 22.4 × 1.6 mm | JLCPCB or another board house | Gerbers, BOM and placement file in `electronics/joystick-pcb/fab/`. |
 | 4 | C&K KSC221JLFS sealed tact switch, 2 N, J-bend | LCSC C221726 | On the joystick PCB. Distributor part: no retail sealed switch with this footprint was found. The gull-wing `G` version does not fit. The KSC222JLFS (C221728, long-life contacts) also fits. |
 | 1 | Bourns MF-MSMF050-2 PTC fuse, 1812 | LCSC C17313 | On the joystick PCB. |
@@ -63,8 +63,8 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 
 Estimated cost: about €100–125.
 
-- XIAO: about €12 (the bench price above).
-- LiPo 602030: about €6 for one cell on [eBay.de](https://www.ebay.de/itm/182393523060); packs of 2–5 cost about €7–12.
+- XIAO without headers: €9.56 at Reichelt Spain.
+- LiPo 602050: €4.69 on AliExpress, before shipping and taxes.
 - APEM buttons: 3 × about USD 11, about €30.
 - GCT USB4736-GF-A-KIT: €1.57 before VAT, about €1.90 with VAT, at [DigiKey Belgium](https://www.digikey.be/en/products/detail/gct/USB4736-GF-A-KIT/26795952). DigiKey shipping is extra below its free-shipping threshold; the APEM buttons and the kit together may reach it (not checked).
 - Both PCBs, one JLCPCB order: about €50–60 with shipping and import VAT. The calculation uses the [JLCPCB assembly fee table](https://jlcpcb.com/help/article/pcb-assembly-price) dated 2025-09-01; check it in the live quote.
@@ -83,6 +83,7 @@ The joystick switches changed from the KSC222JLFS (LCSC C221728) to the KSC221JL
 | Qty | Part | Source | Notes |
 |---:|---|---|---|
 | 6 | M2 × 8 countersunk screw, ISO 10642 | Retail | Cover, upper facet. |
+| 3 | M2 × 8 countersunk screw, ISO 10642 | Retail | Battery cap, into Ø1.6 mm pilots in the housing. |
 | 4 | M2 × 10 countersunk screw, ISO 10642 | Retail | Cover, lower facet, through the joystick plate. |
 | 10 | M2 heat-set insert, about 4 mm long | Retail | Cover screw bosses. Hole Ø3.2 × 6 mm in the CAD; check against the insert bought. |
 | 2 | M2 × 8 button-head screw, head at most Ø3.5 × 1.1 mm (ISO 7380 style) | Retail | Joystick PCB to the plate standoffs. A pan head is too tall. |
@@ -91,7 +92,8 @@ The joystick switches changed from the KSC222JLFS (LCSC C221728) to the KSC221JL
 | 1 | M2 × 4 grub screw | Retail | Joystick knob. |
 | 1 | M2 heat-set insert | Retail | Joystick knob. |
 | 1 | Adhesive ePTFE vent label, about Ø10 mm, for a Ø3 mm hole | Retail | Inside the bottom end wall. |
-| — | Double-sided foam tape | Retail | Holds the pouch. |
+| — | Thin foam sheet (about 1–5 mm, EVA or similar) | Retail | Pad on the battery cap and strip on the rear wall; they hold the pouch, which slides in and cannot be taped. |
+| — | Heat-shrink tubing, small | Retail | Splice between the XIAO battery wires and the pouch leads. |
 
 Estimated cost: about €30–60, plus the vent label.
 
@@ -110,6 +112,8 @@ Estimated cost: about €30–60, plus the vent label.
 | 1 | Ball and disc | PETG | `print_ball_disc` |
 | 1 | Joystick knob | PETG or ASA | `print_knob` |
 | 1 | Cover gasket | Soft TPU (85A or softer), or cut from silicone or EPDM sheet | `print_gasket` |
+| 1 | Battery cap | PETG or ASA | `print_battery_cap` |
+| 1 | Battery cap gasket | As the cover gasket | `print_cap_gasket` |
 
 Print settings and orientations are in the [mechanical notes](mechanical-concept.md#printing).
 

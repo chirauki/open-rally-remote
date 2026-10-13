@@ -22,6 +22,7 @@ Next steps wait for parts and measurements; see [Open measurements](#open-measur
 - The V0.23 cavity has no room for a swappable cell. The free spaces are about 14 × 19 × 20.6 mm behind buttons A and B, and a 13 × 26 mm strip (in the plane of the clamp) in the solid shoulder between the cavity and the clamp ring.
 - A flat 6 × 20 × 22 mm LiPo, not swappable, fits in V0.23 without growing the housing. It crosses the cavity rear wall into the shoulder.
 - Without the cable gland, a longer 6 × 20 × 30 mm pouch (602030) fits below the XIAO. V0.24 puts it there.
+- Without the XIAO's pin headers, a 6 × 20 × 50 mm pouch (602050, 600 mAh in the listing, not verified) fits behind the XIAO. V0.25 puts it there, and the pouch slides in from below through a battery cap, because no 20 mm wide pouch passes the front opening.
 - A swappable 16340 (RCR123A) cell needs a 20 × 44 mm footprint, including its tube and cap. That fits only if the upper end of the pod grows from 44 to about 64 mm above the bar axis, which makes the pod 20 mm longer.
 - The XIAO nRF52840 already has a LiPo charger and battery pads. It cannot take a primary cell (CR2450, CR123A) safely, because it would try to charge it.
 - A twist mount like a bike-computer quarter-turn does not suit this remote: the twist would swing the 85 mm pod across the bar into the grip and switchgear. A bayonet around the bar clashes with the clamp bolts. A dovetail sliding along the pod's long axis fits.
@@ -104,7 +105,7 @@ Two ways to connect the cell:
 | Primary CR123A | Unsafe: it gets charged | Allowed, but only with a diode that blocks any charge current |
 | Battery voltage reading | Built-in divider on AIN7 | Needs a divider on another pin |
 
-**Recommendation: A, with rechargeable cells only.** It needs no extra parts and keeps the full voltage. A 250 mAh pouch takes about 5 h at 50 mA or 2.5 h at 100 mA; a 900 mAh 16340 would take about 18 h or 9 h.
+**Recommendation: A, with rechargeable cells only.** It needs no extra parts and keeps the full voltage. A 250 mAh pouch takes about 5 h at 50 mA or 2.5 h at 100 mA; the V0.25 600 mAh pouch about 12 h or 6 h; a 900 mAh 16340 would take about 18 h or 9 h. For the 600 mAh pouch the 100 mA rate (0.17 C) is the practical one.
 
 The 100 mA rate should be checked against the cell's maximum charge current. The listings above do not all give a maximum charge current; check the chosen cell's datasheet.
 
@@ -115,10 +116,12 @@ There is no measurement on this firmware yet; the BLE current of the XIAO with B
 - System OFF: 2–3 µA.
 - An nRF52840 connected over BLE: from about 0.2 mA (power-profiler estimate at a 40 ms interval) to about 1 mA (a forum report).
 
-| Average current | 250 mAh pouch | 900 mAh 16340 |
-|---|---|---|
-| 1 mA (connected, short interval) | 10 days | 37 days |
-| 0.3 mA (connected, with peripheral latency) | 35 days | 125 days |
+| Average current | 250 mAh pouch | 600 mAh pouch (V0.25) | 900 mAh 16340 |
+|---|---|---|---|
+| 1 mA (connected, short interval) | 10 days | 25 days | 37 days |
+| 0.3 mA (connected, with peripheral latency) | 35 days | 83 days | 125 days |
+
+The 600 mAh column uses the listed capacity; small pouches often hold less than listed.
 
 These are continuous-connection figures. With the firmware sleeping while the bike is parked and reconnecting on a press, the runtime would be much longer. Measure before choosing a cell; see [Firmware](#firmware).
 
@@ -136,7 +139,7 @@ The tube is a separate sealed volume from the electronics cavity. Only two wires
 
 ## Removable remote (issue #1)
 
-Modelled in V0.24; the [mechanical notes](mechanical-concept.md#changes-from-v023) give the dimensions and the checks. The goal is to move one remote between bikes without tools. Each bike keeps its own base.
+Modelled in V0.24, with the pouch moved to a bottom battery cap in V0.25; the [mechanical notes](mechanical-concept.md#v024-changes-from-v023-still-current) give the dimensions and the checks. The goal is to move one remote between bikes without tools. Each bike keeps its own base.
 
 ### Split
 
@@ -202,7 +205,7 @@ Not all bikes can be covered this way. A bike with less than 23 mm between grip 
 
 These are bench measurements on the parts, not on bikes:
 1. **Current.** Average current of the XIAO with this firmware, connected over BLE and idle, with a multimeter in series on the battery lead. It decides whether a 250 mAh pouch is enough.
-2. **Pouch.** The chosen pouch's real thickness, outline and protection board, and its maximum charge current against the XIAO's 50 or 100 mA.
+2. **Pouch.** The chosen pouch's real thickness, outline, capacity and protection board, and its maximum charge current against the XIAO's 50 or 100 mA.
 
 ## Firmware
 
