@@ -31,7 +31,20 @@ The firmware should configure these GPIOs as inputs with internal pull-ups. Each
 | D7 | SW8 | Joystick center press (breadboard only) |
 | GND | Blue/negative rail | Shared switch ground |
 
-The enclosure joystick has no center switch; the firmware reads a straight push as the center. On the breadboard that push cannot be made, so SW8 on D7 stands in for it: set `CENTER_FROM_CHORD` to `false` in the sketch. With the default `true`, D7 is not read. No 3.3 V or 5 V rail connection is needed for this switch circuit.
+The enclosure joystick has no center switch; the firmware reads three or more directions closed together as the center. On the breadboard, press three or four direction switches at once with a flat object, such as a ruler, to make that chord; this tests the same logic as the remote and needs only SW1–SW7. SW8 on D7 is an optional stand-in if the chord is too awkward: set `CENTER_FROM_CHORD` to `false` in the sketch. With the default `true`, D7 is not read. No 3.3 V or 5 V rail connection is needed for this switch circuit.
+
+The XIAO's pins, seen from the component side with the USB-C connector at the top (from the Seeed pinout):
+
+```text
+            [ USB-C ]
+  D0  o                 o  5V
+  D1  o                 o  GND
+  D2  o                 o  3V3
+  D3  o     XIAO        o  D10
+  D4  o   nRF52840      o  D9
+  D5  o                 o  D8
+  D6  o                 o  D7
+```
 
 ## Breadboard wiring diagram
 
@@ -66,12 +79,12 @@ Breadboard rows (switches straddle the center trench):
 USB-C on XIAO ── data cable ── computer / USB supply
 ```
 
-The SVG is a wiring view, not a scale drawing of the physical jumper routes. Place the eight switches in separate numbered rows and connect each switch's opposite side to the ground rail. The two five-hole groups in each row (a–e and f–j) are not connected across the center trench. Switch leg layout can vary, so check the switch drawing or use continuity mode to identify the internally joined pairs before wiring.
+The SVG is a wiring view, not a scale drawing of the physical jumper routes. Place the eight switches in separate numbered rows and connect each switch's opposite side to the ground rail. The two five-hole groups in each row (a–e and f–j) are not connected across the center trench. Switch leg layout can vary, so check the switch drawing or use continuity mode to identify the internally joined pairs before wiring. Without a meter, connect the GPIO and ground leads to diagonally opposite legs: these are never joined internally, whichever way the switch is turned. On the 6×6×5 mm switches used here, the two legs that face each other across the trench, in the same numbered row, are joined internally; a GPIO and ground lead in that same row read as permanently pressed.
 
 ### Wiring steps
 
 1. **Fit the headers.** Solder one 1×7 male header to each long edge of the XIAO, with the pins projecting downward. Avoid solder bridges between adjacent pads. If using a pre-soldered board, skip this step.
-2. **Place the switches.** Insert all eight tactile switches across the breadboard's center trench, each on its own row. Keep them spaced and label the rows A, B, C, UP, DOWN, LEFT, RIGHT, and CENTER.
+2. **Place the switches.** Insert the tactile switches across the breadboard's center trench. Each switch spans two numbered rows; leave a free row between switches. Label them A, B, C, UP, DOWN, LEFT, RIGHT and, if fitted, CENTER. Put the four direction switches side by side so that one flat object can press three or four of them.
 3. **Connect ground.** Use one jumper from a XIAO GND pin to the breadboard's blue/negative rail. If the rail is split halfway along its length, bridge the two rail sections with another jumper.
 4. **Connect the GPIO leads.** Use eight male-to-female leads to connect D0 through D7 to one electrical side of the corresponding switch. Use the pin map above. D7 is optional.
 5. **Ground the other switch side.** Use eight male-to-male leads to connect the opposite electrical side of each switch to the blue ground rail. Connect the XIAO GND pin to that rail with a separate male-to-female lead.

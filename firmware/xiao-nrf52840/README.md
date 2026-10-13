@@ -48,4 +48,24 @@ The letters are diagnostic keys and may trigger actions in a navigation app. Do 
 
 The sketch was compiled on 2026-10-10 with `arduino-cli` and Seeed nRF52 Boards 1.1.13 for `Seeeduino:nrf52:xiaonRF52840`, in both center modes, with no warnings from the sketch. The package's own GCC 9 toolchain is an Intel binary and did not run on the Apple Silicon build machine without Rosetta, so the check used Arm GNU Toolchain 13.3. The Arduino IDE on a machine that runs the package toolchain may still report something different.
 
-The chord logic was also run on the host against mocked switch timelines (tilt, short tilt, diagonal, staggered push, long and double push, slow push, opposite pair). It has not yet run on the XIAO or the real switches.
+The chord logic was also run on the host against mocked switch timelines (tilt, short tilt, diagonal, staggered push, long and double push, slow push, opposite pair).
+
+The package's `adafruit-nrfutil` upload tool is also an Intel binary. On an Apple Silicon Mac without Rosetta, install the Python version (`pip install adafruit-nrfutil`, 0.5.3 was used) and point the package at it with a `platform.local.txt` next to its `platform.txt`:
+
+```text
+tools.nrfutil.cmd.macosx=/path/to/venv/bin/adafruit-nrfutil
+```
+
+The board's factory firmware did not answer the upload tool's reset request. Opening the serial port at 1200 baud put it into the bootloader, after which `adafruit-nrfutil dfu serial -pkg <sketch>.zip -p <port> -b 115200 --singlebank` programmed it.
+
+## Bench test
+
+Run on 2026-10-13 on a pre-soldered XIAO nRF52840, with the 6×6 mm switches on a breadboard, in chord mode, paired with a phone:
+
+- Buttons A, B and C gave the expected short, long and double letters (A–I).
+- The four directions sent arrow keys.
+- The center chord, made by pressing three or four direction switches with a flat object, gave J (short), K (long) and L (double). A double press needs the second chord within 300 ms of releasing all directions of the first; the logged gaps were about 120 ms.
+
+The board's bootloader reports itself as "XIAO nRF52840 Sense" (USB PID 0x0045), so the board used may be the Sense variant. The sketch was built for the plain XIAO nRF52840; D0–D10 are the same on both.
+
+The advertised name was cut to `Open Rally Remo`: the advertising packet holds 15 name characters after the flags, TX power, appearance and HID service fields. The sketch now sends the name in the scan response, and the phone showed the full `Open Rally Remote` after pairing again.

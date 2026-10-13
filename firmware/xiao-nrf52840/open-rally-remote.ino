@@ -482,7 +482,9 @@ void beginBleKeyboard() {
   Bluefruit.Advertising.addTxPower();
   Bluefruit.Advertising.addAppearance(BLE_APPEARANCE_HID_KEYBOARD);
   Bluefruit.Advertising.addService(bleHid);
-  Bluefruit.Advertising.addName();
+  // The advertising packet has room for 15 name characters only; the scan
+  // response carries the full name.
+  Bluefruit.ScanResponse.addName();
   Bluefruit.Advertising.restartOnDisconnect(true);
   Bluefruit.Advertising.setInterval(32, 244);
   Bluefruit.Advertising.setFastTimeout(30);
