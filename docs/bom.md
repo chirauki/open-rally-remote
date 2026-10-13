@@ -6,6 +6,22 @@ This is the single parts list for the project: the bench prototype and the V0.24
 
 Sourcing preference: parts that builders can buy from mainstream retailers (for example Amazon) come first. Distributor-only parts are used only where no retail part meets the requirement, and the reason is given.
 
+## Estimated cost
+
+Rough figures for one remote and one base, in euros including VAT, before shipping unless a line says otherwise. They were checked on 2026-10-13 where a source is given; the rest are estimates that have not been checked against a shop. Many parts only come in packs or kits, so the first build costs much more than each one after it.
+
+| Section | Estimate | Basis |
+|---|---:|---|
+| [Bench prototype](#bench-prototype) | €22–29 | Checked on 2026-10-07; see the section. |
+| [Remote: electronics](#electronics) | €100–125 | Mostly checked; the two PCBs are a calculation from the JLCPCB fee table. |
+| [Remote: hardware](#hardware) | €30–60, plus the vent label | Kit prices checked; single-size packs not checked. No retail price found for the vent label. |
+| [Remote: printed parts](#printed-parts) | €20–50 | Not checked: needs a quote from a print service with the exported files. |
+| [Base](#base-one-per-bike) | €25–60 | Not checked; much of the hardware comes from the kits bought for the remote. |
+| [Consumables](#consumables) | €35–55 | Conformal coating checked; the rest not checked. |
+| **First remote and base, without the bench parts** | **about €210–350** | |
+
+The three APEM buttons (about €30) and the PCB order (about €50–60, mostly fixed fees and shipping) are the largest items.
+
 ## Bench prototype
 
 For firmware and BLE experiments on a breadboard; see the [breadboard assembly guide](breadboard-assembly.md). Prices and stock were checked on 2026-10-07, in Spain, including VAT where the shop shows it and excluding shipping.
@@ -45,6 +61,38 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 | 3 | APEM ISR3SAD200 sealed pushbutton: round curved black actuator, NO, solder lugs, IP67, standard bezel, nut and flat seal supplied | DigiKey, RS, L'impulsion | Buttons A, B, C. Distributor part: no retail sealed button with a datasheet was found. About USD 11 each at DigiKey (2026-10-11). |
 | — | Hook-up wire, about 28–30 AWG, silicone insulated | Retail | Buttons, joystick PCB and USB-C PCB to the XIAO. |
 
+Estimated cost: about €100–125.
+
+- XIAO: about €12 (the bench price above).
+- LiPo 602030: about €6 for one cell on [eBay.de](https://www.ebay.de/itm/182393523060); packs of 2–5 cost about €7–12.
+- APEM buttons: 3 × about USD 11, about €30.
+- GCT USB4736-GF-A-KIT: €1.57 before VAT, about €1.90 with VAT, at [DigiKey Belgium](https://www.digikey.be/en/products/detail/gct/USB4736-GF-A-KIT/26795952). DigiKey shipping is extra below its free-shipping threshold; the APEM buttons and the kit together may reach it (not checked).
+- Both PCBs, one JLCPCB order: about €50–60 with shipping and import VAT. The calculation uses the [JLCPCB assembly fee table](https://jlcpcb.com/help/article/pcb-assembly-price) dated 2025-09-01; check it in the live quote.
+  - Bare boards: 5 of each at about USD 2 per design.
+  - Economic assembly: USD 8 setup, USD 1.50 stencil and USD 3 per extended part, for each board.
+  - Assembled boards: at least 2 of each.
+  - Joystick switches: 8 × USD 0.77.
+  - Shipping to Spain: about USD 12–20.
+- F1, D1, resistors and the LED: under €2.
+- Hook-up wire: €5–8, not checked.
+
+The KSC222JLFS (LCSC C221728) was **out of stock** at LCSC on 2026-10-13, at USD 0.94 for one. LCSC lists the KSC221JLFS (C221726) in stock, at USD 0.77 for one.
+
+According to the C&K KSC datasheet (B-52), the two parts share these:
+- force: 2 ± 0.5 N;
+- the 6.2 mm body and 3.5 mm height;
+- the J-bend land pattern.
+
+They differ in these:
+
+| | KSC222JLFS | KSC221JLFS |
+|---|---|---|
+| Contacts | Long-life silver | Standard silver |
+| Life | 1,000,000 operations | 500,000 operations |
+| Travel | 0.35 ± 0.15 mm | 0.35 +0.3/−0.1 mm, up to 0.65 mm |
+
+The extra travel breaks the V0.24 CAD check that the knob hub stops a push only after the switches trip: the knob gap is 0.7 mm and needs more than 0.05 + 0.65 mm. A knob gap of 0.9 mm with the knob 0.2 mm taller (`knob_gap = 0.9`, `knob_proud = 5.7`) passes every joystick check. Do not order the KSC221JLFS without that change.
+
 ### Hardware
 
 | Qty | Part | Source | Notes |
@@ -60,6 +108,13 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 | 1 | Adhesive ePTFE vent label, about Ø10 mm, for a Ø3 mm hole | Retail | Inside the bottom end wall. |
 | — | Double-sided foam tape | Retail | Holds the pouch. |
 
+Estimated cost: about €30–60, plus the vent label.
+
+- M2 screws: an M2 stainless assortment with countersunk heads is about €36 at [ManoMano](https://www.manomano.es/p/kit-surtido-de-250-piezas-de-tornillos-pernos-y-llaves-de-vaso-hexagonales-de-cabeza-avellanada-planas-abombadas-y-cilindricas-de-acero-inoxidable-a2-con-tuercas-m2-x-468101216-mm-cabeza-p-94605084). The listing does not state ISO 10642. Packs of single sizes are likely cheaper; not checked.
+- Heat-set inserts: an M2–M5 kit is about €8–14 on [eBay.de](https://www.ebay.de/itm/166917553778). The same kit covers the base.
+- Dowel pin, grub screw and foam tape: €5–10, not checked.
+- Vent label: no single-unit retail price was found. Gore adhesive vents come in packs of 50 at about £213 before VAT ([RS UK](https://uk.rs-online.com/web/p/enclosure-ventilation/2842971)), which is too many for one build. Generic ePTFE vent stickers sold in small packs need checking for an IP67 rating before use.
+
 ### Printed parts
 
 | Qty | Part | Material | Print mode |
@@ -72,6 +127,8 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 | 1 | Cover gasket | Soft TPU (85A or softer), or cut from silicone or EPDM sheet | `print_gasket` |
 
 Print settings and orientations are in the [mechanical notes](mechanical-concept.md#printing).
+
+Estimated cost: about €20–50 from a print service, including shipping. **Not checked.** [JLC3DP](https://jlc3dp.com/fr) lists FDM parts from USD 1 each, but does not list PETG. Get a quote with the exported STL files.
 
 ## Base, one per bike
 
@@ -90,6 +147,11 @@ Print settings and orientations are in the [mechanical notes](mechanical-concept
 | 2 | Bar liner half | TPU 95A, `liner_main`, `liner_cap` | |
 | 1 | Lock knob, Ø16 mm quarter turn | PETG, `print_lock_knob` | Top face on the bed. |
 
+Estimated cost: about €25–60. **Not checked.**
+
+- Printed parts: €15–35 from a print service.
+- Hardware: €10–25. This includes a spring assortment and the M3 and M4 screws. The inserts come from the kit in the remote list.
+
 ## Consumables
 
 | Part | Use |
@@ -100,8 +162,13 @@ Print settings and orientations are in the [mechanical notes](mechanical-concept
 | Neutral-cure silicone | Sealing where the notes call for it. |
 | Hot glue or silicone | Holding the XIAO's free end in its rails. |
 
+Estimated cost: about €35–55.
+
+- Acrylic conformal coating, 200 ml aerosol: €21.11 with VAT at [RS Netherlands](https://nl.rs-online.com/web/p/conformal-coatings/0714462).
+- Epoxy, UV resin and neutral-cure silicone: about €5–10 each. **Not checked.**
+
 ## Ordering notes
 
 - The two PCBs can share one board-house order. The USB-C PCB is 1.2 mm thick and the joystick PCB 1.6 mm, so they are two separate boards in the order.
 - The cheapest route for both is to have the small SMD parts assembled (switches, resistors, the charge LED) and to hand-solder the rest: F1 and D1 on the joystick PCB, and the USB4736 on the USB-C PCB.
-- LCSC numbers and GCT availability were checked on 2026-10-10, 2026-10-11 and 2026-10-12; stock and prices change.
+- LCSC numbers and GCT availability were checked on 2026-10-10, 2026-10-11 and 2026-10-12, and the prices on 2026-10-13; stock and prices change.
