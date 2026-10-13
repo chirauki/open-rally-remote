@@ -28,18 +28,20 @@ function lerp(a,b,u) = a+(b-a)*u;
 function ph(a,b) = ramp($t,a,b);
 
 // --- Timeline --------------------------------------------------------------------------
-// XIAO: in edge-first, turn flat, back to its rails' X, slide up.
-xi_in = ph(0.04,0.14); xi_rot = ph(0.14,0.21); xi_back = ph(0.21,0.25); xi_up = ph(0.25,0.33);
-wires_down = ph(0.35,0.43);
+// XIAO: up through the bottom opening 7.5 mm behind its rails, forward to them, up to the stop.
+xi_in = ph(0.04,0.16); xi_back = ph(0.16,0.21); xi_up = ph(0.21,0.33);
+xi_shift = 7.5;
+xi_low = -28-(xiao_y-xiao_length/2);    // dy with the board's lower end at Y = -28
 pouch_show = $t>=0.43;
 splice_join = ph(0.45,0.52);
 shrink_slide = ph(0.53,0.58); shrink = ph(0.58,0.62);
 pouch_under = ph(0.64,0.70); pouch_up = ph(0.70,0.82);
 cap_up = ph(0.84,0.93); screws_in = ph(0.93,0.97);
 
-xiao_dx = lerp(lerp(-45,-7.5,xi_in),0,xi_back);
-xiao_dy = lerp(-22,0,xi_up);
-xiao_a = lerp(90,0,xi_rot);
+xiao_dx = lerp(xi_shift,0,xi_back);
+xiao_dy = xi_back<1 ? lerp(xi_low-57,xi_low,xi_in) : lerp(xi_low,0,xi_up);
+xiao_a = 0;
+wire_tail = -56;                        // free ends of the battery wires, below the remote
 
 // --- Helpers ---------------------------------------------------------------------------
 module wire(pts,c,d=wire_d) color(c) for (i=[0:len(pts)-2]) hull() { translate(pts[i]) sphere(d=d); translate(pts[i+1]) sphere(d=d); }
@@ -63,19 +65,19 @@ color([0.70,0.76,0.80]) housing();
 color([0.20,0.55,0.30]) usbc_envelope();
 color([0.15,0.48,0.32]) xiao_moved();
 
-// Battery wires from the XIAO: short tails while it goes in, then down behind it and out of
-// the bottom opening, then to the splice.
+// Battery wires from the XIAO: they hang out of the bottom opening while it goes in, then run
+// down behind it, then to the splice.
 for (k=[0,1]) {
     dz = k==0 ? pad_dz : -pad_dz;
     c = k==0 ? red : black;
     sx = k==0 ? -2.5 : 2.5;                       // the two splices sit side by side
     pad = [xiao_pcb_x1,pad_y,zc+dz];
     if (xi_up<1) {
-        wire([xiao_tf(pad),xiao_tf([pad[0]+1.4,pad[1],pad[2]]),xiao_tf([pad[0]+1.4,pad[1]-10,pad[2]])],c);
+        q = xiao_tf([pad[0]+1.4,pad[1],pad[2]]);
+        wire([xiao_tf(pad),q,[q[0],min(q[1]-2,wire_tail),q[2]]],c);
     } else {
         top = [[pad[0],pad[1],pad[2]],[gap_x,pad[1],pad[2]],[gap_x,cell_y_final-pouch_l/2+2,pad[2]]];
-        down = lerp(cell_y_final-pouch_l/2+2,splice_out[1]+14,wires_down);
-        end = pouch_show ? [splice[0]+sx,splice[1]+(1-splice_join)*6,zc+dz*(1-pouch_up)] : [gap_x,down,zc+dz];
+        end = pouch_show ? [splice[0]+sx,splice[1]+(1-splice_join)*6,zc+dz*(1-pouch_up)] : [gap_x,wire_tail,zc+dz];
         wire(concat(top,[[gap_x,max(end[1]+4,pod_bottom_y-2),pad[2]],end]),c);
         // Heat-shrink sleeve, parked on the XIAO wire, then over the joint, then shrunk.
         if (pouch_show) {
