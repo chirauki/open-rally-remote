@@ -26,6 +26,8 @@ The XIAO is the right board for the first HID prototype, but do not assume its f
 
 Nordic provides a mobile DFU app for Android and iOS for nRF5 SDK bootloaders. Its documentation distinguishes that flow from nRF Connect SDK firmware, which uses the nRF Connect Device Manager app. Adafruit's nRF52 bootloader is another technical reference: it describes BLE OTA, signed updates, and optional dual-bank updates, but the XIAO is not listed among its officially supported boards. Porting a bootloader or changing the final controller may therefore be necessary. See [Nordic DFU mobile app](https://www.nordicsemi.com/Products/Development-tools/nRF-Device-Firmware-Update), [Nordic FOTA guide](https://nrfconnectdocs.nordicsemi.com/ncs/latest/nrf/app_dev/device_guides/nrf52/fota_update.html), [Seeed's XIAO bootloader discussion](https://github.com/Seeed-Studio/wiki-documents/discussions/2071), and [Adafruit nRF52 bootloader](https://github.com/adafruit/Adafruit_nRF52_Bootloader).
 
+A bench test on 2026-10-14 checked the factory bootloader of the purchased board. It is the Adafruit UF2 bootloader 0.6.1 (built 2021-11-12, Board-ID `Seeed_XIAO_nRF52840_Sense`) with SoftDevice S140 7.3.0, and it contains Adafruit's legacy BLE OTA mode. With the sketch's `BLEDfu` service, nRF Connect for Android updated the application over BLE without a computer, after one setting change. The details, settings and failure modes are in the [firmware README](../firmware/xiao-nrf52840/README.md#ble-ota-update). This does not meet the product requirement above: the factory bootloader accepts unsigned images, updates in a single bank, and leaves the board without an application after a failed transfer. iOS has not been tested.
+
 Do not replace or modify the XIAO bootloader during the initial BLE HID bring-up. First establish the input and navigation behavior, then test OTA on a spare development board so a failed bootloader experiment cannot interrupt the main prototype.
 
 ## 2. Development setup and upload workflow
@@ -164,12 +166,12 @@ For the first firmware build, compile-time profile selection is sufficient. Do n
 
 | Test | Pass condition | Android | iOS |
 |---|---|---|---|
-| Phone-only update | Install a published update package over BLE without a computer or USB data connection | Pending | Pending |
-| Image authentication | Reject an unsigned, corrupted, or wrong-product image | Pending | Pending |
-| Interrupted transfer | Disconnect BLE or remove power during transfer; recover automatically to the existing or update-ready state | Pending | Pending |
+| Phone-only update | Install a published update package over BLE without a computer or USB data connection | Bench pass with the factory bootloader, 2026-10-14 | Pending |
+| Image authentication | Reject an unsigned, corrupted, or wrong-product image | Fail with the factory bootloader: it accepted an unsigned image | Pending |
+| Interrupted transfer | Disconnect BLE or remove power during transfer; recover automatically to the existing or update-ready state | Fail with the factory bootloader: two stalled transfers left no application; recovered over USB | Pending |
 | Failed first boot | A broken new application image rolls back to the previous working firmware | Pending | Pending |
 | Version handling | Reject downgrade or incompatible version unless a deliberate recovery procedure is used | Pending | Pending |
-| Normal use after update | Reconnect as a HID remote and retain the user's selected profile and settings | Pending | Pending |
+| Normal use after update | Reconnect as a HID remote and retain the user's selected profile and settings | HID reconnected without pairing again; no profiles yet | Pending |
 
 ## References
 

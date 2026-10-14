@@ -9,6 +9,7 @@
  * Board package: Seeed nRF52 Boards
  * Board: Seeed XIAO nRF52840
  * BLE HID API: Adafruit Bluefruit nRF52 library bundled with the Seeed package
+ * BLE OTA: BLEDfu service; see README.md, "BLE OTA update"
  */
 
 #include <Adafruit_TinyUSB.h>
@@ -75,6 +76,7 @@ enum GestureType : uint8_t {
   GESTURE_DOUBLE = 2
 };
 
+BLEDfu bleDfu;
 BLEDis deviceInfo;
 BLEHidAdafruit bleHid;
 
@@ -471,9 +473,13 @@ void beginBleKeyboard() {
   Bluefruit.setTxPower(4);
   Bluefruit.setName("Open Rally Remote");
 
+  // Legacy DFU service: a phone app writes to it and the board restarts
+  // into the bootloader's BLE OTA mode. It needs no pairing; bench only.
+  bleDfu.begin();
+
   deviceInfo.setManufacturer("Open Rally Remote Project");
   deviceInfo.setModel("XIAO nRF52840 Bench Prototype");
-  deviceInfo.setSoftwareRev("0.2.0-diagnostic");
+  deviceInfo.setSoftwareRev("0.3.0-diagnostic");
   deviceInfo.begin();
 
   bleHid.begin();
@@ -498,7 +504,7 @@ void setup() {
     while (!Serial && (uint32_t)(millis() - serialWaitStarted) < 2000) {
       delay(10);
     }
-    Serial.println("Open Rally Remote diagnostic firmware 0.2.0");
+    Serial.println("Open Rally Remote diagnostic firmware 0.3.0");
     Serial.println("Released switch = HIGH; pressed switch = LOW");
   }
 
@@ -513,6 +519,10 @@ void setup() {
 
   if (SERIAL_DEBUG) {
     Serial.println("BLE advertising as: Open Rally Remote");
+    uint8_t mac[6];
+    Bluefruit.getAddr(mac); // little-endian
+    Serial.printf("BLE address: %02X:%02X:%02X:%02X:%02X:%02X\n",
+                  mac[5], mac[4], mac[3], mac[2], mac[1], mac[0]);
     Serial.println("Diagnostic letters: A-C = Button A, D-F = Button B,");
     Serial.println("G-I = Button C, arrows = joystick, J-L = joystick center.");
     Serial.println(CENTER_FROM_CHORD ? "Center: chord of three or more directions."

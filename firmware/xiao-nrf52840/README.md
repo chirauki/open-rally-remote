@@ -42,7 +42,7 @@ All connected pins use `INPUT_PULLUP`: open/released reads HIGH, pressed reads L
 
 The short event is intentionally delayed by the 300 ms double-press window. Initial timings are set near 30 ms debounce, 600 ms long press, 300 ms double press, 40 ms chord window and 50 ms key-down duration. With the chord window, an arrow key-down follows the switch by about 70 ms.
 
-The letters are diagnostic keys and may trigger actions in a navigation app. Do not test this firmware in an app while riding. The target app profiles and BLE firmware update/OTA support are not implemented in this sketch.
+The letters are diagnostic keys and may trigger actions in a navigation app. Do not test this firmware in an app while riding. The target app profiles are not implemented in this sketch. BLE updates work on the bench; see [BLE OTA update](#ble-ota-update).
 
 ## Build check
 
@@ -69,3 +69,31 @@ Run on 2026-10-13 on a pre-soldered XIAO nRF52840, with the 6×6 mm switches on 
 The board's bootloader reports itself as "XIAO nRF52840 Sense" (USB PID 0x0045), so the board used may be the Sense variant. The sketch was built for the plain XIAO nRF52840; D0–D10 are the same on both.
 
 The advertised name was cut to `Open Rally Remo`: the advertising packet holds 15 name characters after the flags, TX power, appearance and HID service fields. The sketch now sends the name in the scan response, and the phone showed the full `Open Rally Remote` after pairing again.
+
+## BLE OTA update
+
+The sketch includes the Bluefruit `BLEDfu` service. A phone app writes to it, and the board restarts into the bootloader's legacy BLE OTA mode, where it advertises as `AdaDFU`. The bootloader is not changed.
+
+The factory bootloader of the board used was read from flash on 2026-10-14:
+
+- Adafruit UF2 bootloader 0.6.1, built 2021-11-12, Board-ID `Seeed_XIAO_nRF52840_Sense`.
+- SoftDevice S140 7.3.0 (firmware ID `0x0123`).
+
+The package is the `.zip` that `arduino-cli compile` writes next to the `.hex`. To update from an Android phone with nRF Connect for Mobile:
+
+1. In **Settings > DFU options**, turn on **Disable MTU Request**, **Packet receipt notification** with 8 packets, and **Scan for bootloader in Legacy DFU**.
+2. Disconnect the remote in the phone's Bluetooth settings, then connect to it from nRF Connect.
+3. Tap **DFU**, choose "Distribution packet (ZIP)" and select the package.
+4. After the update, refresh the services and read Software Revision in Device Information.
+
+On 2026-10-14 this updated the application from `0.3.0-diagnostic` to a test build, `0.3.0-ota-test`, with the board on a USB charger and no computer. The phone then reconnected as a keyboard without pairing again. iOS has not been tested.
+
+Known failure modes, all seen in this test:
+
+- **MTU.** By default the app raises the MTU to 247, and each data packet carries up to 244 bytes. The 0.6.1 bootloader then loses data: with packet receipt notifications the transfer stalled at 1 %; without them it reached 100 % and failed validation. With the MTU request disabled, packets carry 20 bytes and the transfer completed. This matches [Adafruit bootloader issue #306](https://github.com/adafruit/Adafruit_nRF52_Bootloader/issues/306), a receive buffer that is too small.
+- **Failed transfer.** The update is single bank: the bootloader erases the application first. After a failed transfer the board starts in the bootloader with no application. It then shows on USB as "XIAO nRF52840 Sense", and a USB upload restores it.
+- **App still running.** After a cancelled update, nRF Connect's DFU service kept running on the phone. When the board was powered again, the phone sent it back into the bootloader, and the board did not advertise as `Open Rally Remote`. Force-stop the app after a cancelled update.
+- **GATT cache.** Android caches the attribute table of a bonded device. After a build adds or moves a service, the phone reads the wrong handles. In nRF Connect, use **Refresh services**. A HID host with a stale cache may also fail; pair again if it does. Keep the attribute table the same between releases.
+- **No authentication.** `BLEDfu` needs no pairing, and the bootloader accepts unsigned images. Anyone in range can reprogram the board. This is acceptable on the bench only.
+
+The [OTAFIX fork of the bootloader](https://github.com/oltaco/Adafruit_nRF52_Bootloader_OTAFIX) also reports that older bootloaders do not start the new application after an OTA update while USB is connected to a computer. That case was not tested here.
