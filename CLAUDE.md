@@ -9,7 +9,7 @@ Guidance for AI assistants working in this repository. The project state lives i
   - `battery-study.md`, `bom.md`, `firmware-spec.md`, `control-mapping.md`, `breadboard-assembly.md`, `prototype-plan.md`, `project-brief.md`, `development-environment.md`.
   - `images/`: renders and photos named `<part>-v<version>-<view>.png`.
 - `mechanical/cad/`: OpenSCAD models. `complete-remote-v0.N.scad` is the whole remote. Other files, such as `battery-assembly-v0.25.scad`, include it.
-- `electronics/`: KiCad boards generated from Python (`design.py`, `gen_pcb.py`, `gen_sch.py`). V0.27 uses `control-pcb/`, `joystick-pcb-rev-c/` and `usbc-pcb-rev-b/`, which share one generator and route with Freerouting; `joystick-pcb-rev-b/` is the V0.26 board, and `joystick-pcb/` and `usbc-pcb/` are the V0.23–V0.25 boards. Each README has a "Regenerating" section.
+- `electronics/`: KiCad boards generated from Python (`design.py`, `gen_pcb.py`, `gen_sch.py`). V0.27 and V0.28 use `control-pcb/`, `joystick-pcb-rev-c/` and `usbc-pcb-rev-b/`, which share one generator and route with Freerouting; `joystick-pcb-rev-b/` is the V0.26 board, and `joystick-pcb/` and `usbc-pcb/` are the V0.23–V0.25 boards. Each README has a "Regenerating" section.
 - `firmware/xiao-nrf52840/`: the Arduino diagnostic sketch for the Seeed XIAO nRF52840. Its README covers the build, the upload and the bench test results.
 
 ## Working rules
@@ -37,8 +37,8 @@ Guidance for AI assistants working in this repository. The project state lives i
 OpenSCAD renders and checks (OpenSCAD 2026.x with the manifold backend):
 
 ```sh
-openscad -o out.png --imgsize=1200,900 -D 'part_to_render="assembly"' mechanical/cad/complete-remote-v0.27.scad
-openscad -o out.stl -D 'part_to_render="print_housing"' mechanical/cad/complete-remote-v0.27.scad
+openscad -o out.png --imgsize=1200,900 -D 'part_to_render="assembly"' mechanical/cad/complete-remote-v0.28.scad
+openscad -o out.stl -D 'part_to_render="print_housing"' mechanical/cad/complete-remote-v0.28.scad
 ```
 
 `part_to_render` lists every view and print part at the top of the file. For interference, render `intersection() { A(); B(); }` to STL and measure its volume; 0 mm³ means no overlap. Hulls give false collisions for non-convex parts moving along a path; check discrete poses instead. Animations use `--animate N`; `-D '$t=...'` is ignored.

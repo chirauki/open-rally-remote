@@ -19,7 +19,7 @@ from pathlib import Path
 
 CAD = Path(__file__).resolve().parent.parent
 REPO = CAD.parent.parent
-VERSION = os.environ.get("ORR_VERSION", "0.27")
+VERSION = os.environ.get("ORR_VERSION", "0.28")
 SCAD = CAD / ("assembly-video-v%s.scad" % VERSION)
 BUILD = CAD / "build"
 OPENSCAD = os.environ.get("OPENSCAD", "openscad")
@@ -159,7 +159,13 @@ _USBC = ("**USB-C board path (step 2).** Slid straight along its rib from the ca
          "above the rib past the bosses, lowered onto the rib 8 mm short of the rear wall, and "
          "slid in, it clears. The margin is small: 1 mm above the rib still overlaps 0.2 mm³. "
          "The video uses this path.")
-FINDINGS = {"0.27": [
+FINDINGS = {"0.28": [
+    "**Housing onto the stack (step 8), and the cover off (step 9).** Clear along X, as in "
+    "V0.27 (joystick board rev C).",
+    "**Vent label.** Moved to the battery cap's inner face (Ø7.6 mm), in the cap opening: no "
+    "overlap. In V0.27 the Ø10 mm label on the housing's bottom wall ran 3.2 mm into the "
+    "lower-facet stack.",
+    _J1, _USBC], "0.27": [
     "**Housing onto the stack (step 8), and the cover off (step 9).** Clear along X. The "
     "joystick board rev C has 3 mm slots at the two notches toward the fold, where the lower "
     "cover bosses sweep down the facet as the housing moves along X, and its two screws sit in "

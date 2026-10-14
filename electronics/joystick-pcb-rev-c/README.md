@@ -1,6 +1,6 @@
 # Joystick Board, Rev C (V0.27)
 
-Rev C of the joystick board, for V0.27. It is [rev B](../joystick-pcb-rev-b/README.md) with three changes, so the housing can close onto the stack, and the cover come off, in a straight line along the remote's X axis ([Changes from V0.26](../../docs/mechanical-concept.md#changes-from-v026)):
+Rev C of the joystick board, for V0.27. It is [rev B](../joystick-pcb-rev-b/README.md) with three changes, so the housing can close onto the stack, and the cover come off, in a straight line along the remote's X axis ([V0.27 changes from V0.26](../../docs/mechanical-concept.md#v027-changes-from-v026-still-current)):
 
 - The two notches toward the fold (board y = −11.0) become slots running 3.0 mm down the facet (`SLOT` in `design.py`, `joy_pcb_slot` in the CAD). The lower cover bosses slide that way, 0.34 mm per millimetre, as the housing moves along X.
 - The two standoff holes move to the lower half, at (±6.5, 6.4) in board coordinates. The upper half has no room for a screw between the switches and the slots.

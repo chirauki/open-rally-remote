@@ -1,8 +1,8 @@
-# Bill of Materials — V0.27
+# Bill of Materials — V0.28
 
-This is the single parts list for the project: the bench prototype and the V0.27 removable, battery-powered remote with its base. V0.27 is V0.26 with the joystick board rev C. Both are built without soldering: the three circuit boards are ordered assembled and joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Design details stay in the linked documents; this page lists what to buy.
+This is the single parts list for the project: the bench prototype and the V0.28 removable, battery-powered remote with its base. V0.28 is V0.26 with the joystick board rev C, one base for both bar sizes and the vent in the battery cap. All three are built without soldering: the three circuit boards are ordered assembled and joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Design details stay in the linked documents; this page lists what to buy.
 
-**Status:** nothing in the V0.27 list has been built or tested. The V0.25 list is in the git history.
+**Status:** nothing in the V0.28 list has been built or tested. The V0.25 list is in the git history.
 
 Sourcing preference: parts that builders can buy from mainstream retailers (for example Amazon) come first. Distributor-only parts are used only where no retail part meets the requirement, and the reason is given.
 
@@ -78,7 +78,7 @@ Estimated cost: about €110–170. **The board order is an estimate, not a quot
 | 1 | Ø3 × 12 mm steel dowel pin, ISO 8734 | Retail | Joystick stick. |
 | 1 | M2 × 4 grub screw | Retail | Joystick knob. |
 | 1 | M2 heat-set insert | Retail | Joystick knob. |
-| 1 | Adhesive ePTFE vent label, about Ø10 mm, for a Ø3 mm hole | Retail | Inside the bottom end wall. |
+| 1 | Adhesive ePTFE vent label, Ø7.6 mm (Takachi VE8 size), for a Ø3 mm hole | Retail | Inside the battery cap (V0.28). Check the hole size the chosen vent needs. |
 | — | Thin foam sheet (about 1–5 mm, EVA or similar) | Retail | Pad on the battery cap, strip on the rear wall, and a pad between the XIAO and the pouch that holds the XIAO in its headers. |
 
 Estimated cost: about €30–60, plus the vent label.
@@ -86,7 +86,7 @@ Estimated cost: about €30–60, plus the vent label.
 - M2 screws: an M2 stainless assortment with countersunk heads is about €36 at [ManoMano](https://www.manomano.es/p/kit-surtido-de-250-piezas-de-tornillos-pernos-y-llaves-de-vaso-hexagonales-de-cabeza-avellanada-planas-abombadas-y-cilindricas-de-acero-inoxidable-a2-con-tuercas-m2-x-468101216-mm-cabeza-p-94605084). The listing does not state ISO 10642. Packs of single sizes are likely cheaper; not checked.
 - Heat-set inserts: an M2–M5 kit is about €8–14 on [eBay.de](https://www.ebay.de/itm/166917553778). The same kit covers the base.
 - Dowel pin, grub screw and foam tape: €5–10, not checked.
-- Vent label: no single-unit retail price was found. Gore adhesive vents come in packs of 50 at about £213 before VAT ([RS UK](https://uk.rs-online.com/web/p/enclosure-ventilation/2842971)), which is too many for one build. Generic ePTFE vent stickers sold in small packs need checking for an IP67 rating before use.
+- Vent label: no single-unit retail price was found. Gore adhesive vents come in packs of 50 at about £213 before VAT ([RS UK](https://uk.rs-online.com/web/p/enclosure-ventilation/2842971)), which is too many for one build. Generic ePTFE vent stickers sold in small packs need checking for an IP67 rating before use. Takachi sells its VE8 (Ø7.6 mm) [online](https://takachi-enclosure.com/products/VE8); the price and pack size for one build are not checked.
 
 ### Printed parts
 
@@ -118,9 +118,10 @@ Estimated cost: about €20–50 from a print service, including shipping. **Not
 | 1 | M3 heat-set insert | Retail | Lock knob. |
 | 1 | M3 nut | Retail | Locks the knob on the screw. |
 | 2 | TPU strip, 4 × 50 × 1.4 mm | Printed TPU, or cut from rubber sheet | Anti-rattle, glued into the platform pockets. |
-| 1 | Base front | PETG or ASA, `print_base_front` | Set `bar_diameter` to 22.2 or 25.4 mm before exporting. |
+| 1 | Base front | PETG or ASA, `print_base_front` | One part for both bar sizes (V0.28). |
 | 1 | Base cap | PETG or ASA, `print_base_cap` | |
-| 2 | Bar liner half | TPU 95A, `liner_main`, `liner_cap` | |
+| 2 | Bar liner half | TPU 95A, `liner_main`, `liner_cap` | Fits a 25.4 mm bar or the sleeve. |
+| 2 | Sleeve half, 22.2 mm bars only | PETG, `print_sleeve` (set `bar_diameter` = 22.2) | Between the bar and the liner. |
 | 1 | Lock knob, Ø16 mm quarter turn | PETG, `print_lock_knob` | Top face on the bed. |
 
 Estimated cost: about €25–60. **Not checked.**
