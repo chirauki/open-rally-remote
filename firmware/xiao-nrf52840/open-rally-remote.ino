@@ -90,6 +90,7 @@ const char *const PROFILE_NAMES[PROFILE_COUNT] = {
 };
 
 constexpr uint8_t LED_R = 1, LED_G = 2, LED_B = 4;
+const uint8_t LED_PINS[3] = { LED_RED, LED_GREEN, LED_BLUE };
 const uint8_t PROFILE_LEDS[PROFILE_COUNT] = { LED_G, LED_B, LED_R | LED_G | LED_B };
 
 // In the TerraPirata and keyboard profiles, Buttons A, B and C hold one key
@@ -127,7 +128,30 @@ constexpr uint32_t PROFILE_SWITCH_MS = 5000;
 constexpr uint32_t PROFILE_BLINK_PERIOD_MS = 10000;
 constexpr uint32_t PROFILE_BLINK_MS = 100;
 
-const char *const FIRMWARE_VERSION = "0.6.0";
+// ---------- Power and battery (see docs/battery-study.md#firmware) ----------
+
+// Bench option: let power-off and auto-off sleep while USB powers the board.
+// With false, the board stays awake while a charger or computer is connected.
+constexpr bool SLEEP_ON_USB = false;
+
+constexpr uint32_t POWER_OFF_HOLD_MS = 3000;          // A + B + C held
+constexpr uint32_t AUTO_OFF_MS = 6UL * 60 * 60 * 1000; // no input, no charger
+constexpr uint32_t BATTERY_READ_PERIOD_MS = 60000;
+constexpr uint16_t BATTERY_LOW_MV = 3500;   // LED blinks red instead
+constexpr uint16_t BATTERY_EMPTY_MV = 3300; // System OFF, ahead of the PCM
+
+// Battery divider from BAT to P0.31, assumed 1 MOhm over 510 kOhm.
+// Not verified: compare with a multimeter on the cell and correct it here.
+constexpr float VBAT_DIVIDER = (1000.0f + 510.0f) / 510.0f;
+
+// Charge current: false = about 50 mA (P0.13 high impedance), true = about
+// 100 mA (P0.13 low). Choose after checking the cell's maximum charge rate.
+constexpr bool HIGH_CHARGE_CURRENT = false;
+
+constexpr uint8_t PIN_CHG = 23;        // P0.17, BQ25101 CHG, low while charging
+constexpr uint8_t PIN_CHARGE_LED = D8; // charge LED on the USB-C PCB
+
+const char *const FIRMWARE_VERSION = "0.7.0";
 
 enum GestureType : uint8_t {
   GESTURE_SHORT = 0,
@@ -138,6 +162,7 @@ enum GestureType : uint8_t {
 BLEDfu bleDfu;
 BLEDis deviceInfo;
 BLEHidAdafruit bleHid;
+BLEBas batteryService;
 
 struct DebouncedInput {
   uint8_t pin;
@@ -175,6 +200,15 @@ bool ignoreUntilRelease[CONTROL_COUNT] = {};
 bool buttonHeld[3] = {};
 
 Profile profile = PROFILE_TERRAPIRATA;
+
+// Power state.
+uint32_t lastInputAt = 0;
+bool comboActive = false;     // two or more of A, B, C held: no button keys
+uint32_t allButtonsSince = 0; // when A, B and C were all closed, or 0
+bool powerOffArmed = false;   // sleep once all three are released
+uint16_t batteryMv = 0;
+uint32_t batteryReadAt = 0;
+bool batteryLow = false;
 
 // Joystick direction handling (see docs/firmware-spec.md, section 5).
 enum JoystickMode : uint8_t {
@@ -384,6 +418,8 @@ void finishGesture(uint8_t control, uint32_t now) {
 }
 
 void holdButton(uint8_t control, bool pressed);
+bool handleButtonCombo(uint32_t now);
+void enterSystemOff(const char *reason);
 
 void handleStableTransition(uint8_t control, bool pressed, uint32_t now) {
   if (!controlIsInstalled(control)) return;
@@ -393,6 +429,10 @@ void handleStableTransition(uint8_t control, bool pressed, uint32_t now) {
     printControlEvent(control, "input synchronized; event ignored until released");
     return;
   }
+
+  lastInputAt = now;
+
+  if (control <= BUTTON_C && handleButtonCombo(now)) return;
 
   if (control <= BUTTON_C && buttonsHold(profile)) {
     holdButton(control, pressed);
@@ -577,6 +617,140 @@ void processTapQueue(uint32_t now) {
   }
 }
 
+// ---------- Power off, battery and charging ----------
+
+uint8_t pressedButtonCount() {
+  uint8_t count = 0;
+  for (uint8_t i = BUTTON_A; i <= BUTTON_C; ++i) {
+    if (inputs[i].stablePressed) ++count;
+  }
+  return count;
+}
+
+// Two or more of A, B and C held together are the power-off combination, not
+// keys. The first button's key is already down when the second closes; it is
+// released here. Returns true while button events must be ignored.
+bool handleButtonCombo(uint32_t now) {
+  const uint8_t count = pressedButtonCount();
+
+  if (!comboActive && count >= 2) {
+    comboActive = true;
+    for (uint8_t i = BUTTON_A; i <= BUTTON_C; ++i) {
+      if (buttonHeld[i]) holdButton(i, false);
+      gestures[i] = {};
+    }
+    printControlEvent(BUTTON_A, "button combination: keys suppressed");
+  }
+  if (!comboActive) return false;
+
+  allButtonsSince = count == 3 ? (allButtonsSince ? allButtonsSince : now) : 0;
+
+  if (count == 0) {
+    comboActive = false;
+    if (powerOffArmed) enterSystemOff("power-off combination");
+  }
+  return true;
+}
+
+bool usbPowered() {
+  uint32_t status = 0;
+  sd_power_usbregstatus_get(&status);
+  return status & POWER_USBREGSTATUS_VBUSDETECT_Msk;
+}
+
+bool mayDecideToSleep() { return SLEEP_ON_USB || !usbPowered(); }
+
+// P0.14 must stay low: the Seeed core drives it high at start, and with it
+// high P0.31 can reach its 3.6 V limit while the cell charges.
+void beginBattery() {
+  pinMode(VBAT_ENABLE, OUTPUT);
+  digitalWrite(VBAT_ENABLE, LOW);
+  if (HIGH_CHARGE_CURRENT) {
+    pinMode(PIN_CHARGING_CURRENT, OUTPUT);
+    digitalWrite(PIN_CHARGING_CURRENT, LOW);
+  }
+  pinMode(PIN_CHG, INPUT);
+  pinMode(PIN_CHARGE_LED, OUTPUT);
+  digitalWrite(PIN_CHARGE_LED, LOW);
+  analogReference(AR_INTERNAL); // 0 to 3.6 V
+  analogReadResolution(12);
+  analogSampleTime(40);         // the divider is a high-impedance source
+}
+
+uint16_t readBatteryMv() {
+  uint32_t sum = 0;
+  for (uint8_t i = 0; i < 8; ++i) sum += analogRead(PIN_VBAT);
+  return (uint16_t)(sum / 8.0f * 3600.0f / 4096.0f * VBAT_DIVIDER);
+}
+
+// Rough LiPo state of charge at rest; good enough for a level indication.
+uint8_t batteryPercent(uint16_t mv) {
+  static const uint16_t MV[] = { 3300, 3500, 3600, 3700, 3800, 3900, 4000, 4100, 4200 };
+  static const uint8_t PCT[] = { 0, 5, 15, 30, 50, 65, 78, 90, 100 };
+  if (mv <= MV[0]) return 0;
+  for (uint8_t i = 1; i < 9; ++i) {
+    if (mv <= MV[i]) {
+      return PCT[i - 1] + (PCT[i] - PCT[i - 1]) * (mv - MV[i - 1]) / (MV[i] - MV[i - 1]);
+    }
+  }
+  return 100;
+}
+
+void updateBattery(uint32_t now) {
+  if (batteryReadAt && (uint32_t)(now - batteryReadAt) < BATTERY_READ_PERIOD_MS) return;
+  batteryReadAt = now ? now : 1;
+  batteryMv = readBatteryMv();
+  batteryLow = batteryMv < BATTERY_LOW_MV;
+  batteryService.write(batteryPercent(batteryMv));
+  if (SERIAL_DEBUG) {
+    Serial.printf("Battery: %u mV, %u %%, USB %s, CHG %s\n", batteryMv,
+                  batteryPercent(batteryMv), usbPowered() ? "yes" : "no",
+                  digitalRead(PIN_CHG) == LOW ? "charging" : "not charging");
+  }
+  if (batteryMv < BATTERY_EMPTY_MV && mayDecideToSleep()) {
+    enterSystemOff("battery empty");
+  }
+}
+
+// The charge LED is on only while a charger is connected and CHG shows
+// charging.
+void updateChargeLed() {
+  const bool charging = usbPowered() && digitalRead(PIN_CHG) == LOW;
+  digitalWrite(PIN_CHARGE_LED, charging ? HIGH : LOW);
+}
+
+void checkPowerOff(uint32_t now) {
+  if (allButtonsSince && !powerOffArmed &&
+      (uint32_t)(now - allButtonsSince) >= POWER_OFF_HOLD_MS) {
+    powerOffArmed = true;
+    if (SERIAL_DEBUG) Serial.println("Power off armed: release A, B and C");
+  }
+  if ((uint32_t)(now - lastInputAt) >= AUTO_OFF_MS && mayDecideToSleep()) {
+    enterSystemOff("auto-off");
+  }
+}
+
+// System OFF. Any released switch wakes the board, which then restarts;
+// switches still closed are not armed, so a stuck one cannot wake it at
+// once. A charger connection (VBUS) also wakes it.
+void enterSystemOff(const char *reason) {
+  if (SERIAL_DEBUG) {
+    Serial.printf("System OFF: %s\n", reason);
+    Serial.flush();
+  }
+  publishAllKeysReleased();
+  for (uint8_t i = 0; i < 3; ++i) digitalWrite(LED_PINS[i], HIGH);
+  digitalWrite(PIN_CHARGE_LED, LOW);
+  for (uint8_t i = 0; i < CONTROL_COUNT; ++i) {
+    if (!controlIsInstalled(i) || inputs[i].stablePressed) continue;
+    nrf_gpio_cfg_sense_input(g_ADigitalPinMap[inputs[i].pin],
+                             NRF_GPIO_PIN_PULLUP, NRF_GPIO_PIN_SENSE_LOW);
+  }
+  delay(100);
+  sd_power_system_off();
+  while (true) {}
+}
+
 // ---------- Profile storage ----------
 
 const char *const PROFILE_FILE = "/profile";
@@ -602,15 +776,18 @@ void saveProfile(Profile value) {
   }
 }
 
-const uint8_t LED_PINS[3] = { LED_RED, LED_GREEN, LED_BLUE };
-
 // The XIAO's RGB LED is active low. Called every loop.
+// Red instead of the profile color: battery low, or power off armed (steady).
 void showProfile(uint32_t now) {
-  const bool on = now % PROFILE_BLINK_PERIOD_MS < PROFILE_BLINK_MS;
+  bool on = now % PROFILE_BLINK_PERIOD_MS < PROFILE_BLINK_MS;
+  uint8_t leds = PROFILE_LEDS[profile];
+  if (batteryLow) leds = LED_R;
+  if (powerOffArmed) {
+    leds = LED_R;
+    on = true;
+  }
   for (uint8_t i = 0; i < 3; ++i) {
-    if (PROFILE_LEDS[profile] & (1 << i)) {
-      digitalWrite(LED_PINS[i], on ? LOW : HIGH);
-    }
+    digitalWrite(LED_PINS[i], on && (leds & (1 << i)) ? LOW : HIGH);
   }
 }
 
@@ -650,6 +827,10 @@ void beginBleKeyboard() {
 
   bleHid.begin();
 
+  // Added after the HID service so the existing attribute handles do not
+  // move for phones that cached them.
+  batteryService.begin();
+
   Bluefruit.Advertising.addFlags(BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE);
   Bluefruit.Advertising.addTxPower();
   Bluefruit.Advertising.addAppearance(BLE_APPEARANCE_HID_KEYBOARD);
@@ -664,6 +845,8 @@ void beginBleKeyboard() {
 }
 
 void setup() {
+  beginBattery(); // first: P0.14 low as early as possible
+
   if (SERIAL_DEBUG) {
     Serial.begin(115200);
     const uint32_t serialWaitStarted = millis();
@@ -734,6 +917,9 @@ void loop() {
   updateJoystick(now);
   processGestureTimers(now);
   checkProfileSwitch(now);
+  checkPowerOff(now);
+  updateBattery(now);
+  updateChargeLed();
   showProfile(now);
   processTapQueue(now);
 

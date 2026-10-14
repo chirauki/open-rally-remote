@@ -166,8 +166,8 @@ The profile switch was agreed for the bench prototype. A 5 s hold is hard to tri
 | OsmAnd | A/D, B/+, C/−, arrows, and center/C perform the intended actions | Pending | Pending |
 | DMD² | A follow, B zoom in, C zoom out, and joystick pan work through Generic Remote mapping | Pending | N/A |
 | Center chord | A straight push gives one center event and no direction keys; tilts and diagonals give no center event | Pending | Pending |
-| Power off | A + B + C held 3 s sleeps after release, with no gesture events; any button then wakes it | Pending | Pending |
-| Auto-off | Sleeps after 6 h without input and without a charger (test with a shortened timeout) | Pending | Pending |
+| Power off | A + B + C held 3 s sleeps after release, with no gesture events; any button then wakes it | Bench pass on USB, 2026-10-14; the first button's key is sent in the held-key profiles | Pending |
+| Auto-off | Sleeps after 6 h without input and without a charger (test with a shortened timeout) | Bench pass on USB with a 60 s timeout, 2026-10-14 | Pending |
 | Charge LED | Charger in: wakes from System OFF and the LED lights; LED goes out when charging ends and when the charger is removed | Pending | Pending |
 
 ## Product OTA validation checklist

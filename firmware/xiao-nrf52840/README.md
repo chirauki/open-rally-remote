@@ -58,6 +58,18 @@ The Bluefruit library's connection LED is turned off: it drives the blue LED wit
 
 The profile choices come from the app tests in the [firmware specification](../../docs/firmware-spec.md#7-profiles-and-mappings) and the [control mapping](../../docs/control-mapping.md).
 
+## Power and battery
+
+These follow the [battery study](../../docs/battery-study.md#firmware). The constants are near the top of the sketch.
+
+- **Battery level:** read every 60 s from P0.31 (AIN7) with P0.14 low, averaged over 8 samples. The divider ratio (`VBAT_DIVIDER`) is assumed; calibrate it with a multimeter. The level goes to the phone over the BLE Battery Service, added after the HID service so the existing attribute handles do not move. Below 3.5 V the profile blink turns red; below 3.3 V without USB, the board goes to System OFF.
+- **P0.14:** kept low from the first line of `setup()`. The Seeed core drives it high at start, and Seeed warns that P0.31 can then reach its 3.6 V limit while charging.
+- **Charging:** about 50 mA by default; `HIGH_CHARGE_CURRENT` selects about 100 mA. D8 drives the charge LED while USB is present and `CHG` (P0.17) is low.
+- **Power off:** hold A, B and C together for 3 s. The LED turns steady red; the board sleeps when all three are released. While two or more are held, the buttons send nothing, but the first button's key is already sent in the TerraPirata and keyboard profiles. Start with B and C: in the TerraPirata profile, A first resets the total trip.
+- **Auto-off:** after 6 h without input (`AUTO_OFF_MS`).
+- **Wake:** any released switch, through GPIO sense, or a charger connection. The wake press is not sent.
+- **USB:** while USB power is present, the board does not sleep (power off, auto-off or low battery). For bench tests, `SLEEP_ON_USB = true` lets it sleep on USB.
+
 ## Build check
 
 The sketch was compiled on 2026-10-10 with `arduino-cli` and Seeed nRF52 Boards 1.1.13 for `Seeeduino:nrf52:xiaonRF52840`, in both center modes, with no warnings from the sketch. The package's own GCC 9 toolchain is an Intel binary and did not run on the Apple Silicon build machine without Rosetta, so the check used Arm GNU Toolchain 13.3. The Arduino IDE on a machine that runs the package toolchain may still report something different.
@@ -100,6 +112,16 @@ Run on 2026-10-14 with an Android phone. The firmware first sent a different can
 | Space | Opened the "Delete map data" dialog |
 
 OsmAnd did not accept media keys in its key assignment; it accepted the letters of the gestures profile. DMD2 timed long presses itself, so a separate key for the firmware's long press could not be used; with the keyboard profile's held keys, DMD2 recognized the long press. Enter, Escape and Tab were not tried: like Space, they can press the focused on-screen control. The phone reconnected after each profile switch, and the LED showed the stored profile after a restart, in all three colors.
+
+### Power off and wake
+
+Run on 2026-10-14 on USB, without a cell, with `SLEEP_ON_USB = true` and `AUTO_OFF_MS` at 60 s:
+
+- The auto-off entered System OFF 60 s after the last input.
+- B + C + A held 3 s armed the power off (steady red LED), and the board slept when the buttons were released.
+- A button or joystick switch woke the board; the press was not sent, and the phone reconnected within about 1 s of the restart.
+
+Without a cell, the battery reading floats (3.7 to 4.1 V were logged) and means nothing.
 
 ### BLE name
 
