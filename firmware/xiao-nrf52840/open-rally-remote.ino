@@ -140,8 +140,8 @@ constexpr uint32_t BATTERY_READ_PERIOD_MS = 60000;
 constexpr uint16_t BATTERY_LOW_MV = 3500;   // LED blinks red instead
 constexpr uint16_t BATTERY_EMPTY_MV = 3300; // System OFF, ahead of the PCM
 
-// Battery divider from BAT to P0.31, assumed 1 MOhm over 510 kOhm.
-// Not verified: compare with a multimeter on the cell and correct it here.
+// Battery divider from BAT to P0.31: 1 MOhm over 510 kOhm (Seeed XIAO
+// nRF52840 v1.1 schematic). Calibrate against a multimeter on the cell.
 constexpr float VBAT_DIVIDER = (1000.0f + 510.0f) / 510.0f;
 
 // Charge current: false = about 50 mA (P0.13 high impedance), true = about

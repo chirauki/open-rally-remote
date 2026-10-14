@@ -145,6 +145,14 @@ The keypad, the button plate, the control board and the XIAO come off with the c
 ## Verification before building
 
 1. **XIAO 3V3 input.** Confirm from Seeed's XIAO nRF52840 schematic that the board runs when powered only on its 3V3 pin, and what happens when its USB-C is connected at the same time. Fallback: power the XIAO's 5V pin from the battery through a diode.
+
+   **Result (2026-10-14):** 3V3 input is used. Source: [Seeed Studio XIAO nRF52840 v1.1 schematic](https://files.seeedstudio.com/wiki/XIAO-BLE/Seeed-Studio-XIAO-nRF52840-Sense-v1.1.pdf), dated 2022-06-24. What it shows:
+   - The 3V3 pin is the output of U6, a 3.3 V regulator (part number not printed) with EN tied to IN. U6's input VIN comes from BAT through PMOS Q1, whose gate is VBUS with a 100 kΩ pull-down, or from VBUS through diode D1.
+   - The 3V3 pin has no switch or diode after U6. Fed from the control board, the rail reaches the nRF52840 directly.
+   - With no USB, Q1's gate is low. If U6 has a reverse path from OUT to IN, the external 3V3 reaches VIN and, through Q1, the BQ25100 output and the BAT pads, which are empty. The only steady load there is the 1 MΩ + 510 kΩ battery divider when P0.14 is low (about 2 µA); the V0.26 firmware leaves P0.14 high, which the divider then sees at about 3 V, under P0.31's 3.6 V limit.
+   - With the XIAO's USB-C plugged in, VBUS reaches VIN through D1 and U6 drives 3V3 too. The control board regulator must therefore block reverse current, and its output must not fight U6: a regulator that turns off its pass device when its output is above its set point.
+   - The 5V pin is VBUS: feeding the battery there would power the BQ25100 input, the nRF52840 USB detection and the 100 kΩ pull-down, and add a diode drop before U6. It is rejected.
+   - The XIAO's battery divider is 1 MΩ over 510 kΩ, as assumed in firmware 0.7.0.
 2. **CAD fit.** Model the stack and check the XIAO-to-pouch clearance, the cable routes, the cover with the stack coming off, and the keypad against the cover screws.
 3. **Parts.** Stock at LCSC/JLCPCB for the charger, regulator, sockets, headers and KSC2. The GCT USB4736 was not found at JLCPCB; source it through JLCPCB's global sourcing or choose another sealed USB-C receptacle that keeps the CC pins.
 4. **Cables.** Retail availability of double-ended JST-SH 1.0 mm cables in 3 and 5 pins, and of a JST-PH extension, in the needed lengths.

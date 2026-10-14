@@ -222,7 +222,7 @@ These are bench measurements on the parts, not on bikes:
 The bench firmware 0.7.0 implements this section, except the connection parameters; see the [firmware README](../firmware/xiao-nrf52840/README.md#power-and-battery). Notes from writing and testing it:
 
 - The Seeed board package drives P0.14 high at start (`initVariant`). That is the state Seeed's wiki warns about while charging. The firmware sets P0.14 low first thing in `setup()` and keeps it low, also in System OFF. The divider then draws about 3 µA from the cell.
-- The divider ratio is assumed to be 1 MΩ over 510 kΩ (`VBAT_DIVIDER`). It is not verified: compare the reading with a multimeter on the cell.
+- The divider is 1 MΩ over 510 kΩ (`VBAT_DIVIDER`), from Seeed's XIAO nRF52840 v1.1 schematic. Calibrate the reading with a multimeter on the cell.
 - Below 3.5 V the profile blink turns red. The level also goes to the phone over the Battery Service.
 - Power off: the first of A, B and C to close sends its key before the second one closes; in the TerraPirata profile, starting with A resets the total trip. Start the combination with B and C. The gestures profile sends nothing before the second button.
 - Tested on USB only, without a cell, with a bench option that lets the board sleep on USB (`SLEEP_ON_USB`) and a 60 s auto-off: the combination and the auto-off entered System OFF, a button or joystick switch woke the board, the wake press was not sent, and the phone reconnected within about 1 s of the restart. The battery reading, the low-battery cut-off, the charge LED and the System OFF current are not tested.

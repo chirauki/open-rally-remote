@@ -62,7 +62,7 @@ The profile choices come from the app tests in the [firmware specification](../.
 
 These follow the [battery study](../../docs/battery-study.md#firmware). The constants are near the top of the sketch.
 
-- **Battery level:** read every 60 s from P0.31 (AIN7) with P0.14 low, averaged over 8 samples. The divider ratio (`VBAT_DIVIDER`) is assumed; calibrate it with a multimeter. The level goes to the phone over the BLE Battery Service, added after the HID service so the existing attribute handles do not move. Below 3.5 V the profile blink turns red; below 3.3 V without USB, the board goes to System OFF.
+- **Battery level:** read every 60 s from P0.31 (AIN7) with P0.14 low, averaged over 8 samples. The divider is 1 MΩ over 510 kΩ (`VBAT_DIVIDER`, from Seeed's schematic); calibrate the reading with a multimeter. The level goes to the phone over the BLE Battery Service, added after the HID service so the existing attribute handles do not move. Below 3.5 V the profile blink turns red; below 3.3 V without USB, the board goes to System OFF.
 - **P0.14:** kept low from the first line of `setup()`. The Seeed core drives it high at start, and Seeed warns that P0.31 can then reach its 3.6 V limit while charging.
 - **Charging:** about 50 mA by default; `HIGH_CHARGE_CURRENT` selects about 100 mA. D8 drives the charge LED while USB is present and `CHG` (P0.17) is low.
 - **Power off:** hold A, B and C together for 3 s. The LED turns steady red; the board sleeps when all three are released. While two or more are held, the buttons send nothing, but the first button's key is already sent in the TerraPirata and keyboard profiles. Start with B and C: in the TerraPirata profile, A first resets the total trip.
