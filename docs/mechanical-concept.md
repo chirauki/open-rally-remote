@@ -1,4 +1,6 @@
-# Complete Mechanical CAD — V0.25 Removable Remote
+# Complete Mechanical CAD — V0.26 No-Solder Remote
+
+V0.26 removes the builder's soldering ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). The buttons become three sealed tact switches on an assembled control board, pressed through a one-piece TPU keypad that is also the gasket. The XIAO, bought with its pins, plugs into female headers on the back of that board, which also carries the charger and the 3.3 V regulator. The joystick and USB-C boards connect to it with bought JST SH cables, and the pouch, fitted protection board up, plugs its own lead into it. The changes are listed under [Changes from V0.25](#changes-from-v025).
 
 V0.25 drops the XIAO's pin headers and fits a 6 × 20 × 50 mm pouch (602050, 600 mAh in the listing) instead of the 602030. The pouch now slides in from below, through a separate battery cap in the bottom end: an assembly study showed that no 20 mm wide pouch, the V0.24 one included, can pass the front opening. The changes are listed under [Changes from V0.24](#changes-from-v024).
 
@@ -12,7 +14,15 @@ The remote's printed parts are slices of one outer solid: the pod outline cut fl
 
 The remote mounts on the left side of the bar only, never the right. The turn-signal switch that the folded front clears is on the left switchgear.
 
-**Current parametric concept:** [complete-remote-v0.25.scad](../mechanical/cad/complete-remote-v0.25.scad)
+**Current parametric concept:** [complete-remote-v0.26.scad](../mechanical/cad/complete-remote-v0.26.scad)
+
+![V0.26 on its base, from the rider's side: the three TPU keys stand 3 mm out of the cover through Ø13 mm holes; the joystick is unchanged.](images/complete-remote-v0.26-assembly.png)
+
+![V0.26 interior with the upper axial wall removed: the control board behind the upper facet with the XIAO on its headers, the pouch behind them (protection board up), the USB-C board at the top, and the three cables: joystick (round the top edge of the joystick board), USB-C board, and the pouch lead (red) up to the control board.](images/complete-remote-v0.26-interior.png)
+
+![V0.26 section through the middle of the pod: cover, keypad sheet, button plate, switches, control board, headers and XIAO.](images/complete-remote-v0.26-section.png)
+
+The images below are of V0.25 and earlier; behind the upper facet, V0.26 differs as described.
 
 ![V0.25 battery cap, exploded from below: the housing with its bottom opening and the cap gasket land, the pouch envelope (red), the cap gasket and the cap with its three countersunk screw holes. The vent hole is in front of the opening.](images/complete-remote-v0.25-battery-cap.png)
 
@@ -60,7 +70,26 @@ The control end is unchanged from V0.23. These V0.23 renders still show it:
 
 All images are direct OpenSCAD renders of the V0.25, V0.24 or V0.23 file. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb/README.md).
 
-## Changes from V0.24
+## Changes from V0.25
+
+### Control board and keypad
+
+- **Buttons.** Three C&K KSC221JLFS sealed tact switches on the front of the [control board](../electronics/control-pcb/README.md), at Y = 33, 15 and −3 mm, replace the APEM buttons, their nuts and their wires.
+- **Keypad.** The gasket becomes one printed TPU part: a full sheet on both facets, with three Ø12 mm keys standing 3 mm out of the cover through Ø13 mm holes. Behind each key the sheet presses the switch actuator directly, 0.3 mm away at rest (`key_rest_gap`), which covers about 0.25 mm of print and sheet tolerance. The sheet's back is flat, so it prints keys up without support. The upper-facet wall-land gasket and the gasket lip are gone.
+- **Button plate.** A 1.5 mm printed plate behind the upper sheet, like the joystick plate on the lower facet. The six upper cover screws clamp it against the sheet. Ø15.8 mm holes round the keys let the sheet flex and hold the switch bodies; two 2.3 mm standoffs, 3.95 mm either side of the centre line between the keys, carry the control board.
+- **Stack** (from the cover face): cover 2.5, sheet 0.6, plate 1.5, switch actuators at 3.4, control board 6.9–8.5, 5.7 mm headers and the XIAO's 2.5 mm pin spacer, XIAO board at 16.7, its components to 21.3 mm (X = −36.2 mm), 7.2 mm from the pouch envelope.
+- **XIAO.** Bought with pins (102010631) and plugged into two 1 × 7 female headers on the back of the control board, component side toward the pouch. The housing rails and the XIAO's path in from below are gone. A foam pad between the XIAO and the pouch holds it in its headers.
+- **Cover screws.** The upper bosses start behind the button plate, like the lower ones, and pass through notches in the control board, so the board, the XIAO and the plate lift out with the cover. All ten cover screws are M2 × 10. The upper screw at Y = 6 mm moved to −6 mm, because the XIAO cannot pass bosses at Y = 6 when it lifts out; the span between the upper screws at 24 and −6 mm is now 30 mm.
+
+### Cables and battery
+
+- **Joystick board rev B** ([board](../electronics/joystick-pcb-rev-b/README.md)): the PTC fuse and TVS move to the control board; a 5-pin JST SH socket on the rear, below the stick axis, takes a 5-pin cable that runs round the board's top edge to the control board.
+- **USB-C board rev B** ([board](../electronics/usbc-pcb-rev-b/README.md)): 16 mm deep instead of 13.6 mm, holes at ±7 mm; a 3-pin socket behind the receptacle. The charge LED hangs from VBUS and the charger's STAT switches it.
+- **Pouch.** Fitted protection board up. Its own JST PH lead leaves the top end below the USB-C board's rib and runs forward and up to a top-entry socket on the control board: 27 mm in the CAD. No splice, no extension. Changing the pouch needs the cover off as well as the battery cap. A design with an extension and a junction by the cap was checked and dropped: the junction (about 16 × 6 × 4.5 mm) does not fit in the 4.2 mm under the pouch, and no 5–6 cm retail extension was found.
+
+## V0.25 changes from V0.24, still current
+
+The XIAO rails, the battery wires and the pouch orientation below were replaced in V0.26 (see above).
 
 ### Why the pouch moved to a bottom cap
 
@@ -122,6 +151,8 @@ The [battery study](battery-study.md) first proposed a bayonet turning around th
 - **Anti-rattle.** Two TPU strips, 4 × 50 mm, sit in 0.6 mm pockets on the platform either side of the rails and stand 0.8 mm proud. They push the remote off the platform until the dovetail flanks seat, with the rear face 0.48 mm off the platform, which leaves the strips about 0.3 mm compressed. A firm press moves the remote back onto the platform by up to 0.48 mm. Whether that feels loose on the buttons needs a test.
 
 ### Buttons
+
+Replaced in V0.26 by the keypad and the control board (see above).
 
 - **APEM ISR3SAD200.** Sealed IP67 pushbutton: round curved black actuator, normally open, solder lugs, gold-plated contacts, standard Ø17.5 mm bezel with a flat seal, M12 × 0.75 bushing and a 14 mm A/F hex nut. The datasheet gives 4 ± 3 N, 1.7 mm travel, 10 g vibration and 100 g shock.
 - **Cut-out.** Ø13.6 mm with APEM's anti-rotation flat, 12.9 mm across, in place of the round cut-out with a 45° top.
@@ -209,6 +240,19 @@ V0.22 keeps from V0.21 the sheet gasket and the plate that clamps it, and replac
 ## Interior space check
 
 The OpenSCAD console reports these values; the boolean checks below were run on the rendered meshes. The V0.24 checks cover the base, the dovetail, the lock, the pouch and the USB-C receptacle. The control-end checks were run on V0.23 and not repeated: nothing in front of the remote's rear face changed except the rear wall, which moved 0.8 mm away from the controls.
+
+V0.26 (cables are modelled as Ø2.5 mm bundles, plugs as boxes from the connector drawings):
+
+| Check | Result |
+|---|---|
+| Control board, its switches, back parts and sockets, XIAO and headers vs housing, cover, gasket, joystick, USB-C board, pouch envelope, cover screws | No overlap; the board rests on the plate standoffs |
+| Button plate vs housing, cover, joystick plate; keys vs cover and plate; switches vs plate | No overlap or contact only |
+| Cover screw bosses vs control board | No overlap: the board is notched round them |
+| Control board, XIAO, plate and keys lifted out with the cover, 1–20 mm along −X | No overlap |
+| XIAO components to the pouch envelope | 7.2 mm |
+| Joystick, USB-C and battery cables and plugs vs housing, plates, gasket, cover, XIAO, USB-C board, pouch, each other | No overlap; each plug enters its own socket courtyard by 0.05 mm, the joystick plug rests on its board's rear face, and the pouch lead starts inside the pouch clearance by design |
+| USB-C board (16 mm deep) vs housing, control stack, pouch | No overlap; it rests on its rib |
+| Battery lead, J5 plug to the pouch's top end | 27 mm |
 
 V0.25:
 
@@ -301,7 +345,8 @@ V0.24 aims for rain and spray resistance, not an IP rating. It has not been test
 | Joystick plate | `print_joy_plate` | Sheet side on the bed | PETG |
 | Ball and disc | `print_ball_disc` | Disc on the bed | PETG |
 | Knob | `print_knob` | Top face on the bed | PETG or ASA |
-| Gasket | `print_gasket` | Flat, 0.8 mm | Soft TPU (85A or softer), or cut from silicone/EPDM sheet |
+| Keypad and gasket | `print_gasket` | Flat, 0.8 mm sheet on its housing side, keys up | Soft TPU (85A or softer); not cut from sheet, because of the keys |
+| Button plate | `print_button_plate` | Sheet side on the bed, standoffs up | PETG |
 | Battery cap | `print_battery_cap` | Outer face on the bed | PETG or ASA |
 | Cap gasket | `print_cap_gasket` | Flat, 0.8 mm | As the cover gasket |
 | Liners ×2 | `liner_main`, `liner_cap` | Axial face on the bed | TPU 95A |
@@ -319,24 +364,20 @@ No part needs supports.
 
 ## Assembly
 
-Remote:
+Remote (V0.26; nothing to solder):
 1. Press the ten M2 inserts into the housing screw bosses.
-2. Mount the three buttons in the cover.
-3. Solder the four KSC2 switches to the front of the joystick PCB, and the PTC fuse and TVS diode to the rear (or order the board assembled).
-4. Push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the PCB onto the plate standoffs with two M2 × 8 button-head screws (head at most Ø3.5 × 1.1 mm); the disc rests on the switches.
-5. With the XIAO on the bench, solder its wires: the six joystick wires (U, D, L, R to D3–D6, G to GND, 5V to the 5V pin) and the button wires on the front of its pads, and two wires, about 60 mm long, to the `BAT+` and `BAT−` pads on its rear. Keep the joints small: the outer 0.8 mm of each pad is under a rail lip. Leave the other ends free: the XIAO goes in from below, so a wire already soldered at both ends would wrap round the housing.
-6. Solder the receptacle to the USB-C charging PCB, then fit its gasket. Solder two wires from its VBUS and GND pads to the VIN and GND pads on the rear of the joystick PCB. Solder a wire to its LED pad and lead it out of the bottom opening. Slide the board along the rib until the nose enters the slot and the gasket sits in its pocket, and fix it with the two M2 × 4 screws. Pot the back of the receptacle with epoxy, keeping it out of the opening. With the housing rear face up, fill the LED window from outside with clear epoxy or UV resin, flush with the face; keep it off the USB-C opening and the gasket.
-7. With the cover off, pass the free ends of the joystick and button wires up through the bottom opening and out of the front, and solder the LED wire from the USB-C PCB, hanging out of the bottom opening, to XIAO D8. Then put the XIAO in from below: up through the bottom opening 7.5 mm behind its rails, until its lower end is at about Y = −28 mm (fully inside, still below the rails); forward 7.5 mm to the rails; and up 27.5 mm along +Y until it stops. The battery wires hang out of the bottom opening behind it. Solder the free ends: the joystick wires to the rear pads of the joystick PCB (lead them away from its top edge) and the button wires to the buttons. (The XIAO can also go in through the front, edge-first, but the bottom is easier: it does not pass the 16.4 mm between the gasket lips flat.) Secure its free end with a drop of hot glue or silicone. Apply conformal coating to both boards.
-8. Stick the vent label inside over the vent hole in the bottom end wall.
-9. Stick a thin foam strip on the rear wall where the pouch lies. Splice the battery wires to the pouch leads outside the opening, red to `BAT+`, with heat-shrink over each joint. Slide the pouch up through the opening, protection board end down, and tuck the splice under it. Check the polarity before connecting either USB-C port.
-10. Stick a foam pad on the inside of the battery cap, lay the cap gasket on the housing face, and fit the cap with three M2 × 8 countersunk screws. Tighten evenly.
-11. Lay the cover face down and the gasket on it, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the plate on the lower-facet sheet with its screw holes over the cover's.
-12. Lower the housing onto the stack; its walls locate the plate. Turn the assembly over and fit the six M2 × 8 screws on the upper facet and the four M2 × 10 screws on the lower facet. Tighten evenly in a cross pattern.
-13. Press the M2 insert into the knob. Slide the knob onto the pin with a 0.9 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw on the pin.
+2. Fit the USB-C board rev B: fit the receptacle's gasket, slide the board along its rib until the nose enters the slot and the gasket sits in its pocket, and fix it with two M2 × 4 thread-forming screws. Pot the back of the receptacle with epoxy, keeping it out of the opening and the socket. Fill the LED window from outside with clear epoxy or UV resin. Plug the 3-pin cable into its socket.
+3. Joystick: push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the joystick board rev B onto the plate standoffs with two M2 × 8 button-head screws; the disc rests on the switches. Plug the 5-pin cable into its socket.
+4. Screw the control board onto the button plate standoffs with two M2 × 5 thread-forming screws, switches toward the plate. Plug the XIAO into its headers, components away from the board, USB-C toward the joystick end.
+5. Lay the cover face down and the keypad on it, keys through the cover holes, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the joystick plate on the lower-facet sheet. Lay the button plate with the control board on the upper-facet sheet.
+6. Plug the joystick cable into J4 and the USB-C cable (from the housing) into J3 on the control board. Stick the foam pad on the XIAO's components.
+7. Stick the vent label inside over the vent hole, and a thin foam strip on the rear wall where the pouch lies.
+8. Lower the housing onto the stack, guiding the cables; its walls locate the plates. Turn it over and fit the ten M2 × 10 screws. Tighten evenly in a cross pattern.
+9. Slide the pouch up through the bottom opening, protection board and lead first. With the cover off, plug its lead into J5 on the control board, then close the cover as in step 8. Check the polarity before connecting the charger.
+10. Stick a foam pad on the inside of the battery cap, lay the cap gasket on the housing face, and fit the cap with three M2 × 8 countersunk screws.
+11. Press the M2 insert into the knob. Slide the knob onto the pin with a 0.9 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw.
 
-The animation below shows steps 5 to 10. The position of the `BAT` pads on the XIAO's rear and the wire routing are drawn schematically; the source is [battery-assembly-v0.25.scad](../mechanical/cad/battery-assembly-v0.25.scad).
-
-![V0.25 battery and XIAO assembly, animated: wires on the XIAO's BAT pads; the XIAO up through the bottom opening, forward to its rails and up to the stop; the battery wires run down behind it and out of the bottom opening; heat-shrink on, red spliced to red and black to black, sleeves shrunk (close-up); the pouch slid up with its protection board end down and the splice tucked under it; foam pad, gasket and cap with three screws.](images/complete-remote-v0.25-battery-assembly.gif)
+The order of steps 8 and 9 is open: the pouch can go in before the cover is closed if its lead is long enough to reach J5 with the stack beside the housing.
 
 Base:
 1. Press the two M4 inserts into the base front's split face.
@@ -346,7 +387,7 @@ Base:
 
 Fitting: pull the lock knob, press the remote onto the platform 9 mm below its working position, and slide it up until it stops and the lock clicks in. Removal is the reverse.
 
-To program over USB, remove the remote from the base and its cover. Take the knob off first by loosening its grub screw. The USB-C socket is on the component side at the lower end of the board and opens toward the bottom of the pod; a plug fits there with the cover off. The XIAO's USB-C and the charging USB-C are the same supply net: never connect both. Each opening disturbs the gasket, so BLE firmware updates remain a firmware requirement.
+To program over USB, remove the remote from the base and its cover. Take the knob off first by loosening its grub screw. The control board, the XIAO and the button plate come out with the cover, still joined to the housing by the cables, and the XIAO's USB-C is free. In V0.26 the XIAO's USB-C and the charging port are separate supplies; the control board's regulator blocks current from the XIAO's own regulator. Each opening disturbs the gasket, so BLE firmware updates (working on the bench) remain the normal path.
 
 ## Hardware
 
@@ -404,18 +445,22 @@ APEM's [IS series page](https://www.apem.com/panel-switches/pushbutton-switches/
 
 These are the only items that block a confident first print. Each is a parameter in the CAD.
 
-- **Buttons:** APEM ISR3SAD200 chosen; measure the nut thickness (`button_nut_h`, 2.5 mm assumed) and check the 18 mm pitch with gloves and a wrench on the first print.
+- **Keypad:** the press and travel of a KSC2 behind a TPU sheet, with gloves (0.3 mm rest gap plus 0.35–0.65 mm travel, against 1.7 mm for the APEM buttons); whether the printed sheet seals round the keys and at the fold; whether the 0.3 mm rest gap needs shims.
+- **Upper cover screws:** the span between the screws at Y = 24 and −6 mm is 30 mm; check that the cover seals the upper facet there.
 - **Joystick:** measure the KSC2 height and the printed plate, ball and disc; together with the standoffs they set the 0.05 mm rest gap (`joy_rest_gap`). The feel (5.9° to trip, 2 N per direction, about 8 N for the centre chord) and the Ø16 mm knob need a check with gloves.
-- **XIAO:** PCB thickness, component height and the height of the rear joints. Adjust `xiao_pcb`, `xiao_component_h` and `xiao_rear_h`; the render stops if the rear joints reach the pouch envelope.
+- **XIAO:** PCB thickness, component height, and the spacer height and pin length of its pre-soldered header (`xiao_spacer`, 2.5 mm assumed); whether the foam pad holds it in its headers under vibration.
+- **Cables:** where the spare length of 10 cm cables goes (the routes need about 3 and 4 cm); whether bought cables are straight (pin 1 to pin 1); whether the SH-compatible sockets latch the Pololu plugs.
+- **Pouch lead:** it must leave the protection-board end and reach about 27 mm, bent within the 4.9 mm between the pouch top and the USB-C board's rib.
+- **Inserts:** whether the print service fits the heat-set inserts.
 - **Inserts:** hole diameters and depths for the actual M4 and M2 inserts.
 - **Handlebar and liner:** measured bar diameter, and the 0.8 mm clamping gap tuned to the printed TPU liner.
 - **Dovetail:** the 0.2 mm clearance (`dt_c`) against the printer, and the strip material and thickness for the preload. Whether the 0.48 mm the remote can move toward the platform feels loose on the buttons.
 - **Lock:** a spring that fits a Ø6 mm pocket over a Ø3 mm shank and holds the head out firmly; its compressed length sets `lock_spring_solid`. The pull force, and whether 1 mm of head in the pocket is enough.
-- **Pouch:** the bought cell's size (up to 54 mm long, 6 mm thick), its real capacity, protection board and lead exit, and its maximum charge current against the XIAO's 50 or 100 mA.
+- **Pouch:** the bought cell's size (up to 54 mm long, 6 mm thick), its real capacity, protection board and lead exit, and its maximum charge current against the control board's 100 mA (set by R1 on the MCP73831).
 - **Battery cap:** whether the flat gasket seals on the 2.5 mm side lands, whether M2 screws hold in Ø1.6 mm pilots in PETG after a few battery changes, and whether the 26 mm bottom band clears the switchgear on the bike.
-- **USB-C PCB:** check its hand-drawn USB4736 footprint against the real part or GCT's footprint files, and the Ø1.6 mm screw pilots against the chosen screws. How the board gets onto its rib is not solved (V0.24 and V0.25): slid straight in from the front, the 19 mm board meets the gasket lips and the upper cover bosses (46 mm³), and put in edge-first and turned flat it still overlaps by 7–60 mm³ in the paths tried. From below, the rib it sits on blocks the way.
+- **USB-C PCB:** check its hand-drawn USB4736 footprint against the real part or GCT's footprint files, and the Ø1.6 mm screw pilots against the chosen screws; in V0.26 the holes are at ±7 mm. How the board gets onto its rib is not solved (V0.24 and V0.25): slid straight in from the front, the 19 mm board meets the gasket lips and the upper cover bosses (46 mm³), and put in edge-first and turned flat it still overlaps by 7–60 mm³ in the paths tried. From below, the rib it sits on blocks the way.
 - **Charge LED:** whether the LED shows well enough through the filled Ø1.6 mm window (`usbc_led_hole_d`), and whether the printed hole needs drilling out to size.
-- **Profile LED:** the firmware shows the active profile on the XIAO's RGB LED (green, blue or white, a short blink every 10 s). The XIAO is enclosed, so the rider cannot see it. Options: blink the charge LED (D8) in a profile pattern, which needs no hardware change but has one color, or add a light pipe to the XIAO's LED, which needs a sealed window.
+- **Profile LED:** the firmware shows the active profile on the XIAO's RGB LED (green, blue or white, a short blink every 10 s). The XIAO is enclosed, so the rider cannot see it. In V0.26 the charge LED is driven by the charger, so it cannot show the profile; a light pipe to the XIAO's LED would need a sealed window.
 - **Vent:** label diameter and required hole size.
 - **Gasket:** material, whether 0.2 mm of compression seals on a 1 mm land, and how long a printed TPU sheet lasts flexing with the stick.
 - **Fold angle:** 20° is chosen to clear the turn-signal switch. The gland that kept it from 30° is gone in V0.24, but 30° has not been rechecked, and neither angle has been checked on a bike.

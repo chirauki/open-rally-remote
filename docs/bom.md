@@ -1,8 +1,8 @@
-# Bill of Materials — V0.25
+# Bill of Materials — V0.26
 
-This is the single parts list for the project: the bench prototype and the V0.25 removable, battery-powered remote with its base. Design details stay in the linked documents; this page lists what to buy.
+This is the single parts list for the project: the bench prototype and the V0.26 removable, battery-powered remote with its base. V0.26 is built without soldering: the three circuit boards are ordered assembled and joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Design details stay in the linked documents; this page lists what to buy.
 
-**Status:** nothing in the V0.25 list has been built or tested.
+**Status:** nothing in the V0.26 list has been built or tested. The V0.25 list is in the git history.
 
 Sourcing preference: parts that builders can buy from mainstream retailers (for example Amazon) come first. Distributor-only parts are used only where no retail part meets the requirement, and the reason is given.
 
@@ -13,14 +13,14 @@ Rough figures for one remote and one base, in euros including VAT, before shippi
 | Section | Estimate | Basis |
 |---|---:|---|
 | [Bench prototype](#bench-prototype) | €22–29 | Checked on 2026-10-07; see the section. |
-| [Remote: electronics](#electronics) | €100–125 | Mostly checked; the two PCBs are a calculation from the JLCPCB fee table. |
+| [Remote: electronics](#electronics) | €110–170 | Parts checked in the JLCPCB library; the assembled boards are an estimate from the JLCPCB fee table, not a quote. |
 | [Remote: hardware](#hardware) | €30–60, plus the vent label | Kit prices checked; single-size packs not checked. No retail price found for the vent label. |
 | [Remote: printed parts](#printed-parts) | €20–50 | Not checked: needs a quote from a print service with the exported files. |
 | [Base](#base-one-per-bike) | €25–60 | Not checked; much of the hardware comes from the kits bought for the remote. |
 | [Consumables](#consumables) | €35–55 | Conformal coating checked; the rest not checked. |
-| **First remote and base, without the bench parts** | **about €210–350** | |
+| **First remote and base, without the bench parts** | **about €220–395** | |
 
-The three APEM buttons (about €30) and the PCB order (about €50–60, mostly fixed fees and shipping) are the largest items.
+The assembled-board order (about €80–120, mostly fixed fees, extended-part fees and shipping) is the largest item.
 
 ## Bench prototype
 
@@ -47,53 +47,39 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 
 | Qty | Part | Source | Notes |
 |---:|---|---|---|
-| 1 | Seeed XIAO nRF52840 **without headers** (MPN `102010448`) | [Reichelt Spain](https://www.reichelt.com/es/es/shop/producto/xiao_nrf52840_bt5_0_sin_cabezal-358357), €9.56 with VAT | V0.25 has no room for headers: the pouch sits behind the board. The pre-soldered bench board stays on the breadboard. |
-| 1 | LiPo pouch with protection board, 6 × 20 × 50 mm (602050), 600 mAh in the listing | [AliExpress](https://es.aliexpress.com/item/32878657347.html), €4.69 before shipping and taxes (2026-10-13) | Capacity not verified. Up to 54 mm long including the protection board, 6 mm thick (8 mm does not fit). Check the maximum charge current (the XIAO charges at 50 or 100 mA). Rechargeable Li-ion/LiPo only. |
-| 1 | [Joystick PCB](../electronics/joystick-pcb/README.md), 20.6 × 22.4 × 1.6 mm | JLCPCB or another board house | Gerbers, BOM and placement file in `electronics/joystick-pcb/fab/`. |
-| 4 | C&K KSC221JLFS sealed tact switch, 2 N, J-bend | LCSC C221726 | On the joystick PCB. Distributor part: no retail sealed switch with this footprint was found. The gull-wing `G` version does not fit. The KSC222JLFS (C221728, long-life contacts) also fits. |
-| 1 | Bourns MF-MSMF050-2 PTC fuse, 1812 | LCSC C17313 | On the joystick PCB. |
-| 1 | Littelfuse SMBJ5.0A TVS diode, SMB | LCSC C83333 | On the joystick PCB. |
-| 1 | [USB-C charging PCB](../electronics/usbc-pcb/README.md), 19 × 13.6 × **1.2** mm | JLCPCB or another board house | Order at 1.2 mm. Files in `electronics/usbc-pcb/fab/`. |
-| 1 | GCT USB4736-GF-A-KIT: USB-C receptacle, 6 contacts, charge only, IP67 with USBTJ-06 gasket | DigiKey, Mouser, Farnell, TME | Distributor part: the sealed USB-C parts sold on Amazon either lack the CC pins or are too large for the rear face. |
-| 2 | 5.1 kΩ 1 % resistor, 0603 (UNI-ROYAL 0603WAF5101T5E) | LCSC C23186 | On the USB-C PCB. |
-| 1 | Lite-On LTST-S270KRKT red side-looking chip LED | LCSC C125114 | Charge LED, on the USB-C PCB. Extended part at JLCPCB. |
-| 1 | 1 kΩ 1 % resistor, 0603 (UNI-ROYAL 0603WAF1001T5E) | LCSC C21190 | Charge LED resistor, on the USB-C PCB. |
-| 3 | APEM ISR3SAD200 sealed pushbutton: round curved black actuator, NO, solder lugs, IP67, standard bezel, nut and flat seal supplied | DigiKey, RS, L'impulsion | Buttons A, B, C. Distributor part: no retail sealed button with a datasheet was found. About USD 11 each at DigiKey (2026-10-11). |
-| — | Hook-up wire, about 28–30 AWG, silicone insulated | Retail | Buttons, joystick PCB and USB-C PCB to the XIAO. |
+| 1 | Seeed XIAO nRF52840 **with pre-soldered pins** (MPN `102010631`) | [Kiwi Electronics](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402), €9.99 before VAT | Plugs into the control board's headers. The same board as on the breadboard. |
+| 1 | LiPo pouch with protection board and a JST-PH 2.0 lead, at most 6 × 20 × 54 mm including the protection board | Retail (for example Amazon) | The pouch goes in with its protection board up; the lead must leave that end and be at least about 40 mm long (27 mm in the CAD). 600 mAh class (602045, 602050). The control board protects against a reversed plug; check the polarity anyway. |
+| 1 | [Control board](../electronics/control-pcb/README.md), 21.4 × 49 × 1.6 mm, assembled | JLCPCB | Three KSC2 buttons, XIAO headers, MCP73831 charger, TPS70933 regulator, sockets. Gerbers, BOM and placement in `electronics/control-pcb/fab/`. Parts on both sides; the headers are through-hole. |
+| 1 | [Joystick board rev B](../electronics/joystick-pcb-rev-b/README.md), 20.6 × 22.4 × 1.6 mm, assembled | JLCPCB | Four KSC2 switches and one socket. Files in `electronics/joystick-pcb-rev-b/fab/`. |
+| 1 | [USB-C board rev B](../electronics/usbc-pcb-rev-b/README.md), 19 × 16 × **1.2** mm, assembled | JLCPCB | Order at 1.2 mm. The GCT USB4736-GF-A receptacle is bought through JLCPCB's global sourcing (C9900206672); its USBTJ-06 gasket comes in the kit and is fitted after soldering. Files in `electronics/usbc-pcb-rev-b/fab/`. |
+| 1 | JST SH-style cable, 5-pin, female–female, 1 mm pitch, straight (pin 1 to pin 1), 10 cm | [Pololu](https://www.pololu.com/category/350/5-pin-jst-sh-style-cables) | Joystick board to control board. Not found on Amazon by web search. |
+| 1 | JST SH-style cable, 3-pin, female–female, 1 mm pitch, straight, 10 cm | Pololu | USB-C board to control board. |
 
-Estimated cost: about €100–125.
+The board parts with their LCSC numbers are in each board's README and `fab/*-bom.csv`. The KSC221JLFS switches (LCSC C221726) are distributor parts: no retail sealed switch with this footprint was found.
 
-- XIAO without headers: €9.56 at Reichelt Spain.
-- LiPo 602050: €4.69 on AliExpress, before shipping and taxes.
-- APEM buttons: 3 × about USD 11, about €30.
-- GCT USB4736-GF-A-KIT: €1.57 before VAT, about €1.90 with VAT, at [DigiKey Belgium](https://www.digikey.be/en/products/detail/gct/USB4736-GF-A-KIT/26795952). DigiKey shipping is extra below its free-shipping threshold; the APEM buttons and the kit together may reach it (not checked).
-- Both PCBs, one JLCPCB order: about €50–60 with shipping and import VAT. The calculation uses the [JLCPCB assembly fee table](https://jlcpcb.com/help/article/pcb-assembly-price) dated 2025-09-01; check it in the live quote.
-  - Bare boards: 5 of each at about USD 2 per design.
-  - Economic assembly: USD 8 setup, USD 1.50 stencil and USD 3 per extended part, for each board.
-  - Assembled boards: at least 2 of each.
-  - Joystick switches: 8 × USD 0.61 (KSC221JLFS, 10+ price).
-  - Shipping to Spain: about USD 12–20.
-- F1, D1, resistors and the LED: under €2.
-- Hook-up wire: €5–8, not checked.
+Estimated cost: about €110–170. **The board order is an estimate, not a quote.**
 
-The joystick switches changed from the KSC222JLFS (LCSC C221728) to the KSC221JLFS (C221726) on 2026-10-13, because LCSC had no KSC222JLFS in stock. The KSC221JLFS is USD 0.77 for one. Same force, body and land pattern; half the rated life (500,000 operations); up to 0.65 mm travel, so the V0.24 knob push gap grew from 0.7 to 0.9 mm. See the [mechanical notes](mechanical-concept.md#joystick-switches).
+- XIAO with pins: €9.99 before VAT at Kiwi Electronics.
+- LiPo: €5–10.
+- Three assembled boards, one JLCPCB order, at least 2 of each: about €80–120 with shipping and import VAT. From the [JLCPCB assembly fee table](https://jlcpcb.com/help/article/pcb-assembly-price) dated 2025-09-01: USD 8 setup and USD 1.50 stencil per board and side, USD 3 per unique extended part (about 14 across the three boards), through-hole soldering for the headers, and the parts. Get the live quote with the `fab/` files.
+- GCT receptacle through global sourcing: about USD 2 plus JLCPCB's sourcing fee; not checked.
+- Two Pololu cables: about USD 2–3 each plus shipping; not checked.
 
 ### Hardware
 
 | Qty | Part | Source | Notes |
 |---:|---|---|---|
-| 6 | M2 × 8 countersunk screw, ISO 10642 | Retail | Cover, upper facet. |
+| 10 | M2 × 10 countersunk screw, ISO 10642 | Retail | Cover, through the button plate (upper facet) and the joystick plate (lower facet). |
 | 3 | M2 × 8 countersunk screw, ISO 10642 | Retail | Battery cap, into Ø1.6 mm pilots in the housing. |
-| 4 | M2 × 10 countersunk screw, ISO 10642 | Retail | Cover, lower facet, through the joystick plate. |
 | 10 | M2 heat-set insert, about 4 mm long | Retail | Cover screw bosses. Hole Ø3.2 × 6 mm in the CAD; check against the insert bought. |
-| 2 | M2 × 8 button-head screw, head at most Ø3.5 × 1.1 mm (ISO 7380 style) | Retail | Joystick PCB to the plate standoffs. A pan head is too tall. |
-| 2 | M2 × 4 thread-forming button-head screw, head at most Ø3.5 × 1.1 mm | Retail | USB-C PCB to its rib. |
+| 2 | M2 × 8 button-head screw, head at most Ø3.5 × 1.1 mm (ISO 7380 style) | Retail | Joystick board to the joystick plate standoffs. |
+| 2 | M2 × 5 thread-forming button-head screw, head at most Ø3.5 × 1.1 mm | Retail | Control board to the button plate standoffs. |
+| 2 | M2 × 4 thread-forming button-head screw, head at most Ø3.5 × 1.1 mm | Retail | USB-C board to its rib. |
 | 1 | Ø3 × 12 mm steel dowel pin, ISO 8734 | Retail | Joystick stick. |
 | 1 | M2 × 4 grub screw | Retail | Joystick knob. |
 | 1 | M2 heat-set insert | Retail | Joystick knob. |
 | 1 | Adhesive ePTFE vent label, about Ø10 mm, for a Ø3 mm hole | Retail | Inside the bottom end wall. |
-| — | Thin foam sheet (about 1–5 mm, EVA or similar) | Retail | Pad on the battery cap and strip on the rear wall; they hold the pouch, which slides in and cannot be taped. |
-| — | Heat-shrink tubing, small | Retail | Splice between the XIAO battery wires and the pouch leads. |
+| — | Thin foam sheet (about 1–5 mm, EVA or similar) | Retail | Pad on the battery cap, strip on the rear wall, and a pad between the XIAO and the pouch that holds the XIAO in its headers. |
 
 Estimated cost: about €30–60, plus the vent label.
 
@@ -111,7 +97,8 @@ Estimated cost: about €30–60, plus the vent label.
 | 1 | Joystick plate | PETG | `print_joy_plate` |
 | 1 | Ball and disc | PETG | `print_ball_disc` |
 | 1 | Joystick knob | PETG or ASA | `print_knob` |
-| 1 | Cover gasket | Soft TPU (85A or softer), or cut from silicone or EPDM sheet | `print_gasket` |
+| 1 | Keypad and gasket, one piece with the three keys | Soft TPU (85A or softer); it can no longer be cut from sheet, because the keys stand on it | `print_gasket` |
+| 1 | Button plate | PETG | `print_button_plate` |
 | 1 | Battery cap | PETG or ASA | `print_battery_cap` |
 | 1 | Battery cap gasket | As the cover gasket | `print_cap_gasket` |
 
@@ -145,11 +132,10 @@ Estimated cost: about €25–60. **Not checked.**
 
 | Part | Use |
 |---|---|
-| Conformal coating, acrylic or silicone | XIAO, joystick PCB and solder joints. Keep it off the USB-C sockets, the switch actuators, the pouch and the vent. |
+| Conformal coating, acrylic or silicone | The three boards and the XIAO. Keep it off the USB-C sockets, the JST sockets and headers, the switch actuators, the pouch and the vent. |
 | Two-part epoxy | Potting the back of the charging USB-C receptacle. |
 | Clear epoxy or UV-cure resin | Filling the charge LED window. |
 | Neutral-cure silicone | Sealing where the notes call for it. |
-| Hot glue or silicone | Holding the XIAO's free end in its rails. |
 
 Estimated cost: about €35–55.
 
@@ -158,6 +144,7 @@ Estimated cost: about €35–55.
 
 ## Ordering notes
 
-- The two PCBs can share one board-house order. The USB-C PCB is 1.2 mm thick and the joystick PCB 1.6 mm, so they are two separate boards in the order.
-- The cheapest route for both is to have the small SMD parts assembled (switches, resistors, the charge LED) and to hand-solder the rest: F1 and D1 on the joystick PCB, and the USB4736 on the USB-C PCB.
-- LCSC numbers and GCT availability were checked on 2026-10-10, 2026-10-11 and 2026-10-12, and the prices on 2026-10-13; stock and prices change.
+- The three boards can share one JLCPCB order. The USB-C board is 1.2 mm thick and the other two 1.6 mm, so they are separate boards in the order.
+- The control and joystick boards have parts on both sides, so they need double-sided assembly. Check each part's rotation in JLCPCB's placement preview: the CPL files use KiCad's rotations.
+- The cables are straight: pin 1 of one end goes to pin 1 of the other. Check the bought cables before fitting them.
+- LCSC numbers and stock were checked in the JLCPCB library on 2026-10-14; stock and prices change.

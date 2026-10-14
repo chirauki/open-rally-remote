@@ -58,6 +58,20 @@ HOGP is the Bluetooth SIG profile for exposing HID input over BLE/GATT. Android 
 
 ## 4. Inputs and electrical behavior
 
+V0.26 (the [control board](../electronics/control-pcb/README.md), firmware option `BOARD_V026`):
+
+| XIAO pin | Use |
+|---|---|
+| D0 (A0) | Battery voltage, 1 MΩ / 1 MΩ divider |
+| D1, D2, D3 | Buttons A, B, C (switch to GND) |
+| D4, D5, D6, D7 | Joystick up, down, left, right (switch to GND) |
+| D8 | Charger STAT through a divider: low while charging, high when done |
+| D9 | Charging-port VBUS through a divider; System OFF wake source |
+| D10 | Spare |
+| 3V3 | Supply in, from the control board's regulator |
+
+V0.25 and the breadboard:
+
 | XIAO pin | Input | Released | Pressed |
 |---|---|---|---|
 | D0 | Button A | HIGH | LOW |

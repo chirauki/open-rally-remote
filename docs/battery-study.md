@@ -219,6 +219,8 @@ These are bench measurements on the parts, not on bikes:
 - **No power switch.** There is no mechanical switch: it would be another sealed opening. System OFF draws 2–3 µA, about 0.07 mAh a day, which is less than the pouch loses to self-discharge.
 - **Connection parameters.** Measure average current against connection interval and peripheral latency, against the input delay the rider notices.
 
+**V0.26.** The [control board](../electronics/control-pcb/README.md) takes over the charger, the 3.3 V regulator and the battery divider from the XIAO, which runs from its 3V3 pin. The charger (MCP73831, 100 mA) drives the charge LED through its STAT pin, so the firmware no longer does; the firmware reads STAT on D8, VBUS on D9 and the cell on A0 (`BOARD_V026` in the sketch). The P0.14 caution below does not apply there, because no cell reaches the XIAO's BAT pads.
+
 The bench firmware 0.7.0 implements this section, except the connection parameters; see the [firmware README](../firmware/xiao-nrf52840/README.md#power-and-battery). Notes from writing and testing it:
 
 - The Seeed board package drives P0.14 high at start (`initVariant`). That is the state Seeed's wiki warns about while charging. The firmware sets P0.14 low first thing in `setup()` and keeps it low, also in System OFF. The divider then draws about 3 µA from the cell.
