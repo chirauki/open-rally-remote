@@ -47,3 +47,47 @@ The board position depends on the pre-soldered XIAO's header: the plastic spacer
 - **VBUS to the XIAO.** D9 reads VBUS through a 100 kΩ / 200 kΩ divider.
 - **Battery voltage.** A0 reads the cell through a 1 MΩ / 1 MΩ divider with 100 nF to ground: 2.1 V at 4.2 V, about 2 µA drawn from the cell.
 - **Different socket sizes.** The joystick socket has 5 pins, the USB-C one 3 and the battery one is a 2-pin PH: no cable fits the wrong socket.
+
+## Board
+
+A 21.4 × 49 mm, 1.6 mm two-layer board, notched round the six upper cover-screw bosses so it lifts out with the cover (see `ctrl_pcb_*` in `mechanical/cad/complete-remote-v0.26.scad`). Board x is the CAD's Z − 11.5, board y is 16.5 − Y.
+
+- **Front** (toward the cover): SW1–SW3 under keys A, B and C, at Y = 33, 15 and −3. Each switch uses a diagonal pad pair, as on the joystick board.
+- **Back:** the two XIAO headers (pin 1 at the XIAO's USB-C end, D0–D6 on the −Z side), the charger, the regulator, Q1 and the dividers under the XIAO, J3 (USB-C board) and J5 (battery) at the top, J4 (joystick) at the bottom, F1 and D1 between them.
+- **Holes:** two M2 holes onto the button plate standoffs, at Y = 24 and Y = 6, 3.95 mm either side of the centre line so the standoffs clear the key holes in the button plate.
+- **Routing:** Freerouting 1.9.0, with ground pours on both layers. Track keep-outs round the notches hold the 0.3 mm edge clearance.
+
+![Control board, back](fab/render-back.png)
+
+## Regenerating
+
+`design.py` holds the outline, placement and nets. From this directory:
+
+```
+/Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python3 gen_pcb.py
+```
+
+`gen_pcb.py` places the parts, routes the board with Freerouting (`FREEROUTING_JAR`, default `~/.arduino-orr/tools/freerouting-1.9.0.jar`; Freerouting 2.x needs Java 25), fills the pours, writes `control.kicad_pcb` and calls `gen_sch.py` for `control.kicad_sch`. Freerouting may route differently on each run. Then check and export:
+
+```
+K=/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli
+$K sch erc --severity-all control.kicad_sch
+$K pcb drc --schematic-parity --severity-all control.kicad_pcb
+$K pcb export gerbers --layers F.Cu,B.Cu,F.Paste,B.Paste,F.SilkS,B.SilkS,F.Mask,B.Mask,Edge.Cuts --subtract-soldermask -o fab/gerbers/ control.kicad_pcb
+$K pcb export drill --format excellon --excellon-separate-th --generate-map --map-format gerberx2 -o fab/gerbers/ control.kicad_pcb
+$K sch export bom --fields 'Reference,Value,Footprint,Manufacturer,MPN,LCSC,${QUANTITY}' --labels 'Reference,Value,Footprint,Manufacturer,MPN,LCSC,Qty' --group-by 'Value,Footprint' --exclude-dnp -o fab/control-bom.csv control.kicad_sch
+$K pcb export pos --format csv --units mm --side both --exclude-dnp -o fab/control-pos.csv control.kicad_pcb
+python3 jlc_cpl.py
+```
+
+## Checks
+
+Run on 2026-10-14:
+
+- ERC: 0 errors. The 72 warnings say only that kicad-cli has no global symbol and footprint library tables configured.
+- DRC with schematic parity: 0 errors, 0 unconnected pads, 0 footprint errors; the 22 warnings are the same library-table notice.
+- **Battery plugged in reversed:** Q1's body diode is reverse-biased and its gate-source voltage stays at 0 V, so no current flows.
+- **XIAO's own USB-C plugged in with the battery in:** the XIAO's regulator drives 3V3 too; the TPS70933's reverse current protection stops current flowing back into it.
+- **Charger with no battery:** the MCP73831 holds BAT_SYS near 4.2 V, so the remote runs on USB power alone. With no cell, the charger may cycle, and the charge LED and D8 may flicker; this was not checked.
+- **Wrong socket:** J3, J4 and J5 have 3, 5 and 2 pins in two different series; no cable fits a socket it does not belong to.
+- **Assembly:** parts on both sides (switches on the front; headers, power parts and sockets on the back), so the order needs double-sided assembly. The headers are through-hole. Check every part's rotation in JLCPCB's placement preview: the CPL uses KiCad's rotations.

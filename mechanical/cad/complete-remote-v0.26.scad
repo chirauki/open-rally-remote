@@ -282,10 +282,11 @@ key_proud = 3.0;             // key top above the cover face
 key_nub_d = 4.0;             // nub on the key back, presses the switch actuator
 key_rest_gap = 0.3;          // nub to actuator at rest; covers about 0.25 mm of print and sheet
                              // tolerance, so a key is not pressed at rest. Trim the nub to tune
-key_web_d = 16.0;            // button plate hole: the sheet between key_d and this flexes
+key_web_d = 15.8;            // button plate hole: the sheet between key_d and this flexes
 btn_plate_t = 1.5;
 btn_ksc_gap = 0.5;           // switch actuator top behind the button plate back
-btn_standoffs = [[24.0,0],[6.0,0]];   // Y, Z offset from the pod centre; between the keys
+btn_standoffs = [[24.0,3.95],[6.0,-3.95]];   // Y, Z offset from the pod centre; between the keys,
+                             // 3.95 mm off centre so they clear the key_web_d holes
 btn_standoff_d = 3.6;
 btn_standoff_pilot = 1.6;    // M2 thread-forming screw; MEASURE pilot
 ctrl_pcb_t = 1.6;
@@ -468,6 +469,8 @@ cover_screw_thread = cover_screw_length-btn_plate_back_off;
 cover_screw_thread_lower = cover_screw_length_lower-plate_back_off;
 assert(xiao_rear_x+1.5 <= pouch_x0, "XIAO components within 1.5 mm of the pouch envelope");
 assert(upper_boss_end_off-btn_plate_back_off >= upper_insert_depth, "Upper bosses too short for their inserts");
+for (st=btn_standoffs, y=button_y)
+    assert(norm([st[0]-y,st[1]]) >= key_web_d/2+btn_standoff_d/2+0.05, "Button plate standoff cut by a key web hole");
 assert(cover_screw_thread < upper_insert_depth-0.05, "Upper cover screw bottoms in the insert hole");
 assert(cover_screw_thread_lower <= cover_insert_depth-0.5, "Lower cover screw bottoms in the insert hole");
 assert(knob_stop_angle > trip_angle+1, "Knob stops the tilt before a direction switch trips");

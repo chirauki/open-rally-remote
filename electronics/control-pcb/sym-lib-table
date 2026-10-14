@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "orr")(type "KiCad")(uri "${KIPRJMOD}/orr.kicad_sym")(options "")(descr "Open Rally Remote symbols"))
+)
