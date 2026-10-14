@@ -94,7 +94,7 @@ The joystick PCB's local `orr` footprints are not shared: this board has its own
 
 ## Open points
 
-- Check the footprint against the real part, or against GCT's footprint files, before ordering: it was drawn by hand from the PDF drawing.
+- Check the footprint against the real part, or against GCT's footprint files, before ordering: it was drawn by hand from the PDF drawing. Its signal pads sit 0.10 mm closer to the edge than GCT's layout; [rev B](../usbc-pcb-rev-b/README.md#receptacle-footprint) has the corrected footprint.
 - Find a source for the USB4736 that sells to individuals in small quantities, for builders.
 - The thread-forming screw pilot (Ø1.6 mm, `usbc_pilot_d`) needs checking against the chosen screw.
 - Check D1's polarity against the cathode mark in the assembler's preview: footprint pad 1 is the cathode, on the receptacle side.
