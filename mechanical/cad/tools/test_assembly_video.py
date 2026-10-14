@@ -101,5 +101,46 @@ class Task3(unittest.TestCase):
             self.assertIn("%s / %s" % (a, b), text)
 
 
+DOC = av.REPO / "docs" / "mechanical-concept.md"
+VIDEO = av.REPO / "docs" / "videos" / "complete-remote-v0.26-assembly.mp4"
+
+
+class Task4(unittest.TestCase):
+    def test_step_titles(self):
+        titles = av.step_titles(DOC)
+        self.assertEqual(len(titles), 11)
+        self.assertTrue(titles[0].startswith("Press the ten M2 inserts"), titles[0])
+
+    def test_step_titles_wrong_count(self):
+        text = DOC.read_text()
+        bad = av.BUILD / "test" / "ten-steps.md"
+        bad.parent.mkdir(parents=True, exist_ok=True)
+        bad.write_text(text.replace("\n11. ", "\nEleven. ", 1))
+        with self.assertRaises(ValueError):
+            av.step_titles(bad)
+
+    def test_frames_stop_on_error(self):
+        broken = av.BUILD / "test" / "broken.scad"
+        broken.write_text("include <%s>\nif (u > 0.4 && u < 0.6) echo(undefined_var);\n" % av.SCAD)
+        out = av.BUILD / "test" / "frames"
+        with self.assertRaises(av.ScadError):
+            av.frames(steps=[1], scad=broken, out_dir=out)
+        n = av.frame_count(av.step_info(1, "documented")["duration"])
+        for i in range(n):
+            if 0.4 < i / (n - 1) < 0.6:
+                self.assertFalse((out / "s01" / ("f%04d.png" % i)).exists(), i)
+
+    def test_video_chapters(self):
+        import json
+        import subprocess
+        p = subprocess.run(["ffprobe", "-v", "error", "-show_chapters", "-of", "json", str(VIDEO)],
+                           capture_output=True, text=True, check=True)
+        chapters = json.loads(p.stdout)["chapters"]
+        titles = av.step_titles(DOC)
+        self.assertEqual([c["tags"]["title"] for c in chapters],
+                         ["Step %d: %s" % (i + 1, t) for i, t in enumerate(titles)])
+        self.assertLessEqual(VIDEO.stat().st_size, 6 * 1024 * 1024)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -5,10 +5,13 @@ Drives mechanical/cad/assembly-video-v0.26.scad with OpenSCAD. Python standard l
 See docs/superpowers/specs/2026-10-14-assembly-video-design.md.
 """
 import json
+import math
+import re
 import os
 import struct
 import subprocess
 import tempfile
+import textwrap
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -28,22 +31,24 @@ class ScadError(RuntimeError):
     """OpenSCAD failed, warned, or rendered nothing."""
 
 
-def run_scad(defs, out, body=None, allow_empty=False, args=()):
+def run_scad(defs, out, body=None, allow_empty=False, args=(), scad=None):
     """Render the video file with the variables in defs to out (.stl, .png or .echo).
 
     body, if given, is OpenSCAD code appended after the include; pass mode "none" with it.
-    Returns OpenSCAD's stderr. Raises ScadError on an error, any warning, or an empty
-    result unless allow_empty; an empty allowed result leaves an empty file at out.
+    scad replaces the video file. Returns OpenSCAD's stderr. Raises ScadError on an error,
+    any warning, or an empty result unless allow_empty, and then leaves no file at out; an
+    empty allowed result leaves an empty file at out.
     """
+    scad = Path(scad or SCAD)
     out = Path(out)
     out.parent.mkdir(parents=True, exist_ok=True)
     if out.exists():
         out.unlink()
-    src = SCAD
+    src = scad
     tmp = None
     if body is not None:
         tmp = tempfile.NamedTemporaryFile("w", suffix=".scad", dir=out.parent, delete=False)
-        tmp.write("include <%s>\n%s\n" % (SCAD, body))
+        tmp.write("include <%s>\n%s\n" % (scad, body))
         tmp.close()
         src = Path(tmp.name)
     cmd = [OPENSCAD, "-o", str(out)]
@@ -60,6 +65,7 @@ def run_scad(defs, out, body=None, allow_empty=False, args=()):
     empty = "top level object is empty" in err.lower() or not out.exists()
     # OpenSCAD exits with 1 when the result is empty.
     if (p.returncode != 0 and not empty) or bad:
+        out.unlink(missing_ok=True)
         raise ScadError("%s\n%s" % (" ".join(cmd), "\n".join(bad) or err[-2000:]))
     if empty:
         if not allow_empty:
@@ -296,12 +302,126 @@ def write_report(results, path, allowed=None):
     Path(path).write_text("\n".join(L) + "\n")
 
 
+# --- Frames and video -----------------------------------------------------------------
+
+FPS = 24
+SIZE = (1280, 720)
+VIDEO = REPO / "docs" / "videos" / "complete-remote-v0.26-assembly.mp4"
+DOC = REPO / "docs" / "mechanical-concept.md"
+FONT = "/System/Library/Fonts/Helvetica.ttc"
+
+
+def frame_count(duration):
+    return int(math.ceil(duration * FPS))
+
+
+def step_titles(doc):
+    """First sentence of each numbered remote assembly step in docs/mechanical-concept.md.
+    Raises ValueError unless there are NSTEPS of them."""
+    lines = Path(doc).read_text().splitlines()
+    try:
+        i = lines.index("## Assembly")
+        i = next(k for k in range(i, len(lines)) if lines[k].startswith("Remote (V0.26"))
+    except (ValueError, StopIteration):
+        raise ValueError("no V0.26 remote assembly list in %s" % doc)
+    titles = []
+    for line in lines[i + 1:]:
+        m = re.match(r"(\d+)\. (.*)", line)
+        if m:
+            if int(m.group(1)) != len(titles) + 1:
+                break
+            titles.append(re.split(r"(?<=[.!?])\s", m.group(2), maxsplit=1)[0].rstrip("."))
+        elif titles and line.strip() == "":
+            break
+    if len(titles) != NSTEPS:
+        raise ValueError("%d assembly steps in %s, expected %d" % (len(titles), doc, NSTEPS))
+    return titles
+
+
+def _red_at(coll, s, u):
+    return sorted({n for cs, n, u0, u1 in coll if cs == s and u0 - 1e-6 <= u <= u1 + 1e-6})
+
+
+def frames(steps=None, variant="documented", scad=None, out_dir=None):
+    """Render the frames of the steps to out_dir/sNN/fNNNN.png, on all cores. Parts in a
+    colliding interval of build/collisions.json are red. Stops at the first ScadError."""
+    out_dir = Path(out_dir or BUILD / "frames")
+    cj = BUILD / "collisions.json"
+    coll = json.loads(cj.read_text()).get(variant, []) if cj.exists() else []
+    jobs = []
+    for s in steps or range(1, NSTEPS + 1):
+        info = step_info(s, variant)
+        n = frame_count(info["duration"])
+        d = out_dir / ("s%02d" % s)
+        if d.exists():
+            for f in d.glob("*.png"):
+                f.unlink()
+        for i in range(n):
+            u = i / (n - 1)
+            jobs.append(({"mode": "pose", "step": s, "u": u, "variant": variant,
+                          "red": _red_at(coll, s, u)}, d / ("f%04d.png" % i), info["camera"]))
+    ex = ThreadPoolExecutor(os.cpu_count())
+    try:
+        futs = [ex.submit(run_scad, defs, out, None, False, png_args(cam, SIZE), scad)
+                for defs, out, cam in jobs]
+        for f in futs:
+            f.result()
+    finally:
+        ex.shutdown(wait=True, cancel_futures=True)
+
+
+def video(variant="documented", frames_dir=None, out=None):
+    """Join the frames into the chaptered MP4, with each step's caption burned in."""
+    frames_dir = Path(frames_dir or BUILD / "frames")
+    out = Path(out or VIDEO)
+    work = BUILD / "video"
+    work.mkdir(parents=True, exist_ok=True)
+    titles = step_titles(DOC)
+    segs, meta, t = [], [";FFMETADATA1"], 0
+    for s in range(1, NSTEPS + 1):
+        n = len(list((frames_dir / ("s%02d" % s)).glob("f*.png")))
+        if n != frame_count(step_info(s, variant)["duration"]):
+            raise ScadError("step %d: %d frames, expected %d; run frames first" % (
+                s, n, frame_count(step_info(s, variant)["duration"])))
+        cap = work / ("caption%02d.txt" % s)
+        cap.write_text("\n".join(["Step %d" % s] + textwrap.wrap(titles[s - 1], 80)))
+        seg = work / ("s%02d.mp4" % s)
+        draw = ("drawtext=fontfile=%s:textfile=%s:x=24:y=20:fontsize=24:fontcolor=black:"
+                "line_spacing=6:box=1:boxcolor=white@0.8:boxborderw=8" % (FONT, cap))
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-framerate", str(FPS),
+                        "-i", str(frames_dir / ("s%02d" % s) / "f%04d.png"), "-vf", draw,
+                        "-c:v", "libx264", "-crf", "23", "-preset", "slow",
+                        "-pix_fmt", "yuv420p", str(seg)], check=True)
+        segs.append(seg)
+        ms = int(round(1000 * n / FPS))
+        meta += ["[CHAPTER]", "TIMEBASE=1/1000", "START=%d" % t, "END=%d" % (t + ms),
+                 "title=Step %d: %s" % (s, titles[s - 1].replace("=", "\\=")
+                                        .replace(";", "\\;").replace("#", "\\#"))]
+        t += ms
+    lst = work / "list.txt"
+    lst.write_text("".join("file '%s'\n" % p for p in segs))
+    (work / "chapters.txt").write_text("\n".join(meta) + "\n")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0",
+                    "-i", str(lst), "-i", str(work / "chapters.txt"), "-map", "0",
+                    "-map_metadata", "1", "-map_chapters", "1", "-c", "copy",
+                    "-movflags", "+faststart", str(out)], check=True)
+    return out
+
+
 def main(argv=None):
     import argparse
     ap = argparse.ArgumentParser(description=__doc__)
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("check", help="check the assembly paths; write the report")
+    fp = sub.add_parser("frames", help="render the video frames")
+    fp.add_argument("--step", type=int, action="append", help="only this step (repeatable)")
+    sub.add_parser("video", help="build the MP4 from the frames")
     a = ap.parse_args(argv)
+    if a.cmd == "frames":
+        frames(a.step)
+    elif a.cmd == "video":
+        print(video())
     if a.cmd == "check":
         results = {v: check(v) for v in VARIANTS}
         write_report(results, REPO / "docs" / "assembly-video-v0.26-checks.md", allowed_volumes())

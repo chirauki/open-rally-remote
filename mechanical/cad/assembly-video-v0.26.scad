@@ -42,7 +42,8 @@ module part(name) {
     else if (name == "xiao_foam") xiao_foam_envelope();
     else if (name == "joy_board") joy_envelope();
     else if (name == "usbc_board") usbc_envelope();
-    else if (name == "pouch") color([0.75,0.2,0.2]) pouch_envelope();
+    // silver, not the model's red: red marks collisions in the video
+    else if (name == "pouch") color([0.78,0.78,0.82]) pouch_envelope();
     else if (name == "cable_joy") color([0.2,0.2,0.2]) cable_joy();
     else if (name == "cable_usb") color([0.2,0.2,0.2]) cable_usb();
     else if (name == "cable_bat") color([0.6,0.1,0.1]) cable_bat();
