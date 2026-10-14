@@ -249,6 +249,7 @@ V0.26 (cables are modelled as Ø2.5 mm bundles, plugs as boxes from the connecto
 | Button plate vs housing, cover, joystick plate; keys vs cover and plate; switches vs plate | No overlap or contact only |
 | Cover screw bosses vs control board | No overlap: the board is notched round them |
 | Control board, XIAO, plate and keys lifted out with the cover, 1–20 mm along −X | No overlap |
+| Joystick board and plate lifted out with the cover, along −X (added by the [assembly path check](assembly-video-v0.26-checks.md)) | Overlap with the lower cover bosses from about 10 mm out (19 mm³ at 6.6 mm); no straight path found. See "Open unknowns" |
 | XIAO components to the pouch envelope | 7.2 mm |
 | Joystick, USB-C and battery cables and plugs vs housing, plates, gasket, cover, XIAO, USB-C board, pouch, each other | No overlap; each plug enters its own socket courtyard by 0.05 mm, the joystick plug rests on its board's rear face, and the pouch lead starts inside the pouch clearance by design |
 | USB-C board (16 mm deep) vs housing, control stack, pouch | No overlap; it rests on its rib |
@@ -388,6 +389,27 @@ Base:
 Fitting: pull the lock knob, press the remote onto the platform 9 mm below its working position, and slide it up until it stops and the lock clicks in. Removal is the reverse.
 
 To program over USB, remove the remote from the base and its cover. Take the knob off first by loosening its grub screw. The control board, the XIAO and the button plate come out with the cover, still joined to the housing by the cables, and the XIAO's USB-C is free. In V0.26 the XIAO's USB-C and the charging port are separate supplies; the control board's regulator blocks current from the XIAO's own regulator. Each opening disturbs the gasket, so BLE firmware updates (working on the bench) remain the normal path.
+
+## Assembly video
+
+[`complete-remote-v0.26-assembly.mp4`](videos/complete-remote-v0.26-assembly.mp4) shows the remote steps 1–11 above, one chapter per step (56 s; QuickTime and VLC list the chapters). It is for design review, not a builder's guide. Parts that collide on their path show in red. Cables are not animated: each appears in place once both its ends are fitted. The video shows the documented order of steps 8 and 9.
+
+[`assembly-video-v0.26-checks.md`](assembly-video-v0.26-checks.md) is the path check behind it. Each move is checked at five poses against the parts in place, and every pair of parts in the final pose. Both orders of steps 8 and 9 are checked. Findings:
+
+- The housing cannot close onto the stack, nor the cover come off, in a straight line: the lower cover bosses hit the joystick board notches (see "Open unknowns").
+- The vent label runs into the lower-facet stack at the bottom wall.
+- The USB-C board reaches its rib by a path above the upper bosses (assembly step 2).
+
+Regenerate, from the repository root (OpenSCAD 2026.x, Python 3, ffmpeg; about 4 min on an 11-core Mac):
+
+```sh
+python3 mechanical/cad/tools/assembly_video.py check    # report and build/collisions.json
+python3 mechanical/cad/tools/assembly_video.py frames   # or --step N for one step
+python3 mechanical/cad/tools/assembly_video.py video
+python3 -m unittest mechanical/cad/tools/test_assembly_video.py
+```
+
+The timeline, the staging offsets and the cameras are in `mechanical/cad/assembly-video-v0.26.scad`. The step captions come from the assembly steps above, so rerun `video` after editing them.
 
 ## Hardware
 

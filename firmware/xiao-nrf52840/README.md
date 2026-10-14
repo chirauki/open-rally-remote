@@ -138,6 +138,10 @@ Run on 2026-10-14 on USB, without a cell, with `SLEEP_ON_USB = true` and `AUTO_O
 
 Without a cell, the battery reading floats (3.7 to 4.1 V were logged) and means nothing.
 
+### Firmware 0.8.0
+
+Run on 2026-10-14 on the breadboard build (`BOARD_V026 = false`): the firmware still worked in the two profiles tried. Which inputs were pressed was not recorded, and the third profile was not tried.
+
 ### BLE name
 
 The advertised name was cut to `Open Rally Remo`: the advertising packet holds 15 name characters after the flags, TX power, appearance and HID service fields. The sketch now sends the name in the scan response, and the phone showed the full `Open Rally Remote` after pairing again.

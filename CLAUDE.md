@@ -45,4 +45,6 @@ openscad -o out.stl -D 'part_to_render="print_housing"' mechanical/cad/complete-
 
 KiCad: see "Regenerating" in each PCB README. Use KiCad's bundled Python and `kicad-cli` for ERC, DRC and exports. The V0.26 boards need Freerouting 1.9.0 (Java 17); 2.x needs Java 25.
 
+Assembly video and path check (V0.26): `python3 mechanical/cad/tools/assembly_video.py check|frames|video`, tests in `mechanical/cad/tools/test_assembly_video.py`; see "Assembly video" in `docs/mechanical-concept.md`. Output goes to the git-ignored `mechanical/cad/build/`.
+
 Firmware: see `firmware/xiao-nrf52840/README.md`. On Apple Silicon without Rosetta, the Seeed package's GCC and `adafruit-nrfutil` binaries do not run. Use Arm GNU Toolchain 13.3 and `pip install adafruit-nrfutil`, set in a `platform.local.txt`.
