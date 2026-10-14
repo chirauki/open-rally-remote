@@ -2,10 +2,10 @@
  * Open Rally Remote - XIAO nRF52840 bench firmware
  *
  * Purpose: read the active-low switches (three buttons, four joystick
- * directions) and send keyboard and media keys over BLE HID, in a TerraPirata
- * profile or a user-assignable keyboard profile. The joystick center press is
- * the chord of three or more directions, or optionally a separate switch on
- * D7. This is a desk prototype, not riding firmware.
+ * directions) and send keyboard and media keys over BLE HID, in a TerraPirata,
+ * keyboard (held keys) or gestures profile. The joystick center press is the
+ * chord of three or more directions, or optionally a separate switch on D7.
+ * This is a desk prototype, not riding firmware.
  *
  * Board package: Seeed nRF52 Boards
  * Board: Seeed XIAO nRF52840
@@ -72,43 +72,62 @@ constexpr uint16_t PLAY_PAUSE = CONSUMER | HID_USAGE_CONSUMER_PLAY_PAUSE;
 
 // ---------- Profiles (see docs/control-mapping.md) ----------
 //
-// The joystick directions send held arrow keys in both profiles. Holding the
-// joystick center for PROFILE_SWITCH_MS selects the other profile, saves it
+// The joystick directions send held arrow keys in every profile. Holding the
+// joystick center for PROFILE_SWITCH_MS selects the next profile, saves it
 // and restarts the board. The LED shows the profile with a short blink every
-// PROFILE_BLINK_PERIOD_MS: green for TerraPirata, blue for keyboard. The BLE
-// name stays the same: Android keeps the name it saw when pairing.
+// PROFILE_BLINK_PERIOD_MS: green for TerraPirata, blue for keyboard, white
+// for gestures. The BLE name stays the same: Android keeps the name it saw
+// when pairing.
 enum Profile : uint8_t {
   PROFILE_TERRAPIRATA = 0,
   PROFILE_KEYBOARD = 1,
+  PROFILE_GESTURES = 2,
   PROFILE_COUNT
 };
 
-const char *const PROFILE_NAMES[PROFILE_COUNT] = { "TerraPirata", "keyboard" };
-const uint8_t PROFILE_LEDS[PROFILE_COUNT] = { LED_GREEN, LED_BLUE };
-
-// Buttons A, B and C hold one key each for as long as they are pressed, with
-// no gestures: TerraPirata and DMD2 time long presses and repeat themselves.
-// TerraPirata: A resets the total trip, B and C adjust it.
-// Keyboard: letters for apps that let the user assign keys (DMD2, OsmAnd).
-// Space, Enter and Tab are avoided: Android uses them to press the focused
-// on-screen control.
-const uint16_t HOLD_KEYS[PROFILE_COUNT][3] = {
-  { PLAY_PAUSE, VOL_UP, VOL_DOWN },
-  { HID_KEY_A, HID_KEY_B, HID_KEY_C }
+const char *const PROFILE_NAMES[PROFILE_COUNT] = {
+  "TerraPirata", "keyboard", "gestures"
 };
 
-// The joystick center cannot hold a key: a long hold switches the profile.
-// It sends a tap on a short or double press. Columns: short, long, double.
+constexpr uint8_t LED_R = 1, LED_G = 2, LED_B = 4;
+const uint8_t PROFILE_LEDS[PROFILE_COUNT] = { LED_G, LED_B, LED_R | LED_G | LED_B };
+
+// In the TerraPirata and keyboard profiles, Buttons A, B and C hold one key
+// each for as long as they are pressed, with no gestures: TerraPirata and
+// DMD2 time long presses and repeat themselves.
+// TerraPirata: A resets the total trip, B and C adjust it.
+// Keyboard: letters for apps that let the user assign keys (DMD2).
+// Space, Enter and Tab are avoided in every profile: Android uses them to
+// press the focused on-screen control.
+const uint16_t HOLD_KEYS[PROFILE_COUNT][3] = {
+  { PLAY_PAUSE, VOL_UP, VOL_DOWN },
+  { HID_KEY_A, HID_KEY_B, HID_KEY_C },
+  { HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE } // gestures: not held
+};
+
+bool buttonsHold(Profile value) { return value != PROFILE_GESTURES; }
+
+// Gestures profile: one letter per button gesture, for apps that assign one
+// action per key (OsmAnd). Rows: Button A, B, C. Columns: short, long, double.
+const uint16_t BUTTON_GESTURE_KEYS[3][3] = {
+  { HID_KEY_A, HID_KEY_B, HID_KEY_C },
+  { HID_KEY_D, HID_KEY_E, HID_KEY_F },
+  { HID_KEY_G, HID_KEY_H, HID_KEY_I }
+};
+
+// The joystick center has no long action: a long hold switches the profile.
+// Columns: short, long, double.
 const uint16_t CENTER_KEYS[PROFILE_COUNT][3] = {
   { HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE },
-  { HID_KEY_D, HID_KEY_NONE, HID_KEY_D }
+  { HID_KEY_D, HID_KEY_NONE, HID_KEY_D },
+  { HID_KEY_J, HID_KEY_NONE, HID_KEY_L }
 };
 
 constexpr uint32_t PROFILE_SWITCH_MS = 5000;
 constexpr uint32_t PROFILE_BLINK_PERIOD_MS = 10000;
 constexpr uint32_t PROFILE_BLINK_MS = 100;
 
-const char *const FIRMWARE_VERSION = "0.5.0";
+const char *const FIRMWARE_VERSION = "0.6.0";
 
 enum GestureType : uint8_t {
   GESTURE_SHORT = 0,
@@ -305,10 +324,15 @@ void publishAllKeysReleased() {
 }
 
 void emitGesture(uint8_t control, GestureType gesture) {
-  // Buttons hold their keys instead (see holdButton).
-  if (control != JOYSTICK_CENTER) return;
-
-  const uint16_t keyCode = CENTER_KEYS[profile][gesture];
+  uint16_t keyCode;
+  if (control <= BUTTON_C) {
+    if (buttonsHold(profile)) return; // see holdButton
+    keyCode = BUTTON_GESTURE_KEYS[control][gesture];
+  } else if (control == JOYSTICK_CENTER) {
+    keyCode = CENTER_KEYS[profile][gesture];
+  } else {
+    return;
+  }
   if (keyCode == HID_KEY_NONE) return;
   if (enqueueTap(keyCode)) {
     if (SERIAL_DEBUG) {
@@ -370,12 +394,12 @@ void handleStableTransition(uint8_t control, bool pressed, uint32_t now) {
     return;
   }
 
-  if (control <= BUTTON_C) {
+  if (control <= BUTTON_C && buttonsHold(profile)) {
     holdButton(control, pressed);
     return;
   }
 
-  if (control == JOYSTICK_CENTER) {
+  if (control <= BUTTON_C || control == JOYSTICK_CENTER) {
     if (pressed) startGesture(control, now);
     else finishGesture(control, now);
     return;
@@ -578,11 +602,16 @@ void saveProfile(Profile value) {
   }
 }
 
+const uint8_t LED_PINS[3] = { LED_RED, LED_GREEN, LED_BLUE };
+
 // The XIAO's RGB LED is active low. Called every loop.
 void showProfile(uint32_t now) {
-  const uint8_t pin = PROFILE_LEDS[profile];
   const bool on = now % PROFILE_BLINK_PERIOD_MS < PROFILE_BLINK_MS;
-  digitalWrite(pin, on ? LOW : HIGH);
+  for (uint8_t i = 0; i < 3; ++i) {
+    if (PROFILE_LEDS[profile] & (1 << i)) {
+      digitalWrite(LED_PINS[i], on ? LOW : HIGH);
+    }
+  }
 }
 
 // Called every loop: a center held for PROFILE_SWITCH_MS selects the next
@@ -652,7 +681,10 @@ void setup() {
   }
 
   loadProfile();
-  pinMode(PROFILE_LEDS[profile], OUTPUT);
+  for (uint8_t i = 0; i < 3; ++i) {
+    pinMode(LED_PINS[i], OUTPUT);
+    digitalWrite(LED_PINS[i], HIGH); // off
+  }
   synchronizeInputs(millis());
   beginBleKeyboard();
 
@@ -667,9 +699,12 @@ void setup() {
     if (profile == PROFILE_TERRAPIRATA) {
       Serial.println("TerraPirata: A = Play/Pause, B = Vol+, C = Vol- while held;");
       Serial.println("arrows = joystick; center sends nothing.");
-    } else {
+    } else if (profile == PROFILE_KEYBOARD) {
       Serial.println("Keyboard: A, B, C = Buttons A, B, C while held;");
       Serial.println("D = joystick center tap, arrows = joystick.");
+    } else {
+      Serial.println("Gestures: short/long/double A-C = Button A, D-F = Button B,");
+      Serial.println("G-I = Button C; center short J, double L; arrows = joystick.");
     }
     Serial.println("Hold the joystick center 5 s to switch profile.");
     Serial.println(CENTER_FROM_CHORD ? "Center: chord of three or more directions."

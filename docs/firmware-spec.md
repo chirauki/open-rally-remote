@@ -41,7 +41,7 @@ The first firmware will be written and uploaded with **Arduino IDE 2** on a comp
 5. Select **Seeed XIAO nRF52840** under the Seeed nRF52 boards and choose the port that appears for the board.
 6. Open the project's `.ino` sketch, use **Verify** to compile, then **Upload** to flash it. Pair the remote from the phone's Bluetooth settings after the HID firmware is running.
 
-The bench sketch is at [firmware/xiao-nrf52840/open-rally-remote.ino](../firmware/xiao-nrf52840/open-rally-remote.ino). It uses the Seeed nRF52 board package and its bundled Bluefruit HID API. It implements the center chord and the two profiles of section 7, and has been tested on the purchased XIAO with an Android phone.
+The bench sketch is at [firmware/xiao-nrf52840/open-rally-remote.ino](../firmware/xiao-nrf52840/open-rally-remote.ino). It uses the Seeed nRF52 board package and its bundled Bluefruit HID API. It implements the center chord and the three profiles of section 7, and has been tested on the purchased XIAO with an Android phone.
 
 Seeed's [XIAO nRF52840 guide](https://wiki.seeedstudio.com/XIAO_BLE/) documents Arduino IDE setup and the board package. Arduino's [IDE 2 board manager tutorial](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-board-manager/) explains installing board support packages.
 
@@ -89,7 +89,7 @@ These values are initial tunable settings, not final ergonomic decisions:
 | Long-press threshold | 600 ms | Emit one long-press action when the control remains pressed for this duration. |
 | Double-press window | 300 ms | Two short presses of the same control inside the window produce one double-press action. |
 
-Buttons A, B and C do not use gestures in the current profiles: each holds one key for as long as it is pressed (section 7). TerraPirata and DMD2 time short and long presses themselves, and a firmware gesture sent as a separate key was not usable in either. The gesture state machine remains for the derived center input:
+In the TerraPirata and keyboard profiles, Buttons A, B and C do not use gestures: each holds one key for as long as it is pressed (section 7). TerraPirata and DMD2 time short and long presses themselves, and a firmware gesture sent as a separate key was not usable in either. The gestures profile, for OsmAnd, and the derived center input use this state machine:
 
 1. On a debounced press, record the start time; do not emit a key yet when short/double discrimination is active.
 2. If the control is still down at the long-press threshold, emit its long action once. Suppress short and double actions for that press.
@@ -123,21 +123,22 @@ Bench tests on 2026-10-14 with Android showed that one key map cannot serve ever
 - OsmAnd accepts only keyboard keys for its key assignments, not media keys.
 - DMD2 times long presses itself: it needs the key held, not a separate key for the long press.
 
-The firmware therefore has two profiles. The joystick directions send held arrow keys in both.
+The firmware therefore has three profiles. The joystick directions send held arrow keys in all of them.
 
-| Profile | LED | Buttons A, B, C (held) | Joystick center |
+| Profile | LED | Buttons A, B, C | Joystick center |
 |---|---|---|---|
-| TerraPirata | Green | Play/Pause (reset total trip), Volume + (trip +), Volume − (trip −) | Nothing |
-| Keyboard | Blue | `A`, `B`, `C`, assigned in the app (DMD2, OsmAnd) | `D` on a short or double press |
+| TerraPirata | Green | Held: Play/Pause (reset total trip), Volume + (trip +), Volume − (trip −) | Nothing |
+| Keyboard, for DMD2 | Blue | Held: `A`, `B`, `C`; the app times short and long | `D` on a short or double press |
+| Gestures, for OsmAnd | White | Short/long/double: `A`/`B`/`C`, `D`/`E`/`F`, `G`/`H`/`I` | Short `J`, double `L` |
 
-Holding the joystick center for 5 s selects the other profile, stores it in flash and restarts the board. The XIAO's LED blinks 100 ms every 10 s in the profile's color. The BLE name does not change: Android keeps the name it saw when pairing, so a per-profile name was not visible.
+Holding the joystick center for 5 s selects the next profile (green, blue, white, then green again), stores it in flash and restarts the board. The center has no long action in any profile, because a long hold switches the profile. The XIAO's LED blinks 100 ms every 10 s in the profile's color. The BLE name does not change: Android keeps the name it saw when pairing, so a per-profile name was not visible.
 
 Avoid Space, Enter and Tab in any profile: Android uses them to press the focused on-screen control. Media keys reach every app, so in the TerraPirata profile the buttons change the phone's volume or playback when another app is in front.
 
 ### Mapping limits to preserve
 
 - **TerraPirata:** the keys for the partial trip reset, the screen lock and hiding the hundreds digits are unknown. They did not respond to any key tested; holding Play/Pause only makes the total trip blink. TerraPirata's dedicated remote mode, offered by several commercial remotes, is not documented publicly.
-- **OsmAnd:** with held buttons it gets one action per button, plus the center and the arrows. Android repeats a held key, so a toggle action may repeat while the button is held. If one action per button is not enough, a third profile with firmware gestures (separate keys for short, long and double) can be added for OsmAnd.
+- **OsmAnd:** it assigns one action per key, so the gestures profile sends a separate letter for each gesture. The short press is delayed by the 300 ms double-press window. With held keys, Android repeats the key and a toggle action may repeat; use the gestures profile instead.
 - **DMD² / DMD Next:** short and long actions per key are set in DMD's Generic Remote mapping; with held keys, DMD² recognized the long press on the bench. Do not promise native double-tap behavior. DMD² is Android-only according to its current FAQ.
 - **iOS** is deferred. It may need different keys: iOS handles the volume keys itself, which is likely why TerraPirata asks iPhone users for a dedicated remote mode or its compatibility mode.
 

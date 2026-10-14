@@ -54,14 +54,14 @@ OsmAnd supports external keyboard/controller inputs and lets users assign keys t
 | Double presses | User-configurable keys/actions | Assign in OsmAnd's external-device settings only if the app recognizes the emitted key event as expected. |
 | Joystick center — long/double | User-configurable keys/actions | Validate on current Android and iOS releases. |
 
-OsmAnd does not accept media keys in its key assignment (tested 2026-10-14), so it uses the firmware's keyboard profile: Buttons A, B and C hold `A`, `B` and `C`, the center taps `D`, and the joystick sends arrows. That gives one action per button; the long and double rows above need a profile with firmware gestures, which does not exist yet. This is a candidate map based on OsmAnd's published keyboard assignments. Confirm the actual received key events and configurable actions on both operating systems before calling it a supported preset.
+OsmAnd does not accept media keys in its key assignment (tested 2026-10-14). It uses the firmware's gestures profile: each button sends a separate letter for short, long and double (`A`–`I`), the center sends `J` (short) and `L` (double), and the joystick sends arrows. Assign the actions in OsmAnd to those letters. The center has no long action, because a long hold switches the profile. This is a candidate map based on OsmAnd's published keyboard assignments. Confirm the actual received key events and configurable actions on both operating systems before calling it a supported preset.
 
 ### DMD² / DMD Next (Android only)
 
 | Input | Proposed action | Status |
 |---|---|---|
 | Joystick directions | Pan map | DMD² documents pan actions for generic HID remotes. |
-| Joystick center | `D` tap, if assigned | Avoid duplicating Button A's map-follow toggle; can be user-configured. |
+| Joystick center | `D` tap (keyboard profile), if assigned | Avoid duplicating Button A's map-follow toggle; can be user-configured. |
 | Button A — short | Map follow toggle | Candidate; configure in DMD²'s Generic Remote mapping. |
 | Button B — short | Zoom in | Candidate; configure in DMD²'s Generic Remote mapping. |
 | Button C — short | Zoom out | Candidate; configure in DMD²'s Generic Remote mapping. |
@@ -91,7 +91,7 @@ Record the phone/tablet model, OS version, app version, selected app profile, ke
 | BLE pairing and automatic reconnect | Pass, including after a profile switch | Pending |
 | TerraPirata dedicated mode / compatibility mode | Not tested: keys of the dedicated mode unknown | Pending |
 | TerraPirata odometer +/−, third-button reset, screen lock | Trip +/−, total trip reset and roadbook scroll pass; partial reset and screen lock not found | Pending |
-| OsmAnd arrows, `C`, `D`, `N`, `S`, `M`, `+`, `-` | Media keys rejected; keyboard profile pending | Pending |
+| OsmAnd arrows, `C`, `D`, `N`, `S`, `M`, `+`, `-` | Media keys rejected; gestures-profile letters assigned and working | Pending |
 | OsmAnd user-assigned keys and Quick Actions | Pending | Pending |
 | DMD² Generic Remote mapping and long press | Pass with held keys (keyboard profile); a separate long-press key fails | Not applicable: DMD² navigation is Android-only |
 | Short/long/double event distinction and repeat behavior | Pending | Pending |
