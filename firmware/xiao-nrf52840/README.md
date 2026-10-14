@@ -1,6 +1,6 @@
 # XIAO nRF52840 Bench Firmware
 
-This folder contains the first diagnostic firmware for the Seeed XIAO nRF52840. It reads the switches and acts as a BLE HID keyboard. It is for bench testing only; it does not implement the final TerraPirata, OsmAnd, or DMD2 profiles and is not suitable for use while riding.
+This folder contains the bench firmware for the Seeed XIAO nRF52840. It reads the switches and acts as a BLE HID keyboard, with a TerraPirata profile and a keyboard profile for apps that let the user assign keys (DMD2, OsmAnd). It is for bench testing only and is not suitable for use while riding.
 
 ## Upload
 
@@ -12,24 +12,26 @@ The sketch uses the `Seeed nRF52 Boards` package and its bundled Adafruit Bluefr
 
 Wire each normally-open switch between its GPIO and GND:
 
-| XIAO pin | Input | Diagnostic output |
-|---|---|---|
-| D0 | Button A | Short `A`, long `B`, double `C` |
-| D1 | Button B | Short `D`, long `E`, double `F` |
-| D2 | Button C | Short `G`, long `H`, double `I` |
-| D3 | Joystick up | Hold Up Arrow |
-| D4 | Joystick down | Hold Down Arrow |
-| D5 | Joystick left | Hold Left Arrow |
-| D6 | Joystick right | Hold Right Arrow |
-| D7 | Joystick center switch, breadboard only | Short `J`, long `K`, double `L` |
+| XIAO pin | Input | TerraPirata profile | Keyboard profile |
+|---|---|---|---|
+| D0 | Button A | Hold Play/Pause | Hold `A` |
+| D1 | Button B | Hold Volume + | Hold `B` |
+| D2 | Button C | Hold Volume − | Hold `C` |
+| D3 | Joystick up | Hold Up Arrow | Hold Up Arrow |
+| D4 | Joystick down | Hold Down Arrow | Hold Down Arrow |
+| D5 | Joystick left | Hold Left Arrow | Hold Left Arrow |
+| D6 | Joystick right | Hold Right Arrow | Hold Right Arrow |
+| D7 | Joystick center switch, breadboard only | Nothing | Tap `D` on a short or double press |
+
+A held key goes down when the switch closes and up when it opens. The apps time short and long presses themselves. Holding the joystick center for 5 s switches the profile; see [Profiles](#profiles).
 
 The V0.22/V0.23 hardware has no D7 switch: pushing the stick straight in closes all four direction switches, and the sketch reads three or more closed together as the center press (see the [firmware specification](../../docs/firmware-spec.md#5-input-processing-and-gesture-rules)). This is the default, `CENTER_FROM_CHORD = true`, and D7 is then not read. For the breadboard, where a straight push cannot be made, set `CENTER_FROM_CHORD` to `false` near the top of the sketch to read a separate center switch on D7.
 
 In chord mode, a direction key-down is held back for the 40 ms chord window (`CHORD_WINDOW_MS`) after the first direction closes:
-- If three or more directions close inside the window, the sketch sends the center gesture and no arrow key until all directions are released.
+- If three or more directions close inside the window, the sketch reads the center press and sends no arrow key until all directions are released.
 - If two opposite directions are closed, no arrow key is sent.
 - A tilt released inside the window is sent as one arrow tap.
-- A push slower than the window first sends the arrow of the first switch, then releases it and sends the center gesture.
+- A push slower than the window first sends the arrow of the first switch, then releases it and reads the center press.
 
 All connected pins use `INPUT_PULLUP`: open/released reads HIGH, pressed reads LOW. Do not connect an input to 3.3 V or 5 V.
 
@@ -37,12 +39,24 @@ All connected pins use `INPUT_PULLUP`: open/released reads HIGH, pressed reads L
 
 1. Upload the sketch and open the Serial Monitor at 115200 baud.
 2. Pair **Open Rally Remote** from the phone's Bluetooth settings.
-3. Open a keyboard tester or a harmless text field, then press each control. Letters identify discrete gestures; joystick directions send held arrow-key reports.
-4. Confirm short presses, long presses, double presses and release behavior. On the joystick, confirm that a straight push gives one center gesture and no arrow key, and that tilts and diagonals give no center gesture.
+3. Switch to the keyboard profile (blue LED), open a keyboard tester or a harmless text field, then press each control. Each button holds its letter; joystick directions send held arrow-key reports.
+4. On the joystick, confirm that a straight push gives one center `D` and no arrow key, and that tilts and diagonals give no center press.
 
-The short event is intentionally delayed by the 300 ms double-press window. Initial timings are set near 30 ms debounce, 600 ms long press, 300 ms double press, 40 ms chord window and 50 ms key-down duration. With the chord window, an arrow key-down follows the switch by about 70 ms.
+The center's short `D` is delayed by the 300 ms double-press window. Initial timings are set near 30 ms debounce, 600 ms long press, 300 ms double press, 40 ms chord window and 50 ms key-down duration for taps. With the chord window, an arrow key-down follows the switch by about 70 ms.
 
-The letters are diagnostic keys and may trigger actions in a navigation app. Do not test this firmware in an app while riding. The target app profiles are not implemented in this sketch. BLE updates work on the bench; see [BLE OTA update](#ble-ota-update).
+Do not test this firmware in an app while riding. BLE updates work on the bench; see [BLE OTA update](#ble-ota-update).
+
+## Profiles
+
+The profile is stored in the XIAO's flash (`/profile` in its internal file system) and survives a power cycle. The first start uses the TerraPirata profile.
+
+- **Switch:** hold the joystick center for 5 s (`PROFILE_SWITCH_MS`). The board stores the other profile and restarts. The phone reconnects without pairing again.
+- **Indication:** the XIAO's RGB LED, next to the USB-C connector, blinks 100 ms every 10 s: green for TerraPirata, blue for keyboard. The LED is active low.
+- **Name:** both profiles advertise as `Open Rally Remote`. Android keeps the name it saw when pairing, so a per-profile name was not shown.
+
+The Bluefruit library's connection LED is turned off: it drives the blue LED with the opposite polarity on this board, so it never lit.
+
+The profile choices come from the app tests in the [firmware specification](../../docs/firmware-spec.md#7-profiles-and-mappings) and the [control mapping](../../docs/control-mapping.md).
 
 ## Build check
 
@@ -58,15 +72,36 @@ tools.nrfutil.cmd.macosx=/path/to/venv/bin/adafruit-nrfutil
 
 The board's factory firmware did not answer the upload tool's reset request. Opening the serial port at 1200 baud put it into the bootloader, after which `adafruit-nrfutil dfu serial -pkg <sketch>.zip -p <port> -b 115200 --singlebank` programmed it.
 
-## Bench test
+## Bench tests
+
+### Inputs and pairing
 
 Run on 2026-10-13 on a pre-soldered XIAO nRF52840, with the 6×6 mm switches on a breadboard, in chord mode, paired with a phone:
 
-- Buttons A, B and C gave the expected short, long and double letters (A–I).
+- Buttons A, B and C gave the expected short, long and double letters (A–I) of the diagnostic key map used then.
 - The four directions sent arrow keys.
 - The center chord, made by pressing three or four direction switches with a flat object, gave J (short), K (long) and L (double). A double press needs the second chord within 300 ms of releasing all directions of the first; the logged gaps were about 120 ms.
 
 The board's bootloader reports itself as "XIAO nRF52840 Sense" (USB PID 0x0045), so the board used may be the Sense variant. The sketch was built for the plain XIAO nRF52840; D0–D10 are the same on both.
+
+### App profiles
+
+Run on 2026-10-14 with an Android phone. The firmware first sent a different candidate key for each gesture, then held keys on the buttons:
+
+| Key | TerraPirata |
+|---|---|
+| Up / Down Arrow | Scrolls the roadbook |
+| Left / Right Arrow | Adjusts the trip; faster when held |
+| Volume + / − | Adjusts the trip; faster when held |
+| Play/Pause | Resets the total trip |
+| Next / Previous Track | Scrolls the roadbook down / up |
+| Page Down / Page Up | Nothing |
+| Mute | The phone muted and unmuted |
+| Space | Opened the "Delete map data" dialog |
+
+OsmAnd did not accept media keys in its key assignment. DMD2 timed long presses itself, so a separate key for the firmware's long press could not be used; with the keyboard profile's held keys, DMD2 recognized the long press. Enter, Escape and Tab were not tried: like Space, they can press the focused on-screen control. In the keyboard profile, the phone reconnected after each profile switch and the LED showed the stored profile after a restart.
+
+### BLE name
 
 The advertised name was cut to `Open Rally Remo`: the advertising packet holds 15 name characters after the flags, TX power, appearance and HID service fields. The sketch now sends the name in the scan response, and the phone showed the full `Open Rally Remote` after pairing again.
 

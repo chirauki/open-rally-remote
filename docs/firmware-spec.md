@@ -41,7 +41,7 @@ The first firmware will be written and uploaded with **Arduino IDE 2** on a comp
 5. Select **Seeed XIAO nRF52840** under the Seeed nRF52 boards and choose the port that appears for the board.
 6. Open the project's `.ino` sketch, use **Verify** to compile, then **Upload** to flash it. Pair the remote from the phone's Bluetooth settings after the HID firmware is running.
 
-An initial diagnostic sketch is now available at [firmware/xiao-nrf52840/open-rally-remote.ino](../firmware/xiao-nrf52840/open-rally-remote.ino). It uses the Seeed nRF52 board package and its bundled Bluefruit HID keyboard API. It is a starting point. It compiles and implements the center chord below, but has not yet been checked on the purchased hardware.
+The bench sketch is at [firmware/xiao-nrf52840/open-rally-remote.ino](../firmware/xiao-nrf52840/open-rally-remote.ino). It uses the Seeed nRF52 board package and its bundled Bluefruit HID API. It implements the center chord and the two profiles of section 7, and has been tested on the purchased XIAO with an Android phone.
 
 Seeed's [XIAO nRF52840 guide](https://wiki.seeedstudio.com/XIAO_BLE/) documents Arduino IDE setup and the board package. Arduino's [IDE 2 board manager tutorial](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-board-manager/) explains installing board support packages.
 
@@ -52,7 +52,7 @@ Seeed's [XIAO nRF52840 guide](https://wiki.seeedstudio.com/XIAO_BLE/) documents 
 - Use the standard keyboard report protocol with key-down and key-up reports. Do not send text strings or app-specific proprietary packets.
 - Start with one bonded phone at a time. Reconnect to the last bonded host after power-up. Provide a documented way to clear the bond during development; choose the physical reset gesture after the first bench test.
 - Use a stable, recognizable device name such as `Open Rally Remote` and a distinct manufacturer/product string if the selected library supports it.
-- The current Seeed/Bluefruit `BLEHidAdafruit` convenience class uses a stock HID descriptor that includes keyboard, Consumer Control, and mouse collections. The diagnostic sketch sends keyboard reports only; it does not send media, mouse, or gamepad data. If the extra advertised collections affect phone pairing or app compatibility, replace this helper with a keyboard-only HID descriptor before treating the transport as validated. Do not add a custom GATT service to the first build.
+- The current Seeed/Bluefruit `BLEHidAdafruit` convenience class uses a stock HID descriptor that includes keyboard, Consumer Control, and mouse collections. The sketch sends keyboard reports, and Consumer Control reports for the media keys of the TerraPirata profile; it does not send mouse or gamepad data. If the extra advertised collections affect phone pairing or app compatibility, replace this helper with a keyboard-only HID descriptor before treating the transport as validated. Do not add a custom GATT service to the first build.
 
 HOGP is the Bluetooth SIG profile for exposing HID input over BLE/GATT. Android documents BLE central/GATT support, and OsmAnd documents keyboard input on Android and iOS. Those facts make this a sensible first path, but they do not guarantee every key or gesture works identically on every phone. See [Bluetooth SIG HOGP](https://www.bluetooth.com/specifications/specs/hid-over-gatt-profile-hogp/), [Android BLE overview](https://developer.android.com/develop/connectivity/bluetooth/ble/ble-overview), and [OsmAnd external input devices](https://www.osmand.net/docs/user/map/interact-with-map/).
 
@@ -89,7 +89,7 @@ These values are initial tunable settings, not final ergonomic decisions:
 | Long-press threshold | 600 ms | Emit one long-press action when the control remains pressed for this duration. |
 | Double-press window | 300 ms | Two short presses of the same control inside the window produce one double-press action. |
 
-Gesture state machine for Buttons A, B, C, and the derived center input:
+Buttons A, B and C do not use gestures in the current profiles: each holds one key for as long as it is pressed (section 7). TerraPirata and DMD2 time short and long presses themselves, and a firmware gesture sent as a separate key was not usable in either. The gesture state machine remains for the derived center input:
 
 1. On a debounced press, record the start time; do not emit a key yet when short/double discrimination is active.
 2. If the control is still down at the long-press threshold, emit its long action once. Suppress short and double actions for that press.
@@ -111,30 +111,37 @@ Do not block the input scan while waiting for a gesture timeout. Keep a separate
 - Send a release report after each discrete press. Send an all-keys-released report after disconnect, profile change, reset, or any input-state recovery event.
 - For held joystick directions, track each held direction and send the current set of keys, not unrelated successive key presses.
 - Use a standard keyboard report with at least six-key rollover. The controls should not normally require more than four simultaneous direction keys, but verify combinations and gracefully handle the report limit.
-- Do not emit a key repeatedly while a physical button remains held unless a tested app profile explicitly requires host key repeat.
+- Do not emit a key repeatedly while a physical button remains held. A held key is one key-down report; the host may repeat it, and TerraPirata uses that to adjust the trip faster.
 - Ignore input events while BLE is disconnected, then resume cleanly after reconnect. Do not queue old actions for later delivery.
 - Avoid unnecessary flash writes. Store profile/configuration only when it changes.
 
 ## 7. Profiles and mappings
 
-The semantic app assignments below follow the project’s [control-mapping draft](control-mapping.md). A semantic action (for example, “reset partial odometer”) is not itself a HID keycode. The concrete HID usage for each action must be selected from the target app’s documented input options or discovered in a key tester, then verified on both phone platforms where the app is available.
+Bench tests on 2026-10-14 with Android showed that one key map cannot serve every app:
 
-| Profile | Button A | Button B | Button C | Joystick |
-|---|---|---|---|---|
-| TerraPirata | Short: reset partial odometer; long: lock/unlock screen | Short: increase the main odometer | Short: decrease the main odometer | Directions/center remain configurable pending TerraPirata mode validation. |
-| OsmAnd | Short: change orientation (`D`) | Short: zoom in (`+`) | Short: zoom out (`-`) | Up/down/left/right: arrow keys; center short: current position (`C`). |
-| DMD² / DMD Next | Short: map-follow toggle | Short: zoom in | Short: zoom out | Directions: pan; center initially unassigned. Configure emitted keyboard keys and any supported long-press action in DMD’s Generic Remote mapping. |
-| Diagnostic | Short/long/double: `A`/`B`/`C` | Short/long/double: `D`/`E`/`F` | Short/long/double: `G`/`H`/`I` | Arrows while held; center short/long/double: `J`/`K`/`L`. |
+- TerraPirata reacts to arrow keys and to media keys (Consumer Control): Play/Pause resets the total trip, Volume +/− adjust the trip. It ignored Page Up/Down. Space opened its "Delete map data" dialog.
+- OsmAnd accepts only keyboard keys for its key assignments, not media keys.
+- DMD2 times long presses itself: it needs the key held, not a separate key for the long press.
 
-The diagnostic profile uses ordinary letter keys only to make event identities easy to see in a keyboard tester. Do not use it while a navigation app is active because those letters may trigger app actions.
+The firmware therefore has two profiles. The joystick directions send held arrow keys in both.
+
+| Profile | LED | Buttons A, B, C (held) | Joystick center |
+|---|---|---|---|
+| TerraPirata | Green | Play/Pause (reset total trip), Volume + (trip +), Volume − (trip −) | Nothing |
+| Keyboard | Blue | `A`, `B`, `C`, assigned in the app (DMD2, OsmAnd) | `D` on a short or double press |
+
+Holding the joystick center for 5 s selects the other profile, stores it in flash and restarts the board. The XIAO's LED blinks 100 ms every 10 s in the profile's color. The BLE name does not change: Android keeps the name it saw when pairing, so a per-profile name was not visible.
+
+Avoid Space, Enter and Tab in any profile: Android uses them to press the focused on-screen control. Media keys reach every app, so in the TerraPirata profile the buttons change the phone's volume or playback when another app is in front.
 
 ### Mapping limits to preserve
 
-- **TerraPirata:** its official material recommends its dedicated remote mode or app compatibility mode, including for iOS. Do not claim generic HID equivalence until the physical events and mode have been tested. Its dedicated mode’s exact key usages for this DIY remote are currently unknown.
-- **OsmAnd:** its current docs list `C` for current position, `D` for map orientation, arrow keys for map movement, `+`/`=` for zoom in, and `-` for zoom out. A `+` may be represented by the HID `Equal` usage with Shift, depending on keyboard layout; validate the actual output on Android and iOS. The long-press `N`/`S`/`M` actions proposed in the mapping draft are candidates only, not defaults in this first implementation. Double actions remain configurable and have no default mapping.
-- **DMD² / DMD Next:** the project mapping is A follow toggle, B zoom in, and C zoom out. DMD documents generic keyboard/HID remote mapping, but generic remotes do not receive all features of its own remotes; in particular, do not promise native double-tap behavior. DMD² is Android-only according to its current FAQ.
+- **TerraPirata:** the keys for the partial trip reset, the screen lock and hiding the hundreds digits are unknown. They did not respond to any key tested; holding Play/Pause only makes the total trip blink. TerraPirata's dedicated remote mode, offered by several commercial remotes, is not documented publicly.
+- **OsmAnd:** with held buttons it gets one action per button, plus the center and the arrows. Android repeats a held key, so a toggle action may repeat while the button is held. If one action per button is not enough, a third profile with firmware gestures (separate keys for short, long and double) can be added for OsmAnd.
+- **DMD² / DMD Next:** short and long actions per key are set in DMD's Generic Remote mapping; with held keys, DMD² recognized the long press on the bench. Do not promise native double-tap behavior. DMD² is Android-only according to its current FAQ.
+- **iOS** is deferred. It may need different keys: iOS handles the volume keys itself, which is likely why TerraPirata asks iPhone users for a dedicated remote mode or its compatibility mode.
 
-For the first firmware build, compile-time profile selection is sufficient. Do not implement a mode-change gesture until a physical UI has been agreed and tested; this avoids accidental mode changes while riding. The diagnostic profile should be available even if app-specific mappings are unfinished.
+The profile switch was agreed for the bench prototype. A 5 s hold is hard to trigger by accident, but test it on the bike before treating it as safe while riding. The enclosure must let the LED show, or the rider cannot see the profile; see the [mechanical notes](mechanical-concept.md).
 
 ## 8. Initial implementation phases
 
@@ -171,7 +178,7 @@ For the first firmware build, compile-time profile selection is sufficient. Do n
 | Interrupted transfer | Disconnect BLE or remove power during transfer; recover automatically to the existing or update-ready state | Fail with the factory bootloader: two stalled transfers left no application; recovered over USB | Pending |
 | Failed first boot | A broken new application image rolls back to the previous working firmware | Pending | Pending |
 | Version handling | Reject downgrade or incompatible version unless a deliberate recovery procedure is used | Pending | Pending |
-| Normal use after update | Reconnect as a HID remote and retain the user's selected profile and settings | HID reconnected without pairing again; no profiles yet | Pending |
+| Normal use after update | Reconnect as a HID remote and retain the user's selected profile and settings | HID reconnected without pairing again; profile retention after OTA not yet tested | Pending |
 
 ## References
 

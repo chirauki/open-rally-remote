@@ -2,9 +2,10 @@
  * Open Rally Remote - XIAO nRF52840 bench firmware
  *
  * Purpose: read the active-low switches (three buttons, four joystick
- * directions) and send diagnostic keyboard events over BLE HID. The joystick
- * center press is the chord of three or more directions, or optionally a
- * separate switch on D7. This is a desk prototype, not riding firmware.
+ * directions) and send keyboard and media keys over BLE HID, in a TerraPirata
+ * profile or a user-assignable keyboard profile. The joystick center press is
+ * the chord of three or more directions, or optionally a separate switch on
+ * D7. This is a desk prototype, not riding firmware.
  *
  * Board package: Seeed nRF52 Boards
  * Board: Seeed XIAO nRF52840
@@ -14,6 +15,10 @@
 
 #include <Adafruit_TinyUSB.h>
 #include <bluefruit.h>
+#include <Adafruit_LittleFS.h>
+#include <InternalFileSystem.h>
+
+using namespace Adafruit_LittleFS_Namespace;
 
 // ---------- Build options ----------
 
@@ -58,17 +63,52 @@ const char *const CONTROL_NAMES[CONTROL_COUNT] = {
   "Joystick left", "Joystick right", "Joystick center"
 };
 
-// Diagnostic-only key assignments:
-// A: short/long/double = A/B/C
-// B: short/long/double = D/E/F
-// C: short/long/double = G/H/I
-// Center: short/long/double = J/K/L
-const uint8_t GESTURE_KEYS[4][3] = {
-  { HID_KEY_A, HID_KEY_B, HID_KEY_C },
-  { HID_KEY_D, HID_KEY_E, HID_KEY_F },
-  { HID_KEY_G, HID_KEY_H, HID_KEY_I },
-  { HID_KEY_J, HID_KEY_K, HID_KEY_L }
+// A key is a keyboard key code, or a consumer-control usage (media keys)
+// marked with CONSUMER.
+constexpr uint16_t CONSUMER = 0x8000;
+constexpr uint16_t VOL_UP = CONSUMER | HID_USAGE_CONSUMER_VOLUME_INCREMENT;
+constexpr uint16_t VOL_DOWN = CONSUMER | HID_USAGE_CONSUMER_VOLUME_DECREMENT;
+constexpr uint16_t PLAY_PAUSE = CONSUMER | HID_USAGE_CONSUMER_PLAY_PAUSE;
+
+// ---------- Profiles (see docs/control-mapping.md) ----------
+//
+// The joystick directions send held arrow keys in both profiles. Holding the
+// joystick center for PROFILE_SWITCH_MS selects the other profile, saves it
+// and restarts the board. The LED shows the profile with a short blink every
+// PROFILE_BLINK_PERIOD_MS: green for TerraPirata, blue for keyboard. The BLE
+// name stays the same: Android keeps the name it saw when pairing.
+enum Profile : uint8_t {
+  PROFILE_TERRAPIRATA = 0,
+  PROFILE_KEYBOARD = 1,
+  PROFILE_COUNT
 };
+
+const char *const PROFILE_NAMES[PROFILE_COUNT] = { "TerraPirata", "keyboard" };
+const uint8_t PROFILE_LEDS[PROFILE_COUNT] = { LED_GREEN, LED_BLUE };
+
+// Buttons A, B and C hold one key each for as long as they are pressed, with
+// no gestures: TerraPirata and DMD2 time long presses and repeat themselves.
+// TerraPirata: A resets the total trip, B and C adjust it.
+// Keyboard: letters for apps that let the user assign keys (DMD2, OsmAnd).
+// Space, Enter and Tab are avoided: Android uses them to press the focused
+// on-screen control.
+const uint16_t HOLD_KEYS[PROFILE_COUNT][3] = {
+  { PLAY_PAUSE, VOL_UP, VOL_DOWN },
+  { HID_KEY_A, HID_KEY_B, HID_KEY_C }
+};
+
+// The joystick center cannot hold a key: a long hold switches the profile.
+// It sends a tap on a short or double press. Columns: short, long, double.
+const uint16_t CENTER_KEYS[PROFILE_COUNT][3] = {
+  { HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE },
+  { HID_KEY_D, HID_KEY_NONE, HID_KEY_D }
+};
+
+constexpr uint32_t PROFILE_SWITCH_MS = 5000;
+constexpr uint32_t PROFILE_BLINK_PERIOD_MS = 10000;
+constexpr uint32_t PROFILE_BLINK_MS = 100;
+
+const char *const FIRMWARE_VERSION = "0.5.0";
 
 enum GestureType : uint8_t {
   GESTURE_SHORT = 0,
@@ -100,19 +140,22 @@ DebouncedInput inputs[CONTROL_COUNT];
 GestureState gestures[CONTROL_COUNT] = {};
 
 constexpr uint8_t TAP_QUEUE_SIZE = 16;
-uint8_t tapQueue[TAP_QUEUE_SIZE];
+uint16_t tapQueue[TAP_QUEUE_SIZE];
 uint8_t tapQueueHead = 0;
 uint8_t tapQueueTail = 0;
 uint8_t droppedTapCount = 0;
 
 bool tapIsActive = false;
-uint8_t activeTapKey = HID_KEY_NONE;
+uint16_t activeTapKey = HID_KEY_NONE;
 uint32_t activeTapStartedAt = 0;
 
 bool previousBleConnected = false;
 bool lastReportValid = false;
 uint8_t lastReportKeys[6] = {};
 bool ignoreUntilRelease[CONTROL_COUNT] = {};
+bool buttonHeld[3] = {};
+
+Profile profile = PROFILE_TERRAPIRATA;
 
 // Joystick direction handling (see docs/firmware-spec.md, section 5).
 enum JoystickMode : uint8_t {
@@ -160,7 +203,7 @@ void clearTapQueue() {
   activeTapKey = HID_KEY_NONE;
 }
 
-bool enqueueTap(uint8_t keyCode) {
+bool enqueueTap(uint16_t keyCode) {
   if (!Bluefruit.connected()) return false;
 
   const uint8_t nextTail = (tapQueueTail + 1) % TAP_QUEUE_SIZE;
@@ -213,7 +256,24 @@ void buildCurrentReport(uint8_t keys[6]) {
     }
   }
 
-  if (tapIsActive) addKey(keys, activeTapKey);
+  for (uint8_t i = 0; i < 3; ++i) {
+    const uint16_t key = HOLD_KEYS[profile][i];
+    if (buttonHeld[i] && !(key & CONSUMER)) addKey(keys, (uint8_t)key);
+  }
+
+  if (tapIsActive && !(activeTapKey & CONSUMER)) {
+    addKey(keys, (uint8_t)activeTapKey);
+  }
+}
+
+// Consumer-control taps use their own report, not the keyboard report.
+void publishConsumerTap(bool pressed) {
+  if (!Bluefruit.connected()) return;
+  if (pressed) {
+    bleHid.consumerKeyPress(activeTapKey & ~CONSUMER);
+  } else {
+    bleHid.consumerKeyRelease();
+  }
 }
 
 void publishReport() {
@@ -235,6 +295,7 @@ void publishReport() {
 void publishAllKeysReleased() {
   if (!Bluefruit.connected()) return;
   uint8_t releasedKeys[6] = {};
+  bleHid.consumerKeyRelease();
   if (bleHid.keyboardReport(0, releasedKeys)) {
     memset(lastReportKeys, HID_KEY_NONE, sizeof(lastReportKeys));
     lastReportValid = true;
@@ -244,24 +305,20 @@ void publishAllKeysReleased() {
 }
 
 void emitGesture(uint8_t control, GestureType gesture) {
-  uint8_t tableRow;
-  if (control <= BUTTON_C) {
-    tableRow = control;
-  } else if (control == JOYSTICK_CENTER) {
-    tableRow = 3;
-  } else {
-    return;
-  }
+  // Buttons hold their keys instead (see holdButton).
+  if (control != JOYSTICK_CENTER) return;
 
-  const uint8_t keyCode = GESTURE_KEYS[tableRow][gesture];
+  const uint16_t keyCode = CENTER_KEYS[profile][gesture];
+  if (keyCode == HID_KEY_NONE) return;
   if (enqueueTap(keyCode)) {
     if (SERIAL_DEBUG) {
       Serial.print(CONTROL_NAMES[control]);
       Serial.print(" gesture: ");
       Serial.print(gesture == GESTURE_SHORT ? "short" :
                    gesture == GESTURE_LONG ? "long" : "double");
-      Serial.print(" -> HID key ");
-      Serial.println((char)('A' + keyCode - HID_KEY_A));
+      Serial.printf(" -> %s 0x%02X\n",
+                    (keyCode & CONSUMER) ? "consumer usage" : "HID key",
+                    keyCode & ~CONSUMER);
     }
   }
 }
@@ -302,6 +359,8 @@ void finishGesture(uint8_t control, uint32_t now) {
   state.pendingShortAt = now;
 }
 
+void holdButton(uint8_t control, bool pressed);
+
 void handleStableTransition(uint8_t control, bool pressed, uint32_t now) {
   if (!controlIsInstalled(control)) return;
 
@@ -311,7 +370,12 @@ void handleStableTransition(uint8_t control, bool pressed, uint32_t now) {
     return;
   }
 
-  if (control <= BUTTON_C || control == JOYSTICK_CENTER) {
+  if (control <= BUTTON_C) {
+    holdButton(control, pressed);
+    return;
+  }
+
+  if (control == JOYSTICK_CENTER) {
     if (pressed) startGesture(control, now);
     else finishGesture(control, now);
     return;
@@ -319,6 +383,21 @@ void handleStableTransition(uint8_t control, bool pressed, uint32_t now) {
 
   // Directions are reported by updateJoystick().
   printControlEvent(control, pressed ? "direction closed" : "direction opened");
+}
+
+// Hold mode: the key goes down and up with the button. The consumer report
+// holds one usage, so a second media key replaces the first.
+void holdButton(uint8_t control, bool pressed) {
+  printControlEvent(control, pressed ? "held" : "let go");
+  buttonHeld[control] = pressed && Bluefruit.connected();
+  const uint16_t key = HOLD_KEYS[profile][control];
+  if (key & CONSUMER) {
+    if (!Bluefruit.connected()) return;
+    if (pressed) bleHid.consumerKeyPress(key & ~CONSUMER);
+    else bleHid.consumerKeyRelease();
+  } else {
+    publishReport();
+  }
 }
 
 void pressChordCenter(uint32_t now) {
@@ -453,10 +532,12 @@ void processTapQueue(uint32_t now) {
   }
 
   if (tapIsActive && (uint32_t)(now - activeTapStartedAt) >= TAP_HOLD_MS) {
+    const bool consumer = activeTapKey & CONSUMER;
+    if (consumer) publishConsumerTap(false);
     tapIsActive = false;
     activeTapKey = HID_KEY_NONE;
-    publishReport(); // send the key-up report
-    return;           // leave a report interval before starting the next tap
+    if (!consumer) publishReport(); // send the key-up report
+    return; // leave a report interval before starting the next tap
   }
 
   if (!tapIsActive && tapQueueHead != tapQueueTail) {
@@ -464,13 +545,69 @@ void processTapQueue(uint32_t now) {
     tapQueueHead = (tapQueueHead + 1) % TAP_QUEUE_SIZE;
     tapIsActive = true;
     activeTapStartedAt = now;
-    publishReport(); // send the key-down report
+    if (activeTapKey & CONSUMER) {
+      publishConsumerTap(true);
+    } else {
+      publishReport(); // send the key-down report
+    }
   }
+}
+
+// ---------- Profile storage ----------
+
+const char *const PROFILE_FILE = "/profile";
+
+void loadProfile() {
+  InternalFS.begin();
+  File file(InternalFS);
+  uint8_t stored = PROFILE_TERRAPIRATA;
+  if (file.open(PROFILE_FILE, FILE_O_READ)) {
+    file.read(&stored, 1);
+    file.close();
+  }
+  profile = stored < PROFILE_COUNT ? (Profile)stored : PROFILE_TERRAPIRATA;
+}
+
+void saveProfile(Profile value) {
+  InternalFS.remove(PROFILE_FILE);
+  File file(InternalFS);
+  if (file.open(PROFILE_FILE, FILE_O_WRITE)) {
+    const uint8_t stored = value;
+    file.write(&stored, 1);
+    file.close();
+  }
+}
+
+// The XIAO's RGB LED is active low. Called every loop.
+void showProfile(uint32_t now) {
+  const uint8_t pin = PROFILE_LEDS[profile];
+  const bool on = now % PROFILE_BLINK_PERIOD_MS < PROFILE_BLINK_MS;
+  digitalWrite(pin, on ? LOW : HIGH);
+}
+
+// Called every loop: a center held for PROFILE_SWITCH_MS selects the next
+// profile. The restart applies it and drops the connection.
+void checkProfileSwitch(uint32_t now) {
+  const GestureState &center = gestures[JOYSTICK_CENTER];
+  if (!center.isDown || (uint32_t)(now - center.pressedAt) < PROFILE_SWITCH_MS) {
+    return;
+  }
+  const Profile next = (Profile)((profile + 1) % PROFILE_COUNT);
+  if (SERIAL_DEBUG) {
+    Serial.print("Switching profile to: ");
+    Serial.println(PROFILE_NAMES[next]);
+    Serial.flush();
+  }
+  publishAllKeysReleased();
+  saveProfile(next);
+  delay(100);
+  NVIC_SystemReset();
 }
 
 void beginBleKeyboard() {
   Bluefruit.begin();
   Bluefruit.setTxPower(4);
+  Bluefruit.autoConnLed(false); // the LED shows the profile instead
   Bluefruit.setName("Open Rally Remote");
 
   // Legacy DFU service: a phone app writes to it and the board restarts
@@ -479,7 +616,7 @@ void beginBleKeyboard() {
 
   deviceInfo.setManufacturer("Open Rally Remote Project");
   deviceInfo.setModel("XIAO nRF52840 Bench Prototype");
-  deviceInfo.setSoftwareRev("0.3.0-diagnostic");
+  deviceInfo.setSoftwareRev(FIRMWARE_VERSION);
   deviceInfo.begin();
 
   bleHid.begin();
@@ -504,7 +641,7 @@ void setup() {
     while (!Serial && (uint32_t)(millis() - serialWaitStarted) < 2000) {
       delay(10);
     }
-    Serial.println("Open Rally Remote diagnostic firmware 0.3.0");
+    Serial.printf("Open Rally Remote bench firmware %s\n", FIRMWARE_VERSION);
     Serial.println("Released switch = HIGH; pressed switch = LOW");
   }
 
@@ -514,17 +651,27 @@ void setup() {
     pinMode(inputs[i].pin, INPUT_PULLUP);
   }
 
+  loadProfile();
+  pinMode(PROFILE_LEDS[profile], OUTPUT);
   synchronizeInputs(millis());
   beginBleKeyboard();
 
   if (SERIAL_DEBUG) {
     Serial.println("BLE advertising as: Open Rally Remote");
+    Serial.print("Profile: ");
+    Serial.println(PROFILE_NAMES[profile]);
     uint8_t mac[6];
     Bluefruit.getAddr(mac); // little-endian
     Serial.printf("BLE address: %02X:%02X:%02X:%02X:%02X:%02X\n",
                   mac[5], mac[4], mac[3], mac[2], mac[1], mac[0]);
-    Serial.println("Diagnostic letters: A-C = Button A, D-F = Button B,");
-    Serial.println("G-I = Button C, arrows = joystick, J-L = joystick center.");
+    if (profile == PROFILE_TERRAPIRATA) {
+      Serial.println("TerraPirata: A = Play/Pause, B = Vol+, C = Vol- while held;");
+      Serial.println("arrows = joystick; center sends nothing.");
+    } else {
+      Serial.println("Keyboard: A, B, C = Buttons A, B, C while held;");
+      Serial.println("D = joystick center tap, arrows = joystick.");
+    }
+    Serial.println("Hold the joystick center 5 s to switch profile.");
     Serial.println(CENTER_FROM_CHORD ? "Center: chord of three or more directions."
                                      : "Center: separate switch on D7.");
   }
@@ -537,6 +684,7 @@ void loop() {
   if (connected != previousBleConnected) {
     previousBleConnected = connected;
     clearTapQueue();
+    memset(buttonHeld, 0, sizeof(buttonHeld));
     synchronizeInputs(now); // do not turn a held control into a reconnect event
     lastReportValid = false;
     if (connected) {
@@ -550,6 +698,8 @@ void loop() {
   scanInputs(now);
   updateJoystick(now);
   processGestureTimers(now);
+  checkProfileSwitch(now);
+  showProfile(now);
   processTapQueue(now);
 
   if (droppedTapCount && SERIAL_DEBUG) {

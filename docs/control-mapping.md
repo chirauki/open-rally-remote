@@ -22,20 +22,20 @@ Joystick directions are separate directional events, not button gestures. A joys
 
 ### TerraPirata Rally Roadbooks
 
-| Input | Proposed action | Basis / status |
-|---|---|---|
-| Button A — short | Reset partial odometer | The app documents this action for a button; assigned here to Button A per the project mapping. |
-| Button A — long | Lock/unlock screen | The app documents a long press on a button for screen lock; assigned here to Button A per the project mapping. |
-| Button A — double | Unassigned initially | Avoid conflicting with reset or screen-lock behavior until tested. |
-| Button B — short | Main odometer + one increment | The app documents remote +/− controls; confirm which key event the TerraPirata profile expects. |
-| Button B — long | Faster main odometer increase, if supported | The app says holding an adjustment button can increase the adjustment speed; validate with the selected remote mode. |
-| Button B — double | Unassigned initially | No action assigned until validated. |
-| Button C — short | Main odometer − one increment | Same as Button B's increase mapping. |
-| Button C — long | Faster main odometer decrease, if supported | Same as above. |
-| Button C — double | Unassigned initially | No action assigned until validated. |
-| Joystick directions and center | To be determined during TerraPirata-mode validation | Do not assume generic arrow keys map to roadbook actions. |
+Tested on Android on 2026-10-14 (see the [firmware README](../firmware/xiao-nrf52840/README.md#app-profiles)). The firmware's TerraPirata profile sends:
 
-TerraPirata recommends its dedicated remote mode. On iOS it requires that mode or the app's compatibility mode. The event mapping for this DIY device must be verified on both Android and iOS.
+| Input | Key sent | TerraPirata action | Status |
+|---|---|---|---|
+| Joystick up/down | Up/Down Arrow, held | Scroll the roadbook | Works |
+| Joystick left/right | Left/Right Arrow, held | Trip − / + ; faster when held | Works |
+| Button A | Play/Pause, held | Reset the total trip | Works |
+| Button B | Volume +, held | Trip + ; faster when held | Works |
+| Button C | Volume −, held | Trip − ; faster when held | Works |
+| Joystick center | Nothing | — | Held 5 s, it switches the profile |
+
+Not found: the keys for the partial trip reset, the screen lock and hiding the hundreds digits. Holding Play/Pause only makes the total trip blink. TerraPirata's dedicated remote mode is not documented publicly; its key map would have to come from the author or from a remote that has the mode.
+
+The volume and Play/Pause keys are media keys: they also change the phone's volume or playback when another app is in front. TerraPirata recommends its dedicated remote mode, and on iOS requires that mode or the app's compatibility mode. iOS is deferred.
 
 ### OsmAnd (Android and iOS)
 
@@ -54,18 +54,18 @@ OsmAnd supports external keyboard/controller inputs and lets users assign keys t
 | Double presses | User-configurable keys/actions | Assign in OsmAnd's external-device settings only if the app recognizes the emitted key event as expected. |
 | Joystick center — long/double | User-configurable keys/actions | Validate on current Android and iOS releases. |
 
-This is a candidate map based on OsmAnd's published keyboard assignments. Confirm the actual received key events and configurable actions on both operating systems before calling it a supported preset.
+OsmAnd does not accept media keys in its key assignment (tested 2026-10-14), so it uses the firmware's keyboard profile: Buttons A, B and C hold `A`, `B` and `C`, the center taps `D`, and the joystick sends arrows. That gives one action per button; the long and double rows above need a profile with firmware gestures, which does not exist yet. This is a candidate map based on OsmAnd's published keyboard assignments. Confirm the actual received key events and configurable actions on both operating systems before calling it a supported preset.
 
 ### DMD² / DMD Next (Android only)
 
 | Input | Proposed action | Status |
 |---|---|---|
 | Joystick directions | Pan map | DMD² documents pan actions for generic HID remotes. |
-| Joystick center | Unassigned initially | Avoid duplicating Button A's map-follow toggle; can be user-configured. |
+| Joystick center | `D` tap, if assigned | Avoid duplicating Button A's map-follow toggle; can be user-configured. |
 | Button A — short | Map follow toggle | Candidate; configure in DMD²'s Generic Remote mapping. |
 | Button B — short | Zoom in | Candidate; configure in DMD²'s Generic Remote mapping. |
 | Button C — short | Zoom out | Candidate; configure in DMD²'s Generic Remote mapping. |
-| Long press | One configurable long-press action per supported control | DMD² documents long-press mapping for generic remotes. Validate per key. |
+| Long press | One configurable long-press action per supported control | DMD² times the long press itself: a separate key for the firmware's long press did not work (2026-10-14). The keyboard profile holds `A`, `B`, `C` while each button is pressed, and DMD² then recognized the long press. |
 | Double press | Not assumed available as a generic-remote gesture | DMD² documentation says generic remotes do not get the native double-tap functions available to DMD remotes. A separate emitted key may work only if the app exposes a matching assignment. |
 
 DMD²'s Generic Remote Controller may require a DMD license. The navigation app is Android-only.
@@ -88,12 +88,12 @@ Record the phone/tablet model, OS version, app version, selected app profile, ke
 
 | Test | Android | iOS |
 |---|---|---|
-| BLE pairing and automatic reconnect | Pending | Pending |
-| TerraPirata dedicated mode / compatibility mode | Pending | Pending |
-| TerraPirata odometer +/−, third-button reset, screen lock | Pending | Pending |
-| OsmAnd arrows, `C`, `D`, `N`, `S`, `M`, `+`, `-` | Pending | Pending |
+| BLE pairing and automatic reconnect | Pass, including after a profile switch | Pending |
+| TerraPirata dedicated mode / compatibility mode | Not tested: keys of the dedicated mode unknown | Pending |
+| TerraPirata odometer +/−, third-button reset, screen lock | Trip +/−, total trip reset and roadbook scroll pass; partial reset and screen lock not found | Pending |
+| OsmAnd arrows, `C`, `D`, `N`, `S`, `M`, `+`, `-` | Media keys rejected; keyboard profile pending | Pending |
 | OsmAnd user-assigned keys and Quick Actions | Pending | Pending |
-| DMD² Generic Remote mapping and long press | Pending | Not applicable: DMD² navigation is Android-only |
+| DMD² Generic Remote mapping and long press | Pass with held keys (keyboard profile); a separate long-press key fails | Not applicable: DMD² navigation is Android-only |
 | Short/long/double event distinction and repeat behavior | Pending | Pending |
 | Joystick center-switch variant and no-center variant | Pending | Pending |
 
