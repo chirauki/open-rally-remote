@@ -1,5 +1,7 @@
 # Joystick Board, Rev B (V0.26)
 
+**Superseded by [rev C](../joystick-pcb-rev-c/README.md) (V0.27).** With rev B, the V0.26 housing cannot close onto the board in a straight line: the lower cover bosses hit its upper notches and its upper screw ([path check](../../docs/assembly-video-v0.26-checks.md)). Do not order it.
+
 Rev B of the [joystick board](../joystick-pcb/README.md) for the no-solder V0.26 remote ([spec](../../docs/superpowers/specs/2026-10-14-no-solder-assembly-design.md)). The outline, the four C&K KSC221JLFS switches and the two standoff holes are those of rev A. The changes:
 
 - The 5 V input protection (PTC fuse and TVS) moves to the [control board](../control-pcb/README.md).

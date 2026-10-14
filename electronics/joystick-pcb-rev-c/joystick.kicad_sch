@@ -1,0 +1,744 @@
+(kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0") (uuid "a6e3ae4d-4271-50d4-85b9-0ed77f19498d") (paper "A3")
+(title_block (title "Open Rally Remote - joystick board, rev C") (date "2026-10-14") (rev "V0.26") (comment 1 "Four C&K KSC2 switches under the stick disc, one socket to the control board"))
+(lib_symbols
+	(symbol "Connector_Generic:Conn_01x05"
+		(pin_names
+			(offset 1.016)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 0 7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x05"
+			(at 0 -7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "Connector*:*_1x??_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Conn_01x05_1_1"
+			(rectangle
+				(start -1.27 6.35)
+				(end 1.27 -6.35)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(rectangle
+				(start -1.27 5.207)
+				(end 0 4.953)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 2.667)
+				(end 0 2.413)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 0.127)
+				(end 0 -0.127)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 -2.413)
+				(end 0 -2.667)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 -4.953)
+				(end 0 -5.207)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(pin passive line
+				(at -5.08 5.08 0)
+				(length 3.81)
+				(name "Pin_1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 2.54 0)
+				(length 3.81)
+				(name "Pin_2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 0 0)
+				(length 3.81)
+				(name "Pin_3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 -2.54 0)
+				(length 3.81)
+				(name "Pin_4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 -5.08 0)
+				(length 3.81)
+				(name "Pin_5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "power:GND"
+		(power global)
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "#PWR"
+			(at 0 -6.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 0 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "GND_0_1"
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "GND_1_1"
+			(pin power_in line
+				(at 0 0 270)
+				(length 0)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "orr:KSC221JLFS"
+		(pin_names
+			(offset 1.016)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "SW"
+			(at 0 6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "KSC221JLFS"
+			(at 0 -7.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "orr:KSC2_SMD_6.2x6.2mm"
+			(at 0 -10.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/product-detail/C221726.html"
+			(at 0 -12.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "C&K KSC2 sealed tact switch, 6.2 x 6.2 mm, SMT, 2 N; pins 1-2 and 3-4 are paired per the LCSC symbol"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "switch tactile push button IP67"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "KSC221JLFS_0_1"
+			(polyline
+				(pts
+					(xy -5.08 1.27) (xy 5.08 1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -5.08 -3.81) (xy 5.08 -3.81)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 1.27) (xy 0 0)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 -3.81) (xy 0 -2.54)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -0.25 -0.25) (xy -1.02 -2.29)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(circle
+				(center 0 -0.25)
+				(radius 0.25)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(circle
+				(center 0 -2.29)
+				(radius 0.25)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "KSC221JLFS_1_1"
+			(pin passive line
+				(at -7.62 1.27 0)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 1.27 180)
+				(length 2.54)
+				(name "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -3.81 0)
+				(length 2.54)
+				(name "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 -3.81 180)
+				(length 2.54)
+				(name "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "power:PWR_FLAG"
+		(power global)
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "#FLG"
+			(at 0 1.905 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 0 3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "flag power"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "PWR_FLAG_0_0"
+			(pin power_out line
+				(at 0 0 90)
+				(length 0)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(symbol "PWR_FLAG_0_1"
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+)
+(symbol (lib_id "Connector_Generic:Conn_01x05") (at 38.10 38.10 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "7d9ab248-0d51-550c-8834-442c9fd985c4") (property "Reference" "J1" (at 38.10 30.48 0) (effects (font (size 1.27 1.27)))) (property "Value" "To control board" (at 38.10 50.80 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "Connector_JST:JST_SH_SM05B-SRSS-TB_1x05-1MP_P1.00mm_Horizontal" (at 38.10 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 38.10 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "1.0-5P WT" (at 38.10 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "LCSC" "C2906271" (at 38.10 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "JST SH compatible, side entry" (at 38.10 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "01878441-8b79-5d77-8fde-d461a371d04b")) (pin "2" (uuid "b446ffea-ce0f-58f3-a37c-aff5d95130b2")) (pin "3" (uuid "60ab6e60-0830-5378-85cf-e89c98326d3e")) (pin "4" (uuid "079e6821-5e3f-51fd-b246-e25f2356130a")) (pin "5" (uuid "48d9b470-fed9-5a9b-b0f4-2803db29222d")) (instances (project "joystick" (path "/a6e3ae4d-4271-50d4-85b9-0ed77f19498d" (reference "J1") (unit 1)))))
+(wire (pts (xy 33.02 33.02) (xy 30.48 33.02)) (stroke (width 0) (type default)) (uuid "b0ff1db7-54d2-5d1a-a15b-a3da8d87846e"))
+(label "UP" (at 30.48 33.02 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "d63a4ef6-7fa7-57d6-b052-dcfecc1ed1f8"))
+(wire (pts (xy 33.02 35.56) (xy 30.48 35.56)) (stroke (width 0) (type default)) (uuid "2b4736bf-7005-5235-b5a2-79108483c5d5"))
+(label "DOWN" (at 30.48 35.56 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "3247bf3c-30d1-51fd-bed4-2aa9cfe6ac27"))
+(wire (pts (xy 33.02 38.10) (xy 30.48 38.10)) (stroke (width 0) (type default)) (uuid "43250c52-9000-5dc9-85a5-1746f2198d7b"))
+(label "LEFT" (at 30.48 38.10 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "4dcfe843-6a90-5589-9cdd-1b68faa6492d"))
+(wire (pts (xy 33.02 40.64) (xy 30.48 40.64)) (stroke (width 0) (type default)) (uuid "c868e81d-5a6b-50e3-82f4-d93a1480ce61"))
+(label "RIGHT" (at 30.48 40.64 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "0b5845a9-847d-5169-aad9-4bd422e34c23"))
+(wire (pts (xy 33.02 43.18) (xy 30.48 43.18)) (stroke (width 0) (type default)) (uuid "2cf355f4-b713-518b-8b74-09b72bb78efc"))
+(symbol (lib_id "power:GND") (at 30.48 43.18 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "804520ef-8cb1-5890-9602-27bf55ff7d9d") (property "Reference" "#PWR01" (at 30.48 46.99 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "GND" (at 30.48 48.26 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 30.48 43.18 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 30.48 43.18 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "625b529e-fcbe-5b78-8ac1-82d3fcf571a0")) (instances (project "joystick" (path "/a6e3ae4d-4271-50d4-85b9-0ed77f19498d" (reference "#PWR01") (unit 1)))))
+(symbol (lib_id "orr:KSC221JLFS") (at 76.20 38.10 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "7eb44e36-98b8-5fda-9365-874de53b56fa") (property "Reference" "SW1" (at 76.20 31.75 0) (effects (font (size 1.27 1.27)))) (property "Value" "KSC221JLFS" (at 76.20 45.72 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "orr:KSC2_SMD_6.2x6.2mm" (at 76.20 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 76.20 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "C&K" (at 76.20 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "KSC221JLFS" (at 76.20 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "LCSC" "C221726" (at 76.20 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "80d587b0-37d6-52f0-816a-8453d85820a9")) (pin "2" (uuid "36692f58-69c8-564c-93a2-a3b86ac68886")) (pin "3" (uuid "d76e5866-6059-53ea-ad38-e52f790748f7")) (pin "4" (uuid "e75767ae-834a-5b19-9497-8e1a5f0a13ac")) (instances (project "joystick" (path "/a6e3ae4d-4271-50d4-85b9-0ed77f19498d" (reference "SW1") (unit 1)))))
+(wire (pts (xy 68.58 36.83) (xy 66.04 36.83)) (stroke (width 0) (type default)) (uuid "cfa23379-a781-5636-9d32-2088d1b48594"))
+(label "UP" (at 66.04 36.83 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "10fa9907-ddd3-5a54-93b8-f97aabce8928"))
+(no_connect (at 83.82 36.83) (uuid "d62686b3-2cc7-533f-aae4-075e1183b804"))
+(no_connect (at 68.58 41.91) (uuid "55474727-2456-5b4d-bfa4-cd2e2ebf6982"))
+(wire (pts (xy 83.82 41.91) (xy 86.36 41.91)) (stroke (width 0) (type default)) (uuid "2746d93c-d6db-5314-9918-53d62d3fbe6a"))
+(symbol (lib_id "power:GND") (at 86.36 41.91 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "e8f8ce28-c125-5ff1-80cf-ed22c5e23d86") (property "Reference" "#PWR02" (at 86.36 45.72 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "GND" (at 86.36 46.99 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 86.36 41.91 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 86.36 41.91 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "59f07bc1-5e3e-5cee-bcee-9bc87342da1d")) (instances (project "joystick" (path "/a6e3ae4d-4271-50d4-85b9-0ed77f19498d" (reference "#PWR02") (unit 1)))))
+(symbol (lib_id "orr:KSC221JLFS") (at 114.30 38.10 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "435f9f19-97e7-56c6-ae55-26fcccb77ce7") (property "Reference" "SW2" (at 114.30 31.75 0) (effects (font (size 1.27 1.27)))) (property "Value" "KSC221JLFS" (at 114.30 45.72 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "orr:KSC2_SMD_6.2x6.2mm" (at 114.30 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 114.30 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "C&K" (at 114.30 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "KSC221JLFS" (at 114.30 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "LCSC" "C221726" (at 114.30 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "d13e4478-ff96-5525-b166-bd3d1c822d68")) (pin "2" (uuid "72e0cff1-aef1-5ea2-a759-6bc91cf6b3bc")) (pin "3" (uuid "4add0e58-3e13-5549-8980-55b20235bad7")) (pin "4" (uuid "539a05e0-54a1-5cf8-8c7d-5d1852158ca5")) (instances (project "joystick" (path "/a6e3ae4d-4271-50d4-85b9-0ed77f19498d" (reference "SW2") (unit 1)))))
+(wire (pts (xy 106.68 36.83) (xy 104.14 36.83)) (stroke (width 0) (type default)) (uuid "30581ba1-6670-55e8-92d4-ccc29def2221"))
+(label "DOWN" (at 104.14 36.83 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "68289bdd-55bc-51ed-bf5e-b86490519e6d"))
+(no_connect (at 121.92 36.83) (uuid "561d0913-9a00-5b06-a275-00002708a802"))
+(no_connect (at 106.68 41.91) (uuid "cb90d82d-ad7a-5124-892b-d46bd021c022"))
+(wire (pts (xy 121.92 41.91) (xy 124.46 41.91)) (stroke (width 0) (type default)) (uuid "0fe1c6b6-422b-5333-a708-8af43e4d981d"))
+(symbol (lib_id "power:GND") (at 124.46 41.91 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "ee0c93bf-f3bb-5f2d-ae01-e9fedf0d9899") (property "Reference" "#PWR03" (at 124.46 45.72 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "GND" (at 124.46 46.99 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 124.46 41.91 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 124.46 41.91 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "06140b1e-8693-5ea2-8616-f038e2980dc5")) (instances (project "joystick" (path "/a6e3ae4d-4271-50d4-85b9-0ed77f19498d" (reference "#PWR03") (unit 1)))))
+(symbol (lib_id "orr:KSC221JLFS") (at 152.40 38.10 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "9da3c5be-665c-5af8-9cc1-5267a7832e81") (property "Reference" "SW3" (at 152.40 31.75 0) (effects (font (size 1.27 1.27)))) (property "Value" "KSC221JLFS" (at 152.40 45.72 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "orr:KSC2_SMD_6.2x6.2mm" (at 152.40 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 152.40 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "C&K" (at 152.40 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "KSC221JLFS" (at 152.40 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "LCSC" "C221726" (at 152.40 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "cc550e6a-ae4f-5b34-991f-fa7477a567e6")) (pin "2" (uuid "eb41db68-9efb-5b33-b0e4-1cbccd0240ce")) (pin "3" (uuid "d50226d8-759e-5481-8237-734419ff92bd")) (pin "4" (uuid "aaca92c1-c312-5eb3-b50e-e442480ef57d")) (instances (project "joystick" (path "/a6e3ae4d-4271-50d4-85b9-0ed77f19498d" (reference "SW3") (unit 1)))))
+(wire (pts (xy 144.78 36.83) (xy 142.24 36.83)) (stroke (width 0) (type default)) (uuid "24122827-9853-5d6d-b3f2-4a02a852e7c1"))
+(label "LEFT" (at 142.24 36.83 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "bb126065-226c-514f-a139-b4c9da13e6c5"))
+(no_connect (at 160.02 36.83) (uuid "142bb144-db18-56b3-8ee6-6d6a4bc634c1"))
+(no_connect (at 144.78 41.91) (uuid "d10ec429-a122-5d4f-8ce8-a9911166cc6b"))
+(wire (pts (xy 160.02 41.91) (xy 162.56 41.91)) (stroke (width 0) (type default)) (uuid "4665bcff-0797-5b8f-90d7-6de28d5a1a16"))
+(symbol (lib_id "power:GND") (at 162.56 41.91 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "bd55f8a6-82de-593a-a654-8a59b3c3d7ed") (property "Reference" "#PWR04" (at 162.56 45.72 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "GND" (at 162.56 46.99 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 162.56 41.91 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 162.56 41.91 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "6c8906ea-bbb7-5eab-8332-09f008875ce2")) (instances (project "joystick" (path "/a6e3ae4d-4271-50d4-85b9-0ed77f19498d" (reference "#PWR04") (unit 1)))))
+(symbol (lib_id "orr:KSC221JLFS") (at 190.50 38.10 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "2278b30f-6861-5727-bf0b-98ac502e1e65") (property "Reference" "SW4" (at 190.50 31.75 0) (effects (font (size 1.27 1.27)))) (property "Value" "KSC221JLFS" (at 190.50 45.72 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "orr:KSC2_SMD_6.2x6.2mm" (at 190.50 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 190.50 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "C&K" (at 190.50 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "KSC221JLFS" (at 190.50 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "LCSC" "C221726" (at 190.50 38.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f6baf625-1b8f-51b1-828e-a8800be9d4c4")) (pin "2" (uuid "3de387be-7898-5e3f-b1d7-a9f909c31bc0")) (pin "3" (uuid "cd233232-0f90-5939-8d56-09c1a175219c")) (pin "4" (uuid "bd1b4984-472c-578c-a441-cd01c2185404")) (instances (project "joystick" (path "/a6e3ae4d-4271-50d4-85b9-0ed77f19498d" (reference "SW4") (unit 1)))))
+(wire (pts (xy 182.88 36.83) (xy 180.34 36.83)) (stroke (width 0) (type default)) (uuid "f24f56b0-c628-5824-bd3e-ab2800b0f81b"))
+(label "RIGHT" (at 180.34 36.83 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "8387d6a9-f9e3-5b52-a5c4-50b8d42c4347"))
+(no_connect (at 198.12 36.83) (uuid "7a1c0551-aa05-5014-b2f8-4e4da955bbfe"))
+(no_connect (at 182.88 41.91) (uuid "2a98eda5-3a56-555c-a803-ebab4430fd69"))
+(wire (pts (xy 198.12 41.91) (xy 200.66 41.91)) (stroke (width 0) (type default)) (uuid "d2b6db7b-3019-545c-902b-477b5096e3d3"))
+(symbol (lib_id "power:GND") (at 200.66 41.91 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "15dcf1bc-c3ce-5ee5-b323-ae950979ac8a") (property "Reference" "#PWR05" (at 200.66 45.72 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "GND" (at 200.66 46.99 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 200.66 41.91 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 200.66 41.91 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "d4820539-2def-52ba-8ce1-a0f11e361b6e")) (instances (project "joystick" (path "/a6e3ae4d-4271-50d4-85b9-0ed77f19498d" (reference "#PWR05") (unit 1)))))
+(symbol (lib_id "power:PWR_FLAG") (at 38.10 210.82 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "5726ab7c-c145-5da7-9541-37fe3774804f") (property "Reference" "#FLG06" (at 38.10 214.63 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "PWR_FLAG" (at 38.10 207.01 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 38.10 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 38.10 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "b79398f6-99e4-5fca-ab42-ff251c02976f")) (instances (project "joystick" (path "/a6e3ae4d-4271-50d4-85b9-0ed77f19498d" (reference "#FLG06") (unit 1)))))
+(symbol (lib_id "power:GND") (at 38.10 210.82 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "5ec75e1c-17ef-5495-85bf-84d71766e349") (property "Reference" "#PWR07" (at 38.10 214.63 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "GND" (at 38.10 215.90 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 38.10 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 38.10 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "c0242be7-e748-5ea8-ac6e-6270b0aa5711")) (instances (project "joystick" (path "/a6e3ae4d-4271-50d4-85b9-0ed77f19498d" (reference "#PWR07") (unit 1)))))
+(text "Switches: UP, DOWN, LEFT, RIGHT seen by the rider. Each switch uses a diagonal pad pair.\nPushing the stick straight in closes all four; the firmware reads that chord as the centre press.\nJ1 goes to J4 on the control board through a straight 5-pin JST SH cable (pin 1 to pin 1)." (exclude_from_sim no) (at 30.48 220.98 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "06186877-98c5-5b3b-8b98-afe49d2e690f"))
+(sheet_instances (path "/" (page "1")))
+(embedded_fonts no)
+)
