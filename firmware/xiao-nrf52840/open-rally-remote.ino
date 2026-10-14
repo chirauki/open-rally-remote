@@ -27,6 +27,13 @@ using namespace Adafruit_LittleFS_Namespace;
 // on D7, as on the breadboard prototype.
 constexpr bool CENTER_FROM_CHORD = true;
 
+// Board. false: the XIAO on its own, as on the breadboard and in V0.25 (its
+// charger, BAT pads and P0.31 divider). true: the V0.26 control board
+// (electronics/control-pcb), which has its own charger and feeds the XIAO's
+// 3V3 pin; buttons on D1-D3, joystick on D4-D7, battery on A0, charger
+// status on D8 and VBUS on D9.
+constexpr bool BOARD_V026 = false;
+
 // Enable Serial Monitor diagnostics while developing.
 constexpr bool SERIAL_DEBUG = true;
 
@@ -54,9 +61,13 @@ enum ControlIndex : uint8_t {
   CONTROL_COUNT
 };
 
+// The V0.26 board has no centre switch: D10 is a placeholder, never read.
 const uint8_t CONTROL_PINS[CONTROL_COUNT] = {
-  D0, D1, D2, D3, D4, D5, D6, D7
+  BOARD_V026 ? D1 : D0, BOARD_V026 ? D2 : D1, BOARD_V026 ? D3 : D2,
+  BOARD_V026 ? D4 : D3, BOARD_V026 ? D5 : D4, BOARD_V026 ? D6 : D5, BOARD_V026 ? D7 : D6,
+  BOARD_V026 ? D10 : D7
 };
+static_assert(!BOARD_V026 || CENTER_FROM_CHORD, "The V0.26 joystick has no centre switch");
 
 const char *const CONTROL_NAMES[CONTROL_COUNT] = {
   "Button A", "Button B", "Button C", "Joystick up", "Joystick down",
@@ -140,18 +151,25 @@ constexpr uint32_t BATTERY_READ_PERIOD_MS = 60000;
 constexpr uint16_t BATTERY_LOW_MV = 3500;   // LED blinks red instead
 constexpr uint16_t BATTERY_EMPTY_MV = 3300; // System OFF, ahead of the PCM
 
-// Battery divider from BAT to P0.31: 1 MOhm over 510 kOhm (Seeed XIAO
-// nRF52840 v1.1 schematic). Calibrate against a multimeter on the cell.
-constexpr float VBAT_DIVIDER = (1000.0f + 510.0f) / 510.0f;
+// Battery divider. XIAO: BAT to P0.31, 1 MOhm over 510 kOhm (Seeed XIAO
+// nRF52840 v1.1 schematic). V0.26: BAT_SYS to A0, 1 MOhm over 1 MOhm.
+// Calibrate against a multimeter on the cell.
+constexpr float VBAT_DIVIDER = BOARD_V026 ? 2.0f : (1000.0f + 510.0f) / 510.0f;
+constexpr uint8_t PIN_BATTERY = BOARD_V026 ? A0 : PIN_VBAT;
 
 // Charge current: false = about 50 mA (P0.13 high impedance), true = about
 // 100 mA (P0.13 low). Choose after checking the cell's maximum charge rate.
 constexpr bool HIGH_CHARGE_CURRENT = false;
 
+// XIAO charger (BOARD_V026 false).
 constexpr uint8_t PIN_CHG = 23;        // P0.17, BQ25101 CHG, low while charging
-constexpr uint8_t PIN_CHARGE_LED = D8; // charge LED on the USB-C PCB
+constexpr uint8_t PIN_CHARGE_LED = D8; // charge LED on the V0.24/V0.25 USB-C PCB
+// V0.26 control board (BOARD_V026 true). The charger's STAT drives the charge
+// LED itself; D8 sees STAT through a divider: low while charging, high when done.
+constexpr uint8_t PIN_CHG_SENSE = D8;
+constexpr uint8_t PIN_VBUS_SENSE = D9;   // VBUS through a divider
 
-const char *const FIRMWARE_VERSION = "0.7.0";
+const char *const FIRMWARE_VERSION = "0.8.0";
 
 enum GestureType : uint8_t {
   GESTURE_SHORT = 0,
@@ -652,26 +670,40 @@ bool handleButtonCombo(uint32_t now) {
   return true;
 }
 
+// A charger or computer on the charging port. On the V0.26 board the charging
+// port is not the XIAO's USB-C, so its VBUS comes in on D9.
 bool usbPowered() {
+  if (BOARD_V026) return digitalRead(PIN_VBUS_SENSE) == HIGH;
   uint32_t status = 0;
   sd_power_usbregstatus_get(&status);
   return status & POWER_USBREGSTATUS_VBUSDETECT_Msk;
 }
 
+bool charging() {
+  return usbPowered() && digitalRead(BOARD_V026 ? PIN_CHG_SENSE : PIN_CHG) == LOW;
+}
+
 bool mayDecideToSleep() { return SLEEP_ON_USB || !usbPowered(); }
 
-// P0.14 must stay low: the Seeed core drives it high at start, and with it
-// high P0.31 can reach its 3.6 V limit while the cell charges.
+// XIAO charger: P0.14 must stay low. The Seeed core drives it high at start,
+// and with it high P0.31 can reach its 3.6 V limit while the cell charges.
+// On the V0.26 board no cell reaches the XIAO's BAT pads, and P0.14 stays as
+// the core leaves it.
 void beginBattery() {
-  pinMode(VBAT_ENABLE, OUTPUT);
-  digitalWrite(VBAT_ENABLE, LOW);
-  if (HIGH_CHARGE_CURRENT) {
-    pinMode(PIN_CHARGING_CURRENT, OUTPUT);
-    digitalWrite(PIN_CHARGING_CURRENT, LOW);
+  if (BOARD_V026) {
+    pinMode(PIN_CHG_SENSE, INPUT);
+    pinMode(PIN_VBUS_SENSE, INPUT);
+  } else {
+    pinMode(VBAT_ENABLE, OUTPUT);
+    digitalWrite(VBAT_ENABLE, LOW);
+    if (HIGH_CHARGE_CURRENT) {
+      pinMode(PIN_CHARGING_CURRENT, OUTPUT);
+      digitalWrite(PIN_CHARGING_CURRENT, LOW);
+    }
+    pinMode(PIN_CHG, INPUT);
+    pinMode(PIN_CHARGE_LED, OUTPUT);
+    digitalWrite(PIN_CHARGE_LED, LOW);
   }
-  pinMode(PIN_CHG, INPUT);
-  pinMode(PIN_CHARGE_LED, OUTPUT);
-  digitalWrite(PIN_CHARGE_LED, LOW);
   analogReference(AR_INTERNAL); // 0 to 3.6 V
   analogReadResolution(12);
   analogSampleTime(40);         // the divider is a high-impedance source
@@ -679,7 +711,7 @@ void beginBattery() {
 
 uint16_t readBatteryMv() {
   uint32_t sum = 0;
-  for (uint8_t i = 0; i < 8; ++i) sum += analogRead(PIN_VBAT);
+  for (uint8_t i = 0; i < 8; ++i) sum += analogRead(PIN_BATTERY);
   return (uint16_t)(sum / 8.0f * 3600.0f / 4096.0f * VBAT_DIVIDER);
 }
 
@@ -705,18 +737,18 @@ void updateBattery(uint32_t now) {
   if (SERIAL_DEBUG) {
     Serial.printf("Battery: %u mV, %u %%, USB %s, CHG %s\n", batteryMv,
                   batteryPercent(batteryMv), usbPowered() ? "yes" : "no",
-                  digitalRead(PIN_CHG) == LOW ? "charging" : "not charging");
+                  charging() ? "charging" : "not charging");
   }
   if (batteryMv < BATTERY_EMPTY_MV && mayDecideToSleep()) {
     enterSystemOff("battery empty");
   }
 }
 
-// The charge LED is on only while a charger is connected and CHG shows
-// charging.
+// XIAO charger: the charge LED is on only while a charger is connected and
+// CHG shows charging. On the V0.26 board the charger drives it.
 void updateChargeLed() {
-  const bool charging = usbPowered() && digitalRead(PIN_CHG) == LOW;
-  digitalWrite(PIN_CHARGE_LED, charging ? HIGH : LOW);
+  if (BOARD_V026) return;
+  digitalWrite(PIN_CHARGE_LED, charging() ? HIGH : LOW);
 }
 
 void checkPowerOff(uint32_t now) {
@@ -740,7 +772,14 @@ void enterSystemOff(const char *reason) {
   }
   publishAllKeysReleased();
   for (uint8_t i = 0; i < 3; ++i) digitalWrite(LED_PINS[i], HIGH);
-  digitalWrite(PIN_CHARGE_LED, LOW);
+  if (BOARD_V026) {
+    // The XIAO's USB VBUS detection does not see the charging port: wake on D9.
+    if (!usbPowered()) {
+      nrf_gpio_cfg_sense_input(g_ADigitalPinMap[PIN_VBUS_SENSE], NRF_GPIO_PIN_NOPULL, NRF_GPIO_PIN_SENSE_HIGH);
+    }
+  } else {
+    digitalWrite(PIN_CHARGE_LED, LOW);
+  }
   for (uint8_t i = 0; i < CONTROL_COUNT; ++i) {
     if (!controlIsInstalled(i) || inputs[i].stablePressed) continue;
     nrf_gpio_cfg_sense_input(g_ADigitalPinMap[inputs[i].pin],

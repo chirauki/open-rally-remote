@@ -58,6 +58,21 @@ The Bluefruit library's connection LED is turned off: it drives the blue LED wit
 
 The profile choices come from the app tests in the [firmware specification](../../docs/firmware-spec.md#7-profiles-and-mappings) and the [control mapping](../../docs/control-mapping.md).
 
+## V0.26 control board
+
+`BOARD_V026` (default `false`) selects the [V0.26 control board](../../electronics/control-pcb/README.md), on which the XIAO plugs into two female headers and takes its 3.3 V from the board's own regulator. The pin map moves:
+
+| XIAO pin | BOARD_V026 = false (breadboard, V0.25) | BOARD_V026 = true (V0.26) |
+|---|---|---|
+| D0 | Button A | Battery voltage (A0, 1 MΩ / 1 MΩ divider) |
+| D1–D3 | Button B, Button C, joystick up | Buttons A, B, C |
+| D4–D6 | Joystick down, left, right | Joystick up, down, left |
+| D7 | Centre switch (breadboard option) | Joystick right |
+| D8 | Charge LED output | Charger STAT through a divider: low while charging, high when done |
+| D9 | — | Charging-port VBUS through a divider; also a System OFF wake source |
+
+With `BOARD_V026 = true` the firmware leaves P0.13, P0.14 and the XIAO's charger alone, does not drive a charge LED (the charger's STAT does), and reads "charger present" from D9 instead of the nRF52840's USB detection. The centre press must come from the chord (`CENTER_FROM_CHORD = true`); a compile-time check enforces it. Both settings compiled on 2026-10-14 with no warnings from the sketch; the `true` build has not run on a board yet.
+
 ## Power and battery
 
 These follow the [battery study](../../docs/battery-study.md#firmware). The constants are near the top of the sketch.
