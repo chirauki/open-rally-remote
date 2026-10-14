@@ -228,17 +228,26 @@ def _final_hits(job):
     return (NSTEPS, a, 1, b, round(v, 3)) if v > TOL else None
 
 
+def check_jobs(variant, steps=None):
+    """The poses to check, as (variant, step, u, part, parts moving with it), one per
+    (step, part, u): two moves that meet at the same u share a pose, and two threads must
+    not write the same STL."""
+    jobs = {}
+    for s in steps or range(1, NSTEPS + 1):
+        for names, u0, u1 in step_info(s, variant)["moves"]:
+            for k in POSES:
+                for n in names:
+                    u = u0 + k * (u1 - u0)
+                    jobs.setdefault((s, n, round(u, 6)), (variant, s, u, n, tuple(names)))
+    return list(jobs.values())
+
+
 def check(variant, steps=None):
     """Collisions of the moving parts at POSES of each move, and of every pair of parts in
     the final pose (cables included). Returns hits (step, name, u, other, volume_mm3).
     Parts that move together in one move are not checked against each other: they keep
     their final relative position. Allowed contacts are skipped."""
-    jobs = []
-    for s in steps or range(1, NSTEPS + 1):
-        for names, u0, u1 in step_info(s, variant)["moves"]:
-            for k in POSES:
-                for n in names:
-                    jobs.append((variant, s, u0 + k * (u1 - u0), n, tuple(names)))
+    jobs = check_jobs(variant, steps)
     with ThreadPoolExecutor(os.cpu_count()) as ex:
         hits = [h for hs in ex.map(_pose_hits, jobs) for h in hs]
         if steps is None:

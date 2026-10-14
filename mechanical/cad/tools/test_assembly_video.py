@@ -89,6 +89,14 @@ class Task3(unittest.TestCase):
         hits = av.check("documented", steps=[4])
         self.assertFalse([h for h in hits if {h[1], h[3]} == {"xiao", "button_plate"}], hits)
 
+    def test_check_jobs_unique(self):
+        # Step 5 moves the joystick group twice, meeting at u = 0.45: one job per pose, or
+        # two threads write the same STL.
+        jobs = av.check_jobs("documented", [5])
+        keys = [(j[1], j[3], round(j[2], 6)) for j in jobs]
+        self.assertEqual(len(keys), len(set(keys)))
+        self.assertIn((5, "stick", 0.45), keys)
+
     def test_allowed_contacts_measured(self):
         for pair, reason in av.ALLOWED_CONTACT.items():
             self.assertEqual(len(pair), 2)
