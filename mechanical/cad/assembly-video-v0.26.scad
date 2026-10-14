@@ -112,9 +112,13 @@ timeline = [
     [4, CAM_HOUSING, [
         ["move", ["housing"], H, H, 0, 0],
         ["mark", "inserts", "housing", 0.2, 0.9]], []],
-    // 2 USB-C board along its rib (+X) into the slot, then the epoxy
+    // 2 USB-C board: in 1.5 mm above the rib, clear of the cover-screw bosses at Y 24
+    // (straight along the rib it hits them), down onto the rib 8 mm short, then along the
+    // rib (+X) into the slot; then the epoxy
     [6, CAM_HOUSING, [
-        ["move", ["usbc_board"], H+[-25, 0, 0], H, 0.05, 0.6],
+        ["move", ["usbc_board"], H+[-25, 1.5, 0], H+[-8, 1.5, 0], 0.05, 0.3],
+        ["move", ["usbc_board"], H+[-8, 1.5, 0], H+[-8, 0, 0], 0.32, 0.4],
+        ["move", ["usbc_board"], H+[-8, 0, 0], H, 0.42, 0.62],
         ["mark", "epoxy", "usbc_board", 0.65, 0.95]], ["housing"]],
     // 3 stick through the joystick plate from the back, then the joystick board
     [5, CAM_JOY, [
@@ -125,7 +129,8 @@ timeline = [
     [5, CAM_CTRL, [
         ["move", ["button_plate"], CS, CS, 0, 0],
         ["move", ["control_board"], CS+[12, 0, 0], CS, 0.05, 0.45],
-        ["move", ["xiao"], CS+[30, 0, 0], CS, 0.5, 0.9]], []],
+        // test_collision: the XIAO goes 14 mm too far, through the board and the plate
+        ["move", ["xiao"], CS+[30, 0, 0], variant == "test_collision" ? CS+[-14, 0, 0] : CS, 0.5, 0.9]], []],
     // 5 cover face down, keypad, joystick group through the sheet, button plate group
     [8, CAM_STACK, [
         ["move", ["cover"], O, O, 0, 0],
@@ -206,10 +211,19 @@ module view_frame() { rotate([0, -90, 0]) children(); }
 function placed(s) = [for (n=PARTS) if (part_state(n, s, 1)[0]) n];
 function moving(s) = [for (n=PARTS) if (len([for (e=timeline[s-1][2]) if (e[0] == "move" && has(e[1], n) && e[2] != e[3]) 1]) > 0) n];
 
+// Moves of step s that change an offset, as [names, u0, u1].
+function moves(s) = [for (e=timeline[s-1][2]) if (e[0] == "move" && e[2] != e[3]) [e[1], e[4], e[5]]];
+
+// One part at its pose, or nothing while it is hidden. The collision check uses it.
+module part_at(n, s, uu) {
+    st = part_state(n, s, uu);
+    if (st[0]) translate(st[1]) part(n);
+}
+
 if (mode == "pose") view_frame() pose_view();
 else if (mode == "only") part(target);
 else if (mode == "others") pose_at(step, u, variant, skip=[target]);
 else if (mode == "info") {
-    echo(info=[step, timeline[step-1][0], timeline[step-1][1], placed(step), moving(step)]);
+    echo(info=[step, timeline[step-1][0], timeline[step-1][1], placed(step), moving(step), moves(step)]);
     cube(0.01);
 }

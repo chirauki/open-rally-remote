@@ -77,5 +77,29 @@ class Task2(unittest.TestCase):
                     self.assertGreater(out.stat().st_size, 10000)
 
 
+class Task3(unittest.TestCase):
+    def test_known_collision_found(self):
+        hits = av.check("test_collision", steps=[4])
+        vols = [h[4] for h in hits if {h[1], h[3]} == {"xiao", "button_plate"}]
+        self.assertTrue(vols, hits)
+        self.assertGreater(max(vols), TOL)
+
+    def test_no_collision_without_overlap(self):
+        # The documented step 4 seats the XIAO without passing through the plate.
+        hits = av.check("documented", steps=[4])
+        self.assertFalse([h for h in hits if {h[1], h[3]} == {"xiao", "button_plate"}], hits)
+
+    def test_allowed_contacts_measured(self):
+        for pair, reason in av.ALLOWED_CONTACT.items():
+            self.assertEqual(len(pair), 2)
+            self.assertTrue(reason.strip(), pair)
+        path = av.BUILD / "test" / "report.md"
+        av.write_report({"documented": []}, path)
+        text = path.read_text()
+        for pair in av.ALLOWED_CONTACT:
+            a, b = sorted(pair)
+            self.assertIn("%s / %s" % (a, b), text)
+
+
 if __name__ == "__main__":
     unittest.main()
