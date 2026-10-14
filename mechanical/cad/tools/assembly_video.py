@@ -56,7 +56,8 @@ def run_scad(defs, out, body=None, allow_empty=False, args=()):
     err = p.stderr
     bad = [l for l in err.splitlines() if l.startswith(("WARNING:", "ERROR:"))]
     empty = "top level object is empty" in err.lower() or not out.exists()
-    if p.returncode != 0 or bad:
+    # OpenSCAD exits with 1 when the result is empty.
+    if (p.returncode != 0 and not empty) or bad:
         raise ScadError("%s\n%s" % (" ".join(cmd), "\n".join(bad) or err[-2000:]))
     if empty:
         if not allow_empty:
@@ -93,3 +94,21 @@ def stl_volume(path):
                 - a[1] * (b[0] * c[2] - b[2] * c[0])
                 + a[2] * (b[0] * c[1] - b[1] * c[0]))
     return abs(vol) / 6.0
+
+
+def png_args(camera, size=(1280, 720)):
+    """OpenSCAD arguments for one video frame seen from camera (the --camera vector)."""
+    return ["--render", "--camera=" + ",".join("%g" % c for c in camera),
+            "--imgsize=%d,%d" % size, "--projection=p", "--colorscheme=Tomorrow"]
+
+
+def step_info(step, variant):
+    """The timeline data of one step: duration (s), camera, parts placed by its end, parts
+    that move in it."""
+    out = BUILD / "info" / ("%s_%02d.echo" % (variant, step))
+    run_scad({"mode": "info", "step": step, "variant": variant}, out)
+    for line in out.read_text().splitlines():
+        if line.startswith("ECHO: info = "):
+            s, duration, camera, placed, moving = json.loads(line[len("ECHO: info = "):])
+            return {"duration": duration, "camera": camera, "placed": placed, "moving": moving}
+    raise ScadError("no info echo for step %d" % step)

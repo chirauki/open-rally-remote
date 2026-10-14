@@ -52,11 +52,164 @@ module part(name) {
 
 function has(list, x) = len([for (y=list) if (y==x) 1]) > 0;
 
-// Every part, at its pose for (step, u).
-module pose_view(skip=[]) {
-    for (n=PARTS) if (!has(skip, n)) part(n);
+// --- Timeline ---------------------------------------------------------------------------
+// The remote is assembled cover face down: +X is up. Groups wait at staging offsets and
+// move into place. Events, in time order within a step:
+//   ["move", names, from, to, u0, u1]   offset from -> to, eased, over u0..u1; shows the parts
+//   ["show", names, u0]                  shows the parts at their current offset
+//   ["hide", names, u0]
+//   ["mark", mark, part, u0, u1]         a flashing marker, carried with the part's offset
+// A part is hidden until its first event. Step entry: [duration_s, camera, events, cut], where
+// camera is OpenSCAD's --camera vector in the view frame (view_frame) and cut lists the parts
+// drawn with their upper axial wall removed, to see inside.
+
+fn = [cos(fold_angle), sin(fold_angle), 0];   // joystick axis, inward (the model's fold_n)
+H = [45, 0, 0];                               // housing staged above the stack
+JA = 22*fn;                                   // joystick group above its seat
+JS = JA+[0, 0, 45];                           // joystick group staged beside the cover
+CA = [22, 0, 0];                              // button plate group above its seat
+CS = CA+[0, 0, -45];                          // button plate group staged beside the cover
+PO = [0, -60, 0];                             // pouch below the bottom opening
+HG = ["housing", "usbc_board", "vent_label"];
+JG = ["stick", "joy_plate", "joy_board"];
+CG = ["button_plate", "control_board", "xiao"];
+O = [0, 0, 0];
+
+// Cameras as OpenSCAD's --camera eye and centre (6 values) in the view frame: looking at
+// model point c from azimuth az and elevation el (degrees, view frame), d away.
+function vp(p) = [-p[2], p[1], p[0]];
+function cam(c, az, el, d) = let(v = vp(c)) concat(v+d*[cos(el)*cos(az), cos(el)*sin(az), sin(el)], v);
+zc = axial_width/2;
+CAM_HOUSING = cam(H+[-36, 2, zc], 215, -45, 240);
+CAM_JOY = cam(JS+8*fn+[joy_p[0], joy_p[1], zc], 215, 30, 140);
+CAM_CTRL = cam(CS+[-48, 16, zc], 325, 35, 130);
+CAM_STACK = cam([-30, 5, zc], 300, 22, 270);
+CAM_BOTTOM = cam([-26, -36, zc], 250, 15, 180);
+CAM_KNOB = cam([joy_p[0], joy_p[1], zc], 250, -40, 200);
+
+step8 = variant == "battery_first" ? [5, CAM_STACK, [
+        ["move", ["pouch"], H+PO, H, 0.05, 0.35],
+        ["move", concat(HG, ["pouch"]), H, O, 0.4, 0.75],
+        ["show", ["cable_usb", "cable_bat"], 0.8],
+        ["mark", "cover_screws", "cover", 0.8, 1]], ["housing"]]
+    : [5, CAM_STACK, [
+        ["move", HG, H, O, 0.05, 0.6],
+        ["show", ["cable_usb"], 0.65],
+        ["mark", "cover_screws", "cover", 0.7, 1]], ["housing"]];
+
+step9 = variant == "battery_first" ? [1.5, CAM_STACK, [], ["housing"]]
+    : [7, CAM_STACK, [
+        // documented: the pouch goes in with the cover on, then the cover comes off for J5
+        ["move", ["pouch"], PO, O, 0.05, 0.35],
+        ["hide", ["cable_usb"], 0.38],
+        ["move", concat(HG, ["pouch"]), O, H, 0.4, 0.6],
+        ["move", concat(HG, ["pouch"]), H, O, 0.65, 0.85],
+        ["show", ["cable_usb", "cable_bat"], 0.88],
+        ["mark", "cover_screws", "cover", 0.88, 1]], ["housing"]];
+
+timeline = [
+    // 1 inserts into the housing bosses
+    [4, CAM_HOUSING, [
+        ["move", ["housing"], H, H, 0, 0],
+        ["mark", "inserts", "housing", 0.2, 0.9]], []],
+    // 2 USB-C board along its rib (+X) into the slot, then the epoxy
+    [6, CAM_HOUSING, [
+        ["move", ["usbc_board"], H+[-25, 0, 0], H, 0.05, 0.6],
+        ["mark", "epoxy", "usbc_board", 0.65, 0.95]], ["housing"]],
+    // 3 stick through the joystick plate from the back, then the joystick board
+    [5, CAM_JOY, [
+        ["move", ["joy_plate"], JS, JS, 0, 0],
+        ["move", ["stick"], JS+15*fn, JS, 0.05, 0.45],
+        ["move", ["joy_board"], JS+14*fn, JS, 0.5, 0.9]], []],
+    // 4 control board onto the button plate, then the XIAO into its headers
+    [5, CAM_CTRL, [
+        ["move", ["button_plate"], CS, CS, 0, 0],
+        ["move", ["control_board"], CS+[12, 0, 0], CS, 0.05, 0.45],
+        ["move", ["xiao"], CS+[30, 0, 0], CS, 0.5, 0.9]], []],
+    // 5 cover face down, keypad, joystick group through the sheet, button plate group
+    [8, CAM_STACK, [
+        ["move", ["cover"], O, O, 0, 0],
+        ["move", ["keypad"], [15, 0, 0], O, 0.05, 0.25],
+        ["move", JG, JS, JA, 0.3, 0.45],
+        ["move", JG, JA, O, 0.45, 0.6],
+        ["move", CG, CS, CA, 0.65, 0.78],
+        ["move", CG, CA, O, 0.78, 0.95]], []],
+    // 6 joystick cable (the USB-C cable shows once the housing is on), foam pad
+    [4, CAM_STACK, [
+        ["show", ["cable_joy"], 0.1],
+        ["move", ["xiao_foam"], [12, 0, 0], O, 0.4, 0.8]], []],
+    // 7 vent label inside the housing, foam strip on the rear wall
+    [4, CAM_HOUSING, [
+        ["move", ["vent_label"], H+[0, 10, 0], H, 0.1, 0.5],
+        ["mark", "foam_strip", "housing", 0.55, 0.95]], ["housing"]],
+    step8,
+    step9,
+    // 10 cap gasket and battery cap from below
+    [4, CAM_BOTTOM, [
+        ["move", ["cap_gasket"], [0, -15, 0], O, 0.05, 0.35],
+        ["move", ["battery_cap"], [0, -25, 0], O, 0.4, 0.75],
+        ["mark", "cap_screws", "battery_cap", 0.8, 1]], []],
+    // 11 knob onto the pin from outside, with the shim
+    [4, CAM_KNOB, [
+        ["move", ["knob"], -20*fn, O, 0.1, 0.6],
+        ["mark", "shim", "knob", 0.65, 0.95]], []]];
+
+// Events of one part up to step s, as [type, T0, T1, from, to], with T = step + u.
+function part_events(n, s) = [for (k=[1:s]) for (e=timeline[k-1][2])
+    if (e[0] != "mark" && has(e[1], n))
+        e[0] == "move" ? ["move", k+e[4], k+e[5], e[2], e[3]] : [e[0], k+e[2], k+e[2], O, O]];
+
+// State [visible, offset] at time T, folding the events that started by then.
+function fold_state(ev, T, i=0, acc=[false, [0, 0, 0]]) =
+    i >= len(ev) || ev[i][1] > T ? acc :
+    let(e = ev[i])
+    fold_state(ev, T, i+1,
+        e[0] == "move" ? [true, e[3]+(e[4]-e[3])*(e[2] > e[1] ? ramp(T, e[1], e[2]) : 1)] :
+        e[0] == "show" ? [true, acc[1]] : [false, acc[1]]);
+
+// Time is continuous: the end of step s is the start of step s+1, so the next step's
+// events at u = 0 count too.
+function part_state(n, s, uu) = fold_state(part_events(n, min(s+1, len(timeline))), s+uu);
+
+module mark_shape(m) {
+    if (m == "inserts") at_cover_screws() translate([0, 0, 2.5]) cylinder(d=3.6, h=4, $fn=16);
+    else if (m == "epoxy") at_usbc() translate([-5, -3, usbc_panel_t+0.5]) cube([10, 6, 4]);
+    else if (m == "foam_strip") translate([pouch_x1, pouch_y0, axial_width/2-8]) cube([0.8, pouch_l, 16]);
+    else if (m == "cover_screws") at_cover_screws() translate([0, 0, -2]) cylinder(d=3.8, h=2, $fn=16);
+    else if (m == "cap_screws") for (s=cap_screws) translate([s[0], cap_y-2.5, s[1]]) rotate([-90, 0, 0]) cylinder(d=3.8, h=2, $fn=16);
+    else if (m == "shim") at_joy(-knob_gap) difference() { cylinder(d=knob_hub_d, h=knob_gap, $fn=32); translate([0, 0, -1]) cylinder(d=4, h=3, $fn=16); }
+    else assert(false, str("unknown mark ", m));
 }
 
-if (mode == "pose") pose_view();
+// Upper axial wall removed, as the model's interior view.
+module cut_open(on) {
+    if (on) difference() { children(); interior_cutter(); } else children();
+}
+
+// Every part at its pose for (s, uu), in the model frame.
+module pose_at(s, uu, v=variant, skip=[], redlist=[], cut=[]) {
+    for (n=PARTS) if (!has(skip, n)) {
+        st = part_state(n, s, uu);
+        if (st[0]) translate(st[1]) cut_open(has(cut, n))
+            if (has(redlist, n)) color([0.9, 0.1, 0.1]) render() part(n); else part(n);
+    }
+    for (e=timeline[s-1][2]) if (e[0] == "mark" && uu >= e[3] && uu <= e[4]
+                                 && floor(6*(uu-e[3])/(e[4]-e[3]+1e-9)) % 2 == 0)
+        translate(part_state(e[2], s, uu)[1]) color([1, 0.85, 0]) mark_shape(e[1]);
+}
+
+module pose_view(skip=[]) { pose_at(step, u, variant, skip, red, timeline[step-1][3]); }
+
+// The view frame: the model's +X (up while assembling) becomes OpenSCAD's +Z.
+module view_frame() { rotate([0, -90, 0]) children(); }
+
+function placed(s) = [for (n=PARTS) if (part_state(n, s, 1)[0]) n];
+function moving(s) = [for (n=PARTS) if (len([for (e=timeline[s-1][2]) if (e[0] == "move" && has(e[1], n) && e[2] != e[3]) 1]) > 0) n];
+
+if (mode == "pose") view_frame() pose_view();
 else if (mode == "only") part(target);
-else if (mode == "others") pose_view(skip=[target]);
+else if (mode == "others") pose_at(step, u, variant, skip=[target]);
+else if (mode == "info") {
+    echo(info=[step, timeline[step-1][0], timeline[step-1][1], placed(step), moving(step)]);
+    cube(0.01);
+}
