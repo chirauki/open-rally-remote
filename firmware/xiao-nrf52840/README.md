@@ -86,7 +86,7 @@ The package is the `.zip` that `arduino-cli compile` writes next to the `.hex`. 
 3. Tap **DFU**, choose "Distribution packet (ZIP)" and select the package.
 4. After the update, refresh the services and read Software Revision in Device Information.
 
-On 2026-10-14 this updated the application from `0.3.0-diagnostic` to a test build, `0.3.0-ota-test`, with the board on a USB charger and no computer. The phone then reconnected as a keyboard without pairing again. iOS has not been tested.
+On 2026-10-14 this updated the application from `0.3.0-diagnostic` to a test build, `0.3.0-ota-test`, with the board on a USB charger and no computer. The phone then reconnected as a keyboard without pairing again. A second update, back to `0.3.0-diagnostic`, was made with the board connected to a computer over USB. The 115460-byte image took 35.8 s, about 3.2 kB/s; validation passed and the board started the new application without a manual reset. iOS has not been tested.
 
 Known failure modes, all seen in this test:
 
@@ -96,4 +96,4 @@ Known failure modes, all seen in this test:
 - **GATT cache.** Android caches the attribute table of a bonded device. After a build adds or moves a service, the phone reads the wrong handles. In nRF Connect, use **Refresh services**. A HID host with a stale cache may also fail; pair again if it does. Keep the attribute table the same between releases.
 - **No authentication.** `BLEDfu` needs no pairing, and the bootloader accepts unsigned images. Anyone in range can reprogram the board. This is acceptable on the bench only.
 
-The [OTAFIX fork of the bootloader](https://github.com/oltaco/Adafruit_nRF52_Bootloader_OTAFIX) also reports that older bootloaders do not start the new application after an OTA update while USB is connected to a computer. That case was not tested here.
+The [OTAFIX fork of the bootloader](https://github.com/oltaco/Adafruit_nRF52_Bootloader_OTAFIX) also reports that older bootloaders do not start the new application after an OTA update while USB is connected to a computer. This did not happen with the 0.6.1 bootloader in the test above.
