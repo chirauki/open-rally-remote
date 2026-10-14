@@ -1,6 +1,8 @@
-# Complete Mechanical CAD — V0.26 No-Solder Remote
+# Complete Mechanical CAD — V0.27 No-Solder Remote
 
-V0.26 removes the builder's soldering ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). The buttons become three sealed tact switches on an assembled control board, pressed through a one-piece TPU keypad that is also the gasket. The XIAO, bought with its pins, plugs into female headers on the back of that board, which also carries the charger and the 3.3 V regulator. The joystick and USB-C boards connect to it with bought JST SH cables, and the pouch, fitted protection board up, plugs its own lead into it. The changes are listed under [Changes from V0.25](#changes-from-v025).
+V0.27 lets the housing close onto the stack, and the cover come off, in a straight line. In V0.26 the [assembly path check](assembly-video-v0.26-checks.md) found the lower cover bosses hitting the joystick board on that path. V0.27 changes only the joystick board (rev C) and the joystick plate's standoffs; see [Changes from V0.26](#changes-from-v026).
+
+V0.26 removes the builder's soldering ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). The buttons become three sealed tact switches on an assembled control board, pressed through a one-piece TPU keypad that is also the gasket. The XIAO, bought with its pins, plugs into female headers on the back of that board, which also carries the charger and the 3.3 V regulator. The joystick and USB-C boards connect to it with bought JST SH cables, and the pouch, fitted protection board up, plugs its own lead into it. The changes are listed under [V0.26 changes from V0.25](#v026-changes-from-v025-still-current).
 
 V0.25 drops the XIAO's pin headers and fits a 6 × 20 × 50 mm pouch (602050, 600 mAh in the listing) instead of the 602030. The pouch now slides in from below, through a separate battery cap in the bottom end: an assembly study showed that no 20 mm wide pouch, the V0.24 one included, can pass the front opening. The changes are listed under [Changes from V0.24](#changes-from-v024).
 
@@ -14,7 +16,11 @@ The remote's printed parts are slices of one outer solid: the pod outline cut fl
 
 The remote mounts on the left side of the bar only, never the right. The turn-signal switch that the folded front clears is on the left switchgear.
 
-**Current parametric concept:** [complete-remote-v0.26.scad](../mechanical/cad/complete-remote-v0.26.scad)
+**Current parametric concept:** [complete-remote-v0.27.scad](../mechanical/cad/complete-remote-v0.27.scad)
+
+![V0.27 interior with the upper axial wall removed. It differs from V0.26 only at the joystick board: two screws in its lower half, and slots at its two upper notches.](images/complete-remote-v0.27-interior.png)
+
+![V0.27 joystick plate in its print orientation: both PCB standoffs in the lower half, below the seat hole.](images/complete-remote-v0.27-print-joy-plate.png)
 
 ![V0.26 on its base, from the rider's side: the three TPU keys stand 3 mm out of the cover through Ø13 mm holes; the joystick is unchanged.](images/complete-remote-v0.26-assembly.png)
 
@@ -70,7 +76,23 @@ The control end is unchanged from V0.23. These V0.23 renders still show it:
 
 All images are direct OpenSCAD renders of the V0.25, V0.24 or V0.23 file. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb/README.md).
 
-## Changes from V0.25
+## Changes from V0.26
+
+### Joystick board rev C
+
+The lower cover bosses stand on the lower facet, 20° from the upper ones. Their Ø6 mm columns pass through notches in the joystick board with 0.3 mm clearance and reach the joystick plate. When the housing moves along X, as it must for the upper bosses, the XIAO and the control board, each lower boss also slides 0.34 mm down the facet for every millimetre along X. In V0.26 it hit the board from about 10 mm out (19 mm³ at 6.6 mm). No straight direction worked, and fitting the joystick group to the housing first did not either ([V0.26 path check](assembly-video-v0.26-checks.md)).
+
+[Joystick board rev C](../electronics/joystick-pcb-rev-c/README.md):
+
+- **Slots.** The two notches toward the fold run 3 mm down the facet as slots (`joy_pcb_slot`), the way the bosses slide. 2 mm still overlapped (1.7 mm³). At 3.5 mm the slot came within 0.17 mm of a switch pad, under the 0.3 mm board-edge clearance; at 3 mm it is 0.67 mm away. The notches away from the fold stay round: there the bosses slide off the board edge.
+- **Screws.** The two PCB screws and the plate standoffs move to the lower half, at (∓6.5, −6.4) mm in the joystick frame (`joy_standoffs`). In V0.26 one screw sat at (−6.0, 6.4), in the path of a sliding boss, and the upper half has no room left between the switches and the slots. The new places keep the standoff courtyards 0.2 mm clear of the side switches and of J1. They are 0.82 mm from the switch pads and 0.37 mm from the lower notches.
+- **J1** moves 1 mm to the centre line (`joy_j1`), to pass between the two screw heads (0.35 mm each side).
+
+The housing then moves along X from 45 mm out to its seat without an overlap over 0.01 mm³ (0 to 15 mm in 0.25 mm steps), except the 0.015 mm³ contact of J1 at the seat that V0.26 already had. The cover comes off the same way. The [V0.27 path check](assembly-video-v0.27-checks.md) agrees.
+
+**Cost.** Both screws now sit on one line below the stick axis, so the upper half of the board is held only by the board itself. The up switch pushes on it when the stick tilts up. Treated as a 20.6 mm wide, 1.6 mm FR4 cantilever clamped on the screw line and loaded at the up switch, 13.2 mm away, it bends about 0.011 mm under 2 N (E = 20 GPa), against the 0.05 mm rest gap (`joy_rest_gap`). This is a hand estimate that leaves out the printed standoffs; check it on the first print.
+
+## V0.26 changes from V0.25, still current
 
 ### Control board and keypad
 
@@ -249,11 +271,23 @@ V0.26 (cables are modelled as Ø2.5 mm bundles, plugs as boxes from the connecto
 | Button plate vs housing, cover, joystick plate; keys vs cover and plate; switches vs plate | No overlap or contact only |
 | Cover screw bosses vs control board | No overlap: the board is notched round them |
 | Control board, XIAO, plate and keys lifted out with the cover, 1–20 mm along −X | No overlap |
-| Joystick board and plate lifted out with the cover, along −X (added by the [assembly path check](assembly-video-v0.26-checks.md)) | Overlap with the lower cover bosses from about 10 mm out (19 mm³ at 6.6 mm); no straight path found. See "Open unknowns" |
+| Joystick board and plate lifted out with the cover, along −X (added by the [assembly path check](assembly-video-v0.26-checks.md)) | Overlap with the lower cover bosses from about 10 mm out (19 mm³ at 6.6 mm); no straight path found. Fixed in V0.27 |
 | XIAO components to the pouch envelope | 7.2 mm |
 | Joystick, USB-C and battery cables and plugs vs housing, plates, gasket, cover, XIAO, USB-C board, pouch, each other | No overlap; each plug enters its own socket courtyard by 0.05 mm, the joystick plug rests on its board's rear face, and the pouch lead starts inside the pouch clearance by design |
 | USB-C board (16 mm deep) vs housing, control stack, pouch | No overlap; it rests on its rib |
 | Battery lead, J5 plug to the pouch's top end | 27 mm |
+
+V0.27 (joystick board rev C; the rest as V0.26):
+
+| Check | Result |
+|---|---|
+| Housing moved along X onto the stack, 0–45 mm (0.25 mm steps to 15 mm), against the joystick board and plate, button plate, control board, XIAO, keypad, cover, stick, foam pad and joystick cable | No overlap over 0.01 mm³, except the J1 contact at the seat (0.015 mm³, as V0.26) |
+| Joystick board vs lower cover bosses, at the seat | No overlap |
+| PCB screw heads vs J1 | No overlap; 0.35 mm each side |
+| Plate standoffs vs switch bodies and pads; standoffs and heads vs the board edge | 1.35 mm to the bodies, 0.82 mm to the pads, at least 0.3 mm inside the edge |
+| Stick and knob tilted to the knob stop, four directions and four diagonals | Same overlaps as V0.26 (plate 0.051 mm³, cover and housing 0.43 mm³, joystick board 15.8 mm³) |
+| Joystick cable and plug vs board, J1 and the rest | Same as V0.26 |
+| Joystick board rev C, ERC and DRC with schematic parity | 0 errors, 0 unconnected pads |
 
 V0.25:
 
@@ -365,10 +399,10 @@ No part needs supports.
 
 ## Assembly
 
-Remote (V0.26; nothing to solder):
+Remote (V0.27; nothing to solder):
 1. Press the ten M2 inserts into the housing screw bosses.
 2. Fit the USB-C board rev B: fit the receptacle's gasket, carry the board in 1.5 mm above its rib past the upper cover bosses, lower it onto the rib 8 mm short of the rear wall, and slide it along the rib until the nose enters the slot and the gasket sits in its pocket. Fix it with two M2 × 4 thread-forming screws. Pot the back of the receptacle with epoxy, keeping it out of the opening and the socket. Fill the LED window from outside with clear epoxy or UV resin. Plug the 3-pin cable into its socket.
-3. Joystick: push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the joystick board rev B onto the plate standoffs with two M2 × 8 button-head screws; the disc rests on the switches. Plug the 5-pin cable into its socket.
+3. Joystick: push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the joystick board rev C onto the plate standoffs with two M2 × 8 button-head screws; the disc rests on the switches. Plug the 5-pin cable into its socket.
 4. Screw the control board onto the button plate standoffs with two M2 × 5 thread-forming screws, switches toward the plate. Plug the XIAO into its headers, components away from the board, USB-C toward the joystick end.
 5. Lay the cover face down and the keypad on it, keys through the cover holes, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the joystick plate on the lower-facet sheet. Lay the button plate with the control board on the upper-facet sheet.
 6. Plug the joystick cable into J4 and the USB-C cable (from the housing) into J3 on the control board. Stick the foam pad on the XIAO's components.
@@ -392,13 +426,15 @@ To program over USB, remove the remote from the base and its cover. Take the kno
 
 ## Assembly video
 
-[`complete-remote-v0.26-assembly.mp4`](videos/complete-remote-v0.26-assembly.mp4) shows the remote steps 1–11 above, one chapter per step (56 s; QuickTime and VLC list the chapters). It is for design review, not a builder's guide. Parts that collide on their path show in red. Cables are not animated: each appears in place once both its ends are fitted. The video shows the documented order of steps 8 and 9.
+[`complete-remote-v0.27-assembly.mp4`](videos/complete-remote-v0.27-assembly.mp4) shows the remote steps 1–11 above, one chapter per step (56 s; QuickTime and VLC list the chapters). It is for design review, not a builder's guide. Parts that collide on their path show in red. Cables are not animated: each appears in place once both its ends are fitted. The video shows the documented order of steps 8 and 9.
 
-[`assembly-video-v0.26-checks.md`](assembly-video-v0.26-checks.md) is the path check behind it. Each move is checked at five poses against the parts in place, and every pair of parts in the final pose. Both orders of steps 8 and 9 are checked. Findings:
+[`assembly-video-v0.27-checks.md`](assembly-video-v0.27-checks.md) is the path check behind it. Each move is checked at five poses against the parts in place, and every pair of parts in the final pose. Both orders of steps 8 and 9 are checked. Findings:
 
-- The housing cannot close onto the stack, nor the cover come off, in a straight line: the lower cover bosses hit the joystick board notches (see "Open unknowns").
+- The housing closes onto the stack along X (V0.27; in [V0.26](assembly-video-v0.26-checks.md) it hit the joystick board).
 - The vent label runs into the lower-facet stack at the bottom wall.
 - The USB-C board reaches its rib by a path above the upper bosses (assembly step 2).
+
+The [V0.26 video](videos/complete-remote-v0.26-assembly.mp4) stays as the record of the collision.
 
 Regenerate, from the repository root (OpenSCAD 2026.x, Python 3, ffmpeg; about 4 min on an 11-core Mac):
 
@@ -409,7 +445,7 @@ python3 mechanical/cad/tools/assembly_video.py video
 python3 -m unittest mechanical/cad/tools/test_assembly_video.py
 ```
 
-The timeline, the staging offsets and the cameras are in `mechanical/cad/assembly-video-v0.26.scad`. The step captions come from the assembly steps above, so rerun `video` after editing them.
+The timeline, the staging offsets and the cameras are in `mechanical/cad/assembly-video-v0.27.scad`. The tool uses the newest version; `ORR_VERSION=0.26` selects the V0.26 file, but its captions need the V0.26 assembly list, which is now in the git history. The step captions come from the assembly steps above, so rerun `video` after editing them.
 
 ## Hardware
 
@@ -480,8 +516,8 @@ These are the only items that block a confident first print. Each is a parameter
 - **Lock:** a spring that fits a Ø6 mm pocket over a Ø3 mm shank and holds the head out firmly; its compressed length sets `lock_spring_solid`. The pull force, and whether 1 mm of head in the pocket is enough.
 - **Pouch:** the bought cell's size (up to 54 mm long, 6 mm thick), its real capacity, protection board and lead exit, and its maximum charge current against the control board's 100 mA (set by R1 on the MCP73831).
 - **Battery cap:** whether the flat gasket seals on the 2.5 mm side lands, whether M2 screws hold in Ø1.6 mm pilots in PETG after a few battery changes, and whether the 26 mm bottom band clears the switchgear on the bike.
-- **USB-C PCB:** check its hand-drawn USB4736 footprint against the real part or GCT's footprint files, and the Ø1.6 mm screw pilots against the chosen screws; in V0.26 the holes are at ±7 mm. How the board gets onto its rib was not solved in V0.24 and V0.25. For V0.26 the assembly path check found a clear path: carried 1.5 mm above the rib past the upper cover bosses at Y = 24, lowered onto the rib 8 mm short of the rear wall, then slid in. The margin is small (1 mm above the rib still overlaps 0.2 mm³), so check it on the first print ([assembly path check](assembly-video-v0.26-checks.md)).
-- **Housing onto the stack, and the cover off:** not possible in a straight line in V0.26. The lower-facet cover bosses, 20° from the upper ones, pass through the joystick board's R3.3 notches with 0.3 mm clearance, and every straight path tried, from −5° to 25° from X in 5° steps, collides (19 mm³ at 6.6 mm along X). The V0.26 check of the cover lifting off left the joystick board out. A fix needs a design change, such as slotting the joystick board notches along the facet or a joystick group that comes away from the cover first. See the [assembly path check](assembly-video-v0.26-checks.md).
+- **USB-C PCB:** check its hand-drawn USB4736 footprint against the real part or GCT's footprint files, and the Ø1.6 mm screw pilots against the chosen screws; in V0.26 the holes are at ±7 mm. How the board gets onto its rib was not solved in V0.24 and V0.25. For V0.26 the assembly path check found a clear path: carried 1.5 mm above the rib past the upper cover bosses at Y = 24, lowered onto the rib 8 mm short of the rear wall, then slid in. The margin is small (1 mm above the rib still overlaps 0.2 mm³), so check it on the first print ([assembly path check](assembly-video-v0.27-checks.md)).
+- **Joystick board support (V0.27):** both PCB screws are now in the lower half. A hand estimate gives 0.011 mm of bending under the up switch at 2 N, against the 0.05 mm rest gap; check on the first print that the up direction trips like the others and that the board does not rock.
 - **Charge LED:** whether the LED shows well enough through the filled Ø1.6 mm window (`usbc_led_hole_d`), and whether the printed hole needs drilling out to size.
 - **Profile LED:** the firmware shows the active profile on the XIAO's RGB LED (green, blue or white, a short blink every 10 s). The XIAO is enclosed, so the rider cannot see it. In V0.26 the charge LED is driven by the charger, so it cannot show the profile; a light pipe to the XIAO's LED would need a sealed window.
 - **Vent:** label diameter and required hole size. A Ø10 mm label at X = −41 runs 3.2 mm into the cover, the keypad and the joystick plate at the bottom wall; the hole or the label has to move toward the rear or shrink.
@@ -492,4 +528,4 @@ Not addressed by this concept: IP rating, impact, vibration, and fatigue strengt
 
 ## Earlier versions
 
-V0.1–V0.24 remain available for comparison. V0.23 is the fixed, cable-powered version: its clamp ring and shoulders are part of the housing. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23 or later. V0.24 places a 602030 pouch that cannot be put in through the front opening (see [Changes from V0.24](#changes-from-v024)); build V0.25. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.
+V0.1–V0.26 remain available for comparison. V0.26 should not be built: its housing cannot close onto the joystick board (see [Changes from V0.26](#changes-from-v026)). V0.23 is the fixed, cable-powered version: its clamp ring and shoulders are part of the housing. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23 or later. V0.24 places a 602030 pouch that cannot be put in through the front opening (see [Changes from V0.24](#changes-from-v024)); build V0.25. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.

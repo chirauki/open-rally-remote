@@ -110,7 +110,7 @@ class Task3(unittest.TestCase):
 
 
 DOC = av.REPO / "docs" / "mechanical-concept.md"
-VIDEO = av.REPO / "docs" / "videos" / "complete-remote-v0.26-assembly.mp4"
+VIDEO = av.VIDEO
 
 
 class Task4(unittest.TestCase):

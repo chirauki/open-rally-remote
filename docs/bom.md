@@ -1,8 +1,8 @@
-# Bill of Materials — V0.26
+# Bill of Materials — V0.27
 
-This is the single parts list for the project: the bench prototype and the V0.26 removable, battery-powered remote with its base. V0.26 is built without soldering: the three circuit boards are ordered assembled and joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Design details stay in the linked documents; this page lists what to buy.
+This is the single parts list for the project: the bench prototype and the V0.27 removable, battery-powered remote with its base. V0.27 is V0.26 with the joystick board rev C. Both are built without soldering: the three circuit boards are ordered assembled and joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Design details stay in the linked documents; this page lists what to buy.
 
-**Status:** nothing in the V0.26 list has been built or tested. The V0.25 list is in the git history.
+**Status:** nothing in the V0.27 list has been built or tested. The V0.25 list is in the git history.
 
 Sourcing preference: parts that builders can buy from mainstream retailers (for example Amazon) come first. Distributor-only parts are used only where no retail part meets the requirement, and the reason is given.
 
@@ -50,7 +50,7 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 | 1 | Seeed XIAO nRF52840 **with pre-soldered pins** (MPN `102010631`) | [Kiwi Electronics](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402), €9.99 before VAT | Plugs into the control board's headers. The same board as on the breadboard. |
 | 1 | LiPo pouch with protection board and a JST-PH 2.0 lead, at most 6 × 20 × 54 mm including the protection board | Retail (for example Amazon) | The pouch goes in with its protection board up; the lead must leave that end and be at least about 40 mm long (27 mm in the CAD). 600 mAh class (602045, 602050). The control board protects against a reversed plug; check the polarity anyway. |
 | 1 | [Control board](../electronics/control-pcb/README.md), 21.4 × 49 × 1.6 mm, assembled | JLCPCB | Three KSC2 buttons, XIAO headers, MCP73831 charger, TPS70933 regulator, sockets. Gerbers, BOM and placement in `electronics/control-pcb/fab/`. Parts on both sides; the headers are through-hole. |
-| 1 | [Joystick board rev B](../electronics/joystick-pcb-rev-b/README.md), 20.6 × 22.4 × 1.6 mm, assembled | JLCPCB | Four KSC2 switches and one socket. Files in `electronics/joystick-pcb-rev-b/fab/`. |
+| 1 | [Joystick board rev C](../electronics/joystick-pcb-rev-c/README.md), 20.6 × 22.4 × 1.6 mm, assembled | JLCPCB | Four KSC2 switches and one socket. Files in `electronics/joystick-pcb-rev-c/fab/`. Rev B (V0.26) does not let the housing close. |
 | 1 | [USB-C board rev B](../electronics/usbc-pcb-rev-b/README.md), 19 × 16 × **1.2** mm, assembled | JLCPCB | Order at 1.2 mm. The GCT USB4736-GF-A receptacle is bought through JLCPCB's global sourcing (C9900206672); its USBTJ-06 gasket comes in the kit and is fitted after soldering. Files in `electronics/usbc-pcb-rev-b/fab/`. |
 | 1 | JST SH-style cable, 5-pin, female–female, 1 mm pitch, straight (pin 1 to pin 1), 10 cm | [Pololu](https://www.pololu.com/category/350/5-pin-jst-sh-style-cables) | Joystick board to control board. Not found on Amazon by web search. |
 | 1 | JST SH-style cable, 3-pin, female–female, 1 mm pitch, straight, 10 cm | Pololu | USB-C board to control board. |

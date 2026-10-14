@@ -1,4 +1,6 @@
 // Open Rally Remote — concept, V0.26
+// Superseded by V0.27: the housing cannot close onto the joystick board in a straight line
+// (docs/assembly-video-v0.26-checks.md). Do not build.
 // Units: mm. Ring lies in XY; handlebar axis is Z. Controls are on the side face (YZ).
 //
 // V0.26 removes the builder's soldering (docs/superpowers/specs/2026-10-14-no-solder-assembly-design.md):
