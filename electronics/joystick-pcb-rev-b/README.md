@@ -3,7 +3,7 @@
 Rev B of the [joystick board](../joystick-pcb/README.md) for the no-solder V0.26 remote ([spec](../../docs/superpowers/specs/2026-10-14-no-solder-assembly-design.md)). The outline, the four C&K KSC221JLFS switches and the two standoff holes are those of rev A. The changes:
 
 - The 5 V input protection (PTC fuse and TVS) moves to the [control board](../control-pcb/README.md).
-- The wire pads become one JST SH-compatible 5-pin side-entry socket (J1, LCSC C2906271) on the rear, in the rear zone above the stick axis, opening up the facet toward the control board.
+- The wire pads become one JST SH-compatible 5-pin side-entry socket (J1, LCSC C2906271) on the rear, below the stick axis, opening up the facet toward the control board; the plug lies over the rear face.
 
 | J1 pin | Signal |
 |---|---|

@@ -4,13 +4,14 @@
 // V0.26 removes the builder's soldering (docs/superpowers/specs/2026-10-14-no-solder-assembly-design.md):
 //   - buttons: three KSC2 switches on an assembled control board instead of the APEM buttons.
 //     The gasket becomes a one-piece TPU keypad: its upper-facet part is a full sheet with three
-//     keys standing out through Ø13 mm cover holes, and nubs behind the keys press the switches.
+//     keys standing out through Ø13 mm cover holes. The switch actuators sit just behind the
+//     sheet, in holes of the button plate, so the sheet's back is flat and prints without support.
 //   - a printed button plate behind the upper sheet, like the joystick plate on the lower facet,
 //     clamps the sheet against the cover and carries the control board on two standoffs.
 //   - the XIAO, bought with pins, plugs into two 1x7 female headers on the back of the control
 //     board; its rails in the housing are gone. A foam pad between it and the pouch keeps it in.
-//   - the upper cover bosses start behind the button plate and end in front of the control
-//     board, so they take short M2 x 3 inserts and M2 x 8 screws.
+//   - the upper cover bosses start behind the button plate, like the lower ones, and pass through
+//     notches in the control board; all ten cover screws are M2 x 10.
 //   - the gasket lip on the upper facet is gone; the button plate is the land there.
 //
 // V0.25 drops the XIAO's pin headers and fits a longer pouch behind the board:
@@ -280,12 +281,11 @@ button_y = [33.0, 15.0, -3.0];  // A, B, C on the upper facet, 18 mm pitch
 key_d = 12.0;                // TPU key, part of the gasket
 key_hole = 13.0;             // cover hole round each key
 key_proud = 3.0;             // key top above the cover face
-key_nub_d = 4.0;             // nub on the key back, presses the switch actuator
-key_rest_gap = 0.3;          // nub to actuator at rest; covers about 0.25 mm of print and sheet
-                             // tolerance, so a key is not pressed at rest. Trim the nub to tune
+key_rest_gap = 0.3;          // sheet back to switch actuator at rest; covers about 0.25 mm of print
+                             // and sheet tolerance, so a key is not pressed at rest. Shim the
+                             // standoffs to tune
 key_web_d = 15.8;            // button plate hole: the sheet between key_d and this flexes
 btn_plate_t = 1.5;
-btn_ksc_gap = 0.5;           // switch actuator top behind the button plate back
 btn_standoffs = [[24.0,3.95],[6.0,-3.95]];   // Y, Z offset from the pod centre; between the keys,
                              // 3.95 mm off centre so they clear the key_web_d holes
 btn_standoff_d = 3.6;
@@ -293,13 +293,18 @@ btn_standoff_pilot = 1.6;    // M2 thread-forming screw; MEASURE pilot
 ctrl_pcb_t = 1.6;
 ctrl_pcb_y = [-8.0, 41.0];   // control board along Y
 ctrl_pcb_clear = 0.3;        // to the cavity walls
-ctrl_rear_parts = 2.0;       // charger, regulator, passives on the board back
-ctrl_conn_h = 4.4;           // JST SH side-entry sockets above the board (PH: 5.5, placed off the XIAO)
+// Board-back parts (courtyards from KiCad), [x0, x1, y0, y1, height]:
+ctrl_back_parts = [
+    [-5.7, 5.9, -1.4, 15.0, 1.5],      // charger, regulator, Q1, dividers under the XIAO
+    [-0.05, 6.84, -22.33, -15.67, 2.9], // J3, JST SH 3-pin, side entry
+    [-9.55, -0.06, -20.3, -11.7, 7.0], // J5, JST PH 2-pin, top entry
+    [-6.3, -0.31, -11.59, -7.61, 1.3], // F1, 1812 PTC
+    [-6.69, 0.69, -6.89, -2.31, 2.4],  // D1, SMB TVS
+    [-4.44, 4.44, 16.67, 23.33, 2.9]]; // J4, JST SH 5-pin, side entry   // J4, JST SH 5-pin, side entry
 // XIAO with pre-soldered pins, plugged into female headers (electronics/control-pcb).
 header_h = 5.7;              // 1x7 female header body above the board (LCSC C55218877)
 header_w = 2.54;
 xiao_spacer = 2.5;           // plastic spacer of the XIAO's own pins; MEASURE on the bench XIAO
-upper_insert_depth = 3.5;    // M2 x 3 heat-set insert in the short upper bosses
 
 // --- Joystick: steel pin stick, printed ball and disc, four C&K KSC2 sealed tact switches -
 // Joystick frame (at_joy): origin on the outer cover face at the stick axis, +Z into the pod
@@ -365,7 +370,7 @@ joy_standoff_pilot = 1.6;
 cover_screws = [[0,40.5],[0,24.0],[0,-6.0],[1,3.5],[1,25.3]];   // V0.26: Y 6 -> -6, so the
                              // XIAO on the control board passes between the upper bosses when the cover comes off
 cover_screw_z = [pod_z0+3.25, pod_z1-3.25];
-cover_screw_length = 8.0;
+cover_screw_length = 10.0;   // V0.26: the upper screws also pass the button plate
 cover_screw_length_lower = 10.0;
 cover_screw_clear_d = 2.4;
 cover_csk_d = 4.4;
@@ -453,12 +458,11 @@ disc_tilt_room = atan(disc_top_clear/disc_reach);
 // Upper-facet stack (offsets from the cover's outer plane).
 btn_plate_front_off = housing_front_off;
 btn_plate_back_off = btn_plate_front_off+btn_plate_t;
-btn_ksc_top_off = btn_plate_back_off+btn_ksc_gap;      // switch actuator tops
+btn_ksc_top_off = housing_front_off+key_rest_gap;      // switch actuator tops, in the plate holes
 ctrl_pcb_off = btn_ksc_top_off+ksc_h;                  // control board front face
 ctrl_back_off = ctrl_pcb_off+ctrl_pcb_t;
 xiao_pcb_off = ctrl_back_off+header_h+xiao_spacer;     // XIAO PCB, pin side
 xiao_comp_off = xiao_pcb_off+xiao_pcb+xiao_component_h;
-upper_boss_end_off = ctrl_pcb_off-0.2;
 ctrl_band = [cover_screw_z[0]+cover_boss_d/2+0.3, cover_screw_z[1]-cover_boss_d/2-0.3];   // Z free of the boss columns
 btn_standoff_h = ctrl_pcb_off-btn_plate_back_off;
 xiao_pcb_x0 = cover_front_x+xiao_pcb_off;
@@ -469,10 +473,10 @@ xiao_z0 = axial_width/2-xiao_width/2;
 cover_screw_thread = cover_screw_length-btn_plate_back_off;
 cover_screw_thread_lower = cover_screw_length_lower-plate_back_off;
 assert(xiao_rear_x+1.5 <= pouch_x0, "XIAO components within 1.5 mm of the pouch envelope");
-assert(upper_boss_end_off-btn_plate_back_off >= upper_insert_depth, "Upper bosses too short for their inserts");
 for (st=btn_standoffs, y=button_y)
     assert(norm([st[0]-y,st[1]]) >= key_web_d/2+btn_standoff_d/2+0.05, "Button plate standoff cut by a key web hole");
-assert(cover_screw_thread < upper_insert_depth-0.05, "Upper cover screw bottoms in the insert hole");
+assert(cover_screw_thread <= cover_insert_depth-0.5, "Upper cover screw bottoms in the insert hole");
+assert(btn_standoff_h >= 1.5, "Button plate standoffs too short");
 assert(cover_screw_thread_lower <= cover_insert_depth-0.5, "Lower cover screw bottoms in the insert hole");
 assert(knob_stop_angle > trip_angle+1, "Knob stops the tilt before a direction switch trips");
 assert(knob_gap > joy_rest_gap+ksc_travel_max, "Knob stops the push before the switches trip");
@@ -504,8 +508,9 @@ echo(str("Cover screws M2x",cover_screw_length,", thread into insert ",cover_scr
     cover_screw_length_lower,", ",cover_screw_thread_lower," mm"));
 echo(str("Upper stack offsets: plate ",btn_plate_front_off,"-",btn_plate_back_off,", switch tops ",btn_ksc_top_off,
     ", board ",ctrl_pcb_off,"-",ctrl_back_off,", XIAO PCB ",xiao_pcb_off,", XIAO components to ",xiao_comp_off,
-    " (X ",cover_front_x+xiao_comp_off,"); standoffs ",btn_standoff_h,"; upper bosses ",btn_plate_back_off,"-",upper_boss_end_off));
+    " (X ",cover_front_x+xiao_comp_off,"); standoffs ",btn_standoff_h));
 echo(str("XIAO components to pouch envelope (mm): ",pouch_x0-xiao_rear_x,"; to the cell: ",pouch_x0+pouch_clear-xiao_rear_x));
+echo(str("Battery lead from the J5 plug to the pouch's protection-board end: ",path_len(bat_path)," mm"));
 led_hole_to_pocket = usbc_led_x-usbc_led_hole_d/2-usbc_pocket[0]/2;
 led_hole_to_plug = usbc_led_x-usbc_led_hole_d/2-usbc_plug[0]/2;
 led_pcb_side = usbc_pcb[0]/2-(axial_width/2-case_wall);
@@ -687,15 +692,15 @@ module clamp_bolts() {
 // ======================================================================================
 
 module cover_bosses() {
-    // Bosses start behind the plate on their facet, which they clamp against the sheet. Upper
-    // bosses end in front of the control board (short inserts); lower ones run 8 mm. The end
-    // positions are joined to the nearest end wall.
+    // Bosses start behind the plate on their facet, which they clamp against the sheet, and end
+    // 8 mm behind the cover's back face. The upper ones pass through notches in the control
+    // board. The end positions are joined to the nearest end wall.
     for (i=[0:len(cover_screws)-1], z=cover_screw_z) {
         s = cover_screws[i];
         p = front_point(s[0],s[1]);
         a = front_normal(s[0]);
         b0 = boss_start_off(s[0]);
-        boss_end = s[0]==0 ? upper_boss_end_off : cover_back_off+gasket_gap+cover_boss_depth;
+        boss_end = cover_back_off+gasket_gap+cover_boss_depth;
         join = i==0 ? [0,6] : (i==len(cover_screws)-1 ? [0,-6] : [0,0]);
         // The joined copy keeps the V0.20 depth behind it, but never starts in front of b0
         // measured from the facet, so the lower end boss stays clear of the joystick plate.
@@ -711,7 +716,7 @@ function boss_start_off(facet) = facet==1 ? plate_back_off : btn_plate_back_off;
 module cover_insert_holes() {
     for (s=cover_screws, z=cover_screw_z) along(front_point(s[0],s[1]),front_normal(s[0]),z)
         translate([0,0,boss_start_off(s[0])-0.1])
-            cylinder(d=cover_insert_hole_d,h=(s[0]==0 ? upper_insert_depth : cover_insert_depth)+0.1);
+            cylinder(d=cover_insert_hole_d,h=cover_insert_depth+0.1);
 }
 
 module vent_hole() {
@@ -993,13 +998,10 @@ module gasket() {
     keys();
 }
 
-// Keys in the button frame (at_buttons): from key_proud outside the cover to the sheet, and a
-// nub behind the sheet down to the switch actuator.
+// Keys in the button frame (at_buttons): from key_proud outside the cover to the sheet. The
+// sheet behind each key presses the switch actuator directly.
 module keys() {
-    at_buttons() {
-        translate([0,0,-key_proud]) cylinder(d=key_d,h=key_proud+cover_back_off+0.01);
-        translate([0,0,housing_front_off-0.01]) cylinder(d=key_nub_d,h=btn_ksc_top_off-key_rest_gap-housing_front_off+0.01);
-    }
+    at_buttons() translate([0,0,-key_proud]) cylinder(d=key_d,h=key_proud+cover_back_off+0.01);
 }
 
 // Button plate: fills the upper-facet cavity behind the sheet, clamped by the six upper cover
@@ -1161,20 +1163,97 @@ module control_board_envelope() {
     color([0.1,0.1,0.1]) for (k=[-1,1])
         translate([cover_front_x+ctrl_back_off,xiao_y-7*header_w/2,axial_width/2+k*(xiao_width/2-xiao_pin_inset)-header_w/2])
             cube([header_h,7*header_w,header_w]);
-    // Board-back parts and sockets: above the XIAO (sockets) and below it (charger, regulator),
-    // in the band between the boss columns, so the board lifts out past the bosses.
-    color([0.3,0.3,0.3,0.6]) translate([cover_front_x+ctrl_back_off,xiao_y+xiao_length/2+0.5,ctrl_band[0]])
-        cube([ctrl_conn_h,ctrl_pcb_y[1]-(xiao_y+xiao_length/2+0.5)-0.5,ctrl_band[1]-ctrl_band[0]]);
-    color([0.3,0.3,0.3,0.6]) translate([cover_front_x+ctrl_back_off,ctrl_pcb_y[0]+0.5,ctrl_band[0]])
-        cube([ctrl_rear_parts,xiao_y-xiao_length/2-ctrl_pcb_y[0]-1,ctrl_band[1]-ctrl_band[0]]);
+    // Board-back parts, from electronics/control-pcb/design.py: courtyard boxes [x0, x1, y0, y1,
+    // height] in board coordinates (x = Z - 11.5, y = 16.5 - Y).
+    color([0.3,0.3,0.3,0.8]) for (b=ctrl_back_parts) {
+        p0 = ctrl_global(b[0],b[3]);
+        translate(p0) cube([b[4],b[3]-b[2],b[1]-b[0]]);
+    }
     // standoff screw heads on the board back
     color([0.25,0.25,0.27]) for (st=btn_standoffs)
         translate([cover_front_x+ctrl_back_off,st[0],axial_width/2+st[1]]) rotate([0,90,0]) cylinder(d=joy_screw_head[0],h=joy_screw_head[1]);
 }
-// Foam pad between the XIAO components and the pouch, holding the XIAO in its headers.
+// Foam pad between the XIAO components and the pouch, holding the XIAO in its headers. It
+// stops short of the -Z side, where the battery lead runs down.
 module xiao_foam_envelope() {
-    color([0.9,0.9,0.5,0.6]) translate([xiao_rear_x,xiao_y-xiao_length/2+2,xiao_z0+2])
-        cube([pouch_x0+pouch_clear-xiao_rear_x,xiao_length-4,xiao_width-4]);
+    color([0.9,0.9,0.5,0.6]) translate([xiao_rear_x,xiao_y-xiao_length/2+2,xiao_z0+6])
+        cube([pouch_x0+pouch_clear-xiao_rear_x,xiao_length-4,xiao_width-8]);
+}
+
+// --- Cables (V0.26): bought JST SH and PH cables between the boards ----------------------
+// Plug envelopes: width across the contacts, height off the board, length out of the socket.
+sh_plug = [[4.95,2.9,4.5],[6.95,2.9,4.5]];   // 3-pin, 5-pin
+sh_mouth = 3.28;             // socket front edge from its centre (KiCad courtyard)
+sh_cable_d = 2.5;            // 3 or 5 x 28 AWG, bundled
+ctrl_global = function(x,y) [cover_front_x+ctrl_back_off, 16.5-y, axial_width/2+x];   // board back face
+// Control board sockets (electronics/control-pcb/design.py): J4 joystick at (0, 20), J3 USB-C
+// board at (3.4, -19.0), both opening toward -Y.
+j4_mouth = ctrl_global(0,20.0+sh_mouth);
+j3_mouth = ctrl_global(3.4,-19.0+sh_mouth);
+// Joystick board rev B: J1 at board (1.0, 7.4) on the rear (frame (-1.0, -7.4)), opening up
+// the facet.
+function joy_to_global(p) = let(g = joy_p+p[2]*fold_n-p[1]*fold_d) [g[0], g[1], axial_width/2-p[0]];
+function global_to_joy(g) = let(v = [g[0]-joy_p[0], g[1]-joy_p[1]]) [axial_width/2-g[2], -(v*fold_d), v*fold_n];
+joy_j1_mouth = [-1.0, -7.4+sh_mouth, joy_pcb_off+joy_pcb_t];
+// USB-C board rev B: J2 at (0, -12.9) on the top, opening into the remote (-X).
+usbc_top_y = usbc_y-usbc_axis_h;
+usbc_j2_mouth = [rear_x-usbc_pcb_edge-12.9-sh_mouth, usbc_top_y, axial_width/2];
+
+module chain(pts,d) {
+    for (i=[0:len(pts)-2]) hull() { translate(pts[i]) sphere(d=d,$fn=16); translate(pts[i+1]) sphere(d=d,$fn=16); }
+}
+// Plug from a socket mouth m, sticking out along unit vector u, contacts across w, height
+// along h (off the board).
+module plug(m,u,w,h,size) {
+    v = cross(u,h);
+    multmatrix([[v[0],h[0],u[0],m[0]],[v[1],h[1],u[1],m[1]],[v[2],h[2],u[2],m[2]],[0,0,0,1]])
+        translate([-size[0]/2,0,0]) cube([size[0],size[1],size[2]]);
+}
+module cables() { color([0.2,0.2,0.2]) { cable_joy(); cable_usb(); } color([0.6,0.1,0.1]) cable_bat(); }
+
+// Battery lead: the pouch's own JST PH lead, plugged straight into J5 (top entry) on the
+// control board. The pouch goes in with its protection board up, so the lead leaves its top
+// end, below the USB-C board's rib, and runs forward and up in front of the USB-C board to J5.
+ph_plug = [5.95,4.5,9.0];    // 2-pin PH plug in a top-entry header: across, thickness, height off the board
+ph_cable_d = 2.6;            // 2 x 24 AWG
+j5_xy = [-4.8,-15.5];
+pouch_top_y = pouch_y0+pouch_l+2*pouch_clear;
+bat_path = let(p0 = ctrl_global(j5_xy[0],j5_xy[1])+[ph_plug[2],0,0]) [
+    [(pouch_x0+pouch_x1)/2,pouch_top_y-0.5,6.0], [(pouch_x0+pouch_x1)/2,pouch_top_y+1.8,6.0],
+    [-33.0,pouch_top_y+2.2,5.0], [-37.6,21.0,4.5], [p0[0]+1.5,p0[1]-2,4.5], p0];
+function path_len(p) = p[1]==undef ? 0 : norm(p[1]-p[0])+path_len([for (i=[1:len(p)-1]) p[i]]);
+module cable_bat() {
+    c = ctrl_global(j5_xy[0],j5_xy[1]);
+    translate([c[0],c[1]-ph_plug[1]/2,c[2]-ph_plug[0]/2]) cube([ph_plug[2],ph_plug[1],ph_plug[0]]);
+    chain(bat_path, ph_cable_d);
+}
+module cable_joy(part="all") {
+    {
+        // joystick: J1 on the joystick board to J4 on the control board
+        jd = -fold_d; jn = fold_n;
+        j1_end = joy_to_global(joy_j1_mouth+[0,sh_plug[1][2],sh_plug[1][1]/2]);
+        plug(joy_to_global(joy_j1_mouth), [jd[0],jd[1],0], [-0,0,1], [jn[0],jn[1],0], sh_plug[1]);
+        plug(j4_mouth, [0,-1,0], [0,0,1], [1,0,0], sh_plug[1]);
+        j4_end = j4_mouth+[sh_plug[1][1]/2,-sh_plug[1][2],0];
+        // Along the rear face up the facet, round the board's top edge, then forward to J4.
+        j4f = global_to_joy(j4_end);
+        rear = joy_pcb_off+joy_pcb_t;
+        chain([j1_end,
+               joy_to_global([-1.0, joy_pcb_hy+1.0, rear+1.45]),
+               joy_to_global([-0.5, joy_pcb_hy+2.2, joy_pcb_off+0.8]),
+               joy_to_global([j4f[0], j4f[1]+0.5, j4f[2]+1.0]),
+               j4_end], sh_cable_d);
+    }
+}
+module cable_usb() {
+    {
+        // USB-C: J2 on the USB-C board to J3 on the control board
+        plug(usbc_j2_mouth, [-1,0,0], [0,0,1], [0,1,0], sh_plug[0]);
+        plug(j3_mouth, [0,-1,0], [0,0,1], [1,0,0], sh_plug[0]);
+        u_end = usbc_j2_mouth+[-sh_plug[0][2],sh_plug[0][1]/2,0];
+        j3_end = j3_mouth+[sh_plug[0][1]/2,-sh_plug[0][2],0];
+        chain([u_end, [u_end[0]-0.5,28.0,13.5], j3_end+[3.5,-0.5,0], j3_end], sh_cable_d);
+    }
 }
 
 // USB-C plug used for programming with the cover off.
@@ -1229,6 +1308,7 @@ module controls_and_board() {
     joy_envelope();
     xiao_envelope();
     xiao_foam_envelope();
+    cables();
     color([0.75,0.2,0.2]) pouch_envelope();
     usbc_envelope();
 }
@@ -1258,14 +1338,10 @@ module joy_envelope() {
         }
         color([0.15,0.48,0.32]) translate([0,0,joy_pcb_off]) linear_extrude(height=joy_pcb_t) joy_pcb_2d();
         color([0.35,0.35,0.35,0.6]) translate([0,0,joy_pcb_off+joy_pcb_t]) {
-            linear_extrude(height=joy_pcb_rear) offset(delta=-0.5) joy_pcb_2d();
-            linear_extrude(height=joy_pcb_rear_tall) intersection() {
-                offset(delta=-0.5) joy_pcb_2d();
-                union() {
-                    translate([-50,joy_rear_tall_y0]) square(100);
-                    for (m=[0,1]) mirror([m,0]) translate([joy_rear_tall_x0,-50]) square(100);
-                }
-            }
+            // rev B: only vias on the rear besides J1, so 0.1 mm instead of joy_pcb_rear
+            linear_extrude(height=0.1) offset(delta=-0.5) joy_pcb_2d();
+            // rev B: the JST SH socket J1 (board (1.0, 7.4), frame (-1.0, -7.4)), 2.9 mm tall
+            translate([-1.0-4.4,-7.4-3.28,0]) cube([8.8,6.56,2.9]);
             for (p=joy_standoffs) translate(p) cylinder(d=joy_screw_head[0],h=joy_screw_head[1]);
         }
     }
@@ -1410,7 +1486,7 @@ module print_battery_cap() { translate([0,0,-pod_bottom_y]) rotate([90,0,0]) bat
 // Cap gasket: flat, printed or cut like the cover gasket.
 module print_cap_gasket() { linear_extrude(height=gasket_print_thickness) projection() rotate([90,0,0]) cap_gasket(); }
 // Button plate: sheet side on the bed, standoffs upward.
-module print_button_plate() { translate([0,0,cover_front_x+btn_plate_front_off]) rotate([0,-90,0]) mirror([1,0,0]) button_plate(); }
+module print_button_plate() { translate([0,0,-(cover_front_x+btn_plate_front_off)]) rotate([0,-90,0]) button_plate(); }
 // Section through the button axes (Z = pod centre), seen from +Z: the upper-facet stack.
 module stack_section_view() {
     remote_parts(m=2);
@@ -1427,6 +1503,11 @@ module to_joy_frame() {
 // turning back about the fold, and the outline is extruded to the printed thickness.
 module print_gasket() {
     k = fold_corner(cover_back_off);
+    // V0.26: the keys stand on the cover side of the upper-facet sheet, printed upward, so the
+    // sheet lies flat on its housing side and needs no support. rotate([0,-90,0]) maps a point
+    // (X, Y, Z) to (-Z, Y) in the flat layout.
+    for (y=button_y) translate([-axial_width/2,y,gasket_print_thickness-0.01])
+        cylinder(d=key_d,h=key_proud+face_cover_thickness+0.01);
     // A morphological close joins the 0.02 mm seam left at the fold.
     linear_extrude(height=gasket_print_thickness) offset(delta=-0.1) offset(delta=0.1) union() {
         projection() rotate([0,-90,0]) intersection() { gasket(); fold_upper_side(k); }

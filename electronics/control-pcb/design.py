@@ -51,12 +51,12 @@ PLACE = {
     "J1": (-7.62, y_of(1.38), 180, "B"),
     "J2": (7.62, y_of(1.38), 180, "B"),
     # back: sockets
-    "J3": (-3.0, -20.5, 180, "B"),      # USB-C board, opening toward +Y (top)
+    "J3": (3.4, -19.0, 0, "B"),         # USB-C board, opening toward -Y: the USB-C board socket is just below
     "J4": (0.0, 20.0, 0, "B"),          # joystick, opening toward -Y (fold)
-    "J5": (5.6, -16.0, 270, "B"),       # battery, opening toward +Z
+    "J5": (-4.8, -15.5, 0, "B"),        # battery, top entry: the plug comes in from the back (+X)
     # back: 5 V input protection
-    "F1": (-4.0, -14.0, 0, "B"),
-    "D1": (-3.0, -7.9, 90, "B"),
+    "F1": (-3.3, -9.6, 0, "B"),
+    "D1": (-3.0, -4.6, 0, "B"),
     # back, under the XIAO: charger, regulator, reverse-polarity FET, dividers
     "U1": (-3.6, 2.0, 0, "B"),
     "C1": (0.2, 0.9, 0, "B"),
@@ -144,8 +144,9 @@ SYMBOLS = {
            "footprint": "Connector_JST:JST_SH_SM05B-SRSS-TB_1x05-1MP_P1.00mm_Horizontal",
            "fields": {"MPN": "1.0-5P WT", "LCSC": "C2906271", "Description": "JST SH compatible, side entry"}},
     "J5": {"lib_id": "Connector_Generic:Conn_01x02", "value": "Battery",
-           "footprint": "Connector_JST:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal",
-           "fields": {"Manufacturer": "JST", "MPN": "S2B-PH-SM4-TB(LF)(SN)", "LCSC": "C295747"}},
+           "footprint": "Connector_JST:JST_PH_B2B-PH-SM4-TB_1x02-1MP_P2.00mm_Vertical",
+           "fields": {"Manufacturer": "JST", "MPN": "B2B-PH-SM4-TB(LF)(SN)", "LCSC": "C160352",
+                      "Description": "JST PH, top entry: the battery lead leaves the board toward the pouch"}},
     "F1": {"lib_id": "Device:Polyfuse", "value": "MF-MSMF050-2", "footprint": "Fuse:Fuse_1812_4532Metric",
            "fields": {"Manufacturer": "Bourns", "MPN": "MF-MSMF050-2", "LCSC": "C17313"}},
     "D1": {"lib_id": "Device:D_Zener", "value": "SMBJ5.0A", "footprint": "Diode_SMD:D_SMB",

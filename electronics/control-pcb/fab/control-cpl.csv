@@ -4,13 +4,13 @@ C2,100.200mm,-102.900mm,Bottom,180
 C3,100.200mm,-105.400mm,Bottom,180
 C4,100.200mm,-107.400mm,Bottom,180
 C5,103.700mm,-110.600mm,Bottom,180
-D1,97.000mm,-92.100mm,Bottom,90
-F1,96.000mm,-86.000mm,Bottom,180
+D1,97.000mm,-95.400mm,Bottom,180
+F1,96.700mm,-90.400mm,Bottom,180
 J1,92.380mm,-115.120mm,Bottom,0
 J2,107.620mm,-115.120mm,Bottom,0
-J3,97.000mm,-79.500mm,Bottom,0
+J3,103.400mm,-81.000mm,Bottom,180
 J4,100.000mm,-120.000mm,Bottom,180
-J5,105.600mm,-84.000mm,Bottom,-90
+J5,95.200mm,-84.500mm,Bottom,180
 Q1,103.900mm,-103.400mm,Bottom,180
 R1,96.400mm,-99.400mm,Bottom,180
 R2,103.700mm,-106.000mm,Bottom,180

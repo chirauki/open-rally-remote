@@ -48,9 +48,9 @@ PLACE = {
     "SW2": (0.0, _a.SW_R, 90, "F"),    # DOWN
     "SW3": (-_a.SW_R, 0.0, 90, "F"),   # LEFT
     "SW4": (_a.SW_R, 0.0, 90, "F"),    # RIGHT
-    # Socket on the rear, in the tall rear zone (y <= -0.5), opening up the facet (-y)
-    # toward the control board.
-    "J1": (-0.5, -7.4, 180, "B"),
+    # Socket on the rear, below the stick axis, opening up the facet (-y) toward the control
+    # board; its plug lies over the rear face.
+    "J1": (1.0, 7.4, 180, "B"),
 }
 STANDOFFS = _a.STANDOFFS_K
 
@@ -84,5 +84,10 @@ SCH_NOTE = ("Switches: UP, DOWN, LEFT, RIGHT seen by the rider. Each switch uses
             "Pushing the stick straight in closes all four; the firmware reads that chord as the centre press.\n"
             "J1 goes to J4 on the control board through a straight 5-pin JST SH cable (pin 1 to pin 1).")
 
-TEXTS = [("ORR JOY REV B", 1.5, 8.2, "B", 0.8)]
+TEXTS = [("ORR JOY REV B", 0.0, -3.5, "B", 0.8)]
+
+# Strips along the straight edges, kept free of tracks and vias.
+_e = 0.7
+KEEPOUT_RECTS = [(-_a.HX, -_a.HY, _a.HX, -_a.HY + _e), (-_a.HX, _a.HY - _e, _a.HX, _a.HY),
+                 (-_a.HX, -_a.HY, -_a.HX + _e, _a.HY), (_a.HX - _e, -_a.HY, _a.HX, _a.HY)]
 

@@ -21,7 +21,7 @@ V0.25 needs about 25 hand-soldered joints: the XIAO pads (several under the rail
 | 5 V protection (PTC, TVS) | Joystick PCB | Control board |
 | Joystick PCB | Switches, PTC, TVS, solder pads | Switches and one JST-SH connector |
 | USB-C charging PCB | Receptacle, CC resistors, LED, solder pads | Same, plus one JST-SH connector |
-| Battery | Leads spliced to wires from the XIAO BAT pads | Pouch's own JST-PH 2.0 plug, through a retail JST-PH extension |
+| Battery | Leads spliced to wires from the XIAO BAT pads | Pouch's own JST-PH 2.0 lead, plugged straight into the control board; the pouch goes in protection board up |
 
 Unchanged: the housing outside, the base, the dovetail and lock, the battery cap, the USB-C charging port position and its sealing, the joystick mechanism and the lower-facet sheet gasket.
 
@@ -37,7 +37,7 @@ Unchanged: the housing outside, the base, the dovetail and lock, the battery cap
                 CONTROL BOARD (assembled)
    front: 3 × KSC2 (buttons A, B, C)
    back:  2 × 1×7 female headers ──► XIAO with pins (retail)
-          VBUS ─► PTC ─► TVS ─► LiPo charger ─► JST-PH ◄── extension ◄── pouch
+          VBUS ─► PTC ─► TVS ─► LiPo charger ─► JST-PH (top entry) ◄── pouch lead
           battery ─► 3.3 V regulator ─► XIAO 3V3 pin
           battery divider ─► XIAO A0
           VBUS divider ─► XIAO D9 (charger present, wake)
@@ -78,7 +78,7 @@ Chosen in the implementation plan, from parts that JLCPCB can assemble:
 Retail, pre-crimped at both ends:
 - JST-SH 1.0 mm, 5-pin, joystick to control board.
 - JST-SH 1.0 mm, 3-pin, USB-C charging PCB to control board.
-- JST-PH 2.0 mm, 2-pin, male-to-female extension, control board to the pouch, so the pouch connector sits near the battery cap.
+- None for the battery: the pouch's own JST-PH lead plugs into the control board. (Changed 2026-10-14, see below.)
 
 ## Mechanics
 
@@ -120,7 +120,9 @@ The keypad, the button plate, the control board and the XIAO come off with the c
 
 - Joystick: about 30 mm, inside the cover between the two plates.
 - USB-C charging PCB: from its rib at the top of the rear wall, along the upper wall, to the control board.
-- Battery: the JST-PH extension runs down beside the pouch; its free end and the pouch plug sit in the space by the battery cap. The pouch can be changed through the cap without opening the cover.
+- Battery: the pouch goes in with its protection board at the top. Its lead leaves the top end, below the USB-C board's rib, and runs forward and up in front of the USB-C board to the top-entry socket on the control board: about 27 mm in the CAD, so a 40–50 mm lead is enough.
+
+  **Changed 2026-10-14 (agreed with the user).** The first design used a JST-PH extension with its junction by the battery cap, so the pouch could be changed through the cap alone. The CAD showed the junction (about 16 × 6 × 4.5 mm) does not fit under the pouch (4.2 mm), sits above the cap's front block in front of it, and needs a 5–6 cm extension, which was not found in retail. With the pouch upside down the lead reaches the board directly. Changing the pouch now needs the cover off as well as the battery cap.
 
 ## Firmware
 
@@ -139,7 +141,7 @@ The keypad, the button plate, the control board and the XIAO come off with the c
 5. Plug the joystick cable and the USB-C cable into the control board.
 6. Fit the vent label and the foam pad.
 7. Close the cover (ten screws).
-8. Plug the battery extension; slide the pouch in from below, plug it, fit the cap.
+8. Slide the pouch in from below, protection board and lead first, plug its lead into the control board, fit the cap.
 9. Fit the knob.
 
 ## Verification before building

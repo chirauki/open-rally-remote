@@ -8,7 +8,7 @@
 "J2","XIAO 5V-D7","Connector_PinSocket_2.54mm:PinSocket_1x07_P2.54mm_Vertical","","PM2.54-1x7PZZ-H5.7","C55218877","1"
 "J3","USB-C board","Connector_JST:JST_SH_SM03B-SRSS-TB_1x03-1MP_P1.00mm_Horizontal","","1.0-3P WT","C2906269","1"
 "J4","Joystick","Connector_JST:JST_SH_SM05B-SRSS-TB_1x05-1MP_P1.00mm_Horizontal","","1.0-5P WT","C2906271","1"
-"J5","Battery","Connector_JST:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal","JST","S2B-PH-SM4-TB(LF)(SN)","C295747","1"
+"J5","Battery","Connector_JST:JST_PH_B2B-PH-SM4-TB_1x02-1MP_P2.00mm_Vertical","JST","B2B-PH-SM4-TB(LF)(SN)","C160352","1"
 "Q1","AO3401A","Package_TO_SOT_SMD:SOT-23","Alpha & Omega","AO3401A","C15127","1"
 "R1","10k","Resistor_SMD:R_0603_1608Metric","UNI-ROYAL","0603WAF1002T5E","C25804","1"
 "R2,R4","100k","Resistor_SMD:R_0603_1608Metric","UNI-ROYAL","0603WAF1003T5E","C25803","2"

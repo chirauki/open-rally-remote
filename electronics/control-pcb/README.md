@@ -16,7 +16,7 @@ Checked in the JLCPCB parts library on 2026-10-14. Stock and prices change; chec
 | 5 V input TVS | Littelfuse SMBJ5.0A | C83333 | — | — | As on the V0.23 joystick board |
 | Joystick socket (5-pin) | JST SH-compatible "1.0-5P WT", side entry, SMD | C2906271 | Extended | 14,999 | Genuine SM05B-SRSS-TB: C136657, 158 in stock |
 | USB-C board socket (3-pin) | JST SH-compatible "1.0-3P WT", side entry, SMD | C2906269 | Extended | 13,209 | Genuine SM03B-SRSS-TB: none in stock |
-| Battery socket (2-pin) | JST S2B-PH-SM4-TB(LF)(SN), side entry, SMD | C295747 | Extended | 39,414 | |
+| Battery socket (2-pin) | JST B2B-PH-SM4-TB(LF)(SN), top entry, SMD | C160352 | Extended | 89,576 | Side entry (S2B-PH-SM4-TB, C295747) was dropped: its plug had no room toward the wall |
 | XIAO headers ×2 | 2.54 mm 1×7 female, 5.7 mm high, through hole | C55218877 | Extended | 644 | Standard 8.5 mm alternative: C54876729, 2,409 in stock |
 
 The XIAO nRF52840 is in the JLCPCB library (C37327670 and others) with no stock, so the XIAO is bought separately with pins and plugged in. The PTC and TVS stock was not rechecked.
@@ -53,7 +53,7 @@ The board position depends on the pre-soldered XIAO's header: the plastic spacer
 A 21.4 × 49 mm, 1.6 mm two-layer board, notched round the six upper cover-screw bosses so it lifts out with the cover (see `ctrl_pcb_*` in `mechanical/cad/complete-remote-v0.26.scad`). Board x is the CAD's Z − 11.5, board y is 16.5 − Y.
 
 - **Front** (toward the cover): SW1–SW3 under keys A, B and C, at Y = 33, 15 and −3. Each switch uses a diagonal pad pair, as on the joystick board.
-- **Back:** the two XIAO headers (pin 1 at the XIAO's USB-C end, D0–D6 on the −Z side), the charger, the regulator, Q1 and the dividers under the XIAO, J3 (USB-C board) and J5 (battery) at the top, J4 (joystick) at the bottom, F1 and D1 between them.
+- **Back:** the two XIAO headers (pin 1 at the XIAO's USB-C end, D0–D6 on the −Z side), the charger, the regulator, Q1 and the dividers under the XIAO, J3 (USB-C board, side entry, opening down toward the USB-C board's socket) and J5 (battery, top entry: the pouch lead plugs in from behind, toward the pouch) at the top, J4 (joystick) at the bottom, F1 and D1 between them.
 - **Holes:** two M2 holes onto the button plate standoffs, at Y = 24 and Y = 6, 3.95 mm either side of the centre line so the standoffs clear the key holes in the button plate.
 - **Routing:** Freerouting 1.9.0, with ground pours on both layers. Track keep-outs round the notches hold the 0.3 mm edge clearance.
 

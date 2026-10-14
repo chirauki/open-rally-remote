@@ -165,6 +165,23 @@ for cx, cy in centres:
             ol.Append(pcbnew.FromMM(OX + cx + r * math.cos(t)), pcbnew.FromMM(OY + cy + r * math.sin(t)))
         board.Add(k)
 
+# Track and via keep-out rectangles from the design, [x0, y0, x1, y1]: Freerouting does not
+# keep the 0.3 mm board-edge clearance on its own.
+for x0, y0, x1, y1 in getattr(d, "KEEPOUT_RECTS", []):
+    k = pcbnew.ZONE(board)
+    k.SetIsRuleArea(True)
+    k.SetDoNotAllowTracks(True)
+    k.SetDoNotAllowVias(True)
+    k.SetDoNotAllowZoneFills(False)
+    k.SetDoNotAllowPads(False)
+    k.SetDoNotAllowFootprints(False)
+    k.SetLayerSet(pcbnew.LSET.AllCuMask())
+    ol = k.Outline()
+    ol.NewOutline()
+    for x, y in ((x0, y0), (x1, y0), (x1, y1), (x0, y1)):
+        ol.Append(pcbnew.FromMM(OX + x), pcbnew.FromMM(OY + y))
+    board.Add(k)
+
 # Through-hole pins listed in the design connect to the pours without thermal relief.
 for ref in getattr(d, "FULL_ZONE_REFS", []):
     for pad in fps[ref].Pads():
