@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write control.kicad_sch from design.py and the pad map that gen_pcb.py derives from the board.
+"""Write <PROJECT>.kicad_sch from design.py and the pad map that gen_pcb.py derives from the board.
 
 gen_pcb.py calls main(pinmap); pinmap is {ref: {pin: (net or None, (x, y))}}. Every symbol pin
 ends in a short wire with a net label, a power symbol or a no-connect flag.
@@ -78,9 +78,9 @@ class Sheet:
         pin_s = " ".join('(pin "%s" (uuid "%s"))' % (p, uid("pin")) for p in pins)
         self.items.append(
             '(symbol (lib_id "%s") (at %.2f %.2f 0) (unit 1) (exclude_from_sim no) (in_bom %s) (on_board %s) (dnp no)'
-            ' (uuid "%s") %s %s (instances (project "control" (path "/%s" (reference "%s") (unit 1)))))'
+            ' (uuid "%s") %s %s (instances (project "%s" (path "/%s" (reference "%s") (unit 1)))))'
             % (lib_id, x, y, "yes" if in_bom and not power else "no", "no" if power else "yes", u, " ".join(props), pin_s,
-               d.ROOT_UUID, ref))
+               d.PROJECT, d.ROOT_UUID, ref))
         # Pin end points in sheet coordinates (symbol Y is up, sheet Y is down).
         return {p: (x + px, y - py, a) for p, (px, py, a) in pins.items()}
 
@@ -126,22 +126,20 @@ class Sheet:
         libs = "\n".join(b for b, _ in self.libs.values())
         body = "\n".join(self.items)
         s = ('(kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0") (uuid "%s") (paper "A3")\n'
-             '(title_block (title "Open Rally Remote - control board") (date "2026-10-14") (rev "V0.26")'
-             ' (comment 1 "Buttons, plug-in XIAO, LiPo charger, 3.3 V regulator and sockets"))\n'
+             '(title_block (title "%s") (date "2026-10-14") (rev "V0.26") (comment 1 "%s"))\n'
              '(lib_symbols\n%s\n)\n%s\n(sheet_instances (path "/" (page "1")))\n(embedded_fonts no)\n)\n'
-             % (d.ROOT_UUID, libs, body))
+             % (d.ROOT_UUID, d.TITLE, d.SUBTITLE, libs, body))
         open(path, "w").write(s)
 
 
 def main(pinmap):
     sh = Sheet()
-    order = ["J3", "F1", "D1", "U1", "C1", "R1", "C2", "J5", "Q1", "U2", "C3", "C4",
-             "R2", "R3", "R4", "R5", "R6", "R7", "C5", "J1", "J2", "J4", "SW1", "SW2", "SW3"]
-    for i, ref in enumerate(order):
+    for i, ref in enumerate(d.SCH_ORDER):
         s = d.SYMBOLS[ref]
         x = 38.1 + 38.1 * (i % 7)
         y = 38.1 + 40.64 * (i // 7)
-        pins = sh.symbol(s["lib_id"], ref, x, y, s["value"], s["footprint"], s.get("fields"))
+        pins = sh.symbol(s["lib_id"], ref, x, y, s["value"], s["footprint"], s.get("fields"),
+                         in_bom=s.get("in_bom", True))
         for p, pin in pins.items():
             n = pinmap[ref].get(p, (None, None))[0]
             if n:
@@ -149,17 +147,12 @@ def main(pinmap):
             else:
                 sh.nc(pin[:2])
     # Power flags on the nets that only passive parts or inputs drive.
-    for i, n in enumerate(["GND", "/VBUS", "/VBUS_IN", "/BAT"]):
+    for i, n in enumerate(d.PWR_FLAG_NETS):
         x, y = 38.1 + 25.4 * i, 210.82
         sh.power("PWR_FLAG", x, y)
         if n == "GND":
             sh.power("GND", x, y)
         else:
             sh.label(n.lstrip("/"), (x, y), left=False)
-    sh.text("Power: USB-C VBUS_IN -> F1 -> VBUS (D1 clamps) -> U1 MCP73831 charger, 100 mA (R1).\n"
-            "Battery: J5 -> Q1 (reverse polarity) -> BAT_SYS -> U2 TPS70933 -> +3V3 -> XIAO 3V3 pin.\n"
-            "Sense: BAT_SYS / 2 -> D0 (A0); STAT x 2/3 -> D8; VBUS x 2/3 -> D9. STAT also sinks the\n"
-            "charge LED on the USB-C board (J3 pin 3), lit only while charging.\n"
-            "XIAO headers J1 (D0-D6) and J2 (5V, GND, 3V3, D10, D9, D8, D7); 5V and D10 open.",
-            30.48, 220.98)
-    sh.write(os.path.join(HERE, "control.kicad_sch"))
+    sh.text(d.SCH_NOTE, 30.48, 220.98)
+    sh.write(os.path.join(HERE, d.PROJECT + ".kicad_sch"))

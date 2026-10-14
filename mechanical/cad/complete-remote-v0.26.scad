@@ -229,9 +229,10 @@ usbc_gasket_r = 1.60;
 usbc_nose = [8.94,3.16,1.20];   // along Z, along Y, along X
 usbc_body = [9.99,4.61,8.60];   // width, height above the PCB, overall length
 usbc_axis_h = 2.38;          // shell axis above the PCB top
-usbc_pcb = [19.0,13.6,1.20]; // receptacle PCB (electronics/usbc-pcb): along Z, along X, thickness
+usbc_pcb = [19.0,16.0,1.20]; // receptacle PCB (electronics/usbc-pcb-rev-b): along Z, along X, thickness;
+                             // 13.6 in V0.25, 2.4 mm deeper for the JST socket
 usbc_pcb_edge = 0.53+1.70;   // PCB front edge behind the outer face: nose recess + nose overhang (GCT)
-usbc_pcb_holes = [[-5.4,10.6],[5.4,10.6]];  // M2 holes: Z offset, distance from the PCB front edge
+usbc_pcb_holes = [[-7.0,10.6],[7.0,10.6]];  // M2 holes: Z offset, distance from the PCB front edge (5.4 in V0.25)
 usbc_rib_h = 3.5;            // rib under the PCB, full cavity width, for M2 thread-forming screws
 usbc_pilot_d = 1.6;          // MEASURE pilot for the chosen screw
 usbc_screw = [3.5,1.1,4.0];  // M2 x 4 button head: head diameter, head height, length

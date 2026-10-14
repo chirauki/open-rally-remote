@@ -17,6 +17,16 @@ def uid(name):
 
 ROOT_UUID = uid("root")
 PROJECT = "control"
+TITLE = "Open Rally Remote - control board"
+SUBTITLE = "Buttons, plug-in XIAO, LiPo charger, 3.3 V regulator and sockets"
+SCH_ORDER = ["J3", "F1", "D1", "U1", "C1", "R1", "C2", "J5", "Q1", "U2", "C3", "C4",
+             "R2", "R3", "R4", "R5", "R6", "R7", "C5", "J1", "J2", "J4", "SW1", "SW2", "SW3"]
+PWR_FLAG_NETS = ["GND", "/VBUS", "/VBUS_IN", "/BAT"]
+SCH_NOTE = ("Power: USB-C VBUS_IN -> F1 -> VBUS (D1 clamps) -> U1 MCP73831 charger, 100 mA (R1).\n"
+            "Battery: J5 -> Q1 (reverse polarity) -> BAT_SYS -> U2 TPS70933 -> +3V3 -> XIAO 3V3 pin.\n"
+            "Sense: BAT_SYS / 2 -> D0 (A0); STAT x 2/3 -> D8 (high when charging is done); VBUS x 2/3 -> D9.\n"
+            "STAT also sinks the charge LED on the USB-C board (J3 pin 3), lit only while charging.\n"
+            "XIAO headers J1 (D0-D6) and J2 (5V, GND, 3V3, D10, D9, D8, D7); 5V and D10 open.")
 
 # --- Outline (matches ctrl_pcb_y, ctrl_pcb_clear and the upper cover bosses in the CAD) --
 HX = 10.7                     # (22 mm cavity - 2 x 0.3) / 2
@@ -64,7 +74,8 @@ PLACE = {
     "R7": (3.7, 14.2, 0, "B"),
     "C5": (3.7, 10.6, 0, "B"),
 }
-STANDOFFS = [(3.95, y_of(24.0)), (-3.95, y_of(6.0))]   # btn_standoffs in the CAD (Z offset = x)
+STANDOFFS = [(3.95, y_of(24.0)), (-3.95, y_of(6.0))]
+FULL_ZONE_REFS = ["J1", "J2"]   # XIAO header pins: solid connection to the pours   # btn_standoffs in the CAD (Z offset = x)
 
 # --- Nets by pad number -------------------------------------------------------------------
 CONN = {

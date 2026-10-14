@@ -1,0 +1,6 @@
+"Reference","Value","Footprint","Manufacturer","MPN","LCSC","Qty"
+"D1","Red","orr:LED_LiteOn_LTST-S270","Lite-On","LTST-S270KRKT","C125114","1"
+"J1","USB4736-GF-A","orr:GCT_USB4736","GCT","USB4736-GF-A-KIT","C9900206672","1"
+"J2","To control board","Connector_JST:JST_SH_SM03B-SRSS-TB_1x03-1MP_P1.00mm_Horizontal","","1.0-3P WT","C2906269","1"
+"R1,R2","5.1k","Resistor_SMD:R_0603_1608Metric","UNI-ROYAL","0603WAF5101T5E","C23186","2"
+"R3","1k","Resistor_SMD:R_0603_1608Metric","UNI-ROYAL","0603WAF1001T5E","C21190","1"

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the Open Rally Remote control board (control.kicad_pcb) and its schematic.
+"""Generate an Open Rally Remote V0.26 board (<PROJECT>.kicad_pcb) and its schematic.
 
 Run with KiCad's bundled Python, from this directory:
   /Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python3 gen_pcb.py
@@ -103,7 +103,7 @@ def place(ref, fpid, x, y, rot, back, board_only=False, value=None):
 for ref, (x, y, rot, side) in d.PLACE.items():
     place(ref, d.SYMBOLS[ref]["footprint"], x, y, rot, side == "B")
 for i, (x, y) in enumerate(d.STANDOFFS):
-    place("H%d" % (i + 1), "orr:Standoff_M2_PCB", x, y, 0, False, board_only=True, value="M2 standoff")
+    place("H%d" % (i + 1), getattr(d, "HOLE_FP", "orr:Standoff_M2_PCB"), x, y, 0, False, board_only=True, value="M2")
 
 
 def pad_xy(pad):
@@ -120,13 +120,13 @@ for ref, fp in fps.items():
         net = d.CONN[ref].get(num)
         if net:
             pad.SetNet(nets[net])
-        elif num.isdigit():
+        elif num and num != "MP":
             pin = d.NC_PIN_NAMES.get((ref, num))
             name = "unconnected-(%s-%sPad%s)" % (ref, pin + "-" if pin else "", num)
             n = pcbnew.NETINFO_ITEM(board, name)
             board.Add(n)
             pad.SetNet(n)
-        if num.isdigit():
+        if num and num != "MP":
             pinmap.setdefault(ref, {})[num] = (net, pad_xy(pad))
 
 # Power nets get wider tracks.
@@ -143,8 +143,12 @@ board.SynchronizeNetsAndNetClasses(True)
 # Track keep-outs round the boss notches: Freerouting does not keep the board-edge
 # clearance from the notch arcs.
 import math
-for cx in (-d.NOTCH_X, d.NOTCH_X):
-    for cy in d.NOTCH_Y:
+if hasattr(d, "NOTCH_CENTRES"):
+    centres = d.NOTCH_CENTRES
+else:
+    centres = [(cx, cy) for cx in (-d.NOTCH_X, d.NOTCH_X) for cy in d.NOTCH_Y]
+for cx, cy in centres:
+    if True:
         k = pcbnew.ZONE(board)
         k.SetIsRuleArea(True)
         k.SetDoNotAllowTracks(True)
@@ -161,8 +165,8 @@ for cx in (-d.NOTCH_X, d.NOTCH_X):
             ol.Append(pcbnew.FromMM(OX + cx + r * math.cos(t)), pcbnew.FromMM(OY + cy + r * math.sin(t)))
         board.Add(k)
 
-# The header pins connect to the pours without thermal relief.
-for ref in ("J1", "J2"):
+# Through-hole pins listed in the design connect to the pours without thermal relief.
+for ref in getattr(d, "FULL_ZONE_REFS", []):
     for pad in fps[ref].Pads():
         pad.SetLocalZoneConnection(pcbnew.ZONE_CONNECTION_FULL)
 
@@ -178,12 +182,12 @@ for s, x, y, layer, size in d.TEXTS:
         t.SetMirrored(True)
     board.Add(t)
 
-out = os.path.join(HERE, "control.kicad_pcb")
+out = os.path.join(HERE, d.PROJECT + ".kicad_pcb")
 board.SetFileName(out)
 
 # --- Route with Freerouting ----------------------------------------------------------
-dsn = os.path.join(HERE, "fab", "control.dsn")
-ses = os.path.join(HERE, "fab", "control.ses")
+dsn = os.path.join(HERE, "fab", d.PROJECT + ".dsn")
+ses = os.path.join(HERE, "fab", d.PROJECT + ".ses")
 os.makedirs(os.path.dirname(dsn), exist_ok=True)
 pcbnew.ExportSpecctraDSN(board, dsn)
 if os.path.exists(ses):
