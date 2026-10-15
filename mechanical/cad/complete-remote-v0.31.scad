@@ -311,9 +311,10 @@ usbc_led_h = 0.30;           // emitter above the PCB top
 usbc_led_hole_d = 1.6;       // through the 1.80 mm panel; filled with clear epoxy
 
 // --- LiPo pouch, fixed (MEASURE the bought cell) -----------------------------------------
-pouch_t = 6.0;               // 602050 listing: 6 x 20 x 50 mm, 600 mAh claimed (not verified)
-pouch_l = 50.0;              // along Y; cells up to 54 mm long, protection board included, fit
-pouch_w = 20.0;              // along Z
+pouch_t = 6.1;               // measured on a 602045 cell (600 mAh on its label), 2026-10-15; was 6.0
+pouch_l = 46.8;              // along Y, protection board included; measured 46.8 (the 5.6 mm board end is
+                             // 4.1 mm thick); cells up to 54 mm long fit
+pouch_w = 19.7;              // along Z; measured 19.7
 pouch_clear = 0.5;           // all round, for swelling and foam tape
 pouch_y0 = -33.5;
 
@@ -1358,7 +1359,8 @@ ph_cable_d = 2.6;            // 2 x 24 AWG
 j5_xy = [-4.8,-15.5];
 pouch_top_y = pouch_y0+pouch_l+2*pouch_clear;
 bat_path = let(p0 = ctrl_global(j5_xy[0],j5_xy[1])+[ph_plug[2],0,0]) [
-    [(pouch_x0+pouch_x1)/2,pouch_top_y-0.5,6.0], [(pouch_x0+pouch_x1)/2,pouch_top_y+1.8,6.0],
+    // the measured cell's lead leaves a corner of the protection-board end; fitted on J5's side
+    [(pouch_x0+pouch_x1)/2,pouch_top_y-0.5,axial_width/2-pouch_w/2+1.5], [(pouch_x0+pouch_x1)/2,pouch_top_y+1.8,axial_width/2-pouch_w/2+1.5],
     [-33.0,pouch_top_y+2.2,5.0], [-37.6,21.0,4.5], [p0[0]+1.5,p0[1]-2,4.5], p0];
 function path_len(p) = p[1]==undef ? 0 : norm(p[1]-p[0])+path_len([for (i=[1:len(p)-1]) p[i]]);
 module cable_bat() {

@@ -24,7 +24,7 @@ Each move of the assembly timeline is checked at u = 0, 0.25, 0.5, 0.75, 1 of it
 | cable_usb / control_board | 0.718 | the SH plug sits in J3 |
 | joy_plate / keypad | 1.194 | V0.30: the stop pads pinch the loose sheet 0.05 mm |
 | keypad / stick | 2.002 | the sheet hole (Ø2.4) is stretched over the stick pin |
-| pouch / xiao_foam | 83.300 | the foam pad fills the pouch envelope's 0.5 mm clearance and presses on the cell |
+| pouch / xiao_foam | 67.620 | the foam pad fills the pouch envelope's 0.5 mm clearance and presses on the cell |
 
 ## Variant: documented
 
