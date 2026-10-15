@@ -19,7 +19,7 @@ from pathlib import Path
 
 CAD = Path(__file__).resolve().parent.parent
 REPO = CAD.parent.parent
-VERSION = os.environ.get("ORR_VERSION", "0.28")
+VERSION = os.environ.get("ORR_VERSION", "0.29")
 SCAD = CAD / ("assembly-video-v%s.scad" % VERSION)
 BUILD = CAD / "build"
 OPENSCAD = os.environ.get("OPENSCAD", "openscad")
@@ -153,13 +153,19 @@ ALLOWED_CONTACT = {
 _VENT = ("**Vent label.** The Ø10 mm label envelope at X = -41 runs 3.2 mm into the lower-facet "
          "stack at the bottom wall: cover 1.2 mm³, joystick plate 2.0 mm³, keypad 1.3 mm³.")
 _J1 = ("**Joystick board J1 against the housing.** 0.015 mm³ (about 0.1 mm deep) at X = -35.5, "
-       "Y = -31.2. Within the accuracy of the socket envelope (2.9 mm tall, assumed).")
+       "Y = -31.2: the top of the battery cap's front screw boss. Within the accuracy of the "
+       "socket envelope (2.9 mm tall, assumed); lowering the boss 0.3 mm clears it.")
 _USBC = ("**USB-C board path (step 2).** Slid straight along its rib from the cavity opening, "
          "the board's edges hit the upper cover-screw bosses at Y = 24 (19 mm³). Carried 1.5 mm "
          "above the rib past the bosses, lowered onto the rib 8 mm short of the rear wall, and "
          "slid in, it clears. The margin is small: 1 mm above the rib still overlaps 0.2 mm³. "
          "The video uses this path.")
-FINDINGS = {"0.28": [
+FINDINGS = {"0.29": [
+    "**Housing onto the stack (step 8), and the cover off (step 9).** Clear along X, as since "
+    "V0.27 (joystick board rev C). The J1 contact of V0.28 is gone: the battery cap's front "
+    "screw boss is 0.3 mm lower.",
+    "**Vent label.** On the battery cap's inner face, as in V0.28: no overlap.",
+    _USBC], "0.28": [
     "**Housing onto the stack (step 8), and the cover off (step 9).** Clear along X, as in "
     "V0.27 (joystick board rev C).",
     "**Vent label.** Moved to the battery cap's inner face (Ø7.6 mm), in the cap opening: no "

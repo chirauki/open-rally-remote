@@ -1,6 +1,8 @@
-# Complete Mechanical CAD — V0.28 No-Solder Remote
+# Complete Mechanical CAD — V0.29 No-Solder Remote
 
-V0.28 makes the base universal and moves the vent. One base fits both bar sizes: its bore is always 25.4 mm plus the TPU liner, and a 22.2 mm bar takes a printed split sleeve. The vent goes to the battery cap, because in V0.27 its label ran into the cover and the joystick plate. See [Changes from V0.27](#changes-from-v027).
+V0.29 drops the heat-set inserts, so the build needs no hot tool at all. The screws cut their own thread in pilot holes, and nuts sit in printed pockets where a screw needs metal threads. See [Changes from V0.28](#changes-from-v028).
+
+V0.28 makes the base universal and moves the vent. One base fits both bar sizes: its bore is always 25.4 mm plus the TPU liner, and a 22.2 mm bar takes a printed split sleeve. The vent goes to the battery cap, because in V0.27 its label ran into the cover and the joystick plate. See [V0.28 changes from V0.27](#v028-changes-from-v027-still-current).
 
 V0.27 lets the housing close onto the stack, and the cover come off, in a straight line. In V0.26 the [assembly path check](assembly-video-v0.26-checks.md) found the lower cover bosses hitting the joystick board on that path. V0.27 changes only the joystick board (rev C) and the joystick plate's standoffs; see [V0.27 changes from V0.26](#v027-changes-from-v026-still-current).
 
@@ -18,7 +20,7 @@ The remote's printed parts are slices of one outer solid: the pod outline cut fl
 
 The remote mounts on the left side of the bar only, never the right. The turn-signal switch that the folded front clears is on the left switchgear.
 
-**Current parametric concept:** [complete-remote-v0.28.scad](../mechanical/cad/complete-remote-v0.28.scad)
+**Current parametric concept:** [complete-remote-v0.29.scad](../mechanical/cad/complete-remote-v0.29.scad)
 
 ![V0.28 base on a 22.2 mm bar: the TPU liner (orange) and the printed sleeve (white) inside the one 25.4 mm bore.](images/complete-remote-v0.28-base-sleeve.png)
 
@@ -82,7 +84,28 @@ The control end is unchanged from V0.23. These V0.23 renders still show it:
 
 All images are direct OpenSCAD renders of the V0.25, V0.24 or V0.23 file. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb/README.md).
 
-## Changes from V0.27
+## Changes from V0.28
+
+### No heat-set inserts
+
+The design kept heat-set inserts in the hope that the print service would fit them. No service found fits M2 inserts: JLC3DP fits M3 to M5 only and asks for a 3 mm wall round the hole, and the others do not list the option. So V0.29 replaces every insert:
+
+| Where | V0.28 | V0.29 |
+|---|---|---|
+| Cover screws (10) | M2 inserts in Ø3.2 × 6 mm holes | The M2 × 10 screws cut their own thread in Ø1.6 × 6 mm pilots (`cover_pilot_d`), as the battery cap screws already do |
+| Clamp (2) | M4 inserts in Ø5.6 × 8.1 mm holes | The M4 × 16 bolts cut their own thread in Ø3.4 × 8.1 mm pilots (`base_pilot_d`). A nut would sit on the platform, under the remote. A thread-forming screw for plastics has a head of about 8 mm, too big for the Ø7.6 mm counterbores |
+| Joystick knob | Radial M2 insert for the grub screw | An M2 square nut (DIN 562, 4 × 1.2 mm) in a slot open toward the cover (`knob_nut`), 0.65 mm from the pin bore. The engraved cross starts 4.9 mm from the centre so it clears the slot |
+| Lock knob | M3 insert from inside the cup | An M3 nut in a hex pocket on the knob's outer face (`lock_nut`). Screw tension pulls the nut onto the pocket floor, and the lock nut jams against it |
+
+![V0.29 joystick knob from below, with the square-nut slot beside the pin bore, and the lock knob with its M3 nut pocket.](images/complete-remote-v0.29-print-knobs.png)
+
+The engraved cross on the joystick knob shrinks to four 0.6 mm ticks at the rim. Cost: printed threads in PETG wear with each opening. The cover and the clamp are rarely undone; the battery cap screws were already like this. The pilot sizes are first estimates and need a check on the first print.
+
+### Battery cap boss
+
+The cap's front screw boss is 0.3 mm lower, so the joystick board's J1 no longer touches it ([V0.28 path check](assembly-video-v0.28-checks.md)). It still stands 1.3 mm past the M2 × 8 screw tip.
+
+## V0.28 changes from V0.27, still current
 
 ### One base for every bar
 
@@ -168,7 +191,7 @@ The pouch, vent and rear-bottom corner below were changed again in V0.25 (see ab
 
 ### Base and remote
 
-- **Base.** The clamp ring stays on the bar: two halves split through the bar axis, two M4 × 16 bolts, M4 inserts in the front half, a 1 mm TPU liner. Its outside grows from Ø44 to Ø46 mm, and the bolts move from ±17 to ±18.5 mm, so the same layout suits a 25.4 mm bore. In front of the bar the base is cut flat at X = −17.2 mm (`platform_x`), 3.5 mm in front of the 25.4 mm bore with its liner. That flat platform runs from Y = −41 to +33.5 mm.
+- **Base.** The clamp ring stays on the bar: two halves split through the bar axis, two M4 × 16 bolts, M4 inserts in the front half (V0.29: pilots, no inserts), a 1 mm TPU liner. Its outside grows from Ø44 to Ø46 mm, and the bolts move from ±17 to ±18.5 mm, so the same layout suits a 25.4 mm bore. In front of the bar the base is cut flat at X = −17.2 mm (`platform_x`), 3.5 mm in front of the 25.4 mm bore with its liner. That flat platform runs from Y = −41 to +33.5 mm.
 - **Bar sizes.** One base per bar size: `bar_diameter` = 22.2 (7/8 in) or 25.4 (1 in). (V0.28: one base for both, with a sleeve for 22.2 mm.) The bore changes; nothing that meets the remote does. Tapered 28.6 mm bars come down to 22.2 mm at the controls.
 - **Remote.** The V0.23 pod without the ring and the shoulders, cut flat at X = −17.4 mm (`rear_x`). The cavity's rear wall moves from X = −22 to −21.2 mm, which gives the XIAO pins 2.2 mm instead of 1.4 mm.
 
@@ -205,7 +228,7 @@ Replaced in V0.26 by the keypad and the control board (see above).
 
 - An M3 × 22 ISO 4762 screw is the lock pin: its Ø5.5 × 3 mm head runs in a Ø6 mm pocket in the platform at Y = −32 mm, below the clamp ring and clear of the lower bolt.
 - A 0.5 × 5 × 10 mm stainless compression spring (wire × outside diameter × free length) under the head pushes it 2 mm out of the platform, with about 3.4 N (estimated, not measured), into a Ø5.8 mm hole in the remote's rear face. A positive stop, not a detent: the remote cannot slide down until the head is pulled in.
-- The shank runs back through the base to a Ø16 × 8 mm printed knob with an M3 insert, locked by a nut. The knob rests on the back of the platform block (X = −5 mm) and sets how far the head stands out.
+- The shank runs back through the base to a Ø16 × 8 mm printed knob with an M3 insert (V0.29: an M3 nut in a pocket), locked by a nut. The knob rests on the back of the platform block (X = −5 mm) and sets how far the head stands out.
 - **Quarter turn.** The knob is a cup over a Ø9 × 3.5 mm boss on the back of the block. Two Ø1.5 × 4 mm steel dowel pins through the cup wall run in L-slots in the boss. Locked, the pins sit in the circumferential part of the slots and the knob cannot be pulled; turning it 90° brings them to the axial part, and then it pulls out 2 mm. The CAD checks the knob locked, turned 45° and 90°, and pulled, with no overlap, and that it cannot be pulled while locked or half-turned.
 - **Vibration.** Vibration alone should not pull the head in: the moving parts weigh about 2.5 g, so the 3.4 N spring needs about 140 g along the pin axis to be overcome (an estimate). The quarter turn is against a branch or a strap pulling the knob.
 - Turning the knob 90° and pulling it 2 mm pulls the head flush. When the remote is pressed on at the entry position, its rear face pushes the head in; the head springs out when the hole comes over it.
@@ -251,7 +274,7 @@ V0.22 keeps from V0.21 the sheet gasket and the plate that clamps it, and replac
   - A printed Ø6 mm ball bears against the back edge of a Ø3.6 mm hole in the 1.5 mm joystick plate. That edge is the pivot, 7.0 mm behind the outer face. The pin is pressed into a bore through the ball and disc.
   - A cross disc, 1.2 mm thick, under the ball rests 0.05 mm above the actuators of four KSC2 switches. The switches are 6.75 mm from the axis, two along the facet (up toward button C, down) and two along the bar.
   - The PCB screws to two standoffs on the plate. Its front face is 10.85 mm behind the outer face; the rear zone ends at 13.45 mm, or 15.45 mm where the rear parts are (V0.23). The MHS body reached 16 mm.
-  - The ball and disc are one printed part. The knob slides onto the pin from outside after assembly, and an M2 × 4 grub screw in a radial M2 heat-set insert clamps it. It comes off with a hex key; nothing is glued.
+  - The ball and disc are one printed part. The knob slides onto the pin from outside after assembly, and an M2 × 4 grub screw in a radial M2 heat-set insert clamps it (V0.29: in an M2 square nut). It comes off with a hex key; nothing is glued.
 - **Feel and limits.**
   - A direction trips at no more than 5.9° of tilt. At that point the knob top has moved at most 1.3 mm.
   - The knob rim meets the cover at 8.2° of tilt, and the hub at 0.9 mm of push. That is past the switches' 0.70 mm worst case (0.05 mm rest gap plus the KSC221J's 0.65 mm maximum travel), so every switch has tripped before the knob stops.
@@ -265,7 +288,7 @@ V0.22 keeps from V0.21 the sheet gasket and the plate that clamps it, and replac
 ### V0.21 changes, still current
 
 - **Sheet gasket on the lower facet.** On the lower facet the gasket is a full sheet between the cover and the plate. It seals the cover joint and the joystick opening. The upper facet keeps its wall land.
-- **Lower cover screws.** M2 × 10 through the plate, 5.4 mm into the inserts; their bosses start behind the plate. The six upper-facet screws stay M2 × 8.
+- **Lower cover screws.** M2 × 10 through the plate, 5.4 mm into the inserts (V0.29: into pilots); their bosses start behind the plate. The six upper-facet screws stay M2 × 8.
 
 ### V0.20 changes, still current
 
@@ -424,31 +447,31 @@ No part needs supports.
 - **Base front:** the rail flanks are at 45° to the bed. The lock pocket and the bolt holes run horizontally and are small enough to bridge.
 - **Cover:** the Ø5 mm stick hole is small enough to bridge. It stands on a 2.5 mm edge, so use a brim.
 - **Ball and disc:** the ball above the disc narrows upward. Test the press fit of the pin in the Ø2.95 mm bore (`pin_bore`) before assembly.
-- **Knob:** the radial insert hole is horizontal and small enough to bridge.
+- **Knob:** the radial grub-screw hole is horizontal and small enough to bridge; the nut slot opens upward.
 - **Battery cap:** the countersinks open toward the bed at 45°.
-- **Inserts:** use 100% infill or at least four perimeters around the M4 insert holes and the rails.
+- **Screw pilots:** use 100% infill or at least four perimeters round the M4 pilots in the base front and the M2 pilots in the bosses, where the screws cut their thread.
 - **Gasket:** TPU 95A is probably too hard to seal at 0.2 mm compression; prefer a softer TPU or a cut sheet gasket. If you cut the sheet, punch the Ø2.4 mm stick hole.
 
 ## Assembly
 
-Remote (V0.28; nothing to solder):
-1. Press the ten M2 inserts into the housing screw bosses.
+Remote (V0.29; nothing to solder, no hot tool):
+1. Clear the ten Ø1.6 mm pilot holes in the housing screw bosses with a 1.6 mm drill held by hand; printed holes come out undersize.
 2. Fit the USB-C board rev B: fit the receptacle's gasket, carry the board in 1.5 mm above its rib past the upper cover bosses, lower it onto the rib 8 mm short of the rear wall, and slide it along the rib until the nose enters the slot and the gasket sits in its pocket. Fix it with two M2 × 4 thread-forming screws. Pot the back of the receptacle with epoxy, keeping it out of the opening and the socket. Fill the LED window from outside with clear epoxy or UV resin. Plug the 3-pin cable into its socket.
 3. Joystick: push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the joystick board rev C onto the plate standoffs with two M2 × 8 button-head screws; the disc rests on the switches. Plug the 5-pin cable into its socket.
 4. Screw the control board onto the button plate standoffs with two M2 × 5 thread-forming screws, switches toward the plate. Plug the XIAO into its headers, components away from the board, USB-C toward the joystick end.
 5. Lay the cover face down and the keypad on it, keys through the cover holes, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the joystick plate on the lower-facet sheet. Lay the button plate with the control board on the upper-facet sheet.
 6. Plug the joystick cable into J4 and the USB-C cable (from the housing) into J3 on the control board. Stick the foam pad on the XIAO's components.
 7. Stick a thin foam strip on the rear wall where the pouch lies.
-8. Lower the housing onto the stack, guiding the cables; its walls locate the plates. Turn it over and fit the ten M2 × 10 screws. Tighten evenly in a cross pattern.
+8. Lower the housing onto the stack, guiding the cables; its walls locate the plates. Turn it over and fit the ten M2 × 10 screws; they cut their own thread, so drive them slowly the first time. Tighten evenly in a cross pattern.
 9. Slide the pouch up through the bottom opening, protection board and lead first. With the cover off, plug its lead into J5 on the control board, then close the cover as in step 8. Check the polarity before connecting the charger.
 10. Stick the vent label on the inside of the battery cap, over its vent hole, and a foam pad with a hole round the label. Lay the cap gasket on the housing face, and fit the cap with three M2 × 8 countersunk screws.
-11. Press the M2 insert into the knob. Slide the knob onto the pin with a 0.9 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw.
+11. Drop the M2 square nut into the slot under the knob and start the M2 × 4 grub screw in it from the rim. Slide the knob onto the pin with a 0.9 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw.
 
 The order of steps 8 and 9 is open: the pouch can go in before the cover is closed if its lead is long enough to reach J5 with the stack beside the housing.
 
 Base:
-1. Press the two M4 inserts into the base front's split face.
-2. Press the two Ø1.5 × 4 mm dowel pins into the lock knob, and its M3 insert from inside the cup. Drop the lock spring into the pocket and push the M3 × 22 screw through it from the platform side. Fit the knob over the boss with the pins in the axial slots, thread it onto the shank until the head stands 2 mm proud with the knob on the block, turn it to the locked position, and lock it with an M3 nut.
+1. Clear the two Ø3.4 mm pilot holes in the base front's split face with a 3.4 mm drill held by hand.
+2. Press the two Ø1.5 × 4 mm dowel pins into the lock knob, and an M3 nut into the hex pocket on its outer face. Drop the lock spring into the pocket and push the M3 × 22 screw through it from the platform side. Fit the knob over the boss with the pins in the axial slots, thread it onto the shank until the head stands 2 mm proud with the knob on the block, turn it to the locked position, and lock it with an M3 nut.
 3. Glue the two TPU strips into their pockets.
 4. On a 22.2 mm bar, fit the two sleeve halves round the bar first. Fit the liner halves, place the base on the bar with the platform where the remote should sit, fit the cap from behind, set the angle, and tighten the two M4 × 16 bolts evenly.
 
@@ -458,15 +481,15 @@ To program over USB, remove the remote from the base and its cover. Take the kno
 
 ## Assembly video
 
-[`complete-remote-v0.28-assembly.mp4`](videos/complete-remote-v0.28-assembly.mp4) shows the remote steps 1–11 above, one chapter per step (56 s; QuickTime and VLC list the chapters). It is for design review, not a builder's guide. Parts that collide on their path show in red. Cables are not animated: each appears in place once both its ends are fitted. The video shows the documented order of steps 8 and 9.
+[`complete-remote-v0.29-assembly.mp4`](videos/complete-remote-v0.29-assembly.mp4) shows the remote steps 1–11 above, one chapter per step (56 s; QuickTime and VLC list the chapters). It is for design review, not a builder's guide. Parts that collide on their path show in red. Cables are not animated: each appears in place once both its ends are fitted. The video shows the documented order of steps 8 and 9.
 
-[`assembly-video-v0.28-checks.md`](assembly-video-v0.28-checks.md) is the path check behind it. Each move is checked at five poses against the parts in place, and every pair of parts in the final pose. Both orders of steps 8 and 9 are checked. Findings:
+[`assembly-video-v0.29-checks.md`](assembly-video-v0.29-checks.md) is the path check behind it. In V0.29 it finds no collision. Each move is checked at five poses against the parts in place, and every pair of parts in the final pose. Both orders of steps 8 and 9 are checked. Findings:
 
 - The housing closes onto the stack along X (since V0.27; in [V0.26](assembly-video-v0.26-checks.md) it hit the joystick board).
 - The vent label, on the battery cap since V0.28, clears everything ([V0.27](assembly-video-v0.27-checks.md): it ran into the lower-facet stack).
 - The USB-C board reaches its rib by a path above the upper bosses (assembly step 2).
 
-The [V0.26](videos/complete-remote-v0.26-assembly.mp4) and [V0.27](videos/complete-remote-v0.27-assembly.mp4) videos stay as the record of their collisions.
+The [V0.26](videos/complete-remote-v0.26-assembly.mp4), [V0.27](videos/complete-remote-v0.27-assembly.mp4) and [V0.28](videos/complete-remote-v0.28-assembly.mp4) videos stay as the record of their collisions.
 
 Regenerate, from the repository root (OpenSCAD 2026.x, Python 3, ffmpeg; about 4 min on an 11-core Mac):
 
@@ -477,7 +500,7 @@ python3 mechanical/cad/tools/assembly_video.py video
 python3 -m unittest mechanical/cad/tools/test_assembly_video.py
 ```
 
-The timeline, the staging offsets and the cameras are in `mechanical/cad/assembly-video-v0.28.scad`. The tool uses the newest version; `ORR_VERSION=0.26` or `0.27` selects an older file, but its captions need that version's assembly list, which is now in the git history. The step captions come from the assembly steps above, so rerun `video` after editing them.
+The timeline, the staging offsets and the cameras are in `mechanical/cad/assembly-video-v0.29.scad`. The tool uses the newest version; `ORR_VERSION=0.26` to `0.28` selects an older file, but its captions need that version's assembly list, which is now in the git history. The step captions come from the assembly steps above, so rerun `video` after editing them.
 
 ## Hardware
 
@@ -515,8 +538,8 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | Button direction | Button axes perpendicular to the handlebar axis | Layout requirement |
 | Case wall / cover | 2.0 mm axial walls at the control end, 1.0 mm in the narrow part and at the ends / 2.5 mm cover | Cover within the APEM IS panel range |
 | Control layout | Buttons at Y = 33, 15, −3 mm (18 mm pitch) on the upper facet; joystick axis 14.5 mm below the fold on the lower facet, 24 mm from button C measured over the surface | APEM recommends 20 mm between IS buttons; 18 mm leaves 0.5 mm between bezels and 1.8 mm between nut corners, so the nuts need an open-end wrench. To judge on the first print |
-| Clamp fasteners | Two parallel M4 × 16 ISO 4762 bolts at ±18.5 mm from the bar axis; Ø7.6 mm counterbores 8 mm from the split face; Ø5.6 × 8.1 mm insert holes | 7.6 mm grip, 7.6 mm engagement, 2.65 mm wall to the 25.4 mm bore; confirm against the bought bolts and inserts |
-| Cover fasteners | Six M2 × 8 (upper facet) and four M2 × 10 (lower facet, through the joystick plate) ISO 10642 countersunk screws; Ø3.2 × 6 mm insert holes in Ø6 mm bosses | Spaced 16.5–21.8 mm along the perimeter to compress the gasket; confirm against the bought inserts |
+| Clamp fasteners | Two parallel M4 × 16 ISO 4762 bolts at ±18.5 mm from the bar axis; Ø7.6 mm counterbores 8 mm from the split face; Ø3.4 × 8.1 mm pilots, the bolts cutting their own thread (V0.29) | 7.6 mm grip, 7.6 mm engagement, 2.65 mm wall to the 25.4 mm bore; confirm against the bought bolts and inserts |
+| Cover fasteners | Six M2 × 8 (upper facet) and four M2 × 10 (lower facet, through the joystick plate) ISO 10642 countersunk screws; Ø1.6 × 6 mm pilots in Ø6 mm bosses, the screws cutting their own thread (V0.29) | Spaced 16.5–21.8 mm along the perimeter to compress the gasket; confirm against the bought inserts |
 | Cover gasket | 0.6 mm compressed (0.8 mm printed or cut) | Upper facet: 1 mm on the walls, 3.8 mm with the lip (4 mm before V0.24; the APEM nuts need the room), Ø6 mm around each screw. Lower facet: full sheet on the joystick plate, Ø2.4 mm hole stretched over the stick |
 | Pod width | 23 mm along the bar at the base and the rear of the pod; 26 mm for X < −38 mm | 23 mm from the NAVCOMM manual's minimum free space on the bar; the control end is 40–60 mm from the bar axis |
 | Joystick | Ø16 mm knob 5.7 mm proud, hub 0.9 mm and rim 1.15 mm above the cover; Ø3 × 12 mm steel pin; Ø6 mm ball on a Ø3.6 mm seat edge, pivot 7.0 mm behind the face; 1.2 mm cross disc 0.05 mm above four KSC2 at 6.75 mm | Trips at ≤ 5.9° tilt; knob stop at 8.2° or 0.9 mm push; disc room 9.5° |
@@ -541,8 +564,8 @@ These are the only items that block a confident first print. Each is a parameter
 - **XIAO:** measured on a pre-soldered XIAO nRF52840 (2026-10-15): PCB 1.2 mm, components 3.0 mm, pin spacer 2.5 mm, pins 6.1 mm below it, USB-C 1.8 mm past the PCB edge, pin rows centred on the board. The depth of the 5.7 mm female socket (C55218877) is not published, so the model assumes the worst case: the 6.1 mm pin bottoms and the XIAO sits 0.4 mm above its spacer. Its components then end where they did with the 3.4 mm assumption, 7.2 mm from the pouch envelope; the stack, removal and path checks give the same results. Still open: the real seat height, and whether the foam pad holds the XIAO in its headers under vibration.
 - **Cables:** where the spare length of 10 cm cables goes (the routes need about 3 and 4 cm); whether bought cables are straight (pin 1 to pin 1); whether the SH-compatible sockets latch the Pololu plugs.
 - **Pouch lead:** it must leave the protection-board end and reach about 27 mm, bent within the 4.9 mm between the pouch top and the USB-C board's rib.
-- **Inserts:** whether the print service fits the heat-set inserts.
-- **Inserts:** hole diameters and depths for the actual M4 and M2 inserts.
+- **Screw pilots (V0.29):** Ø1.6 mm for the M2 screws and Ø3.4 mm for the M4 clamp bolts in PETG are first estimates. Check on the first print that the screws cut a thread that holds, and how many openings it survives.
+- **Leak test:** test the first assembled remote for water tightness before fitting the electronics, for example under water at a few centimetres for 30 minutes with a dry paper towel inside. It checks the keypad gasket, the cap gasket, the USB-C receptacle and the vent together.
 - **Handlebar, sleeve and liner:** the bar diameter measured with a caliper at the clamp, in two directions, which sets the sleeve bore; the 0.8 mm clamping gap tuned to the printed TPU liner; and whether the clamp holds a hard gloved press without turning (estimate 3.3 N·m against 0.7 N·m).
 - **Dovetail:** the 0.2 mm clearance (`dt_c`) against the printer, and the strip material and thickness for the preload. Whether the 0.48 mm the remote can move toward the platform feels loose on the buttons.
 - **Lock:** a spring that fits a Ø6 mm pocket over a Ø3 mm shank and holds the head out firmly; its compressed length sets `lock_spring_solid`. The pull force, and whether 1 mm of head in the pocket is enough.
@@ -560,4 +583,4 @@ Not addressed by this concept: IP rating, impact, vibration, and fatigue strengt
 
 ## Earlier versions
 
-V0.1–V0.27 remain available for comparison. V0.27's vent label runs into the cover and the joystick plate; build V0.28. V0.26 should not be built: its housing cannot close onto the joystick board (see [V0.27 changes from V0.26](#v027-changes-from-v026-still-current)). V0.23 is the fixed, cable-powered version: its clamp ring and shoulders are part of the housing. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23 or later. V0.24 places a 602030 pouch that cannot be put in through the front opening (see [Changes from V0.24](#changes-from-v024)); build V0.25. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.
+V0.1–V0.28 remain available for comparison. V0.28 needs heat-set inserts, and its battery cap boss touches the joystick board's J1. V0.27's vent label runs into the cover and the joystick plate; build V0.28. V0.26 should not be built: its housing cannot close onto the joystick board (see [V0.27 changes from V0.26](#v027-changes-from-v026-still-current)). V0.23 is the fixed, cable-powered version: its clamp ring and shoulders are part of the housing. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23 or later. V0.24 places a 602030 pouch that cannot be put in through the front opening (see [Changes from V0.24](#changes-from-v024)); build V0.25. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.

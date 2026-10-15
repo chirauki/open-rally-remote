@@ -117,7 +117,7 @@ class Task4(unittest.TestCase):
     def test_step_titles(self):
         titles = av.step_titles(DOC)
         self.assertEqual(len(titles), 11)
-        self.assertTrue(titles[0].startswith("Press the ten M2 inserts"), titles[0])
+        self.assertTrue(titles[0].startswith("Clear the ten"), titles[0])
 
     def test_step_titles_wrong_count(self):
         text = DOC.read_text()

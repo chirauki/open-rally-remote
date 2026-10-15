@@ -8,7 +8,7 @@ Each move of the assembly timeline is checked at u = 0, 0.25, 0.5, 0.75, 1 of it
 
 - **Housing onto the stack (step 8), and the cover off (step 9).** Clear along X, as in V0.27 (joystick board rev C).
 - **Vent label.** Moved to the battery cap's inner face (Ø7.6 mm), in the cap opening: no overlap. In V0.27 the Ø10 mm label on the housing's bottom wall ran 3.2 mm into the lower-facet stack.
-- **Joystick board J1 against the housing.** 0.015 mm³ (about 0.1 mm deep) at X = -35.5, Y = -31.2. Within the accuracy of the socket envelope (2.9 mm tall, assumed).
+- **Joystick board J1 against the housing.** 0.015 mm³ (about 0.1 mm deep) at X = -35.5, Y = -31.2: the top of the battery cap's front screw boss. Within the accuracy of the socket envelope (2.9 mm tall, assumed); lowering the boss 0.3 mm clears it.
 - **USB-C board path (step 2).** Slid straight along its rib from the cavity opening, the board's edges hit the upper cover-screw bosses at Y = 24 (19 mm³). Carried 1.5 mm above the rib past the bosses, lowered onto the rib 8 mm short of the rear wall, and slid in, it clears. The margin is small: 1 mm above the rib still overlaps 0.2 mm³. The video uses this path.
 
 ## Contacts by design

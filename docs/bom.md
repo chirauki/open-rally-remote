@@ -1,8 +1,8 @@
-# Bill of Materials — V0.28
+# Bill of Materials — V0.29
 
-This is the single parts list for the project: the bench prototype and the V0.28 removable, battery-powered remote with its base. V0.28 is V0.26 with the joystick board rev C, one base for both bar sizes and the vent in the battery cap. All three are built without soldering: the three circuit boards are ordered assembled and joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Design details stay in the linked documents; this page lists what to buy.
+This is the single parts list for the project: the bench prototype and the V0.29 removable, battery-powered remote with its base. V0.29 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap and no heat-set inserts. It is built without soldering or any hot tool: the three circuit boards are ordered assembled and joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Design details stay in the linked documents; this page lists what to buy.
 
-**Status:** nothing in the V0.28 list has been built or tested. The V0.25 list is in the git history.
+**Status:** nothing in the V0.29 list has been built or tested. The V0.25 list is in the git history.
 
 Sourcing preference: parts that builders can buy from mainstream retailers (for example Amazon) come first. Distributor-only parts are used only where no retail part meets the requirement, and the reason is given.
 
@@ -69,22 +69,20 @@ Estimated cost: about €110–170. **The board order is an estimate, not a quot
 
 | Qty | Part | Source | Notes |
 |---:|---|---|---|
-| 10 | M2 × 10 countersunk screw, ISO 10642 | Retail | Cover, through the button plate (upper facet) and the joystick plate (lower facet). |
+| 10 | M2 × 10 countersunk screw, ISO 10642 | Retail | Cover, through the button plate (upper facet) and the joystick plate (lower facet). They cut their own thread in Ø1.6 mm pilots in the bosses. |
 | 3 | M2 × 8 countersunk screw, ISO 10642 | Retail | Battery cap, into Ø1.6 mm pilots in the housing. |
-| 10 | M2 heat-set insert, about 4 mm long | Retail | Cover screw bosses. Hole Ø3.2 × 6 mm in the CAD; check against the insert bought. |
 | 2 | M2 × 8 button-head screw, head at most Ø3.5 × 1.1 mm (ISO 7380 style) | Retail | Joystick board to the joystick plate standoffs. |
 | 2 | M2 × 5 thread-forming button-head screw, head at most Ø3.5 × 1.1 mm | Retail | Control board to the button plate standoffs. |
 | 2 | M2 × 4 thread-forming button-head screw, head at most Ø3.5 × 1.1 mm | Retail | USB-C board to its rib. |
 | 1 | Ø3 × 12 mm steel dowel pin, ISO 8734 | Retail | Joystick stick. |
 | 1 | M2 × 4 grub screw | Retail | Joystick knob. |
-| 1 | M2 heat-set insert | Retail | Joystick knob. |
+| 1 | M2 square nut, DIN 562 (4 × 1.2 mm) | Retail | Joystick knob, in the slot under it, for the grub screw. |
 | 1 | Adhesive ePTFE vent label, Ø7.6 mm (Takachi VE8 size), for a Ø3 mm hole | Retail | Inside the battery cap (V0.28). Check the hole size the chosen vent needs. |
 | — | Thin foam sheet (about 1–5 mm, EVA or similar) | Retail | Pad on the battery cap, strip on the rear wall, and a pad between the XIAO and the pouch that holds the XIAO in its headers. |
 
 Estimated cost: about €30–60, plus the vent label.
 
 - M2 screws: an M2 stainless assortment with countersunk heads is about €36 at [ManoMano](https://www.manomano.es/p/kit-surtido-de-250-piezas-de-tornillos-pernos-y-llaves-de-vaso-hexagonales-de-cabeza-avellanada-planas-abombadas-y-cilindricas-de-acero-inoxidable-a2-con-tuercas-m2-x-468101216-mm-cabeza-p-94605084). The listing does not state ISO 10642. Packs of single sizes are likely cheaper; not checked.
-- Heat-set inserts: an M2–M5 kit is about €8–14 on [eBay.de](https://www.ebay.de/itm/166917553778). The same kit covers the base.
 - Dowel pin, grub screw and foam tape: €5–10, not checked.
 - Vent label: no single-unit retail price was found. Gore adhesive vents come in packs of 50 at about £213 before VAT ([RS UK](https://uk.rs-online.com/web/p/enclosure-ventilation/2842971)), which is too many for one build. Generic ePTFE vent stickers sold in small packs need checking for an IP67 rating before use. Takachi sells its VE8 (Ø7.6 mm) [online](https://takachi-enclosure.com/products/VE8); the price and pack size for one build are not checked.
 
@@ -110,13 +108,11 @@ Estimated cost: about €20–50 from a print service, including shipping. **Not
 
 | Qty | Part | Source | Notes |
 |---:|---|---|---|
-| 2 | M4 × 16 socket-head screw, ISO 4762 | Retail | Clamp. |
-| 2 | M4 heat-set insert, short | Retail | Hole Ø5.6 × 8.1 mm in the CAD; check against the insert bought. |
+| 2 | M4 × 16 socket-head screw, ISO 4762 | Retail | Clamp. Cuts its own thread in Ø3.4 mm pilots in the base front. |
 | 1 | M3 × 22 socket-head screw, ISO 4762 | Retail | Its head is the lock pin. |
 | 1 | Compression spring 0.5 × 5 × 10 mm, stainless (wire × outside diameter × free length) | Retail (spring assortments; cut a longer one to length if needed) | Lock. About 3.4 N locked, estimated. |
 | 2 | Ø1.5 × 4 mm steel dowel pin, ISO 8734 | Retail | Quarter-turn lock knob. |
-| 1 | M3 heat-set insert | Retail | Lock knob. |
-| 1 | M3 nut | Retail | Locks the knob on the screw. |
+| 2 | M3 nut, ISO 4032 | Retail | Lock knob: one in its hex pocket, one as the lock nut. |
 | 2 | TPU strip, 4 × 50 × 1.4 mm | Printed TPU, or cut from rubber sheet | Anti-rattle, glued into the platform pockets. |
 | 1 | Base front | PETG or ASA, `print_base_front` | One part for both bar sizes (V0.28). |
 | 1 | Base cap | PETG or ASA, `print_base_cap` | |
@@ -127,7 +123,7 @@ Estimated cost: about €20–50 from a print service, including shipping. **Not
 Estimated cost: about €25–60. **Not checked.**
 
 - Printed parts: €15–35 from a print service.
-- Hardware: €10–25. This includes a spring assortment and the M3 and M4 screws. The inserts come from the kit in the remote list.
+- Hardware: €10–25. This includes a spring assortment, the M3 and M4 screws and the nuts.
 
 ## Consumables
 
