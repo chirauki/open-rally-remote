@@ -49,6 +49,13 @@ class Task1(unittest.TestCase):
 VARIANTS = ("documented", "battery_first")
 
 
+class Seal(unittest.TestCase):
+    def test_foam_in_parts(self):
+        # V0.30: the foam strip is a part; the final pose test covers it through the model's
+        # controls_and_board().
+        self.assertIn("foam_strip", av.PARTS)
+
+
 class Task2(unittest.TestCase):
     def test_all_parts_placed(self):
         for v in VARIANTS:

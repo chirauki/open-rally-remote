@@ -19,7 +19,7 @@ from pathlib import Path
 
 CAD = Path(__file__).resolve().parent.parent
 REPO = CAD.parent.parent
-VERSION = os.environ.get("ORR_VERSION", "0.29")
+VERSION = os.environ.get("ORR_VERSION", "0.30")
 SCAD = CAD / ("assembly-video-v%s.scad" % VERSION)
 BUILD = CAD / "build"
 OPENSCAD = os.environ.get("OPENSCAD", "openscad")
@@ -27,6 +27,8 @@ OPENSCAD = os.environ.get("OPENSCAD", "openscad")
 PARTS = ["housing", "cover", "keypad", "joy_plate", "button_plate", "stick", "knob",
          "battery_cap", "cap_gasket", "control_board", "xiao", "xiao_foam", "joy_board",
          "usbc_board", "pouch", "cable_joy", "cable_usb", "cable_bat", "vent_label"]
+if VERSION >= "0.30":
+    PARTS = PARTS + ["foam_strip"]   # V0.30 cover seal
 
 
 class ScadError(RuntimeError):
@@ -145,6 +147,8 @@ ALLOWED_CONTACT = {
     frozenset(("joy_board", "cable_joy")): "the SH plug sits in J1",
     frozenset(("pouch", "cable_bat")): "the lead leaves the pouch's protection board",
     frozenset(("cable_usb", "cable_bat")): "flexible cables, modelled as fixed tubes, cross",
+    frozenset(("keypad", "button_plate")): "V0.30: the stop pads pinch the loose sheet 0.05 mm",
+    frozenset(("keypad", "joy_plate")): "V0.30: the stop pads pinch the loose sheet 0.05 mm",
 }
 
 
@@ -160,7 +164,12 @@ _USBC = ("**USB-C board path (step 2).** Slid straight along its rib from the ca
          "above the rib past the bosses, lowered onto the rib 8 mm short of the rear wall, and "
          "slid in, it clears. The margin is small: 1 mm above the rib still overlaps 0.2 mm³. "
          "The video uses this path.")
-FINDINGS = {"0.29": [
+FINDINGS = {"0.30": [
+    "**Cover seal (V0.30).** The keypad sheet is loose; a closed-cell foam strip on the housing "
+    "rim seals both facets. The foam goes on in step 7 and moves with the housing.",
+    "**Housing onto the stack (step 8), and the cover off (step 9).** Clear along X, as since V0.27.",
+    "**Vent label.** On the battery cap's inner face, as since V0.28: no overlap.",
+    _USBC], "0.29": [
     "**Housing onto the stack (step 8), and the cover off (step 9).** Clear along X, as since "
     "V0.27 (joystick board rev C). The J1 contact of V0.28 is gone: the battery cap's front "
     "screw boss is 0.3 mm lower.",

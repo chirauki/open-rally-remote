@@ -454,14 +454,14 @@ No part needs supports.
 
 ## Assembly
 
-Remote (V0.29; nothing to solder, no hot tool):
+Remote (V0.30; nothing to solder, no hot tool):
 1. Clear the ten Ø1.6 mm pilot holes in the housing screw bosses with a 1.6 mm drill held by hand; printed holes come out undersize.
 2. Fit the USB-C board rev B: fit the receptacle's gasket, carry the board in 1.5 mm above its rib past the upper cover bosses, lower it onto the rib 8 mm short of the rear wall, and slide it along the rib until the nose enters the slot and the gasket sits in its pocket. Fix it with two M2 × 4 thread-forming screws. Pot the back of the receptacle with epoxy, keeping it out of the opening and the socket. Fill the LED window from outside with clear epoxy or UV resin. Plug the 3-pin cable into its socket.
 3. Joystick: push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the joystick board rev C onto the plate standoffs with two M2 × 8 button-head screws; the disc rests on the switches. Plug the 5-pin cable into its socket.
 4. Screw the control board onto the button plate standoffs with two M2 × 5 thread-forming screws, switches toward the plate. Plug the XIAO into its headers, components away from the board, USB-C toward the joystick end.
 5. Lay the cover face down and the keypad on it, keys through the cover holes, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the joystick plate on the lower-facet sheet. Lay the button plate with the control board on the upper-facet sheet.
 6. Plug the joystick cable into J4 and the USB-C cable (from the housing) into J3 on the control board. Stick the foam pad on the XIAO's components.
-7. Stick a thin foam strip on the rear wall where the pouch lies.
+7. Stick the foam strip on the housing rim round both facets, with butt joints at the end corners, and a thin foam strip on the rear wall where the pouch lies.
 8. Lower the housing onto the stack, guiding the cables; its walls locate the plates. Turn it over and fit the ten M2 × 10 screws; they cut their own thread, so drive them slowly the first time. Tighten evenly in a cross pattern.
 9. Slide the pouch up through the bottom opening, protection board and lead first. With the cover off, plug its lead into J5 on the control board, then close the cover as in step 8. Check the polarity before connecting the charger.
 10. Stick the vent label on the inside of the battery cap, over its vent hole, and a foam pad with a hole round the label. Lay the cap gasket on the housing face, and fit the cap with three M2 × 8 countersunk screws.
