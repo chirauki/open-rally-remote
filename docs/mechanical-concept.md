@@ -1,6 +1,8 @@
-# Complete Mechanical CAD — V0.30 No-Solder Remote
+# Complete Mechanical CAD — V0.31 No-Solder Remote
 
-V0.30 changes how the two control facets seal against rain and mud. The keypad sheet becomes a loose membrane, and a bought closed-cell foam strip on the housing rim seals the perimeter ([spec](superpowers/specs/2026-10-15-cover-seal-design.md)). See [Changes from V0.29](#changes-from-v029).
+V0.31 seals the battery cap the way V0.30 seals the cover: a die-cut closed-cell foam gasket, cut from the same foam sheet, compressed by a rigid lip on the cap. See [Changes from V0.30](#changes-from-v030).
+
+V0.30 changes how the two control facets seal against rain and mud. The keypad sheet becomes a loose membrane, and a bought closed-cell foam strip on the housing rim seals the perimeter ([spec](superpowers/specs/2026-10-15-cover-seal-design.md)). See [V0.30 changes from V0.29](#v030-changes-from-v029-still-current).
 
 V0.29 drops the heat-set inserts, so the build needs no hot tool at all. The screws cut their own thread in pilot holes, and nuts sit in printed pockets where a screw needs metal threads. See [V0.29 changes from V0.28](#v029-changes-from-v028-still-current).
 
@@ -22,7 +24,9 @@ The remote's printed parts are slices of one outer solid: the pod outline cut fl
 
 The remote mounts on the left side of the bar only, never the right. The turn-signal switch that the folded front clears is on the left switchgear.
 
-**Current parametric concept:** [complete-remote-v0.30.scad](../mechanical/cad/complete-remote-v0.30.scad)
+**Current parametric concept:** [complete-remote-v0.31.scad](../mechanical/cad/complete-remote-v0.31.scad)
+
+![V0.31 battery cap from inside: the die-cut foam gasket (black) inside the cap's 0.5 mm lip, with the three screw holes in the foam and the vent label in the opening.](images/complete-remote-v0.31-cap-seal.png)
 
 ![V0.30 housing seen from the cover side: the foam strip (black) runs on the rim along both side walls and through the fold, with the cover screw bosses just inside it.](images/complete-remote-v0.30-foam.png)
 
@@ -90,7 +94,19 @@ The control end is unchanged from V0.23. These V0.23 renders still show it:
 
 All images are direct OpenSCAD renders of the V0.25, V0.24 or V0.23 file. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb/README.md).
 
-## Changes from V0.29
+## Changes from V0.30
+
+### Battery cap seal
+
+The cap's flat gasket had the cover's old problem: 0.8 mm of TPU squeezed to 0.6 mm on 2.5–3.8 mm lands needs about 4 kN (estimate, as in [V0.30](#v030-changes-from-v029-still-current)), and three M2 screws give a few hundred newtons. The V0.30 strip does not fit here: the screws sit in the lands, 0.7–0.9 mm from the opening, so a 2 mm strip inside them has no room, and one outside them would leave the screw holes inside the seal.
+
+V0.31:
+- **Foam gasket.** A frame of the same closed-cell foam as the cover strip, 1.5 mm thick, cut to the old gasket's outline, fills the lands: 200 mm² in the CAD. At 20–70 kPa (catalogue values for soft closed-cell foam at 25–33 %) it needs 4–14 N. The screws pass through it, and its Ø1.4 mm holes grip them, so the screw holes are sealed wherever they are.
+- **Lip.** A rigid lip, 0.5 mm wide (`cap_lip_w`), runs round the cap's outer edge and bears on the housing face. It stops the cap 1.0 mm (`cap_gap` = `foam_comp`) from the housing, so the foam is always compressed 33 %, however hard the screws are tightened.
+- **Cap.** 2.0 mm thick under the foam instead of 2.4 mm. The screws keep 5.0 mm of thread in the housing. The vent label sits on the cap's face in the opening, clear of the foam.
+- **Template.** `print_cap_gasket` now prints a 0.8 mm template to cut the foam frame round.
+
+## V0.30 changes from V0.29, still current
 
 ### Cover seal
 
@@ -374,6 +390,17 @@ V0.30 (cover seal; `mechanical/cad/tools/test_seal.py` runs the first six rows):
 | Widened end rims vs plates, boards, XIAO, USB-C board | No overlap |
 | Stop pads vs foam and key web holes; sheet holes vs a Ø1.35 mm probe | No overlap |
 | Assembly path check, both orders | No collision; the pads' pinch on the sheet (2.98 mm³) is a contact by design |
+
+V0.31 (battery cap; `test_seal.py`, class `CapSeal`):
+
+| Check | Result |
+|---|---|
+| Cap vs housing | Contact only; the lip touches the housing face |
+| Foam gasket vs cap and housing | Contact only; 200 mm² of foam |
+| Foam gasket vs the screws | It grips them (Ø1.4 mm holes) |
+| Screw thread in the housing | 5.0 mm, as before |
+| Vent label vs foam and housing | No overlap; it sits on the cap |
+| Assembly path check, both orders | No collision |
 | V0.26-era stack, removal (2–20 mm) and joystick tilt checks | As V0.29; the knob rim's contact with the cover at the stop grows from 0.43 to 0.47 mm³ |
 
 V0.25:
@@ -448,10 +475,10 @@ V0.24 aims for rain and spray resistance, not an IP rating. It has not been test
 
 1. **Buttons.** APEM ISR3SAD200, IP67 front-panel sealing (IEC 60529) with the flat seal under the bezel. The Ø17.5 mm bezel and its seal sit on the flat upper facet, 0.75 mm from the fold and from the top corner radius.
 2. **Joystick.** The cover hole is open to the outside. The sheet gasket is the seal there: it is clamped all round the hole and grips the stick. A printed TPU sheet that flexes with every stick movement may tear or creep; a cast silicone sheet would last longer.
-3. **Cover joint.** V0.30: a closed-cell foam strip on the housing rim under the loose keypad sheet's edge, round both facets; the sheet grips each cover screw's shank. (Before V0.30 the sheet itself was squeezed over the whole facet, which M2 screws cannot do; see [Changes from V0.29](#changes-from-v029).)
+3. **Cover joint.** V0.30: a closed-cell foam strip on the housing rim under the loose keypad sheet's edge, round both facets; the sheet grips each cover screw's shank. (Before V0.30 the sheet itself was squeezed over the whole facet, which M2 screws cannot do; see [V0.30 changes from V0.29](#v030-changes-from-v029-still-current).)
 4. **USB-C.** The GCT USB4736 is rated IP67 with its USBTJ-06 gasket compressed on the thinned land; GCT says the gasket is fitted after the receptacle is soldered. Pot the back of the receptacle and its PCB with epoxy as a second barrier. The charge LED window beside it is a Ø1.6 mm hole filled flush with clear epoxy or UV resin. On the bike the platform covers both. The groove and the lock hole are blind and do not open into the cavity.
 5. **Vent.** An adhesive ePTFE vent label over the Ø3 mm hole in the battery cap, inside (V0.28; before, in the bottom end wall). Without it, temperature cycles pump humid air into a sealed box, and the water condenses inside. Mount the base so the vent faces down or sideways, not into spray.
-6. **Battery cap.** A flat gasket squeezed to 0.6 mm by three M2 screws, on 3.8 mm lands front and rear and 2.5 mm at the sides. A 3.8 mm strip of housing separates it from the cover gasket. The cap faces down and gets spray from the wheel; this joint is new and untested. It has the cover's old problem: squeezing 0.8 mm of TPU to 0.6 mm on lands this wide needs kilonewtons (about 4 kN, estimated), not what three M2 screws give. Not changed in V0.30; see "Open unknowns".
+6. **Battery cap.** V0.31: a die-cut closed-cell foam gasket on the lands (3.8 mm front and rear, 2.5 mm at the sides), compressed to 1.0 mm by a rigid lip on the cap; the screws pass through the foam. A 3.8 mm strip of housing separates it from the cover seal. The cap faces down and gets spray from the wheel; this joint is untested.
 7. **Electronics.** Coat the XIAO, the joystick PCB and all solder joints with conformal coating (acrylic or silicone). Keep it off the USB-C socket, the switch actuators, the pouch, and the vent membrane.
 8. **Printed walls.** The narrow rear part still has 1 mm axial walls, only two perimeters with a 0.4 mm nozzle, and FDM layers can leak. Print PETG hot and slow for good layer bonding, or seal the outside with a thin coat of epoxy or lacquer.
 
@@ -470,7 +497,7 @@ V0.24 aims for rain and spray resistance, not an IP rating. It has not been test
 | Keypad and gasket | `print_gasket` | Flat, 0.8 mm sheet on its housing side, keys up | Soft TPU (85A or softer); not cut from sheet, because of the keys |
 | Button plate | `print_button_plate` | Sheet side on the bed, standoffs up | PETG |
 | Battery cap | `print_battery_cap` | Outer face on the bed | PETG or ASA |
-| Cap gasket | `print_cap_gasket` | Flat, 0.8 mm | As the cover gasket |
+| Cap gasket template (V0.31) | `print_cap_gasket` | Flat, 0.8 mm | PETG; a template to cut the foam gasket |
 | Liners ×2 | `liner_main`, `liner_cap` | Axial face on the bed | TPU 95A |
 | Sleeve halves ×2 (22.2 mm bar only) | `print_sleeve` | End face on the bed | PETG |
 | Anti-rattle strips ×2 | not modelled as print parts | 4 × 50 × 1.4 mm | TPU, or cut from rubber sheet |
@@ -487,7 +514,7 @@ No part needs supports.
 
 ## Assembly
 
-Remote (V0.30; nothing to solder, no hot tool):
+Remote (V0.31; nothing to solder, no hot tool):
 1. Clear the ten Ø1.6 mm pilot holes in the housing screw bosses with a 1.6 mm drill held by hand; printed holes come out undersize.
 2. Fit the USB-C board rev B: fit the receptacle's gasket, carry the board in 1.5 mm above its rib past the upper cover bosses, lower it onto the rib 8 mm short of the rear wall, and slide it along the rib until the nose enters the slot and the gasket sits in its pocket. Fix it with two M2 × 4 thread-forming screws. Pot the back of the receptacle with epoxy, keeping it out of the opening and the socket. Fill the LED window from outside with clear epoxy or UV resin. Plug the 3-pin cable into its socket.
 3. Joystick: push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the joystick board rev C onto the plate standoffs with two M2 × 8 button-head screws; the disc rests on the switches. Plug the 5-pin cable into its socket.
@@ -497,7 +524,7 @@ Remote (V0.30; nothing to solder, no hot tool):
 7. Stick the foam strip on the housing rim round both facets, with butt joints at the end corners, and a thin foam strip on the rear wall where the pouch lies.
 8. Lower the housing onto the stack, guiding the cables; its walls locate the plates. Turn it over and fit the ten M2 × 10 screws; they cut their own thread, so drive them slowly the first time. Tighten evenly in a cross pattern.
 9. Slide the pouch up through the bottom opening, protection board and lead first. With the cover off, plug its lead into J5 on the control board, then close the cover as in step 8. Check the polarity before connecting the charger.
-10. Stick the vent label on the inside of the battery cap, over its vent hole, and a foam pad with a hole round the label. Lay the cap gasket on the housing face, and fit the cap with three M2 × 8 countersunk screws.
+10. Stick the vent label on the inside of the battery cap, over its vent hole, and a foam pad with a hole round the label. Stick the foam cap gasket inside the cap's lip, then fit the cap with three M2 × 8 countersunk screws; the lip meets the housing when they are tight.
 11. Drop the M2 square nut into the slot under the knob and start the M2 × 4 grub screw in it from the rim. Slide the knob onto the pin with a 0.9 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw.
 
 The order of steps 8 and 9 is open: the pouch can go in before the cover is closed if its lead is long enough to reach J5 with the stack beside the housing.
@@ -514,9 +541,9 @@ To program over USB, remove the remote from the base and its cover. Take the kno
 
 ## Assembly video
 
-[`complete-remote-v0.30-assembly.mp4`](videos/complete-remote-v0.30-assembly.mp4) shows the remote steps 1–11 above, one chapter per step (56 s; QuickTime and VLC list the chapters). It is for design review, not a builder's guide. Parts that collide on their path show in red. Cables are not animated: each appears in place once both its ends are fitted. The video shows the documented order of steps 8 and 9.
+[`complete-remote-v0.31-assembly.mp4`](videos/complete-remote-v0.31-assembly.mp4) shows the remote steps 1–11 above, one chapter per step (56 s; QuickTime and VLC list the chapters). It is for design review, not a builder's guide. Parts that collide on their path show in red. Cables are not animated: each appears in place once both its ends are fitted. The video shows the documented order of steps 8 and 9.
 
-[`assembly-video-v0.30-checks.md`](assembly-video-v0.30-checks.md) is the path check behind it. In V0.30 it finds no collision. Each move is checked at five poses against the parts in place, and every pair of parts in the final pose. Both orders of steps 8 and 9 are checked. Findings:
+[`assembly-video-v0.31-checks.md`](assembly-video-v0.31-checks.md) is the path check behind it. In V0.31 it finds no collision. Each move is checked at five poses against the parts in place, and every pair of parts in the final pose. Both orders of steps 8 and 9 are checked. Findings:
 
 - The housing closes onto the stack along X (since V0.27; in [V0.26](assembly-video-v0.26-checks.md) it hit the joystick board).
 - The vent label, on the battery cap since V0.28, clears everything ([V0.27](assembly-video-v0.27-checks.md): it ran into the lower-facet stack).
@@ -533,7 +560,7 @@ python3 mechanical/cad/tools/assembly_video.py video
 python3 -m unittest mechanical/cad/tools/test_assembly_video.py
 ```
 
-The timeline, the staging offsets and the cameras are in `mechanical/cad/assembly-video-v0.30.scad`. The tool uses the newest version; `ORR_VERSION=0.26` to `0.29` selects an older file, but its captions need that version's assembly list, which is now in the git history. The step captions come from the assembly steps above, so rerun `video` after editing them.
+The timeline, the staging offsets and the cameras are in `mechanical/cad/assembly-video-v0.31.scad`. The tool uses the newest version; `ORR_VERSION=0.26` to `0.30` selects an older file, but its captions need that version's assembly list, which is now in the git history. The step captions come from the assembly steps above, so rerun `video` after editing them.
 
 ## Hardware
 
@@ -594,7 +621,6 @@ These are the only items that block a confident first print. Each is a parameter
 - **Keypad:** the press and travel of a KSC2 behind a TPU sheet, with gloves (0.3 mm rest gap plus 0.35–0.65 mm travel, against 1.7 mm for the APEM buttons); whether the printed sheet seals round the keys and at the fold; whether the 0.3 mm rest gap needs shims.
 - **Upper cover screws:** the span between the screws at Y = 24 and −6 mm is 30 mm. With the V0.30 foam strip the cover bends an estimated 0.015–0.07 mm there, against 0.5 mm of foam travel; the leak test confirms it.
 - **Foam strip (V0.30):** its real compression force and recovery after the cover is opened, the two butt joints at the end corners, and whether the adhesive holds on PETG.
-- **Battery cap gasket:** squeezed flat over 2.5–3.8 mm lands by three M2 screws, it has the problem V0.30 removed from the cover (about 4 kN needed, estimated). It needs the same treatment, a foam strip or a narrow bead, before printing.
 - **Joystick:** measure the KSC2 height and the printed plate, ball and disc; together with the standoffs they set the 0.05 mm rest gap (`joy_rest_gap`). The feel (5.9° to trip, 2 N per direction, about 8 N for the centre chord) and the Ø16 mm knob need a check with gloves.
 - **XIAO:** measured on a pre-soldered XIAO nRF52840 (2026-10-15): PCB 1.2 mm, components 3.0 mm, pin spacer 2.5 mm, pins 6.1 mm below it, USB-C 1.8 mm past the PCB edge, pin rows centred on the board. The depth of the 5.7 mm female socket (C55218877) is not published, so the model assumes the worst case: the 6.1 mm pin bottoms and the XIAO sits 0.4 mm above its spacer. Its components then end where they did with the 3.4 mm assumption, 7.2 mm from the pouch envelope; the stack, removal and path checks give the same results. Still open: the real seat height, and whether the foam pad holds the XIAO in its headers under vibration.
 - **Cables:** where the spare length of 10 cm cables goes (the routes need about 3 and 4 cm); whether bought cables are straight (pin 1 to pin 1); whether the SH-compatible sockets latch the Pololu plugs.
@@ -605,7 +631,7 @@ These are the only items that block a confident first print. Each is a parameter
 - **Dovetail:** the 0.2 mm clearance (`dt_c`) against the printer, and the strip material and thickness for the preload. Whether the 0.48 mm the remote can move toward the platform feels loose on the buttons.
 - **Lock:** a spring that fits a Ø6 mm pocket over a Ø3 mm shank and holds the head out firmly; its compressed length sets `lock_spring_solid`. The pull force, and whether 1 mm of head in the pocket is enough.
 - **Pouch:** the bought cell's size (up to 54 mm long, 6 mm thick), its real capacity, protection board and lead exit, and its maximum charge current against the control board's 100 mA (set by R1 on the MCP73831).
-- **Battery cap:** whether the flat gasket seals on the 2.5 mm side lands, whether M2 screws hold in Ø1.6 mm pilots in PETG after a few battery changes, and whether the 26 mm bottom band clears the switchgear on the bike.
+- **Battery cap:** whether the foam gasket (V0.31) seals on the 2.5 mm side lands and recovers after battery changes, whether M2 screws hold in Ø1.6 mm pilots in PETG after a few battery changes, and whether the 26 mm bottom band clears the switchgear on the bike.
 - **USB-C PCB:** the hand-drawn USB4736 footprint now matches GCT's recommended layout ([check](../electronics/usbc-pcb-rev-b/README.md#receptacle-footprint); the signal pads moved 0.10 mm). Check it against the footprint JLCPCB uses for the global-sourcing part when ordering, and the Ø1.6 mm screw pilots against the chosen screws; in V0.26 the holes are at ±7 mm. How the board gets onto its rib was not solved in V0.24 and V0.25. For V0.26 the assembly path check found a clear path: carried 1.5 mm above the rib past the upper cover bosses at Y = 24, lowered onto the rib 8 mm short of the rear wall, then slid in. The margin is small (1 mm above the rib still overlaps 0.2 mm³), so check it on the first print ([assembly path check](assembly-video-v0.28-checks.md)).
 - **Joystick board support (V0.27):** both PCB screws are now in the lower half. A hand estimate gives 0.011 mm of bending under the up switch at 2 N, against the 0.05 mm rest gap; check on the first print that the up direction trips like the others and that the board does not rock.
 - **Charge LED:** whether the LED shows well enough through the filled Ø1.6 mm window (`usbc_led_hole_d`), and whether the printed hole needs drilling out to size.
@@ -618,4 +644,4 @@ Not addressed by this concept: IP rating, impact, vibration, and fatigue strengt
 
 ## Earlier versions
 
-V0.1–V0.29 remain available for comparison. V0.29's keypad sheet cannot be squeezed enough by its screws to seal. V0.28 needs heat-set inserts, and its battery cap boss touches the joystick board's J1. V0.27's vent label runs into the cover and the joystick plate; build V0.28. V0.26 should not be built: its housing cannot close onto the joystick board (see [V0.27 changes from V0.26](#v027-changes-from-v026-still-current)). V0.23 is the fixed, cable-powered version: its clamp ring and shoulders are part of the housing. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23 or later. V0.24 places a 602030 pouch that cannot be put in through the front opening (see [Changes from V0.24](#changes-from-v024)); build V0.25. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.
+V0.1–V0.30 remain available for comparison. V0.30's battery cap gasket cannot be squeezed enough by its screws. V0.29's keypad sheet cannot be squeezed enough by its screws to seal. V0.28 needs heat-set inserts, and its battery cap boss touches the joystick board's J1. V0.27's vent label runs into the cover and the joystick plate; build V0.28. V0.26 should not be built: its housing cannot close onto the joystick board (see [V0.27 changes from V0.26](#v027-changes-from-v026-still-current)). V0.23 is the fixed, cable-powered version: its clamp ring and shoulders are part of the housing. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23 or later. V0.24 places a 602030 pouch that cannot be put in through the front opening (see [Changes from V0.24](#changes-from-v024)); build V0.25. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.

@@ -19,7 +19,7 @@ from pathlib import Path
 
 CAD = Path(__file__).resolve().parent.parent
 REPO = CAD.parent.parent
-VERSION = os.environ.get("ORR_VERSION", "0.30")
+VERSION = os.environ.get("ORR_VERSION", "0.31")
 SCAD = CAD / ("assembly-video-v%s.scad" % VERSION)
 BUILD = CAD / "build"
 OPENSCAD = os.environ.get("OPENSCAD", "openscad")
@@ -164,7 +164,12 @@ _USBC = ("**USB-C board path (step 2).** Slid straight along its rib from the ca
          "above the rib past the bosses, lowered onto the rib 8 mm short of the rear wall, and "
          "slid in, it clears. The margin is small: 1 mm above the rib still overlaps 0.2 mm³. "
          "The video uses this path.")
-FINDINGS = {"0.30": [
+FINDINGS = {"0.31": [
+    "**Battery cap seal (V0.31).** A die-cut closed-cell foam gasket, compressed to 1.0 mm by a "
+    "rigid lip on the cap, replaces the flat TPU gasket. The cap and the foam go on in step 10.",
+    "**Cover seal (V0.30).** As V0.30: loose sheet, foam strip on the rim.",
+    "**Housing onto the stack (step 8), and the cover off (step 9).** Clear along X, as since V0.27.",
+    _USBC], "0.30": [
     "**Cover seal (V0.30).** The keypad sheet is loose; a closed-cell foam strip on the housing "
     "rim seals both facets. The foam goes on in step 7 and moves with the housing.",
     "**Housing onto the stack (step 8), and the cover off (step 9).** Clear along X, as since V0.27.",

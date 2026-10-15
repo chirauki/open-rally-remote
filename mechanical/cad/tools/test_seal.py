@@ -12,25 +12,26 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import assembly_video as av  # noqa: E402
 
 SCAD30 = av.CAD / "complete-remote-v0.30.scad"
+SCAD31 = av.CAD / "complete-remote-v0.31.scad"   # V0.31: battery cap seal
 TOL = 0.01  # mm^3
 OUT = av.BUILD / "seal"
 
 
-def vol(body, name, defs=None):
-    """Volume (mm^3) of body rendered with the V0.30 model included."""
+def vol(body, name, defs=None, scad=SCAD30):
+    """Volume (mm^3) of body rendered with the V0.30 model (or scad) included."""
     d = {"part_to_render": "none"}
     d.update(defs or {})
     out = OUT / (name + ".stl")
-    av.run_scad(d, out, body=body, allow_empty=True, scad=SCAD30)
+    av.run_scad(d, out, body=body, allow_empty=True, scad=scad)
     return av.stl_volume(out)
 
 
-def echo(expr, name, defs=None):
+def echo(expr, name, defs=None, scad=SCAD30):
     """Value of an OpenSCAD expression in the V0.30 model, through an echo."""
     d = {"part_to_render": "none"}
     d.update(defs or {})
     out = OUT / (name + ".echo")
-    av.run_scad(d, out, body="echo(val=%s); cube(0.01);" % expr, scad=SCAD30)
+    av.run_scad(d, out, body="echo(val=%s); cube(0.01);" % expr, scad=scad)
     for line in out.read_text().splitlines():
         if line.startswith("ECHO: val = "):
             return float(line[len("ECHO: val = "):])
@@ -121,6 +122,40 @@ class Task3(unittest.TestCase):
 
     def test_pad_load(self):
         self.assertTrue(5 <= echo("pad_load", "pad_load") <= 100)
+
+
+def v31(body, name):
+    return vol(body, "v31_" + name, scad=SCAD31)
+
+
+class CapSeal(unittest.TestCase):
+    """V0.31: a die-cut closed-cell foam gasket under the battery cap, compressed to foam_comp
+    by a rigid lip on the cap's outer edge."""
+
+    def test_cap_lip_on_housing(self):
+        self.assertLessEqual(v31("intersection() { battery_cap(); housing(); }", "cap_housing"), TOL)
+        self.assertGreater(v31("intersection() { translate([0, 0.05, 0]) battery_cap(); housing(); }",
+                               "cap_lip_touch"), 0)
+
+    def test_cap_foam_fills_gap(self):
+        self.assertLessEqual(v31("intersection() { cap_gasket(); union() { battery_cap(); housing(); } }",
+                                 "capfoam_clear"), TOL)
+        area = v31("cap_gasket();", "capfoam") / echo("foam_comp", "v31_fc", scad=SCAD31)
+        self.assertGreater(area, 100)
+
+    def test_cap_foam_grips_screws(self):
+        self.assertGreater(v31("intersection() { cap_gasket(); for (s=cap_screws) "
+                               "translate([s[0], cap_y-2, s[1]]) rotate([-90, 0, 0]) cylinder(d=2.0, h=4); }",
+                               "capfoam_screws"), 0)
+
+    def test_cap_thread_unchanged(self):
+        self.assertAlmostEqual(echo("cap_screw[2]-cap_t-cap_gap", "v31_thread", scad=SCAD31), 5.009, places=2)
+
+    def test_vent_label_clear_of_foam(self):
+        self.assertLessEqual(v31("intersection() { vent_label_envelope(); union() { cap_gasket(); housing(); } }",
+                                 "vent_foam"), TOL)
+        self.assertLessEqual(v31("intersection() { translate([0, 0.05, 0]) vent_label_envelope(); battery_cap(); }",
+                                 "vent_on_cap"), TOL)
 
 
 if __name__ == "__main__":
