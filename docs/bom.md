@@ -1,6 +1,6 @@
 # Bill of Materials — V0.31
 
-This is the single parts list for the project: the bench prototype and the V0.31 removable, battery-powered remote with its base. V0.31 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap, no heat-set inserts, and foam seals on the cover and the battery cap. It is built without soldering or any hot tool: the three circuit boards are ordered assembled and joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Design details stay in the linked documents; this page lists what to buy.
+This is the single parts list for the project: the bench prototype and the V0.31 removable, battery-powered remote with its base. V0.31 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap, no heat-set inserts, and foam seals on the cover and the battery cap. The three circuit boards are joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). They can be ordered assembled, so the build needs no soldering, or bare, for the builder to solder by hand at a much lower cost: see [Ordering the boards](#ordering-the-boards). Design details stay in the linked documents; this page lists what to buy.
 
 **Status:** nothing in the V0.31 list has been built or tested. The V0.25 list is in the git history.
 
@@ -13,14 +13,14 @@ Rough figures for one remote and one base, in euros including VAT, before shippi
 | Section | Estimate | Basis |
 |---|---:|---|
 | [Bench prototype](#bench-prototype) | €22–29 | Checked on 2026-10-07; see the section. |
-| [Remote: electronics](#electronics) | €110–170 | Parts checked in the JLCPCB library; the assembled boards are an estimate from the JLCPCB fee table, not a quote. |
+| [Remote: electronics](#electronics) | €65–100 with bare boards soldered by hand; €110–170 assembled | JLCPCB quotes and JLCPCB library prices on 2026-10-15; parts shipping not checked. |
 | [Remote: hardware](#hardware) | €30–60, plus the vent label | Kit prices checked; single-size packs not checked. No retail price found for the vent label. |
 | [Remote: printed parts](#printed-parts) | €20–50 | Not checked: needs a quote from a print service with the exported files. |
 | [Base](#base-one-per-bike) | €25–60 | Not checked; much of the hardware comes from the kits bought for the remote. |
-| [Consumables](#consumables) | €35–55 | Conformal coating checked; the rest not checked. |
-| **First remote and base, without the bench parts** | **about €220–395** | |
+| [Consumables](#consumables) | €35–55, plus €15–30 of soldering supplies for bare boards | Conformal coating checked; the rest not checked. |
+| **First remote and base, without the bench parts** | **about €190–395** | |
 
-The assembled-board order (about €80–120, mostly fixed fees, extended-part fees and shipping) is the largest item.
+With assembled boards, the board order (mostly fixed fees, extended-part fees and shipping) is the largest item.
 
 ## Bench prototype
 
@@ -49,21 +49,35 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 |---:|---|---|---|
 | 1 | Seeed XIAO nRF52840 **with pre-soldered pins** (MPN `102010631`) | [Kiwi Electronics](https://www.kiwi-electronics.com/en/seeed-studio-xiao-nrf52840-pre-soldered-20402), €9.99 before VAT | Plugs into the control board's headers. The same board as on the breadboard. |
 | 1 | LiPo pouch with protection board and a JST-PH 2.0 lead, at most 6 × 20 × 54 mm including the protection board | Retail (for example Amazon) | The pouch goes in with its protection board up; the lead must leave that end and be at least about 35 mm long (29 mm in the CAD with a 46.8 mm cell). 600 mAh class (602045, 602050); a 602045 cell measured 6.1 × 19.7 × 46.8 mm with a 43.5 mm lead from one corner, and fits. The control board protects against a reversed plug; check the polarity anyway. |
-| 1 | [Control board](../electronics/control-pcb/README.md), 21.4 × 49 × 1.6 mm, assembled | JLCPCB | Three KSC2 buttons, XIAO headers, MCP73831 charger, TPS70933 regulator, sockets. Gerbers, BOM and placement in `electronics/control-pcb/fab/`. Parts on both sides; the headers are through-hole. |
-| 1 | [Joystick board rev C](../electronics/joystick-pcb-rev-c/README.md), 20.6 × 22.4 × 1.6 mm, assembled | JLCPCB | Four KSC2 switches and one socket. Files in `electronics/joystick-pcb-rev-c/fab/`. Rev B (V0.26) does not let the housing close. |
-|  | Both boards above as one [panel](../electronics/panel-ctrl-joy/README.md) | JLCPCB | Order them as the panel, `electronics/panel-ctrl-joy/fab/`: one double-sided assembly setup instead of two (about 59 USD less, estimated 2026-10-15). Break the boards out of the rails by hand. |
-| 1 | [USB-C board rev B](../electronics/usbc-pcb-rev-b/README.md), 19 × 16 × **1.2** mm, assembled | JLCPCB | Order at 1.2 mm. The GCT USB4736-GF-A receptacle is bought through JLCPCB's global sourcing (C9900206672); its USBTJ-06 gasket comes in the kit and is fitted after soldering. Files in `electronics/usbc-pcb-rev-b/fab/`. |
+| 1 | [Control board](../electronics/control-pcb/README.md), 21.4 × 49 × 1.6 mm | JLCPCB, bare or assembled | Three KSC2 buttons, XIAO headers, MCP73831 charger, TPS70933 regulator, sockets. Gerbers, BOM and placement in `electronics/control-pcb/fab/`. Parts on both sides; the headers are through-hole. |
+| 1 | [Joystick board rev C](../electronics/joystick-pcb-rev-c/README.md), 20.6 × 22.4 × 1.6 mm | JLCPCB, bare or assembled | Four KSC2 switches and one socket. Files in `electronics/joystick-pcb-rev-c/fab/`. Rev B (V0.26) does not let the housing close. |
+| 1 | [USB-C board rev B](../electronics/usbc-pcb-rev-b/README.md), 19 × 16 × **1.2** mm | JLCPCB, bare or assembled | Order at 1.2 mm. Files in `electronics/usbc-pcb-rev-b/fab/`. |
+| 1 | GCT USB4736-GF-A-KIT: the sealed USB-C receptacle with its USBTJ-06 gasket | [TME](https://www.tme.com/in/en/details/usb4736-gf-a-kit/usb-ieee1394-connectors/gct/) or [DigiKey](https://www.digikey.sg/en/products/detail/gct/USB4736-GF-A-KIT/26795952), about USD 1.7–1.8 | Soldered by hand on the USB-C board; the gasket goes on after soldering. JLCPCB's part C9900206672 is the USB4736-GF-A **without** the gasket, and JLCPCB could not source it on 2026-10-15. |
 | 1 | JST SH-style cable, 5-pin, female–female, 1 mm pitch, straight (pin 1 to pin 1), 10 cm | [Pololu](https://www.pololu.com/category/350/5-pin-jst-sh-style-cables) | Joystick board to control board. Not found on Amazon by web search. |
 | 1 | JST SH-style cable, 3-pin, female–female, 1 mm pitch, straight, 10 cm | Pololu | USB-C board to control board. |
 
 The board parts with their LCSC numbers are in each board's README and `fab/*-bom.csv`. The KSC221JLFS switches (LCSC C221726) are distributor parts: no retail sealed switch with this footprint was found.
 
-Estimated cost: about €110–170. **The board order is an estimate, not a quote.**
+#### Ordering the boards
+
+JLCPCB makes at least 5 of each board and assembles at least 2. Three ways to order, with JLCPCB quote totals from 2026-10-15:
+
+| Option | JLCPCB order | The builder solders | Quote |
+|---|---|---|---|
+| **Bare boards** (cheapest) | The three `fab/*-gerbers.zip`, no assembly | Every part, from [`electronics/lcsc-parts.csv`](../electronics/lcsc-parts.csv), plus the USB4736 kit | €22.86 for the three boards |
+| Economic assembly, bottom side only | Control and joystick with `fab/economic-bottom/`; the USB-C board's top side with its `fab/` files, J1 left unselected | The 7 KSC2 switches, the 2 XIAO headers and the USB4736 kit | €86.27 for the three boards |
+| Standard double-sided assembly | Control and joystick as the [panel](../electronics/panel-ctrl-joy/README.md) | Nothing, except the USB4736 if JLCPCB cannot source it | About €134 for control and joystick alone |
+
+`electronics/lcsc-parts.csv` loads into LCSC's BOM tool. Its `Quantity` column covers two remotes with spares, because small parts get lost; `Per remote` gives the exact count. LCSC rounds some quantities up to its minimum order. The parts cost about USD 8 per remote, priced in the JLCPCB library on 2026-10-15; the USB4736 kit is not at LCSC.
+
+Hand soldering needs a fine-tipped iron, no-clean flux, 0.5–0.8 mm flux-cored solder and desoldering braid (see [Consumables](#consumables)). The hard parts are the four 1.0 mm-pitch JST SH sockets, the side-looking LED and the USB4736; the 0603 parts and the SOT-23 packages need flux. Solder a spare board first; the joystick board, with four switches and one socket, is the easiest. Check BAT, 5V and 3V3 against GND with a meter before the first power-up.
+
+Estimated cost: about €65–100 with bare boards, €110–170 assembled.
 
 - XIAO with pins: €9.99 before VAT at Kiwi Electronics.
 - LiPo: €5–10.
-- Three assembled boards, one JLCPCB order, at least 2 of each: about €80–120 with shipping and import VAT. From the [JLCPCB assembly fee table](https://jlcpcb.com/help/article/pcb-assembly-price) dated 2025-09-01: USD 8 setup and USD 1.50 stencil per board and side, USD 3 per unique extended part (about 14 across the three boards), through-hole soldering for the headers, and the parts. Get the live quote with the `fab/` files.
-- GCT receptacle through global sourcing: about USD 2 plus JLCPCB's sourcing fee; not checked.
+- Boards: the quotes above.
+- Parts from LCSC and the USB4736 kit from TME or DigiKey: about €10 per remote, plus two shipping charges; shipping not checked.
 - Two Pololu cables: about USD 2–3 each plus shipping; not checked.
 
 ### Hardware
@@ -135,8 +149,9 @@ Estimated cost: about €25–60. **Not checked.**
 | Two-part epoxy | Potting the back of the charging USB-C receptacle. |
 | Clear epoxy or UV-cure resin | Filling the charge LED window. |
 | Neutral-cure silicone | Sealing where the notes call for it. |
+| No-clean flux (syringe), 0.5–0.8 mm flux-cored solder, 2 mm desoldering braid, isopropyl alcohol | Bare boards only: hand soldering, and cleaning the flux off before the conformal coating. |
 
-Estimated cost: about €35–55.
+Estimated cost: about €35–55, plus €15–30 for the soldering supplies (not checked).
 
 - Acrylic conformal coating, 200 ml aerosol: €21.11 with VAT at [RS Netherlands](https://nl.rs-online.com/web/p/conformal-coatings/0714462).
 - Epoxy, UV resin and neutral-cure silicone: about €5–10 each. **Not checked.**
@@ -144,6 +159,6 @@ Estimated cost: about €35–55.
 ## Ordering notes
 
 - The three boards can share one JLCPCB order. The USB-C board is 1.2 mm thick and the other two 1.6 mm, so they are separate boards in the order.
-- The control and joystick boards have parts on both sides, so they need double-sided assembly. Check each part's rotation in JLCPCB's placement preview: the CPL files use KiCad's rotations.
+- For assembly: the control and joystick boards have parts on both sides, so full assembly is double-sided. Check each part's rotation in JLCPCB's placement preview: the CPL files use KiCad's rotations.
 - The cables are straight: pin 1 of one end goes to pin 1 of the other. Check the bought cables before fitting them.
 - LCSC numbers and stock were checked in the JLCPCB library on 2026-10-14; stock and prices change.

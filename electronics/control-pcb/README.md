@@ -1,6 +1,6 @@
 # Control Board (V0.26)
 
-The control board sits behind the upper facet of the V0.26 remote. Its front carries the three button switches; its back carries the XIAO nRF52840 in two female headers, the LiPo charger, the 3.3 V regulator and the connectors for the joystick board, the USB-C charging board and the battery. It is ordered assembled, so the builder does not solder. The design is in the [no-solder assembly spec](../../docs/superpowers/specs/2026-10-14-no-solder-assembly-design.md).
+The control board sits behind the upper facet of the V0.26 remote. Its front carries the three button switches; its back carries the XIAO nRF52840 in two female headers, the LiPo charger, the 3.3 V regulator and the connectors for the joystick board, the USB-C charging board and the battery. It can be ordered assembled, so the builder does not solder, or bare, for the builder to solder by hand; see [Ordering the boards](../../docs/bom.md#ordering-the-boards). `fab/economic-bottom/` holds the BOM and placement for JLCPCB Economic assembly of the back side only; the builder then solders the switches and the headers. The design is in the [no-solder assembly spec](../../docs/superpowers/specs/2026-10-14-no-solder-assembly-design.md).
 
 ## Parts
 
@@ -23,7 +23,7 @@ The XIAO nRF52840 is in the JLCPCB library (C37327670 and others) with no stock,
 
 ### USB-C charging receptacle
 
-The GCT USB4736-GF-A is listed in the JLCPCB library only through global sourcing (C9900206672), with no JLCPCB stock on 2026-10-14. JLCPCB buys such parts from a distributor for the order. No other sealed receptacle that keeps the CC pins was found in the library.
+The GCT USB4736-GF-A is listed in the JLCPCB library only through global sourcing (C9900206672), with no JLCPCB stock on 2026-10-14. On 2026-10-15 JLCPCB could not source it for an order. C9900206672 is the receptacle without its USBTJ-06 gasket; buy the USB4736-GF-A-KIT (receptacle and gasket) from TME or DigiKey and solder it by hand. No other sealed receptacle that keeps the CC pins was found in the library.
 
 ### Cables
 

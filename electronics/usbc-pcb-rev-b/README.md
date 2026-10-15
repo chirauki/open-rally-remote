@@ -14,7 +14,7 @@ Rev B of the [USB-C charging board](../usbc-pcb/README.md) for the no-solder V0.
 
 J2 has the same order as J3 on the control board, for a straight double-ended 3-pin JST SH cable. Check that the bought cable is straight.
 
-The receptacle is in the JLCPCB library only through global sourcing (C9900206672), with no JLCPCB stock on 2026-10-14. GCT fits the USBTJ-06 gasket after the receptacle is soldered.
+The receptacle is in the JLCPCB library only through global sourcing (C9900206672), with no JLCPCB stock on 2026-10-14; on 2026-10-15 JLCPCB could not source it for an order. C9900206672 is the USB4736-GF-A without the gasket. Buy the USB4736-GF-A-KIT (receptacle and USBTJ-06 gasket) from TME or DigiKey and solder it by hand; leave J1 unselected in an assembly order. The gasket goes on after the receptacle is soldered.
 
 ![USB-C board rev B, top](fab/render-top.png)
 
