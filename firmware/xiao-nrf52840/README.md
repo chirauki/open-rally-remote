@@ -73,6 +73,8 @@ The profile choices come from the app tests in the [firmware specification](../.
 
 With `BOARD_V026 = true` the firmware leaves P0.13, P0.14 and the XIAO's charger alone, does not drive a charge LED (the charger's STAT does), and reads "charger present" from D9 instead of the nRF52840's USB detection. The centre press must come from the chord (`CENTER_FROM_CHORD = true`); a compile-time check enforces it. Both settings compiled on 2026-10-14 with no warnings from the sketch; the `true` build has not run on a board yet.
 
+From the 2026-10-15 board review: with no cell fitted, the charger's STAT is high impedance and the board's divider pulls D8 low, so `charging()` reads true; and the charger only ends a charge when the XIAO's average load stays under about 5.6 mA, because it measures its whole output current (see "Charge termination" in the [control board README](../../electronics/control-pcb/README.md)). Measure the awake current on USB before relying on the charge LED going out.
+
 ## Power and battery
 
 These follow the [battery study](../../docs/battery-study.md#firmware). The constants are near the top of the sketch.

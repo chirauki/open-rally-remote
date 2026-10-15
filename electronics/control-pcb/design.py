@@ -150,7 +150,7 @@ SYMBOLS = {
     "F1": {"lib_id": "Device:Polyfuse", "value": "MF-MSMF050-2", "footprint": "Fuse:Fuse_1812_4532Metric",
            "fields": {"Manufacturer": "Bourns", "MPN": "MF-MSMF050-2", "LCSC": "C17313"}},
     "D1": {"lib_id": "Device:D_Zener", "value": "SMBJ5.0A", "footprint": "Diode_SMD:D_SMB",
-           "fields": {"Manufacturer": "Littelfuse", "MPN": "SMBJ5.0A", "LCSC": "C78423",
+           "fields": {"Manufacturer": "Littelfuse", "MPN": "SMBJ5.0A", "LCSC": "C83333",
                       "Description": "5 V TVS, unidirectional"}},
     "U1": {"lib_id": "Battery_Management:MCP73831-2-OT", "value": "MCP73831T-2ACI/OT",
            "footprint": "Package_TO_SOT_SMD:SOT-23-5",
@@ -164,15 +164,19 @@ SYMBOLS = {
                       "Description": "Battery reverse-polarity protection"}},
     "C1": cap("4.7u", "CL10A475KO8NNNC", "C19666"),
     "C2": cap("4.7u", "CL10A475KO8NNNC", "C19666"),
-    "C3": cap("2.2u", "CL10A225KO8NNNC", "C23630"),
-    "C4": cap("2.2u", "CL10A225KO8NNNC", "C23630"),
+    # 2026-10-15 review: 4.7 uF keeps the TPS709 output above its 1.5 uF effective minimum under
+    # bias, and C3 matches so the board uses one capacitor part.
+    "C3": cap("4.7u", "CL10A475KO8NNNC", "C19666"),
+    "C4": cap("4.7u", "CL10A475KO8NNNC", "C19666"),
     "C5": {"lib_id": "Device:C", "value": "100n", "footprint": C0603,
            "fields": {"Manufacturer": "Yageo", "MPN": "CC0603KRX7R9BB104", "LCSC": "C14663"}},
     "R1": res("10k", "0603WAF1002T5E", "C25804"),
     "R2": res("100k", "0603WAF1003T5E", "C25803"),
-    "R3": res("200k", "0603WAF2003T5E", "C25811"),
+    # 2026-10-15 review: 100k/150k keeps D8 and D9 at or under 3.0 V (VBUS 5 V), below the XIAO
+    # pin limit of VDD + 0.3 V when a low cell holds VDD near 3.0 V.
+    "R3": res("150k", "0603WAF1503T5E", "C22807"),
     "R4": res("100k", "0603WAF1003T5E", "C25803"),
-    "R5": res("200k", "0603WAF2003T5E", "C25811"),
+    "R5": res("150k", "0603WAF1503T5E", "C22807"),
     "R6": res("1M", "0603WAF1004T5E", "C22935"),
     "R7": res("1M", "0603WAF1004T5E", "C22935"),
 }

@@ -67,7 +67,7 @@ The LED on the USB-C charging PCB takes its anode from VBUS through its resistor
 ### Parts to choose
 
 Chosen in the implementation plan, from parts that JLCPCB can assemble:
-- LiPo charger with an open-drain STAT output and a set charge current of about 100 mA, programmable by a resistor.
+- LiPo charger with a STAT output and a set charge current of about 100 mA, programmable by a resistor. (The chosen MCP73831's STAT is push-pull, not open-drain; the LED circuit works the same, see the control board README.)
 - 3.3 V regulator with nanoamp quiescent current and reverse-current blocking.
 - PTC fuse and TVS diode, as on the V0.23 joystick PCB.
 - JST-SH 1.0 mm side-entry SMD sockets (3-pin, 5-pin) and a JST-PH 2.0 mm socket.
