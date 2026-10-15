@@ -181,6 +181,11 @@ for ref, s in SYMBOLS.items():
 
 TEXTS = [
     ("ORR CONTROL V0.26", 0.0, -11.0, "F", 0.8),
+    # Battery polarity at J5 (pin 1 BAT at x = -3.8, pin 2 GND at x = -5.8), on the rear
+    # beyond its courtyard toward the board's end (F1 is on the other side), so a builder can
+    # check the pouch plug before plugging it in.
+    ("+", -3.8, -21.0, "B", 1.0),
+    ("-", -5.8, -21.0, "B", 1.0),
 ]
 
 # Schematic pin names of the open pins, for the no-connect net names in the parity check.

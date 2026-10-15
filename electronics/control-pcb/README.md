@@ -82,12 +82,13 @@ python3 jlc_cpl.py
 
 ## Checks
 
-Run on 2026-10-14:
+Run on 2026-10-14, and again on 2026-10-15 after adding the J5 polarity marks (same results; Freerouting routed it again):
 
 - ERC: 0 errors. The 72 warnings say only that kicad-cli has no global symbol and footprint library tables configured.
 - DRC with schematic parity: 0 errors, 0 unconnected pads, 0 footprint errors; the 22 warnings are the same library-table notice.
 - **Battery plugged in reversed:** Q1's body diode is reverse-biased and its gate-source voltage stays at 0 V, so no current flows.
 - **XIAO's own USB-C plugged in with the battery in:** the XIAO's regulator drives 3V3 too; the TPS70933's reverse current protection stops current flowing back into it.
 - **Charger with no battery:** the MCP73831 holds BAT_SYS near 4.2 V, so the remote runs on USB power alone. With no cell, the charger may cycle, and the charge LED and D8 may flicker; this was not checked.
+- **Battery polarity:** J5 pin 1 is BAT and pin 2 GND, marked "+" and "−" on the rear silkscreen beside it (added 2026-10-15). A 602045 cell's plug, looked at from its mating end with the latch up, has red on the right: SparkFun's convention for pin 1 = +, which matches. JST's PH drawing marks circuit No. 1 on the plug and the header, but its small views do not settle which side the latch is on, so this is not confirmed from the drawing. Check the plug with a meter against the marks before plugging it in; Q1 protects the board if it is reversed.
 - **Wrong socket:** J3, J4 and J5 have 3, 5 and 2 pins in two different series; no cable fits a socket it does not belong to.
 - **Assembly:** parts on both sides (switches on the front; headers, power parts and sockets on the back), so the order needs double-sided assembly. The headers are through-hole. Check every part's rotation in JLCPCB's placement preview: the CPL uses KiCad's rotations.
