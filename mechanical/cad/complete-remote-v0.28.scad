@@ -328,7 +328,11 @@ ctrl_back_parts = [
 // XIAO with pre-soldered pins, plugged into female headers (electronics/control-pcb).
 header_h = 5.7;              // 1x7 female header body above the board (LCSC C55218877)
 header_w = 2.54;
-xiao_spacer = 2.5;           // plastic spacer of the XIAO's own pins; MEASURE on the bench XIAO
+xiao_spacer = 2.5;           // plastic spacer of the XIAO's own pins; measured 2.5 (2026-10-15)
+xiao_pin_len = 6.1;          // XIAO pin below the spacer; measured 6.1
+// The socket's depth is not published. Worst case: the pin bottoms in the 5.7 mm socket, so the
+// spacer stands xiao_pin_len - header_h above it.
+xiao_seat = max(header_h,xiao_pin_len);
 
 // --- Joystick: steel pin stick, printed ball and disc, four C&K KSC2 sealed tact switches -
 // Joystick frame (at_joy): origin on the outer cover face at the stick axis, +Z into the pod
@@ -407,11 +411,12 @@ cover_insert_hole_d = 3.2;   // MEASURE against insert datasheet
 cover_insert_depth = 6.0;
 
 // --- XIAO nRF52840 with pins, on the control board (V0.26) ----------------------------
-xiao_length = 21.0;          // along Y; USB-C at the -Y end
-xiao_width = 17.8;           // along Z
-xiao_pcb = 1.2;              // MEASURE
+xiao_length = 21.0;          // along Y; USB-C at the -Y end; measured 21.0
+xiao_width = 17.8;           // along Z; measured 17.8
+xiao_pcb = 1.2;              // measured 1.2
 xiao_y = 9.0;                // between the upper bosses at Y 24 and the board end
-xiao_component_h = 3.4;      // USB-C and shield height above PCB; MEASURE
+xiao_component_h = 3.0;      // USB-C and shield height above PCB; measured 3.0 (2026-10-15)
+xiao_usb_overhang = 1.8;     // USB-C past the PCB's short edge; measured 1.8
 xiao_pin_inset = 1.27;       // pin row centre from the long PCB edge
 
 // --- Vent: in the bottom end wall, in front of the battery cap --------------------------
@@ -488,7 +493,7 @@ btn_plate_back_off = btn_plate_front_off+btn_plate_t;
 btn_ksc_top_off = housing_front_off+key_rest_gap;      // switch actuator tops, in the plate holes
 ctrl_pcb_off = btn_ksc_top_off+ksc_h;                  // control board front face
 ctrl_back_off = ctrl_pcb_off+ctrl_pcb_t;
-xiao_pcb_off = ctrl_back_off+header_h+xiao_spacer;     // XIAO PCB, pin side
+xiao_pcb_off = ctrl_back_off+xiao_seat+xiao_spacer;    // XIAO PCB, pin side
 xiao_comp_off = xiao_pcb_off+xiao_pcb+xiao_component_h;
 ctrl_band = [cover_screw_z[0]+cover_boss_d/2+0.3, cover_screw_z[1]-cover_boss_d/2-0.3];   // Z free of the boss columns
 btn_standoff_h = ctrl_pcb_off-btn_plate_back_off;
@@ -1173,10 +1178,10 @@ module xiao_envelope() {
     color([0.75,0.75,0.78])
         translate([xiao_pcb_x1,xiao_y-xiao_length/2+3,xiao_z0+2.5]) cube([xiao_component_h,14,xiao_width-5]);
     color([0.6,0.6,0.62])
-        translate([xiao_pcb_x1,xiao_y-xiao_length/2-1.2,axial_width/2-4.5]) cube([3.2,7.5,9.0]);
+        translate([xiao_pcb_x1,xiao_y-xiao_length/2-xiao_usb_overhang,axial_width/2-4.5]) cube([xiao_component_h,7.5,9.0]);
     // pins and spacers, down to the headers
     color([0.1,0.1,0.1]) for (k=[-1,1])
-        translate([cover_front_x+ctrl_back_off+header_h,xiao_y-7*header_w/2,axial_width/2+k*(xiao_width/2-xiao_pin_inset)-header_w/2])
+        translate([cover_front_x+ctrl_back_off+xiao_seat,xiao_y-7*header_w/2,axial_width/2+k*(xiao_width/2-xiao_pin_inset)-header_w/2])
             cube([xiao_spacer,7*header_w,header_w]);
 }
 
@@ -1292,7 +1297,7 @@ module cable_usb() {
 
 // USB-C plug used for programming with the cover off.
 module usb_plug_envelope() {
-    translate([xiao_pcb_x0-3.2/2-3.25,xiao_y-xiao_length/2-1.2-25,axial_width/2-6]) cube([6.5,25,12]);
+    translate([xiao_pcb_x0-3.2/2-3.25,xiao_y-xiao_length/2-xiao_usb_overhang-25,axial_width/2-6]) cube([6.5,25,12]);
 }
 
 module vent_label_envelope() {

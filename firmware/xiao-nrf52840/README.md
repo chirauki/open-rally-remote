@@ -109,7 +109,7 @@ Run on 2026-10-13 on a pre-soldered XIAO nRF52840, with the 6×6 mm switches on 
 - The four directions sent arrow keys.
 - The center chord, made by pressing three or four direction switches with a flat object, gave J (short), K (long) and L (double). A double press needs the second chord within 300 ms of releasing all directions of the first; the logged gaps were about 120 ms.
 
-The board's bootloader reports itself as "XIAO nRF52840 Sense" (USB PID 0x0045), so the board used may be the Sense variant. The sketch was built for the plain XIAO nRF52840; D0–D10 are the same on both.
+The board's bootloader reports itself as "XIAO nRF52840 Sense" (USB PID 0x0045), but the board is the plain XIAO nRF52840: its shield label reads "Model: XIAO-nRF52840", with no "Sense", and the IMU footprint on the top is empty. Why the bootloader uses the Sense name was not found. The sketch is built for the plain XIAO nRF52840; D0–D10 are the same on both.
 
 ### App profiles
 
