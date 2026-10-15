@@ -39,16 +39,20 @@ def echo(expr, name, defs=None):
 
 class Task1(unittest.TestCase):
     def test_sheet_loose(self):
-        self.assertLessEqual(vol("intersection() { gasket(); union() { button_plate(); joy_plate(); housing(); } }",
-                                 "sheet_loose"), TOL)
+        # The sheet touches only the stop pads (Task 3): all its overlap is with them.
+        allv = vol("intersection() { gasket(); union() { button_plate(); joy_plate(); housing(); } }", "sheet_loose")
+        pads = vol("intersection() { gasket(); stop_pads(); }", "sheet_loose_pads")
+        self.assertLessEqual(allv - pads, TOL)
 
     def test_sheet_loose_when_thick(self):
         # A sheet printed 0.1 mm thick on its back face, on each facet along its normal, with
         # the model's nominal geometry: it may touch the plates but not be squeezed.
         thick = ("union() { gasket(); translate([0.1, 0, 0]) gasket(); "
                  "translate(0.1*[fold_n[0], fold_n[1], 0]) gasket(); }")
-        self.assertLessEqual(vol("intersection() { %s union() { button_plate(); joy_plate(); housing(); } }" % thick,
-                                 "sheet_loose_thick"), TOL)
+        allv = vol("intersection() { %s union() { button_plate(); joy_plate(); housing(); } }" % thick,
+                   "sheet_loose_thick")
+        pads = vol("intersection() { %s stop_pads(); }" % thick, "sheet_loose_thick_pads")
+        self.assertLessEqual(allv - pads, TOL)
 
     def test_rim_dropped(self):
         self.assertLessEqual(vol("intersection() { housing(); full_z() front_band_2d(cover_back_off, rim_off-0.01); }",
@@ -93,6 +97,30 @@ class Task2(unittest.TestCase):
 
     def test_foam_length(self):
         self.assertTrue(180 <= echo("foam_length", "foam_length") <= 260)
+
+
+class Task3(unittest.TestCase):
+    def test_pads_pinch(self):
+        # The pads stand sheet_clear + pad_pinch (0.15 mm) proud; the sheet meets their top
+        # pad_pinch (0.05 mm) deep, so the overlap is a third of the pads' volume.
+        pads = vol("stop_pads();", "pads")
+        pinch = vol("intersection() { gasket(); union() { button_plate(); joy_plate(); } }", "pads_pinch")
+        self.assertGreater(pads, 0)
+        self.assertAlmostEqual(pinch, pads / 3, delta=0.1 * pads / 3)
+
+    def test_pads_clear(self):
+        webs = "at_buttons(btn_plate_front_off-1) cylinder(d=key_web_d, h=5);"
+        self.assertLessEqual(vol("intersection() { stop_pads(); union() { foam_strip(); %s } }" % webs,
+                                 "pads_clear"), TOL)
+
+    def test_sheet_screw_holes(self):
+        self.assertLessEqual(vol("intersection() { gasket(); at_cover_screws() cylinder(d=1.35, h=20, $fn=24); }",
+                                 "sheet_hole_14"), TOL)
+        self.assertGreater(vol("intersection() { gasket(); at_cover_screws() cylinder(d=2.0, h=20); }",
+                               "sheet_hole_20"), 0)
+
+    def test_pad_load(self):
+        self.assertTrue(5 <= echo("pad_load", "pad_load") <= 100)
 
 
 if __name__ == "__main__":

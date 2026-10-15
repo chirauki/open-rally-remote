@@ -180,6 +180,9 @@ sheet_clear = 0.1;           // V0.30: loose sheet to the plates
 foam_t = 1.5;                // V0.30: closed-cell foam strip on the rim, as bought
 foam_comp = 1.0;             // compressed thickness under the sheet's edge (33 %)
 foam_w = 2.0;                // strip width
+pad_d = 4.0;                 // V0.30: stop pad ring round each cover screw, on the plate's front
+pad_pinch = 0.05;            // how far the pads press into the loose sheet
+sheet_screw_hole = 1.4;      // V0.30: the sheet grips the M2 screw's shank
 cover_front_x = -57.5;       // upper facet outer plane
 fold_y = -12.5;              // fold line on the outer surface, between button C and the joystick
 fold_angle = 20;             // lower facet turns this far toward the bar; the gland that limited it to
@@ -440,6 +443,12 @@ cover_boss_d = 6.0;
 cover_boss_depth = 8.0;
 cover_pilot_d = 1.6;         // V0.29: as cap_pilot_d; MEASURE pilot for the chosen screw
 cover_pilot_depth = 6.0;
+// Load per pad, estimated as in the seal spec: E of 85A TPU from Gent's relation, the ring's
+// shape factor in the 0.8 mm sheet, k = 0.6; the ring is taken whole (not clipped).
+pad_E = 13;
+pad_A = PI/4*(pad_d*pad_d-cover_screw_clear_d*cover_screw_clear_d);
+pad_S = pad_A/(PI*(pad_d+cover_screw_clear_d)*gasket_print_thickness);
+pad_load = pad_E*(1+2*0.6*pad_S*pad_S)*pad_pinch/gasket_print_thickness*pad_A;
 
 // --- XIAO nRF52840 with pins, on the control board (V0.26) ----------------------------
 xiao_length = 21.0;          // along Y; USB-C at the -Y end; measured 21.0
@@ -911,6 +920,19 @@ module rim_band(t0,t1) {
 rim_ledge_depth = 2.0;       // V0.30: how far behind rim_off the widened rim reaches
 // The compressed foam strip, between the loose sheet's back and the rim.
 module foam_strip() { color([0.2,0.2,0.22]) rim_band(sheet_back_off,rim_off); }
+
+// V0.30: stop pad rings on the plates' front faces, round each cover screw of facet f, clipped
+// to the plate outline; they stand sheet_clear + pad_pinch proud.
+module stop_pads(f=-1) {
+    pad_h = sheet_clear+pad_pinch;
+    intersection() {
+        for (s=cover_screws, z=cover_screw_z) if (f < 0 || s[0] == f)
+            along(front_point(s[0],s[1]),front_normal(s[0]),z)
+                translate([0,0,(s[0]==1 ? plate_front_off : btn_plate_front_off)-pad_h])
+                    difference() { cylinder(d=pad_d,h=pad_h+0.01,$fn=48); translate([0,0,-1]) cylinder(d=cover_screw_clear_d,h=3,$fn=24); }
+        translate([0,0,pod_in0+0.15]) linear_extrude(height=pod_in1-pod_in0-0.3) offset(delta=-(foam_w+0.15)) pod_outline_2d();
+    }
+}
 foam_length = 2*(pod_width-foam_w) + 2*(pod_top_y-fold_y) + 2*lower_facet_length;   // approximate, along the middle of the strip
 
 // Housing material before the front band is removed: shell plus all land features.
@@ -1077,7 +1099,7 @@ module gasket() {
             pod_outline_2d();
             front_band_2d(cover_back_off,sheet_back_off);
         }
-        at_cover_screws() translate([0,0,-1]) cylinder(d=cover_screw_clear_d,h=10);
+        at_cover_screws() translate([0,0,-1]) cylinder(d=sheet_screw_hole,h=10,$fn=24);   // V0.30: grips the screw
         at_joy(cover_back_off-0.1) cylinder(d=sheet_stick_hole,h=gasket_print_thickness+0.2);
     }
     keys();
@@ -1103,6 +1125,7 @@ module button_plate() {
             }
             for (st=btn_standoffs) along([cover_front_x+btn_plate_back_off-0.01,st[0]],[1,0],axial_width/2+st[1])
                 cylinder(d=btn_standoff_d,h=btn_standoff_h+0.01);
+            stop_pads(0);   // V0.30
         }
         at_buttons(btn_plate_front_off-0.1) cylinder(d=key_web_d,h=btn_plate_t+0.2);
         for (st=btn_standoffs) along([cover_front_x+btn_plate_front_off+0.3,st[0]],[1,0],axial_width/2+st[1])
@@ -1127,6 +1150,7 @@ module joy_plate() {
             }
             at_joy() for (p=joy_standoffs) translate([p[0],p[1],plate_back_off-0.01])
                 cylinder(d=joy_standoff_d,h=joy_standoff_h+0.01);
+            stop_pads(1);   // V0.30
         }
         // Seat hole: its back edge holds the ball; it opens toward the front so the stick can
         // tilt to the knob stop.
