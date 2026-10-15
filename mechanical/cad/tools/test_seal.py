@@ -62,5 +62,38 @@ class Task1(unittest.TestCase):
         self.assertGreaterEqual(echo("-knob_gap-pin_top_off", "knob_pin"), 3.0)
 
 
+UPPER = "intersection() { children(); translate([-200, fold_y, -50]) cube([400, 200, 200]); }"
+FOAM_UP = "intersection() { foam_strip(); translate([-200, fold_y, -50]) cube([400, 200, 200]); }"
+FOAM_LO = "intersection() { foam_strip(); translate([-200, fold_y-200, -50]) cube([400, 200, 200]); }"
+
+
+class Task2(unittest.TestCase):
+    def test_foam_on_rim(self):
+        # Pushed 0.1 mm toward the housing along each facet's normal, the foam lies wholly on
+        # housing material: what is left outside the housing is under 2 % of that slab.
+        area = vol("foam_strip();", "foam") / echo("foam_comp", "foam_comp")
+        moved = ("union() { translate([0.1, 0, 0]) %s translate(0.1*[fold_n[0], fold_n[1], 0]) %s }"
+                 % (FOAM_UP, FOAM_LO))
+        on = vol("intersection() { %s housing(); }" % moved, "foam_on_rim")
+        self.assertGreater(area, 150)
+        self.assertGreaterEqual(on, 0.98 * area * 0.1)
+
+    def test_foam_clear(self):
+        others = ("union() { button_plate(); joy_plate(); control_board_envelope(); joy_envelope(); "
+                  "xiao_envelope(); cover_bosses(); face_cover(); }")
+        self.assertLessEqual(vol("intersection() { foam_strip(); %s }" % others, "foam_clear"), TOL)
+
+    def test_foam_under_sheet(self):
+        self.assertLessEqual(vol("intersection() { foam_strip(); gasket(); }", "foam_sheet"), TOL)
+
+    def test_widened_ends_clear(self):
+        others = ("union() { button_plate(); joy_plate(); control_board_envelope(); joy_envelope(); "
+                  "xiao_envelope(); usbc_envelope(); }")
+        self.assertLessEqual(vol("intersection() { housing(); %s }" % others, "ends_clear"), TOL)
+
+    def test_foam_length(self):
+        self.assertTrue(180 <= echo("foam_length", "foam_length") <= 260)
+
+
 if __name__ == "__main__":
     unittest.main()

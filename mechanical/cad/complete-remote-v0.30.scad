@@ -896,6 +896,23 @@ module cap_gasket() {
     }
 }
 
+// V0.30: the rim under the foam strip, foam_w wide round both facets, as a band between
+// offsets t0 and t1 from the cover's outer face. The side walls are pod_wall (2 mm) already;
+// at the two end walls (case_wall) the band widens the rim inward.
+module rim_band(t0,t1) {
+    difference() {
+        intersection() {
+            full_z() front_band_2d(t0,t1);
+            translate([0,0,pod_z0]) linear_extrude(height=pod_width) pod_outline_2d();
+        }
+        translate([0,0,pod_z0+foam_w]) linear_extrude(height=pod_width-2*foam_w) offset(delta=-foam_w) pod_outline_2d();
+    }
+}
+rim_ledge_depth = 2.0;       // V0.30: how far behind rim_off the widened rim reaches
+// The compressed foam strip, between the loose sheet's back and the rim.
+module foam_strip() { color([0.2,0.2,0.22]) rim_band(sheet_back_off,rim_off); }
+foam_length = 2*(pod_width-foam_w) + 2*(pod_top_y-fold_y) + 2*lower_facet_length;   // approximate, along the middle of the strip
+
 // Housing material before the front band is removed: shell plus all land features.
 module housing_body() {
     difference() {
@@ -941,7 +958,7 @@ module cavity_solid() {
 
 module housing() {
     difference() {
-        housing_body();
+        union() { housing_body(); rim_band(rim_off,rim_off+rim_ledge_depth); }   // V0.30: rim ledge
         full_z() front_band_2d(-10,housing_front_off);
         cover_pilot_holes();
         groove_cut();
@@ -1081,7 +1098,8 @@ module button_plate() {
             translate([0,0,pod_in0+0.15]) linear_extrude(height=pod_in1-pod_in0-0.3) intersection() {
                 front_band_2d(btn_plate_front_off,btn_plate_back_off);
                 offset(delta=-0.15) cavity_profile_2d();
-                translate([-100,fold_corner(btn_plate_back_off)[1]+0.3]) square([200,200]);
+                offset(delta=-(foam_w+0.15)) pod_outline_2d();   // V0.30: clear of the widened end rims
+                translate([-100,fold_corner(btn_plate_back_off)[1]+0.5]) square([200,200]);   // V0.30: 0.3 -> 0.5
             }
             for (st=btn_standoffs) along([cover_front_x+btn_plate_back_off-0.01,st[0]],[1,0],axial_width/2+st[1])
                 cylinder(d=btn_standoff_d,h=btn_standoff_h+0.01);
@@ -1104,6 +1122,7 @@ module joy_plate() {
             translate([0,0,pod_in0+0.15]) linear_extrude(height=pod_in1-pod_in0-0.3) intersection() {
                 front_band_2d(plate_front_off,plate_back_off);
                 offset(delta=-0.15) cavity_profile_2d();
+                offset(delta=-(foam_w+0.15)) pod_outline_2d();   // V0.30: clear of the widened end rims
                 lower_side_2d(joy_plate_u0);
             }
             at_joy() for (p=joy_standoffs) translate([p[0],p[1],plate_back_off-0.01])
@@ -1377,6 +1396,7 @@ module usbc_plug_envelope() {
 }
 
 module controls_and_board() {
+    foam_strip();                // V0.30
     control_board_envelope();
     joy_envelope();
     xiao_envelope();
