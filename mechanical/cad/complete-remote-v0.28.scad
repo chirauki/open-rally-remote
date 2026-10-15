@@ -119,7 +119,8 @@ part_to_render = "assembly"; // assembly, entry, base, interior, section, housin
 show_internals = true;       // component envelopes in section
 
 // --- Handlebar and base clamp ----------------------------------------------------------
-bar_diameter = 22.2;         // the bar: 22.2 (7/8 in) takes the sleeve, 25.4 (1 in) does not; MEASURE
+bar_diameter = 22.2;         // the bar at the clamp, measured with a caliper: under 25.4 it takes the sleeve,
+                             // printed to this bore. 22.2 is nominal 7/8 in; painted bars measure more
 liner_radial = 1.0;          // TPU liner; tune to measured bar and print process
 liner_id = 25.4;             // V0.28: the liner always fits a 25.4 mm bar or the sleeve
 clamp_bore = liner_id + 2*liner_radial;   // V0.28: one bore for every bar

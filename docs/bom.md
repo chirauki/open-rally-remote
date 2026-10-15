@@ -121,7 +121,7 @@ Estimated cost: about €20–50 from a print service, including shipping. **Not
 | 1 | Base front | PETG or ASA, `print_base_front` | One part for both bar sizes (V0.28). |
 | 1 | Base cap | PETG or ASA, `print_base_cap` | |
 | 2 | Bar liner half | TPU 95A, `liner_main`, `liner_cap` | Fits a 25.4 mm bar or the sleeve. |
-| 2 | Sleeve half, 22.2 mm bars only | PETG, `print_sleeve` (set `bar_diameter` = 22.2) | Between the bar and the liner. |
+| 2 | Sleeve half, bars under 25.4 mm only | PETG, `print_sleeve`, with `bar_diameter` set to the bar measured with a caliper | Between the bar and the liner. Painted 7/8 in bars can measure 0.3 mm over 22.2 mm. |
 | 1 | Lock knob, Ø16 mm quarter turn | PETG, `print_lock_knob` | Top face on the bed. |
 
 Estimated cost: about €25–60. **Not checked.**

@@ -86,7 +86,7 @@ All images are direct OpenSCAD renders of the V0.25, V0.24 or V0.23 file. The PC
 
 ### One base for every bar
 
-The clamp bore is always 25.4 mm plus the 1 mm TPU liner (Ø27.4 mm). A 25.4 mm (1 in) bar takes the liner alone. A 22.2 mm (7/8 in) bar takes two printed PETG sleeve halves, 1.6 mm thick (`sleeve_t`), between the bar and the liner. Each half stops 0.5 mm short of the split (`sleeve_gap`), so the halves close onto a bar a little under size instead of meeting edge to edge as a rigid ring. Tapered 28.6 mm bars come down to 22.2 mm at the controls.
+The clamp bore is always 25.4 mm plus the 1 mm TPU liner (Ø27.4 mm). A 25.4 mm (1 in) bar takes the liner alone. A 22.2 mm (7/8 in) bar takes two printed PETG sleeve halves, 1.6 mm thick (`sleeve_t`), between the bar and the liner. Each half stops 0.5 mm short of the split (`sleeve_gap`), so the halves close onto a bar a little under size instead of meeting edge to edge as a rigid ring. The sleeve is printed for the measured bar: set `bar_diameter` to the caliper reading at the clamp. A painted bar measured 22.5 mm, 0.3 mm over the nominal 22.2 mm; a sleeve bored to 22.2 would bear only on its edges there. At 22.5 mm the wall is 1.45 mm, and the checks below pass the same. Tapered 28.6 mm bars come down to 22.2 mm at the controls.
 
 A single thick rubber liner (2.6 mm for a 22.2 mm bar) was considered and dropped: it would let the remote turn a little at each press and lose preload with time. The rigid sleeve sets the size; the thin liner gives the grip and takes up the tolerance. The bolts, the insert holes and the platform were already sized for the 25.4 mm bore, so nothing else changes.
 
@@ -313,7 +313,7 @@ V0.28 (base and vent; the rest as V0.27):
 
 | Check | Result |
 |---|---|
-| Sleeve halves vs bar (22.2 mm), liner, base front, base cap, bolts | Contact only (0.00 mm³) with the bar and the liner; no overlap with the base |
+| Sleeve halves vs bar (22.2 and 22.5 mm), liner, base front, base cap, bolts | Contact only (0.00 mm³) with the bar and the liner; no overlap with the base |
 | Liner vs base, 22.2 mm and 25.4 mm bars | Contact only |
 | Remote vs base, locked | Only the anti-rattle strips, compressed by design (202 mm³, as V0.27) |
 | Vent label (Ø7.6 mm) vs pouch, cap gasket, housing, the whole stack | No overlap; 1 mm or more to the gasket opening |
@@ -543,7 +543,7 @@ These are the only items that block a confident first print. Each is a parameter
 - **Pouch lead:** it must leave the protection-board end and reach about 27 mm, bent within the 4.9 mm between the pouch top and the USB-C board's rib.
 - **Inserts:** whether the print service fits the heat-set inserts.
 - **Inserts:** hole diameters and depths for the actual M4 and M2 inserts.
-- **Handlebar, sleeve and liner:** the measured bar diameter, which decides whether the sleeve goes in; the 0.8 mm clamping gap tuned to the printed TPU liner; and whether the clamp holds a hard gloved press without turning (estimate 3.3 N·m against 0.7 N·m).
+- **Handlebar, sleeve and liner:** the bar diameter measured with a caliper at the clamp, in two directions, which sets the sleeve bore; the 0.8 mm clamping gap tuned to the printed TPU liner; and whether the clamp holds a hard gloved press without turning (estimate 3.3 N·m against 0.7 N·m).
 - **Dovetail:** the 0.2 mm clearance (`dt_c`) against the printer, and the strip material and thickness for the preload. Whether the 0.48 mm the remote can move toward the platform feels loose on the buttons.
 - **Lock:** a spring that fits a Ø6 mm pocket over a Ø3 mm shank and holds the head out firmly; its compressed length sets `lock_spring_solid`. The pull force, and whether 1 mm of head in the pocket is enough.
 - **Pouch:** the bought cell's size (up to 54 mm long, 6 mm thick), its real capacity, protection board and lead exit, and its maximum charge current against the control board's 100 mA (set by R1 on the MCP73831).
