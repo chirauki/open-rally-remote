@@ -1,8 +1,8 @@
-# Bill of Materials — V0.29
+# Bill of Materials — V0.30
 
-This is the single parts list for the project: the bench prototype and the V0.29 removable, battery-powered remote with its base. V0.29 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap and no heat-set inserts. It is built without soldering or any hot tool: the three circuit boards are ordered assembled and joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Design details stay in the linked documents; this page lists what to buy.
+This is the single parts list for the project: the bench prototype and the V0.30 removable, battery-powered remote with its base. V0.30 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap, no heat-set inserts, and a foam-strip cover seal. It is built without soldering or any hot tool: the three circuit boards are ordered assembled and joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Design details stay in the linked documents; this page lists what to buy.
 
-**Status:** nothing in the V0.29 list has been built or tested. The V0.25 list is in the git history.
+**Status:** nothing in the V0.30 list has been built or tested. The V0.25 list is in the git history.
 
 Sourcing preference: parts that builders can buy from mainstream retailers (for example Amazon) come first. Distributor-only parts are used only where no retail part meets the requirement, and the reason is given.
 
@@ -78,6 +78,7 @@ Estimated cost: about €110–170. **The board order is an estimate, not a quot
 | 1 | M2 × 4 grub screw | Retail | Joystick knob. |
 | 1 | M2 square nut, DIN 562 (4 × 1.2 mm) | Retail | Joystick knob, in the slot under it, for the grub screw. |
 | 1 | Adhesive ePTFE vent label, Ø7.6 mm (Takachi VE8 size), for a Ø3 mm hole | Retail | Inside the battery cap (V0.28). Check the hole size the chosen vent needs. |
+| 1 | Closed-cell foam tape, EPDM or neoprene, adhesive, 1.5 mm thick, cut to 2 mm wide, about 25 cm | Retail (sold by the roll) | Cover seal (V0.30): on the housing rim round both facets, under the keypad sheet's edge. Soft grade; firm foam needs more screw force. |
 | — | Thin foam sheet (about 1–5 mm, EVA or similar) | Retail | Pad on the battery cap, strip on the rear wall, and a pad between the XIAO and the pouch that holds the XIAO in its headers. |
 
 Estimated cost: about €30–60, plus the vent label.

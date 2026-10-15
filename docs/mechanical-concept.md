@@ -1,6 +1,8 @@
-# Complete Mechanical CAD — V0.29 No-Solder Remote
+# Complete Mechanical CAD — V0.30 No-Solder Remote
 
-V0.29 drops the heat-set inserts, so the build needs no hot tool at all. The screws cut their own thread in pilot holes, and nuts sit in printed pockets where a screw needs metal threads. See [Changes from V0.28](#changes-from-v028).
+V0.30 changes how the two control facets seal against rain and mud. The keypad sheet becomes a loose membrane, and a bought closed-cell foam strip on the housing rim seals the perimeter ([spec](superpowers/specs/2026-10-15-cover-seal-design.md)). See [Changes from V0.29](#changes-from-v029).
+
+V0.29 drops the heat-set inserts, so the build needs no hot tool at all. The screws cut their own thread in pilot holes, and nuts sit in printed pockets where a screw needs metal threads. See [V0.29 changes from V0.28](#v029-changes-from-v028-still-current).
 
 V0.28 makes the base universal and moves the vent. One base fits both bar sizes: its bore is always 25.4 mm plus the TPU liner, and a 22.2 mm bar takes a printed split sleeve. The vent goes to the battery cap, because in V0.27 its label ran into the cover and the joystick plate. See [V0.28 changes from V0.27](#v028-changes-from-v027-still-current).
 
@@ -20,7 +22,11 @@ The remote's printed parts are slices of one outer solid: the pod outline cut fl
 
 The remote mounts on the left side of the bar only, never the right. The turn-signal switch that the folded front clears is on the left switchgear.
 
-**Current parametric concept:** [complete-remote-v0.29.scad](../mechanical/cad/complete-remote-v0.29.scad)
+**Current parametric concept:** [complete-remote-v0.30.scad](../mechanical/cad/complete-remote-v0.30.scad)
+
+![V0.30 housing seen from the cover side: the foam strip (black) runs on the rim along both side walls and through the fold, with the cover screw bosses just inside it.](images/complete-remote-v0.30-foam.png)
+
+![V0.30 section through the upper cover screws (Y = 24 mm), the axis of the bar up the page: cover with the countersink, loose keypad sheet (black), foam strip (blue) on the wall, button plate (ochre) with its stop pad against the sheet beside the screw (red), the boss behind, and the control board (green).](images/complete-remote-v0.30-seal-section.png)
 
 ![V0.28 base on a 22.2 mm bar: the TPU liner (orange) and the printed sleeve (white) inside the one 25.4 mm bore.](images/complete-remote-v0.28-base-sleeve.png)
 
@@ -84,7 +90,21 @@ The control end is unchanged from V0.23. These V0.23 renders still show it:
 
 All images are direct OpenSCAD renders of the V0.25, V0.24 or V0.23 file. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb/README.md).
 
-## Changes from V0.28
+## Changes from V0.29
+
+### Cover seal
+
+The V0.29 keypad sheet was the gasket: 0.8 mm printed, squeezed to 0.6 mm over the button plate, the joystick plate and the rim. The CAD gives 847 mm² of squeezed sheet on the upper facet and 678 mm² on the lower one. A thin TPU sheet squeezed between rigid faces cannot spread sideways: with strips about 2.7 mm wide, the shape factor is about 1.7 and the sheet behaves about 4.5 times stiffer than its Young's modulus (13 MPa for 85A TPU, from Gent's relation, approximate). At 25 % compression that is about 15 MPa, some 12 kN on the upper facet, against perhaps 1 kN from six M2 screws in PETG. The sheet would have compressed a few hundredths of a millimetre, less than the flatness of an FDM print. A bead printed on the sheet would need 3–5 N/mm, and the cover between the upper screws, 30 mm apart, would bend about as much as the bead compresses.
+
+V0.30 seals for rain, mud and a hose without pressure, about IPX5/IPX6:
+
+- **Loose sheet.** The sheet keeps its 0.8 mm and is no longer squeezed: the plates sit `sheet_clear` (0.1 mm) behind it. The keys are unchanged; their rest gap stays 0.3 mm with the sheet against the cover.
+- **Foam strip.** A closed-cell foam strip, 1.5 mm thick (`foam_t`), compressed to 1.0 mm (`foam_comp`), 2 mm wide (`foam_w`), lies on the housing rim under the sheet's edge, round both facets and through the fold: 443 mm², about 221 mm of strip, 99.7 % of it on housing material. The rim drops to `rim_off` = 4.3 mm behind the cover face, and at the two end walls it widens inward from 1 mm to 2 mm. At catalogue values for soft closed-cell foam (0.05–0.1 N/mm), the strip needs under 30 N, and the cover bends about 0.015–0.07 mm between the upper screws, against 0.5 mm of foam travel.
+- **Stop pads.** A Ø4 mm ring round each cover screw on the plates' front faces stands 0.15 mm proud and pinches the sheet 0.05 mm: about 8.5 N per screw (estimate, `pad_load`). Tightened harder, the sheet meets the plates 0.1 mm further in.
+- **Screw holes.** The sheet's screw holes shrink from Ø2.4 to Ø1.4 mm so it grips the M2 shank, as it grips the joystick pin. Water may follow the thread; the countersunk head in the cover is the first barrier, and the leak test decides.
+- **Knock-on.** The plates, switches, bosses, control board and XIAO move about 0.3 mm back: the XIAO is 7.0 mm from the pouch envelope (was 7.2), the control board standoffs are 2.2 mm (2.3). The joystick pivot moves back too, so the knob's pin hole is 3.7 mm deep instead of 4.0 and the 3 × 12 mm pin still reaches it. The button plate's end at the fold is 0.2 mm shorter.
+
+## V0.29 changes from V0.28, still current
 
 ### No heat-set inserts
 
@@ -343,6 +363,19 @@ V0.28 (base and vent; the rest as V0.27):
 | Vent hole vs cap screws and countersinks | No overlap |
 | Assembly path check, both orders of steps 8 and 9 | Only the J1 contact at the seat (0.015 mm³) |
 
+V0.30 (cover seal; `mechanical/cad/tools/test_seal.py` runs the first six rows):
+
+| Check | Result |
+|---|---|
+| Loose sheet vs plates and housing, also with the sheet 0.1 mm thick | Touches only the stop pads |
+| Housing in front of `rim_off` | None |
+| Foam strip on the rim | 99.7 % of its area on housing material |
+| Foam strip vs plates, control board, joystick board, XIAO, bosses, cover, sheet | No overlap; contact with the sheet |
+| Widened end rims vs plates, boards, XIAO, USB-C board | No overlap |
+| Stop pads vs foam and key web holes; sheet holes vs a Ø1.35 mm probe | No overlap |
+| Assembly path check, both orders | No collision; the pads' pinch on the sheet (2.98 mm³) is a contact by design |
+| V0.26-era stack, removal (2–20 mm) and joystick tilt checks | As V0.29; the knob rim's contact with the cover at the stop grows from 0.43 to 0.47 mm³ |
+
 V0.25:
 
 | Check | Result |
@@ -415,10 +448,10 @@ V0.24 aims for rain and spray resistance, not an IP rating. It has not been test
 
 1. **Buttons.** APEM ISR3SAD200, IP67 front-panel sealing (IEC 60529) with the flat seal under the bezel. The Ø17.5 mm bezel and its seal sit on the flat upper facet, 0.75 mm from the fold and from the top corner radius.
 2. **Joystick.** The cover hole is open to the outside. The sheet gasket is the seal there: it is clamped all round the hole and grips the stick. A printed TPU sheet that flexes with every stick movement may tear or creep; a cast silicone sheet would last longer.
-3. **Cover joint.** The gasket and ten screws. On the lower facet the sheet is clamped over the whole facet. Elsewhere the land is the 2 mm wall of the wide part.
+3. **Cover joint.** V0.30: a closed-cell foam strip on the housing rim under the loose keypad sheet's edge, round both facets; the sheet grips each cover screw's shank. (Before V0.30 the sheet itself was squeezed over the whole facet, which M2 screws cannot do; see [Changes from V0.29](#changes-from-v029).)
 4. **USB-C.** The GCT USB4736 is rated IP67 with its USBTJ-06 gasket compressed on the thinned land; GCT says the gasket is fitted after the receptacle is soldered. Pot the back of the receptacle and its PCB with epoxy as a second barrier. The charge LED window beside it is a Ø1.6 mm hole filled flush with clear epoxy or UV resin. On the bike the platform covers both. The groove and the lock hole are blind and do not open into the cavity.
 5. **Vent.** An adhesive ePTFE vent label over the Ø3 mm hole in the battery cap, inside (V0.28; before, in the bottom end wall). Without it, temperature cycles pump humid air into a sealed box, and the water condenses inside. Mount the base so the vent faces down or sideways, not into spray.
-6. **Battery cap.** A flat gasket squeezed to 0.6 mm by three M2 screws, on 3.8 mm lands front and rear and 2.5 mm at the sides. A 3.8 mm strip of housing separates it from the cover gasket. The cap faces down and gets spray from the wheel; this joint is new and untested.
+6. **Battery cap.** A flat gasket squeezed to 0.6 mm by three M2 screws, on 3.8 mm lands front and rear and 2.5 mm at the sides. A 3.8 mm strip of housing separates it from the cover gasket. The cap faces down and gets spray from the wheel; this joint is new and untested. It has the cover's old problem: squeezing 0.8 mm of TPU to 0.6 mm on lands this wide needs kilonewtons (about 4 kN, estimated), not what three M2 screws give. Not changed in V0.30; see "Open unknowns".
 7. **Electronics.** Coat the XIAO, the joystick PCB and all solder joints with conformal coating (acrylic or silicone). Keep it off the USB-C socket, the switch actuators, the pouch, and the vent membrane.
 8. **Printed walls.** The narrow rear part still has 1 mm axial walls, only two perimeters with a 0.4 mm nozzle, and FDM layers can leak. Print PETG hot and slow for good layer bonding, or seal the outside with a thin coat of epoxy or lacquer.
 
@@ -450,7 +483,7 @@ No part needs supports.
 - **Knob:** the radial grub-screw hole is horizontal and small enough to bridge; the nut slot opens upward.
 - **Battery cap:** the countersinks open toward the bed at 45°.
 - **Screw pilots:** use 100% infill or at least four perimeters round the M4 pilots in the base front and the M2 pilots in the bosses, where the screws cut their thread.
-- **Gasket:** TPU 95A is probably too hard to seal at 0.2 mm compression; prefer a softer TPU or a cut sheet gasket. If you cut the sheet, punch the Ø2.4 mm stick hole.
+- **Keypad sheet:** since V0.30 it does not seal by compression, so the hardness sets the key feel and how the sheet grips the stick and the screws. Softer TPU (85–88A) is still preferred. If you cut the sheet, punch the Ø2.4 mm stick hole and Ø1.4 mm screw holes.
 
 ## Assembly
 
@@ -481,9 +514,9 @@ To program over USB, remove the remote from the base and its cover. Take the kno
 
 ## Assembly video
 
-[`complete-remote-v0.29-assembly.mp4`](videos/complete-remote-v0.29-assembly.mp4) shows the remote steps 1–11 above, one chapter per step (56 s; QuickTime and VLC list the chapters). It is for design review, not a builder's guide. Parts that collide on their path show in red. Cables are not animated: each appears in place once both its ends are fitted. The video shows the documented order of steps 8 and 9.
+[`complete-remote-v0.30-assembly.mp4`](videos/complete-remote-v0.30-assembly.mp4) shows the remote steps 1–11 above, one chapter per step (56 s; QuickTime and VLC list the chapters). It is for design review, not a builder's guide. Parts that collide on their path show in red. Cables are not animated: each appears in place once both its ends are fitted. The video shows the documented order of steps 8 and 9.
 
-[`assembly-video-v0.29-checks.md`](assembly-video-v0.29-checks.md) is the path check behind it. In V0.29 it finds no collision. Each move is checked at five poses against the parts in place, and every pair of parts in the final pose. Both orders of steps 8 and 9 are checked. Findings:
+[`assembly-video-v0.30-checks.md`](assembly-video-v0.30-checks.md) is the path check behind it. In V0.30 it finds no collision. Each move is checked at five poses against the parts in place, and every pair of parts in the final pose. Both orders of steps 8 and 9 are checked. Findings:
 
 - The housing closes onto the stack along X (since V0.27; in [V0.26](assembly-video-v0.26-checks.md) it hit the joystick board).
 - The vent label, on the battery cap since V0.28, clears everything ([V0.27](assembly-video-v0.27-checks.md): it ran into the lower-facet stack).
@@ -500,7 +533,7 @@ python3 mechanical/cad/tools/assembly_video.py video
 python3 -m unittest mechanical/cad/tools/test_assembly_video.py
 ```
 
-The timeline, the staging offsets and the cameras are in `mechanical/cad/assembly-video-v0.29.scad`. The tool uses the newest version; `ORR_VERSION=0.26` to `0.28` selects an older file, but its captions need that version's assembly list, which is now in the git history. The step captions come from the assembly steps above, so rerun `video` after editing them.
+The timeline, the staging offsets and the cameras are in `mechanical/cad/assembly-video-v0.30.scad`. The tool uses the newest version; `ORR_VERSION=0.26` to `0.29` selects an older file, but its captions need that version's assembly list, which is now in the git history. The step captions come from the assembly steps above, so rerun `video` after editing them.
 
 ## Hardware
 
@@ -559,7 +592,9 @@ APEM's [IS series page](https://www.apem.com/panel-switches/pushbutton-switches/
 These are the only items that block a confident first print. Each is a parameter in the CAD.
 
 - **Keypad:** the press and travel of a KSC2 behind a TPU sheet, with gloves (0.3 mm rest gap plus 0.35–0.65 mm travel, against 1.7 mm for the APEM buttons); whether the printed sheet seals round the keys and at the fold; whether the 0.3 mm rest gap needs shims.
-- **Upper cover screws:** the span between the screws at Y = 24 and −6 mm is 30 mm; check that the cover seals the upper facet there.
+- **Upper cover screws:** the span between the screws at Y = 24 and −6 mm is 30 mm. With the V0.30 foam strip the cover bends an estimated 0.015–0.07 mm there, against 0.5 mm of foam travel; the leak test confirms it.
+- **Foam strip (V0.30):** its real compression force and recovery after the cover is opened, the two butt joints at the end corners, and whether the adhesive holds on PETG.
+- **Battery cap gasket:** squeezed flat over 2.5–3.8 mm lands by three M2 screws, it has the problem V0.30 removed from the cover (about 4 kN needed, estimated). It needs the same treatment, a foam strip or a narrow bead, before printing.
 - **Joystick:** measure the KSC2 height and the printed plate, ball and disc; together with the standoffs they set the 0.05 mm rest gap (`joy_rest_gap`). The feel (5.9° to trip, 2 N per direction, about 8 N for the centre chord) and the Ø16 mm knob need a check with gloves.
 - **XIAO:** measured on a pre-soldered XIAO nRF52840 (2026-10-15): PCB 1.2 mm, components 3.0 mm, pin spacer 2.5 mm, pins 6.1 mm below it, USB-C 1.8 mm past the PCB edge, pin rows centred on the board. The depth of the 5.7 mm female socket (C55218877) is not published, so the model assumes the worst case: the 6.1 mm pin bottoms and the XIAO sits 0.4 mm above its spacer. Its components then end where they did with the 3.4 mm assumption, 7.2 mm from the pouch envelope; the stack, removal and path checks give the same results. Still open: the real seat height, and whether the foam pad holds the XIAO in its headers under vibration.
 - **Cables:** where the spare length of 10 cm cables goes (the routes need about 3 and 4 cm); whether bought cables are straight (pin 1 to pin 1); whether the SH-compatible sockets latch the Pololu plugs.
@@ -576,11 +611,11 @@ These are the only items that block a confident first print. Each is a parameter
 - **Charge LED:** whether the LED shows well enough through the filled Ø1.6 mm window (`usbc_led_hole_d`), and whether the printed hole needs drilling out to size.
 - **Profile LED:** the firmware shows the active profile on the XIAO's RGB LED (green, blue or white, a short blink every 10 s). The XIAO is enclosed, so the rider cannot see it. In V0.26 the charge LED is driven by the charger, so it cannot show the profile; a light pipe to the XIAO's LED would need a sealed window.
 - **Vent:** the label is sized for a Ø7.6 mm Takachi VE8 class vent, in the battery cap. Retail availability in small quantities and the hole size it needs are not checked.
-- **Gasket:** material, whether 0.2 mm of compression seals on a 1 mm land, and how long a printed TPU sheet lasts flexing with the stick.
+- **Keypad sheet:** the key feel with a loose sheet, how long a printed TPU sheet lasts flexing with the stick, and whether it seals round the screw threads.
 - **Fold angle:** 20° is chosen to clear the turn-signal switch. The gland that kept it from 30° is gone in V0.24, but 30° has not been rechecked, and neither angle has been checked on a bike.
 
 Not addressed by this concept: IP rating, impact, vibration, and fatigue strength. These need physical testing.
 
 ## Earlier versions
 
-V0.1–V0.28 remain available for comparison. V0.28 needs heat-set inserts, and its battery cap boss touches the joystick board's J1. V0.27's vent label runs into the cover and the joystick plate; build V0.28. V0.26 should not be built: its housing cannot close onto the joystick board (see [V0.27 changes from V0.26](#v027-changes-from-v026-still-current)). V0.23 is the fixed, cable-powered version: its clamp ring and shoulders are part of the housing. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23 or later. V0.24 places a 602030 pouch that cannot be put in through the front opening (see [Changes from V0.24](#changes-from-v024)); build V0.25. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.
+V0.1–V0.29 remain available for comparison. V0.29's keypad sheet cannot be squeezed enough by its screws to seal. V0.28 needs heat-set inserts, and its battery cap boss touches the joystick board's J1. V0.27's vent label runs into the cover and the joystick plate; build V0.28. V0.26 should not be built: its housing cannot close onto the joystick board (see [V0.27 changes from V0.26](#v027-changes-from-v026-still-current)). V0.23 is the fixed, cable-powered version: its clamp ring and shoulders are part of the housing. V0.22's PCB standoffs would overlap the pads of the real KSC2 land pattern; build V0.23 or later. V0.24 places a 602030 pouch that cannot be put in through the front opening (see [Changes from V0.24](#changes-from-v024)); build V0.25. V0.21 should not be built: its Ø7 mm keys are too small for gloves and hard to press on the folded facet. V0.20 uses the Ruffy MHS panel joystick, which costs about £149 and fills the 23 mm pod width. V0.19 has a straight control face that gets in the way of the turn-signal switch, and no gasket. V0.18 is installable, but its cover does not match the housing and it has no cover, board, or gland mounting. V0.17 should not be printed: its 250-degree body cannot pass the handlebar. V0.13–V0.16 are superseded attempts at the shoulder silhouette and should not be printed. V0.13 left gaps at the shoulders. V0.14 dropped most of the pod through an incorrectly closed polygon. In V0.15 and V0.16 the same polygon traced the clamp arc as an inner boundary, so the fixed 250-degree ring was missing and only the removable cap surrounded the bar.
