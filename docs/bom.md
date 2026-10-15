@@ -13,12 +13,12 @@ Rough figures for one remote and one base, in euros including VAT, before shippi
 | Section | Estimate | Basis |
 |---|---:|---|
 | [Bench prototype](#bench-prototype) | €22–29 | Checked on 2026-10-07; see the section. |
-| [Remote: electronics](#electronics) | €65–100 with bare boards soldered by hand; €110–170 assembled | JLCPCB quotes and JLCPCB library prices on 2026-10-15; parts shipping not checked. |
+| [Remote: electronics](#electronics) | €75–110 with bare boards soldered by hand; €110–170 assembled | JLCPCB quotes and JLCPCB library prices on 2026-10-15; parts shipping not checked. |
 | [Remote: hardware](#hardware) | €30–60, plus the vent label | Kit prices checked; single-size packs not checked. No retail price found for the vent label. |
 | [Remote: printed parts](#printed-parts) | €20–50 | Not checked: needs a quote from a print service with the exported files. |
 | [Base](#base-one-per-bike) | €25–60 | Not checked; much of the hardware comes from the kits bought for the remote. |
 | [Consumables](#consumables) | €35–55, plus €15–30 of soldering supplies for bare boards | Conformal coating checked; the rest not checked. |
-| **First remote and base, without the bench parts** | **about €190–395** | |
+| **First remote and base, without the bench parts** | **about €200–395** | |
 
 With assembled boards, the board order (mostly fixed fees, extended-part fees and shipping) is the largest item.
 
@@ -60,7 +60,7 @@ The board parts with their LCSC numbers are in each board's README and `fab/*-bo
 
 #### Ordering the boards
 
-JLCPCB makes at least 5 of each board and assembles at least 2. Three ways to order, with JLCPCB quote totals from 2026-10-15:
+JLCPCB makes at least 5 of each board and assembles at least 2. Three ways to order, with JLCPCB quotes from 2026-10-15. They include VAT but not shipping, about €10 more (so about €30 for the bare boards):
 
 | Option | JLCPCB order | The builder solders | Quote |
 |---|---|---|---|
@@ -72,11 +72,11 @@ JLCPCB makes at least 5 of each board and assembles at least 2. Three ways to or
 
 Hand soldering needs a fine-tipped iron, no-clean flux, 0.5–0.8 mm flux-cored solder and desoldering braid (see [Consumables](#consumables)). The hard parts are the four 1.0 mm-pitch JST SH sockets, the side-looking LED and the USB4736; the 0603 parts and the SOT-23 packages need flux. Solder a spare board first; the joystick board, with four switches and one socket, is the easiest. Check BAT, 5V and 3V3 against GND with a meter before the first power-up.
 
-Estimated cost: about €65–100 with bare boards, €110–170 assembled.
+Estimated cost: about €75–110 with bare boards, €110–170 assembled.
 
 - XIAO with pins: €9.99 before VAT at Kiwi Electronics.
 - LiPo: €5–10.
-- Boards: the quotes above.
+- Boards: the quotes above, plus about €10 shipping.
 - Parts from LCSC and the USB4736 kit from TME or DigiKey: about €10 per remote, plus two shipping charges; shipping not checked.
 - Two Pololu cables: about USD 2–3 each plus shipping; not checked.
 
