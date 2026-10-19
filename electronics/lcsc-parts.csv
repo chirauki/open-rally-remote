@@ -1,7 +1,7 @@
 LCSC Part Number,Quantity,Manufacturer Part Number,Description,Per remote,Designators
-C221726,16,KSC221JLFS,C&K sealed SMD tact switch,7,control SW1-SW3; joystick SW1-SW4
-C424093,3,MCP73831T-2ACI/OT,LiPo charger SOT-23-5,1,control U1
-C89347,3,TPS70933DBVR,3.3 V LDO SOT-23-5,1,control U2
+C221726,20,KSC221JLFS,C&K sealed SMD tact switch,7,control SW1-SW3; joystick SW1-SW4
+C424093,5,MCP73831T-2ACI/OT,LiPo charger SOT-23-5,1,control U1
+C89347,5,TPS70933DBVR,3.3 V LDO SOT-23-5,1,control U2
 C15127,4,AO3401A,P-MOSFET SOT-23,1,control Q1
 C17313,3,MF-MSMF050-2,PTC fuse 1812,1,control F1
 C83333,3,SMBJ5.0A,TVS diode SMB,1,control D1
@@ -18,3 +18,5 @@ C22807,10,0603WAF1503T5E,150k 0603,2,control R3 R5
 C22935,10,0603WAF1004T5E,1M 0603,2,control R6 R7
 C23186,10,0603WAF5101T5E,5.1k 0603,2,usbc R1 R2
 C22548,100,RC0603FR-071KL,1k 0603,1,usbc R3
+C54876729,5,PM2.54-1x7PZZ-H8.5,1x7 female header 2.54 mm 8.5 mm high,0,alternative to control J1 J2
+C23212,100,0603WAF6801T5E,6.8k 0603,0,alternative to control R1 (charge current)
