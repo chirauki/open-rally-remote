@@ -17,8 +17,8 @@ Rough figures for one remote and one base, in euros including VAT, before shippi
 | [Remote: hardware](#hardware) | €30–60, plus the vent label | Kit prices checked; single-size packs not checked. No retail price found for the vent label. |
 | [Remote: printed parts](#printed-parts) | €20–50 | Not checked: needs a quote from a print service with the exported files. |
 | [Base](#base-one-per-bike) | €25–60 | Not checked; much of the hardware comes from the kits bought for the remote. |
-| [Consumables](#consumables) | €35–55, plus €15–30 of soldering supplies for bare boards | Conformal coating checked; the rest not checked. |
-| **First remote and base, without the bench parts** | **about €200–395** | |
+| [Consumables](#consumables) | €30–45, plus €15–30 of soldering supplies for bare boards | Conformal coating checked; the rest not checked. |
+| **First remote and base, without the bench parts** | **about €195–385** | |
 
 With assembled boards, the board order (mostly fixed fees, extended-part fees and shipping) is the largest item.
 
@@ -87,13 +87,12 @@ Estimated cost: about €75–110 with bare boards, €110–170 assembled.
 | 10 | M2 × 10 countersunk screw, ISO 10642 | Retail | Cover, through the button plate (upper facet) and the joystick plate (lower facet). They cut their own thread in Ø1.6 mm pilots in the bosses. |
 | 3 | M2 × 8 countersunk screw, ISO 10642 | Retail | Battery cap, into Ø1.6 mm pilots in the housing. |
 | 2 | M2 × 8 button-head screw, head at most Ø3.5 × 1.1 mm (ISO 7380 style) | Retail | Joystick board to the joystick plate standoffs. |
-| 2 | M2 × 5 thread-forming button-head screw, head at most Ø3.5 × 1.1 mm | Retail | Control board to the button plate standoffs. |
-| 2 | M2 × 4 thread-forming button-head screw, head at most Ø3.5 × 1.1 mm | Retail | USB-C board to its rib. |
+| 4 | M2 × 4 button-head screw, head at most Ø3.5 × 1.1 mm (ISO 7380 style) | Retail | Two hold the control board to the button plate standoffs (2.4 mm of thread in a 3.7 mm pilot; M2 × 6 would stand 0.7 mm out of the plate's front). Two hold the USB-C board to its rib. |
 | 1 | Ø3 × 12 mm steel dowel pin, ISO 8734 | Retail | Joystick stick. |
 | 1 | M2 × 4 grub screw | Retail | Joystick knob. |
 | 1 | M2 square nut, DIN 562 (4 × 1.2 mm) | Retail | Joystick knob, in the slot under it, for the grub screw. |
 | 1 | Adhesive ePTFE vent label, Ø7.6 mm (Takachi VE8 size), for a Ø3 mm hole | Retail | Inside the battery cap (V0.28). Check the hole size the chosen vent needs. |
-| 1 | Closed-cell foam sheet, EPDM or neoprene, self-adhesive, 1.5 mm thick, about 100 × 100 mm | Retail (sheet or wide roll) | Both seals, from one piece: the cover strip, cut 2 mm wide and about 25 cm long in all, on the housing rim (V0.30), and the battery cap gasket, cut round the printed template (V0.31). Soft grade; firm foam needs more screw force. |
+| 1 | Closed-cell foam sheet, EPDM or neoprene, self-adhesive, 1.5 mm thick, about 100 × 100 mm | Retail (sheet or wide roll) | Both seals, from one piece: the cover strip, cut 2 mm wide and about 25 cm long in all, on the housing rim (V0.30), and the battery cap gasket (V0.31), cut round a paper template printed at 100 % from `mechanical/cad/tools/cap-gasket-template.scad` (its 40 mm bar checks the scale). Soft grade; firm foam needs more screw force. |
 | — | Thin foam sheet (about 1–5 mm, EVA or similar) | Retail | Pad on the battery cap, strip on the rear wall, and a pad between the XIAO and the pouch that holds the XIAO in its headers. |
 
 Estimated cost: about €30–60, plus the vent label.
@@ -114,7 +113,6 @@ Estimated cost: about €30–60, plus the vent label.
 | 1 | Keypad and gasket, one piece with the three keys | Soft TPU (85A or softer); it can no longer be cut from sheet, because the keys stand on it | `print_gasket` |
 | 1 | Button plate | PETG | `print_button_plate` |
 | 1 | Battery cap | PETG or ASA | `print_battery_cap` |
-| 1 | Battery cap gasket | As the cover gasket | `print_cap_gasket` |
 
 Print settings and orientations are in the [mechanical notes](mechanical-concept.md#printing).
 
@@ -146,15 +144,13 @@ Estimated cost: about €25–60. **Not checked.**
 | Part | Use |
 |---|---|
 | Conformal coating, acrylic or silicone | The three boards and the XIAO. Keep it off the USB-C sockets, the JST sockets and headers, the switch actuators, the pouch and the vent. |
-| Two-part epoxy | Potting the back of the charging USB-C receptacle. |
-| Clear epoxy or UV-cure resin | Filling the charge LED window. |
-| Neutral-cure silicone | Sealing where the notes call for it. |
+| Clear two-part epoxy | Potting the back of the charging USB-C receptacle, and filling the charge LED window. One clear epoxy does both. |
 | No-clean flux (syringe), 0.5–0.8 mm flux-cored solder, 2 mm desoldering braid, isopropyl alcohol | Bare boards only: hand soldering, and cleaning the flux off before the conformal coating. |
 
-Estimated cost: about €35–55, plus €15–30 for the soldering supplies (not checked).
+Estimated cost: about €30–45, plus €15–30 for the soldering supplies (not checked).
 
 - Acrylic conformal coating, 200 ml aerosol: €21.11 with VAT at [RS Netherlands](https://nl.rs-online.com/web/p/conformal-coatings/0714462).
-- Epoxy, UV resin and neutral-cure silicone: about €5–10 each. **Not checked.**
+- Clear two-part epoxy: about €5–10. **Not checked.**
 
 ## Ordering notes
 
