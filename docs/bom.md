@@ -53,8 +53,8 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 | 1 | [Joystick board rev C](../electronics/joystick-pcb-rev-c/README.md), 20.6 × 22.4 × 1.6 mm | JLCPCB, bare or assembled | Four KSC2 switches and one socket. Files in `electronics/joystick-pcb-rev-c/fab/`. Rev B (V0.26) does not let the housing close. |
 | 1 | [USB-C board rev B](../electronics/usbc-pcb-rev-b/README.md), 19 × 16 × **1.2** mm | JLCPCB, bare or assembled | Order at 1.2 mm. Files in `electronics/usbc-pcb-rev-b/fab/`. |
 | 1 | GCT USB4736-GF-A-KIT: the sealed USB-C receptacle with its USBTJ-06 gasket | [TME](https://www.tme.com/in/en/details/usb4736-gf-a-kit/usb-ieee1394-connectors/gct/) or [DigiKey](https://www.digikey.sg/en/products/detail/gct/USB4736-GF-A-KIT/26795952), about USD 1.7–1.8 | Soldered by hand on the USB-C board; the gasket goes on after soldering. JLCPCB's part C9900206672 is the USB4736-GF-A **without** the gasket, and JLCPCB could not source it on 2026-10-15. |
-| 1 | JST SH-style cable, 5-pin, female–female, 1 mm pitch, straight (pin 1 to pin 1), 10 cm | [Pololu](https://www.pololu.com/category/350/5-pin-jst-sh-style-cables) | Joystick board to control board. Not found on Amazon by web search. |
-| 1 | JST SH-style cable, 3-pin, female–female, 1 mm pitch, straight, 10 cm | Pololu | USB-C board to control board. |
+| 1 | JST SH-style cable, 5-pin, female–female, 1 mm pitch, straight (pin 1 to pin 1), 10 cm | [Pololu](https://www.pololu.com/category/350/5-pin-jst-sh-style-cables), or [AliExpress](https://es.aliexpress.com/item/1005011797428966.html) | Joystick board to control board. On AliExpress choose `same direction` (`reverse direction` likely joins pin 1 to the last pin; `single head` has bare wires at one end), 100 mm. |
+| 1 | JST SH-style cable, 3-pin, female–female, 1 mm pitch, straight, 10 cm | Pololu, or AliExpress as above | USB-C board to control board. |
 
 The board parts with their LCSC numbers are in each board's README and `fab/*-bom.csv`. The KSC221JLFS switches (LCSC C221726) are distributor parts: no retail sealed switch with this footprint was found.
 
@@ -78,8 +78,8 @@ Estimated cost: about €75–110 with bare boards, €110–170 assembled.
 - LiPo: €5–10.
 - Boards: the quotes above, plus about €10 shipping.
 - Parts from LCSC: about €28 per remote with shipping and duty (see above).
-- USB4736 kit from TME or DigiKey: about €2 per remote plus shipping; shipping not checked. DigiKey Spain charges €25 shipping below €75 (2026-10-19).
-- Two Pololu cables: about USD 2–3 each plus shipping; not checked.
+- USB4736 kit: three cost €18.63 at TME on 2026-10-19, mostly shipping. Not from DigiKey alone: DigiKey Spain charges €25 shipping below €75.
+- Cables, quotes from 2026-10-19 for 5 of each: Pololu USD 21.25 plus USD 26.45 shipping, before EU duty and VAT; DigiKey (Pololu marketplace) €20.25 plus €22.78 shipping. The AliExpress listing gave €12.53 for 10 of each, with shipping and duty. The AliExpress cables are not checked: test a few for pin 1 to pin 1 with a meter and check that they latch in the board sockets.
 
 ### Hardware
 
