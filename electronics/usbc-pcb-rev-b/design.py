@@ -75,7 +75,7 @@ SYMBOLS = {
            "fields": {"Manufacturer": "Lite-On", "MPN": "LTST-S270KRKT", "LCSC": "C125114",
                       "Description": "Red side-looking chip LED, charge indicator"}},
     "R3": {"lib_id": "Device:R", "value": "1k", "footprint": "Resistor_SMD:R_0603_1608Metric",
-           "fields": {"MPN": "0603WAF1001T5E", "Manufacturer": "UNI-ROYAL", "LCSC": "C21190"}},
+           "fields": {"MPN": "RC0603FR-071KL", "Manufacturer": "YAGEO", "LCSC": "C22548"}},
     "J2": {"lib_id": "Connector_Generic:Conn_01x03", "value": "To control board",
            "footprint": "Connector_JST:JST_SH_SM03B-SRSS-TB_1x03-1MP_P1.00mm_Horizontal",
            "fields": {"MPN": "1.0-3P WT", "LCSC": "C2906269", "Description": "JST SH compatible, side entry"}},

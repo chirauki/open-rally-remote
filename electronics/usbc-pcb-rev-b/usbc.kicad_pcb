@@ -785,7 +785,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF1001T5E"
+		(property "MPN" "RC0603FR-071KL"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -797,7 +797,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
+		(property "Manufacturer" "YAGEO"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -809,7 +809,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C21190"
+		(property "LCSC" "C22548"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
