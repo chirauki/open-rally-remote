@@ -1,8 +1,8 @@
-# Bill of Materials — V0.31
+# Bill of Materials — V0.32
 
-This is the single parts list for the project: the bench prototype and the V0.31 removable, battery-powered remote with its base. V0.31 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap, no heat-set inserts, and foam seals on the cover and the battery cap. The three circuit boards are joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). They can be ordered assembled, so the build needs no soldering, or bare, for the builder to solder by hand at a much lower cost: see [Ordering the boards](#ordering-the-boards). Design details stay in the linked documents; this page lists what to buy.
+This is the single parts list for the project: the bench prototype and the V0.32 removable, battery-powered remote with its base. V0.32 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap, no heat-set inserts, foam seals on the cover and the battery cap, and fewer different parts to buy (V0.32). The three circuit boards are joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). They can be ordered assembled, so the build needs no soldering, or bare, for the builder to solder by hand at a much lower cost: see [Ordering the boards](#ordering-the-boards). Design details stay in the linked documents; this page lists what to buy.
 
-**Status:** nothing in the V0.31 list has been built or tested. The V0.25 list is in the git history.
+**Status:** nothing in the V0.32 list has been built or tested. The V0.25 list is in the git history.
 
 Sourcing preference: parts that builders can buy from mainstream retailers (for example Amazon) come first. Distributor-only parts are used only where no retail part meets the requirement, and the reason is given.
 
@@ -92,13 +92,12 @@ Estimated cost: about €75–110 with bare boards, €110–170 assembled.
 | 1 | M2 × 4 grub screw | Retail | Joystick knob. |
 | 1 | M2 square nut, DIN 562 (4 × 1.2 mm) | Retail | Joystick knob, in the slot under it, for the grub screw. |
 | 1 | Adhesive ePTFE vent label, Ø7.6 mm (Takachi VE8 size), for a Ø3 mm hole | Retail | Inside the battery cap (V0.28). Check the hole size the chosen vent needs. |
-| 1 | Closed-cell foam sheet, EPDM or neoprene, self-adhesive, 1.5 mm thick, about 100 × 100 mm | Retail (sheet or wide roll) | Both seals, from one piece: the cover strip, cut 2 mm wide and about 25 cm long in all, on the housing rim (V0.30), and the battery cap gasket (V0.31), cut round a paper template printed at 100 % from `mechanical/cad/tools/cap-gasket-template.scad` (its 40 mm bar checks the scale). Soft grade; firm foam needs more screw force. |
-| — | Thin foam sheet (about 1–5 mm, EVA or similar) | Retail | Pad on the battery cap, strip on the rear wall, and a pad between the XIAO and the pouch that holds the XIAO in its headers. |
+| 1 | Closed-cell foam sheet, EPDM or neoprene, self-adhesive, 1.5 mm thick, about 150 × 150 mm | Retail (sheet or wide roll) | Both seals and the three pads (V0.32), from one piece: the cover strip, cut 2 mm wide and about 25 cm long in all, on the housing rim (V0.30), and the battery cap gasket (V0.31), cut round a paper template printed at 100 % from `mechanical/cad/tools/cap-gasket-template.scad` (its 40 mm bar checks the scale). Soft grade; firm foam needs more screw force. The pads are layers of the same sheet: four on the battery cap, one on the rear wall, and six between the XIAO and the pouch, which hold the XIAO in its headers. |
 
 Estimated cost: about €30–60, plus the vent label.
 
 - M2 screws: an M2 stainless assortment with countersunk heads is about €36 at [ManoMano](https://www.manomano.es/p/kit-surtido-de-250-piezas-de-tornillos-pernos-y-llaves-de-vaso-hexagonales-de-cabeza-avellanada-planas-abombadas-y-cilindricas-de-acero-inoxidable-a2-con-tuercas-m2-x-468101216-mm-cabeza-p-94605084). The listing does not state ISO 10642. Packs of single sizes are likely cheaper; not checked.
-- Dowel pin, grub screw and foam tape: €5–10, not checked.
+- Dowel pin, grub screw and foam sheet: €5–10, not checked.
 - Vent label: no single-unit retail price was found. Gore adhesive vents come in packs of 50 at about £213 before VAT ([RS UK](https://uk.rs-online.com/web/p/enclosure-ventilation/2842971)), which is too many for one build. Generic ePTFE vent stickers sold in small packs need checking for an IP67 rating before use. Takachi sells its VE8 (Ø7.6 mm) [online](https://takachi-enclosure.com/products/VE8); the price and pack size for one build are not checked.
 
 ### Printed parts
@@ -123,14 +122,14 @@ Estimated cost: about €20–50 from a print service, including shipping. **Not
 | Qty | Part | Source | Notes |
 |---:|---|---|---|
 | 2 | M4 × 16 socket-head screw, ISO 4762 | Retail | Clamp. Cuts its own thread in Ø3.4 mm pilots in the base front. |
-| 1 | M3 × 22 socket-head screw, ISO 4762 | Retail | Its head is the lock pin. |
+| 1 | M3 × 20 socket-head screw, ISO 4762 | Retail | Its head is the lock pin. V0.31 asked for M3 × 22, which is not a standard length. |
 | 1 | Compression spring 0.5 × 5 × 10 mm, stainless (wire × outside diameter × free length) | Retail (spring assortments; cut a longer one to length if needed) | Lock. About 3.4 N locked, estimated. |
 | 2 | Ø1.5 × 4 mm steel dowel pin, ISO 8734 | Retail | Quarter-turn lock knob. |
-| 2 | M3 nut, ISO 4032 | Retail | Lock knob: one in its hex pocket, one as the lock nut. |
-| 2 | TPU strip, 4 × 50 × 1.4 mm | Printed TPU, or cut from rubber sheet | Anti-rattle, glued into the platform pockets. |
+| 1 | M3 nut, ISO 4032 | Retail | Lock knob, in its hex pocket; fixed on the thread with the clear epoxy (V0.32: no lock nut). |
+| 1 | Bike inner tube, butyl, about 0.8–1.2 mm wall; an old one will do | Retail or a used tube | Two anti-rattle strips, 4 × 50 mm, glued into the platform pockets with the clear epoxy. Optionally the two liner halves, 23 × 43 mm, instead of the printed TPU. Measure the wall and set `strip_t` (and `liner_radial`) before printing the base front. |
 | 1 | Base front | PETG or ASA, `print_base_front` | One part for both bar sizes (V0.28). |
 | 1 | Base cap | PETG or ASA, `print_base_cap` | |
-| 2 | Bar liner half | TPU 95A, `liner_main`, `liner_cap` | Fits a 25.4 mm bar or the sleeve. |
+| 2 | Bar liner half | TPU 95A, `liner_main`, `liner_cap`, or cut from the inner tube | Fits a 25.4 mm bar or the sleeve. |
 | 2 | Sleeve half, bars under 25.4 mm only | PETG, `print_sleeve`, with `bar_diameter` set to the bar measured with a caliper | Between the bar and the liner. Painted 7/8 in bars can measure 0.3 mm over 22.2 mm. |
 | 1 | Lock knob, Ø16 mm quarter turn | PETG, `print_lock_knob` | Top face on the bed. |
 
@@ -144,7 +143,7 @@ Estimated cost: about €25–60. **Not checked.**
 | Part | Use |
 |---|---|
 | Conformal coating, acrylic or silicone | The three boards and the XIAO. Keep it off the USB-C sockets, the JST sockets and headers, the switch actuators, the pouch and the vent. |
-| Clear two-part epoxy | Potting the back of the charging USB-C receptacle, and filling the charge LED window. One clear epoxy does both. |
+| Clear two-part epoxy | Potting the back of the charging USB-C receptacle, filling the charge LED window, fixing the lock knob's nut on its screw and gluing the anti-rattle strips. One clear epoxy does all four. |
 | No-clean flux (syringe), 0.5–0.8 mm flux-cored solder, 2 mm desoldering braid, isopropyl alcohol | Bare boards only: hand soldering, and cleaning the flux off before the conformal coating. |
 
 Estimated cost: about €30–45, plus €15–30 for the soldering supplies (not checked).

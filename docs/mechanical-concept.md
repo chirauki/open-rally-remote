@@ -1,6 +1,8 @@
-# Complete Mechanical CAD — V0.31 No-Solder Remote
+# Complete Mechanical CAD — V0.32 No-Solder Remote
 
-V0.31 seals the battery cap the way V0.30 seals the cover: a die-cut closed-cell foam gasket, cut from the same foam sheet, compressed by a rigid lip on the cap. See [Changes from V0.30](#changes-from-v030).
+V0.32 cuts the number of different parts to buy. The lock takes a standard M3 × 20 screw fixed with epoxy instead of an M3 × 22 and a lock nut. The anti-rattle strips, and optionally the clamp liner, are cut from a bike inner tube, and the foam pads come from the seal foam. The joystick knob keeps its square nut: a hex nut does not fit. See [Changes from V0.31](#changes-from-v031).
+
+V0.31 seals the battery cap the way V0.30 seals the cover: a die-cut closed-cell foam gasket, cut from the same foam sheet, compressed by a rigid lip on the cap. See [V0.31 changes from V0.30](#v031-changes-from-v030-still-current).
 
 V0.30 changes how the two control facets seal against rain and mud. The keypad sheet becomes a loose membrane, and a bought closed-cell foam strip on the housing rim seals the perimeter ([spec](superpowers/specs/2026-10-15-cover-seal-design.md)). See [V0.30 changes from V0.29](#v030-changes-from-v029-still-current).
 
@@ -24,7 +26,7 @@ The remote's printed parts are slices of one outer solid: the pod outline cut fl
 
 The remote mounts on the left side of the bar only, never the right. The turn-signal switch that the folded front clears is on the left switchgear.
 
-**Current parametric concept:** [complete-remote-v0.31.scad](../mechanical/cad/complete-remote-v0.31.scad)
+**Current parametric concept:** [complete-remote-v0.32.scad](../mechanical/cad/complete-remote-v0.32.scad)
 
 ![V0.31 battery cap from inside: the die-cut foam gasket (black) inside the cap's 0.5 mm lip, with the three screw holes in the foam and the vent label in the opening.](images/complete-remote-v0.31-cap-seal.png)
 
@@ -94,7 +96,17 @@ The control end is unchanged from V0.23. These V0.23 renders still show it:
 
 All images are direct OpenSCAD renders of the V0.25, V0.24 or V0.23 file. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb/README.md).
 
-## Changes from V0.30
+## Changes from V0.31
+
+### Fewer parts to buy
+
+- **Lock screw.** V0.31 asked for an M3 × 22, which is not an ISO 4762 length (M3: 16, 20, 25, 30 mm). An M3 × 20 (`lock_screw_length`) passes 1.0 mm through the nut in the knob's pocket and ends 0.8 mm inside the knob's outer face (`lock_tip`), with no room for a lock nut. When the head stands 2 mm proud, a drop of the clear epoxy on the thread fixes the nut. This makes the setting permanent: to change the spring, heat or cut the joint. An M3 × 25 with a nylon-insert nut was the other option. That nut is 4 mm tall, and a pocket for it would leave no wall over the 4 mm bore, so it would sit on the face, 4 mm proud, with 1.8 mm of thread past it.
+- **Anti-rattle strips.** Cut from a bike inner tube. Measure the rubber and set `strip_t` before printing the base front. The pocket depth follows it (`strip_pocket` = `strip_t` − 0.48 − `strip_squeeze_set`), so the strips are always compressed 0.3 mm with the flanks seated. A 1.0 mm tube gives a 0.2 mm pocket; a tube down to 0.78 mm fits, with no pocket. In V0.31 the strips were 1.4 mm TPU in 0.6 mm pockets.
+- **Clamp liner.** The liner is a plain half ring, so the same inner tube can replace the printed TPU: two pieces 23 mm wide and about 43 mm long. Set `liner_radial` to the tube's thickness before printing the base; the bore follows. From 0.8 to 1.2 mm the platform keeps 3.7–3.3 mm in front of the bore.
+- **Foam pads.** The pads on the battery cap, on the rear wall and on the XIAO come from the 1.5 mm closed-cell seal foam, in layers. The CAD gaps to the cell are 5.7 mm from the cap, 1.3 mm from the rear wall and 7.4 mm from the XIAO's components. That gives 4 layers on the cap (6.0 mm), and 1 on the rear wall with 6 on the XIAO (10.5 mm across a gap of 8.7 mm, about 17 % compression). The pads are not modelled.
+- **Joystick knob nut: unchanged.** An M2 hex nut, which comes in the M2 screw assortments, does not fit. With a corner toward the knob top, so that it cannot turn in the slot, it needs 4.62 mm plus 0.2 mm clearance and 0.5 mm skin. The knob has 4.8 mm between its hub face and its top, so the nut would stand 0.6 mm out of the hub toward the cover. With a flat toward the top, the slot must be 4.62 mm wide and the nut turns in it. A countersunk screw in place of the grub screw was dropped too: its head stops at a fixed depth, so it cannot be set against the pin.
+
+## V0.31 changes from V0.30, still current
 
 ### Battery cap seal
 
@@ -131,7 +143,7 @@ The design kept heat-set inserts in the hope that the print service would fit th
 | Cover screws (10) | M2 inserts in Ø3.2 × 6 mm holes | The M2 × 10 screws cut their own thread in Ø1.6 × 6 mm pilots (`cover_pilot_d`), as the battery cap screws already do |
 | Clamp (2) | M4 inserts in Ø5.6 × 8.1 mm holes | The M4 × 16 bolts cut their own thread in Ø3.4 × 8.1 mm pilots (`base_pilot_d`). A nut would sit on the platform, under the remote. A thread-forming screw for plastics has a head of about 8 mm, too big for the Ø7.6 mm counterbores |
 | Joystick knob | Radial M2 insert for the grub screw | An M2 square nut (DIN 562, 4 × 1.2 mm) in a slot open toward the cover (`knob_nut`), 0.65 mm from the pin bore. The engraved cross starts 4.9 mm from the centre so it clears the slot |
-| Lock knob | M3 insert from inside the cup | An M3 nut in a hex pocket on the knob's outer face (`lock_nut`). Screw tension pulls the nut onto the pocket floor, and the lock nut jams against it |
+| Lock knob | M3 insert from inside the cup | An M3 nut in a hex pocket on the knob's outer face (`lock_nut`). Screw tension pulls the nut onto the pocket floor, and the lock nut jams against it. V0.32: no lock nut; epoxy on the thread fixes the nut |
 
 ![V0.29 joystick knob from below, with the square-nut slot beside the pin bore, and the lock knob with its M3 nut pocket.](images/complete-remote-v0.29-print-knobs.png)
 
@@ -249,7 +261,7 @@ The [battery study](battery-study.md) first proposed a bayonet turning around th
   - A joystick push has an upward component (sin 20° of the push, from the 20° lower facet), which drives the remote against the stop.
   - Pulls away from the platform load the dovetail lips.
   - Only forces that slide the remote down load the lock: tilting the joystick down, shocks, and gravity, depending on how the unit is mounted.
-- **Anti-rattle.** Two TPU strips, 4 × 50 mm, sit in 0.6 mm pockets on the platform either side of the rails and stand 0.8 mm proud. They push the remote off the platform until the dovetail flanks seat, with the rear face 0.48 mm off the platform, which leaves the strips about 0.3 mm compressed. A firm press moves the remote back onto the platform by up to 0.48 mm. Whether that feels loose on the buttons needs a test.
+- **Anti-rattle.** Two rubber strips, 4 × 50 mm, sit in pockets on the platform either side of the rails and stand 0.8 mm proud (V0.32: cut from an inner tube, the pocket depth set by the tube's thickness). They push the remote off the platform until the dovetail flanks seat, with the rear face 0.48 mm off the platform, which leaves the strips about 0.3 mm compressed. A firm press moves the remote back onto the platform by up to 0.48 mm. Whether that feels loose on the buttons needs a test.
 
 ### Buttons
 
@@ -262,7 +274,7 @@ Replaced in V0.26 by the keypad and the control board (see above).
 
 ### Lock
 
-- An M3 × 22 ISO 4762 screw is the lock pin: its Ø5.5 × 3 mm head runs in a Ø6 mm pocket in the platform at Y = −32 mm, below the clamp ring and clear of the lower bolt.
+- An M3 × 20 ISO 4762 screw (V0.24–V0.31: M3 × 22) is the lock pin: its Ø5.5 × 3 mm head runs in a Ø6 mm pocket in the platform at Y = −32 mm, below the clamp ring and clear of the lower bolt.
 - A 0.5 × 5 × 10 mm stainless compression spring (wire × outside diameter × free length) under the head pushes it 2 mm out of the platform, with about 3.4 N (estimated, not measured), into a Ø5.8 mm hole in the remote's rear face. A positive stop, not a detent: the remote cannot slide down until the head is pulled in.
 - The shank runs back through the base to a Ø16 × 8 mm printed knob with an M3 insert (V0.29: an M3 nut in a pocket), locked by a nut. The knob rests on the back of the platform block (X = −5 mm) and sets how far the head stands out.
 - **Quarter turn.** The knob is a cup over a Ø9 × 3.5 mm boss on the back of the block. Two Ø1.5 × 4 mm steel dowel pins through the cup wall run in L-slots in the boss. Locked, the pins sit in the circumferential part of the slots and the knob cannot be pulled; turning it 90° brings them to the axial part, and then it pulls out 2 mm. The CAD checks the knob locked, turned 45° and 90°, and pulled, with no overlap, and that it cannot be pulled while locked or half-turned.
@@ -391,6 +403,17 @@ V0.30 (cover seal; `mechanical/cad/tools/test_seal.py` runs the first six rows):
 | Stop pads vs foam and key web holes; sheet holes vs a Ø1.35 mm probe | No overlap |
 | Assembly path check, both orders | No collision; the pads' pinch on the sheet (2.98 mm³) is a contact by design |
 
+V0.32 (`test_v032.py`):
+
+| Check | Result |
+|---|---|
+| Lock screw | M3 × 20, a standard length; 1.0 mm past the nut, its tip 0.8 mm inside the knob face |
+| Strip squeeze for a 0.8, 1.0 and 1.2 mm tube | 0.3 mm each; the pocket is 0 mm for 0.8 mm |
+| Clamp with a 0.8 and 1.2 mm liner | Every base check passes; platform wall 3.7 and 3.3 mm |
+| Square nut in the knob | Inside the knob, nothing below the hub face; no overlap with the knob |
+| Hex nut in the knob | Does not fit: 5.32 mm needed, 4.8 mm available |
+| Assembly path check | Not rerun: V0.32 changes no remote part |
+
 V0.31 (battery cap; `test_seal.py`, class `CapSeal`):
 
 | Check | Result |
@@ -498,9 +521,9 @@ V0.24 aims for rain and spray resistance, not an IP rating. It has not been test
 | Button plate | `print_button_plate` | Sheet side on the bed, standoffs up | PETG |
 | Battery cap | `print_battery_cap` | Outer face on the bed | PETG or ASA |
 | Cap gasket template (V0.31) | `print_cap_gasket` | Flat, 0.8 mm | PETG; a template to cut the foam gasket. A paper template does the same: print `mechanical/cad/tools/cap-gasket-template.scad` at 100 % |
-| Liners ×2 | `liner_main`, `liner_cap` | Axial face on the bed | TPU 95A |
+| Liners ×2 | `liner_main`, `liner_cap` | Axial face on the bed | TPU 95A, or cut from the inner tube (V0.32), 23 × 43 mm, with `liner_radial` set to its thickness |
 | Sleeve halves ×2 (22.2 mm bar only) | `print_sleeve` | End face on the bed | PETG |
-| Anti-rattle strips ×2 | not modelled as print parts | 4 × 50 × 1.4 mm | TPU, or cut from rubber sheet |
+| Anti-rattle strips ×2 | not printed (V0.32) | 4 × 50 mm, `strip_t` thick | Cut from a bike inner tube |
 
 No part needs supports.
 - **Housing:** the walls are vertical, the lower facet is an open edge in the air, the lower screw bosses lean 20°, and the cavity's rear wall and the battery cap's front block bridge 21 mm. The groove is at the top: its lips narrow upward at 45°, and the lock hole and the USB-C slot open upward; the gasket land is a shallow recess in the bridged rear wall. It stands on its thin front rim, so use a brim.
@@ -514,25 +537,25 @@ No part needs supports.
 
 ## Assembly
 
-Remote (V0.31; nothing to solder, no hot tool):
+Remote (V0.31 and V0.32, the same; nothing to solder, no hot tool):
 1. Clear the ten Ø1.6 mm pilot holes in the housing screw bosses with a 1.6 mm drill held by hand; printed holes come out undersize.
 2. Fit the USB-C board rev B: fit the receptacle's gasket, carry the board in 1.5 mm above its rib past the upper cover bosses, lower it onto the rib 8 mm short of the rear wall, and slide it along the rib until the nose enters the slot and the gasket sits in its pocket. Fix it with two M2 × 4 button-head screws, which cut their own thread in the Ø1.6 mm pilots. Pot the back of the receptacle with epoxy, keeping it out of the opening and the socket. Fill the LED window from outside with the same clear epoxy. Plug the 3-pin cable into its socket.
 3. Joystick: push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the joystick board rev C onto the plate standoffs with two M2 × 8 button-head screws; the disc rests on the switches. Plug the 5-pin cable into its socket.
 4. Screw the control board onto the button plate standoffs with two M2 × 4 button-head screws, switches toward the plate. Plug the XIAO into its headers, components away from the board, USB-C toward the joystick end.
 5. Lay the cover face down and the keypad on it, keys through the cover holes, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the joystick plate on the lower-facet sheet. Lay the button plate with the control board on the upper-facet sheet.
-6. Plug the joystick cable into J4 and the USB-C cable (from the housing) into J3 on the control board. Stick the foam pad on the XIAO's components.
-7. Stick the foam strip on the housing rim round both facets, with butt joints at the end corners, and a thin foam strip on the rear wall where the pouch lies.
+6. Plug the joystick cable into J4 and the USB-C cable (from the housing) into J3 on the control board. Stick a pad of six layers of the seal foam on the XIAO's components.
+7. Stick the foam strip on the housing rim round both facets, with butt joints at the end corners, and one layer of the same foam on the rear wall where the pouch lies.
 8. Lower the housing onto the stack, guiding the cables; its walls locate the plates. Turn it over and fit the ten M2 × 10 screws; they cut their own thread, so drive them slowly the first time. Tighten evenly in a cross pattern.
 9. Slide the pouch up through the bottom opening, protection board and lead first. With the cover off, plug its lead into J5 on the control board, then close the cover as in step 8. Check the polarity before connecting the charger.
-10. Stick the vent label on the inside of the battery cap, over its vent hole, and a foam pad with a hole round the label. Stick the foam cap gasket inside the cap's lip, then fit the cap with three M2 × 8 countersunk screws; the lip meets the housing when they are tight.
+10. Stick the vent label on the inside of the battery cap, over its vent hole, and a pad of four layers of the seal foam with a hole round the label. Stick the foam cap gasket inside the cap's lip, then fit the cap with three M2 × 8 countersunk screws; the lip meets the housing when they are tight.
 11. Drop the M2 square nut into the slot under the knob and start the M2 × 4 grub screw in it from the rim. Slide the knob onto the pin with a 0.9 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw.
 
 The order of steps 8 and 9 is open: the pouch can go in before the cover is closed if its lead is long enough to reach J5 with the stack beside the housing.
 
 Base:
 1. Clear the two Ø3.4 mm pilot holes in the base front's split face with a 3.4 mm drill held by hand.
-2. Press the two Ø1.5 × 4 mm dowel pins into the lock knob, and an M3 nut into the hex pocket on its outer face. Drop the lock spring into the pocket and push the M3 × 22 screw through it from the platform side. Fit the knob over the boss with the pins in the axial slots, thread it onto the shank until the head stands 2 mm proud with the knob on the block, turn it to the locked position, and lock it with an M3 nut.
-3. Glue the two TPU strips into their pockets.
+2. Press the two Ø1.5 × 4 mm dowel pins into the lock knob, and an M3 nut into the hex pocket on its outer face. Drop the lock spring into the pocket and push the M3 × 20 screw through it from the platform side. Fit the knob over the boss with the pins in the axial slots, thread it onto the shank until the head stands 2 mm proud with the knob on the block, and turn it to the locked position. Check the pull and the release, then put a drop of the clear epoxy on the thread at the nut and leave it to cure.
+3. Cut the two strips from the inner tube and glue them into their pockets.
 4. On a 22.2 mm bar, fit the two sleeve halves round the bar first. Fit the liner halves, place the base on the bar with the platform where the remote should sit, fit the cap from behind, set the angle, and tighten the two M4 × 16 bolts evenly.
 
 Fitting: pull the lock knob, press the remote onto the platform 9 mm below its working position, and slide it up until it stops and the lock clicks in. Removal is the reverse.
@@ -560,6 +583,8 @@ python3 mechanical/cad/tools/assembly_video.py video
 python3 -m unittest mechanical/cad/tools/test_assembly_video.py
 ```
 
+V0.32 changes no remote part, so the video and the path check stay V0.31.
+
 The timeline, the staging offsets and the cameras are in `mechanical/cad/assembly-video-v0.31.scad`. The tool uses the newest version; `ORR_VERSION=0.26` to `0.30` selects an older file, but its captions need that version's assembly list, which is now in the git history. The step captions come from the assembly steps above, so rerun `video` after editing them.
 
 ## Hardware
@@ -586,14 +611,14 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | Base clamp | Ø46 mm outer diameter, Ø27.4 mm bore for every bar (V0.28; before, Ø24.2 mm for a 22.2 mm bar), flat platform at X = −17.2 mm from Y = −41 to +33.5 mm | Diametral split into two halves with a 0.8 mm clamping gap; not strength-validated |
 | Remote rear face | Flat at X = −17.4 mm | 0.2 mm clear of the platform |
 | Dovetail | Rails 10 mm wide at the platform, 15 mm at the top, 2.5 mm high, 45° flanks; two 8 mm segments with a 9 mm gap; 7 mm lips; 0.2 mm clearance; 9 mm slide | Prints without supports on both parts; clearance to tune on the first print |
-| Lock | M3 × 22 ISO 4762 head (Ø5.5 × 3 mm) 2 mm proud, in a Ø6 mm pocket at Y = −32 mm; Ø5.8 mm hole in the remote; 0.5 × 5 × 10 mm spring; Ø16 × 8 mm quarter-turn knob on a Ø9 × 3.5 mm boss, two Ø1.5 × 4 mm pins | ISO 4762 head size; spring force estimated |
+| Lock | M3 × 20 ISO 4762 (V0.32) head (Ø5.5 × 3 mm) 2 mm proud, in a Ø6 mm pocket at Y = −32 mm; Ø5.8 mm hole in the remote; 0.5 × 5 × 10 mm spring; Ø16 × 8 mm quarter-turn knob on a Ø9 × 3.5 mm boss, two Ø1.5 × 4 mm pins | ISO 4762 head size; spring force estimated |
 | USB-C receptacle | GCT USB4736-GF-A; shell axis at Y = 29.5 mm in the rear face, long side along the bar; 1.80 mm panel, 9.14 × 3.36 mm slot, 11.00 × 5.90 × 0.60 mm gasket pocket; USBTJ-06 gasket 10.64 × 4.86 × 0.90 mm; body 9.99 wide, 4.61 mm above its PCB, 8.60 mm long | GCT drawing USB4736 rev. A (9 April 2025) |
 | LiPo pouch | 6.1 × 19.7 × 46.8 mm with 0.5 mm clearance, X = −29.1 to −22, Y = −33.5 to 14.3 mm (V0.31) | Measured on a 602045 cell, 600 mAh on its label (2026-10-15): the protection board end is 5.6 mm long and 4.1 mm thick; the 43.5 mm lead leaves one corner of that end. Cells up to 6 × 20 × 54 mm fit |
 | Battery cap | Pod below Y = −37.7 mm from X = −35 mm back, 2.4 mm thick; opening X = −31 to −21.2 mm, 21 mm wide; three M2 × 8 countersunk screws; 0.6 mm gasket | Assembly study (V0.25); 2.8 mm below the lock hole |
 | Pod front corners | 3 mm radius | Leaves a flat cover face for the M2 screws |
 | Folded front | Upper facet normal to the pod axis; lower facet turned 20° toward the bar, fold 12.5 mm below the bar axis | Clears the thumb's path to the turn-signal switch; the angle is a parameter |
 | Pod cavity corners | 2 mm front, 6 mm rear | 1 mm inset from the outer corners |
-| Clamp liner | 1 mm radial TPU liner | Parametric target; tune to measured bar and print process |
+| Clamp liner | 1 mm radial TPU liner, or a bike inner tube (V0.32) | Parametric target; set `liner_radial` to the measured tube, or tune to the bar and the print process |
 | Remote envelope | 40.1 × 86.2 mm in the plane of the clamp (X = −57.5 to −17.4 mm); 23 mm along the bar at the rear, 26 mm at the control end | Bar footprint from the manual's 23 mm installation clearance |
 | Button direction | Button axes perpendicular to the handlebar axis | Layout requirement |
 | Case wall / cover | 2.0 mm axial walls at the control end, 1.0 mm in the narrow part and at the ends / 2.5 mm cover | Cover within the APEM IS panel range |
@@ -628,8 +653,8 @@ These are the only items that block a confident first print. Each is a parameter
 - **Screw pilots (V0.29):** Ø1.6 mm for the M2 screws and Ø3.4 mm for the M4 clamp bolts in PETG are first estimates. Check on the first print that the screws cut a thread that holds, and how many openings it survives.
 - **Leak test:** test the first assembled remote for water tightness before fitting the electronics, for example under water at a few centimetres for 30 minutes with a dry paper towel inside. It checks the keypad gasket, the cap gasket, the USB-C receptacle and the vent together.
 - **Handlebar, sleeve and liner:** the bar diameter measured with a caliper at the clamp, in two directions, which sets the sleeve bore; the 0.8 mm clamping gap tuned to the printed TPU liner; and whether the clamp holds a hard gloved press without turning (estimate 3.3 N·m against 0.7 N·m).
-- **Dovetail:** the 0.2 mm clearance (`dt_c`) against the printer, and the strip material and thickness for the preload. Whether the 0.48 mm the remote can move toward the platform feels loose on the buttons.
-- **Lock:** a spring that fits a Ø6 mm pocket over a Ø3 mm shank and holds the head out firmly; its compressed length sets `lock_spring_solid`. The pull force, and whether 1 mm of head in the pocket is enough.
+- **Dovetail:** the 0.2 mm clearance (`dt_c`) against the printer, and the inner tube's thickness for the strips (V0.32; measure it and set `strip_t`), and whether the clear epoxy holds the butyl rubber in the PETG pockets (rubber glues poorly; roughen it first). Whether the 0.48 mm the remote can move toward the platform feels loose on the buttons.
+- **Lock:** whether the epoxy on the M3 thread (V0.32) holds the setting with the knob turned at each fitting; a spring that fits a Ø6 mm pocket over a Ø3 mm shank and holds the head out firmly; its compressed length sets `lock_spring_solid`. The pull force, and whether 1 mm of head in the pocket is enough.
 - **Pouch:** the measured 602045 cell fits (6.1 × 19.7 × 46.8 mm, see "Sourced dimensions"). Still open: its real capacity, its maximum charge current against the control board's 100 mA (R1 on the MCP73831), and the polarity. Its plug, looked at from the mating end with the latch up, has red on the right; SparkFun documents that convention as pin 1 = +, which matches J5 (pin 1 BAT, pin 2 GND), but this is not checked against JST's drawing. Check with a meter before plugging it in; Q1 protects the board if it is reversed.
 - **Battery cap:** whether the foam gasket (V0.31) seals on the 2.5 mm side lands and recovers after battery changes, whether M2 screws hold in Ø1.6 mm pilots in PETG after a few battery changes, and whether the 26 mm bottom band clears the switchgear on the bike.
 - **USB-C PCB:** the hand-drawn USB4736 footprint now matches GCT's recommended layout ([check](../electronics/usbc-pcb-rev-b/README.md#receptacle-footprint); the signal pads moved 0.10 mm). Check it against the footprint JLCPCB uses for the global-sourcing part when ordering, and the Ø1.6 mm screw pilots against the chosen screws; in V0.26 the holes are at ±7 mm. How the board gets onto its rib was not solved in V0.24 and V0.25. For V0.26 the assembly path check found a clear path: carried 1.5 mm above the rib past the upper cover bosses at Y = 24, lowered onto the rib 8 mm short of the rear wall, then slid in. The margin is small (1 mm above the rib still overlaps 0.2 mm³), so check it on the first print ([assembly path check](assembly-video-v0.28-checks.md)).
