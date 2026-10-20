@@ -60,7 +60,7 @@ The board parts with their LCSC numbers are in each board's README and `fab/*-bo
 
 #### Ordering the boards
 
-JLCPCB makes at least 5 of each board and assembles at least 2. Three ways to order, with JLCPCB quotes from 2026-10-15. They include VAT but not shipping, about €10 more (so about €30 for the bare boards):
+JLCPCB makes at least 5 of each board and assembles at least 2. Three ways to order, with JLCPCB quotes from 2026-10-15. They include VAT but not shipping, about €10 more. On 2026-10-20 a bare-board order for the three boards was charged a further €31.56 in import charges (breakdown not known), so the bare boards came to about €64:
 
 | Option | JLCPCB order | The builder solders | Quote |
 |---|---|---|---|
@@ -76,7 +76,7 @@ Estimated cost: about €75–110 with bare boards, €110–170 assembled.
 
 - XIAO with pins: €9.99 before VAT at Kiwi Electronics.
 - LiPo: €5–10.
-- Boards: the quotes above, plus about €10 shipping.
+- Boards: the quotes above, plus about €10 shipping and import charges (€31.56 on the bare-board order; see [Ordering the boards](#ordering-the-boards)).
 - Parts from LCSC: about €28 per remote with shipping and duty (see above).
 - USB4736 kit: three cost €18.63 at TME on 2026-10-19, mostly shipping. Not from DigiKey alone: DigiKey Spain charges €25 shipping below €75.
 - Cables, quotes from 2026-10-19 for 5 of each: Pololu USD 21.25 plus USD 26.45 shipping, before EU duty and VAT; DigiKey (Pololu marketplace) €20.25 plus €22.78 shipping. The AliExpress listing gave €12.53 for 10 of each, with shipping and duty. The AliExpress cables are not checked: test a few for pin 1 to pin 1 with a meter and check that they latch in the board sockets.
