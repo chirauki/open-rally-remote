@@ -1,8 +1,14 @@
 # Open Rally Remote
 
-> **Designed entirely with AI.** This project, including its requirements, CAD models, electronics, firmware and documentation, has been designed with AI assistants (ChatGPT and Claude). Review it accordingly before building or riding with it.
+> Spanish version: [README.es.md](README.es.md).
 
 An open-source Bluetooth handlebar remote for motorcycle navigation and digital roadbooks. The project aims to keep the unit compact, rugged, affordable, and buildable one unit at a time by individual makers.
+
+## Designed with AI
+
+This project is a demonstration that large language models and AI agents let a person design a product from scratch without the engineering background it would normally need. The remote started from the needs of a rider who is not an electronics, mechanical or firmware engineer. AI assistants (ChatGPT and Claude) designed it from there: the requirements, the CAD models, the circuit boards, the firmware, the bill of materials and this documentation.
+
+The person sets the goals, makes the decisions, buys the parts and tests on the bench; the AI does the engineering work, checks its own designs in CAD, KiCad and on the bench, and records what has and has not been verified. The design history in [docs/](docs/) and the commit log show how each decision was reached.
 
 ## Project status
 
@@ -20,4 +26,4 @@ The [bill of materials](docs/bom.md) lists every part for the bench prototype, t
 
 V0.31 and V0.32 have three KiCad boards, each with Gerbers, a BOM and a placement file for assembly: the [control board](electronics/control-pcb/README.md) (buttons, plug-in XIAO, charger, regulator, sockets), the [joystick board rev C](electronics/joystick-pcb-rev-c/README.md) and the [USB-C charging board rev B](electronics/usbc-pcb-rev-b/README.md). The control and joystick boards are ordered together as [one panel](electronics/panel-ctrl-joy/README.md). The [joystick board rev B](electronics/joystick-pcb-rev-b/README.md) belongs to V0.26, and the rev A [joystick](electronics/joystick-pcb/README.md) and [USB-C](electronics/usbc-pcb/README.md) boards to V0.23–V0.25. None has been built yet.
 
-The [XIAO bench firmware](firmware/xiao-nrf52840/README.md) reads the breadboard switches and sends BLE HID keyboard and media keys. It reads the joystick center as a chord of the direction switches. It has three profiles, tested on Android: TerraPirata, a keyboard profile with held keys for DMD2, and a gestures profile for OsmAnd; holding the joystick center switches between them. It has passed a first bench test on a XIAO with breadboard switches, paired with a phone. It has also been updated over BLE from an Android phone with the XIAO's factory bootloader, which accepts unsigned images and is not yet the product's update path. The battery firmware (level, charging, power off, auto-off and wake) is written and partly tested on USB; it has not run on a cell yet.
+The [XIAO bench firmware](firmware/xiao-nrf52840/README.md) reads the breadboard switches and sends BLE HID keyboard keys. It reads the joystick center as a chord of the direction switches. It has three profiles, tested on Android: TerraPirata, a keyboard profile with held keys for DMD2, and a gestures profile for OsmAnd; holding the joystick center switches between them. It has passed a first bench test on a XIAO with breadboard switches, paired with a phone. It has also been updated over BLE from an Android phone with the XIAO's factory bootloader, which accepts unsigned images and is not yet the product's update path. The battery firmware (level, charging, power off, auto-off and wake) is written and partly tested on USB; it has not run on a cell yet.
