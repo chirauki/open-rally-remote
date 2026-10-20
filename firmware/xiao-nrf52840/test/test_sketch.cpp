@@ -320,19 +320,231 @@ TEST(joystick_short_tilt_is_one_arrow_tap) {
 
 // ---------- Profiles, power and connection ----------
 
-TEST(center_held_five_seconds_switches_profile) {
+// ---------- Profile selection ----------
+
+// Center held 5 s and released enters selection.
+void enterSelection() {
+  pushCenter(5200);
+  run(100);
+}
+
+// Taps a button in selection; true if the board restarted.
+bool chooseWith(uint8_t button) {
+  try {
+    tap(button, 100);
+    run(100);
+  } catch (const HostRestart &) {
+    return true;
+  }
+  return false;
+}
+
+uint8_t storedProfile() { return host.files["/profile"].at(0); }
+
+TEST(select_each_profile_by_button) {
+  start(PROFILE_TERRAPIRATA);
+  enterSelection();
+  EXPECT(chooseWith(BUTTON_B));
+  EXPECT(storedProfile() == PROFILE_KEYBOARD);
+  EXPECT(keyDowns().empty());
+}
+
+TEST(select_gestures_with_c) {
+  start(PROFILE_TERRAPIRATA);
+  enterSelection();
+  EXPECT(chooseWith(BUTTON_C));
+  EXPECT(storedProfile() == PROFILE_GESTURES);
+  EXPECT(keyDowns().empty());
+}
+
+TEST(select_terrapirata_with_a) {
+  start(PROFILE_GESTURES);
+  enterSelection();
+  EXPECT(chooseWith(BUTTON_A));
+  EXPECT(storedProfile() == PROFILE_TERRAPIRATA);
+  EXPECT(keyDowns().empty());
+}
+
+TEST(select_current_profile_does_not_restart) {
+  start(PROFILE_TERRAPIRATA);
+  enterSelection();
+  EXPECT(!chooseWith(BUTTON_A));
+  EXPECT(storedProfile() == PROFILE_TERRAPIRATA);
+  EXPECT(keyDowns().empty());
+  tap(BUTTON_C, 100);
+  run(100);
+  EXPECT(onlyKey(keyDowns(), HID_KEY_X));  // back to normal at once
+}
+
+TEST(center_released_early_does_not_select) {
+  start(PROFILE_TERRAPIRATA);
+  pushCenter(4500);
+  run(100);
+  EXPECT(!chooseWith(BUTTON_C));
+  EXPECT(onlyKey(keyDowns(), HID_KEY_X));
+}
+
+TEST(center_held_without_release_does_not_switch) {
   start(PROFILE_TERRAPIRATA);
   press(JOYSTICK_UP);
   press(JOYSTICK_LEFT);
   press(JOYSTICK_RIGHT);
   bool restarted = false;
   try {
+    run(6000);
+  } catch (const HostRestart &) {
+    restarted = true;
+  }
+  EXPECT(!restarted);
+  EXPECT(storedProfile() == PROFILE_TERRAPIRATA);
+}
+
+TEST(selection_times_out) {
+  start(PROFILE_TERRAPIRATA);
+  enterSelection();
+  run(5100);
+  EXPECT(!chooseWith(BUTTON_C));
+  EXPECT(onlyKey(keyDowns(), HID_KEY_X));
+  EXPECT(storedProfile() == PROFILE_TERRAPIRATA);
+}
+
+TEST(no_keys_during_selection) {
+  start(PROFILE_TERRAPIRATA);
+  enterSelection();
+  press(JOYSTICK_RIGHT);
+  run(300);
+  release(JOYSTICK_RIGHT);
+  run(100);
+  EXPECT(keyDowns().empty());
+  EXPECT(!chooseWith(BUTTON_A));
+  press(JOYSTICK_RIGHT);
+  run(300);
+  EXPECT(keyHeld(HID_KEY_ARROW_RIGHT));
+}
+
+TEST(two_buttons_cancel_selection) {
+  start(PROFILE_TERRAPIRATA);
+  enterSelection();
+  bool restarted = false;
+  try {
+    press(BUTTON_A);
+    run(50);
+    press(BUTTON_B);
+    run(100);
+    release(BUTTON_A);
+    release(BUTTON_B);
+    run(100);
+  } catch (const HostRestart &) {
+    restarted = true;
+  }
+  EXPECT(!restarted);
+  EXPECT(keyDowns().empty());
+  EXPECT(!chooseWith(BUTTON_C));
+  EXPECT(onlyKey(keyDowns(), HID_KEY_X));
+}
+
+TEST(power_off_combo_during_selection_still_works) {
+  start(PROFILE_TERRAPIRATA);
+  enterSelection();
+  press(BUTTON_C);
+  run(50);
+  press(BUTTON_B);
+  run(50);
+  press(BUTTON_A);
+  run(3200);
+  EXPECT(powerOffArmed);
+  bool off = false;
+  try {
+    release(BUTTON_A);
+    release(BUTTON_B);
+    release(BUTTON_C);
+    run(200);
+  } catch (const HostSystemOff &) {
+    off = true;
+  }
+  EXPECT(off);
+  EXPECT(storedProfile() == PROFILE_TERRAPIRATA);
+  EXPECT(keyDowns().empty());
+}
+
+TEST(button_pressed_in_time_chooses_however_long_held) {
+  start(PROFILE_TERRAPIRATA);
+  enterSelection();
+  bool restarted = false;
+  try {
+    press(BUTTON_B);
     run(5200);
+    release(BUTTON_B);
+    run(100);
   } catch (const HostRestart &) {
     restarted = true;
   }
   EXPECT(restarted);
-  EXPECT(host.files["/profile"].size() == 1 && host.files["/profile"][0] == PROFILE_KEYBOARD);
+  EXPECT(storedProfile() == PROFILE_KEYBOARD);
+  EXPECT(keyDowns().empty());
+}
+
+TEST(button_pressed_after_window_does_nothing) {
+  start(PROFILE_TERRAPIRATA);
+  enterSelection();
+  run(5100);
+  EXPECT(!chooseWith(BUTTON_B));
+  EXPECT(storedProfile() == PROFILE_TERRAPIRATA);
+}
+
+TEST(press_at_end_of_window_still_chooses) {
+  start(PROFILE_TERRAPIRATA);
+  enterSelection();  // selection entered 100 ms ago
+  run(4800);
+  bool restarted = false;
+  try {
+    press(BUTTON_C);
+    run(300);  // released after the 5 s window
+    release(BUTTON_C);
+    run(100);
+  } catch (const HostRestart &) {
+    restarted = true;
+  }
+  EXPECT(restarted);
+  EXPECT(storedProfile() == PROFILE_GESTURES);
+}
+
+TEST(direction_held_across_selection_end_sends_nothing) {
+  start(PROFILE_TERRAPIRATA);
+  enterSelection();
+  press(JOYSTICK_RIGHT);
+  run(5300);  // selection times out while Right is held
+  EXPECT(keyDowns().empty());
+  release(JOYSTICK_RIGHT);
+  run(100);
+  EXPECT(keyDowns().empty());
+  press(JOYSTICK_RIGHT);
+  run(300);
+  EXPECT(keyHeld(HID_KEY_ARROW_RIGHT));
+}
+
+TEST(keyboard_key_held_at_selection_entry_is_released) {
+  start(PROFILE_KEYBOARD);
+  press(BUTTON_B);
+  run(100);
+  EXPECT(keyHeld(HID_KEY_B));
+  pushCenter(5200);
+  run(100);
+  EXPECT(!keyHeld(HID_KEY_B));
+  release(BUTTON_B);
+  run(5300);  // selection times out
+  EXPECT(!keyHeld(HID_KEY_B));
+}
+
+TEST(disconnect_ends_selection) {
+  start(PROFILE_TERRAPIRATA);
+  enterSelection();
+  host.connected = false;
+  run(50);
+  host.connected = true;
+  run(100);
+  EXPECT(!chooseWith(BUTTON_B));
+  EXPECT(storedProfile() == PROFILE_TERRAPIRATA);
 }
 
 TEST(unknown_stored_profile_starts_terrapirata) {
@@ -400,6 +612,7 @@ TEST(startup_log_describes_the_terrapirata_profile) {
   setup();
   EXPECT(host.log.find("Play/Pause") == std::string::npos);
   EXPECT(host.log.find("x = screen lock") != std::string::npos);
+  EXPECT(host.log.find("A/B/C to choose") != std::string::npos);
 }
 
 // ---------- Runner ----------

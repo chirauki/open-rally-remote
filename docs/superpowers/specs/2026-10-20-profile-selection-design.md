@@ -29,7 +29,7 @@ The profile is chosen directly, not cycled, so the button pressed tells the ride
    - B: keyboard (DMD2);
    - C: gestures (OsmAnd).
 
-   The press takes effect when the button is pressed, not when it is released.
+   The choice takes effect when the button is released, and only if no other button was pressed meanwhile (amended 2026-10-20: a choice on press would be made before a second button could cancel it, and the A + B + C power off would change the profile).
 3. **Apply.** A different profile is stored and the board restarts, as in 0.10.0. The current profile leaves selection without a restart: the BLE link stays up, and the controls work at once.
 4. **Cancel.** With no button within 5 s, selection ends and nothing changes.
 
@@ -58,7 +58,7 @@ Host tests (`firmware/xiao-nrf52840/test`), on both boards:
 - Selection with no button for 5 s: it ends, no profile is stored, and a button then sends its normal key.
 - During selection no HID report carries a key, including from the choosing button and the joystick.
 - Two buttons during selection: no profile change, no key.
-- The choosing button's release after a same-profile choice sends nothing.
+- A + B + C during selection: no profile change, and the power off still works.
 
 Bench: on the XIAO, choose each profile and check the LED colour after the restart and that the phone reconnects.
 

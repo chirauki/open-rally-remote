@@ -147,7 +147,7 @@ The firmware therefore has three profiles. The joystick directions send held arr
 | Keyboard, for DMD2 | Blue | Held: `A`, `B`, `C`; the app times short and long | `D` on a short or double press |
 | Gestures, for OsmAnd | White | A: `D` / `N` long / `P` double; B: `-` / `S` long; C: `=` / `x` long (screen lock); OsmAnd's "Keyboard" keys | Short `C`, on release |
 
-Holding the joystick center for 5 s selects the next profile (green, blue, white, then green again), stores it in flash and restarts the board. The center has no long action in any profile, because a long hold switches the profile. The XIAO's LED blinks 100 ms every 10 s in the profile's color. The BLE name does not change: Android keeps the name it saw when pairing, so a per-profile name was not visible.
+Holding the joystick center for 5 s and releasing it enters profile selection: the release of a lone button then chooses the profile (A TerraPirata, B keyboard, C gestures), which is stored in flash, and the board restarts; the current profile ends selection with no restart. With no button within 5 s, two buttons or a disconnect, selection ends with no change; no key is sent during it. The button pressed tells the rider which profile was set, without seeing the LED ([design](superpowers/specs/2026-10-20-profile-selection-design.md)). The center has no long action in any profile, because the long hold enters selection. The XIAO's LED blinks 100 ms every 10 s in the profile's color. The BLE name does not change: Android keeps the name it saw when pairing, so a per-profile name was not visible.
 
 In the TerraPirata profile the joystick adjusts the trip (left/right) and scrolls the roadbook (up/down) with held arrows.
 
@@ -160,7 +160,7 @@ Avoid Space, Enter and Tab in any profile: Android uses them to press the focuse
 - **DMD² / DMD Next:** short and long actions per key are set in DMD's Generic Remote mapping; with held keys, DMD² recognized the long press on the bench. Do not promise native double-tap behavior. DMD² is Android-only according to its current FAQ.
 - **iOS** is deferred. It may need different keys: iOS handles the volume keys itself, which is likely why TerraPirata asks iPhone users for a dedicated remote mode or its compatibility mode.
 
-The profile switch was agreed for the bench prototype. A 5 s hold is hard to trigger by accident, but test it on the bike before treating it as safe while riding. The enclosure must let the LED show, or the rider cannot see the profile; see the [mechanical notes](mechanical-concept.md).
+The profile selection was agreed for the bench prototype. A 5 s hold is hard to trigger by accident, and nothing changes without a button after it, but test it on the bike before treating it as safe while riding. The LED stays inside the enclosure; the rider knows the profile from the button chosen.
 
 ## 8. Initial implementation phases
 

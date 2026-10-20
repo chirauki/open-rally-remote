@@ -25,7 +25,7 @@ Conecta cada interruptor normalmente abierto entre su GPIO y GND:
 | D6 | Joystick derecha | Mantiene flecha derecha | Mantiene flecha derecha | Mantiene flecha derecha |
 | D7 | Interruptor central del joystick, solo en la protoboard | Nada | `D` en pulsación corta o doble | `C` mi posición |
 
-En el perfil de teclado y en el joystick, una tecla mantenida se pulsa cuando se cierra el interruptor y se suelta cuando se abre; la app mide ella misma las pulsaciones cortas y largas. En los perfiles TerraPirata y de gestos, el firmware envía un toque de 50 ms de una tecla distinta para cada gesto de botón. En el perfil TerraPirata una pulsación larga dura 2 s (`RESET_LONG_PRESS_MS`), porque las dos pulsaciones largas ponen un contador a cero. Un control sin doble pulsación envía su toque corto en cuanto se suelta (la C de TerraPirata; B, C y el centro en el perfil de gestos); los demás esperan la ventana de doble pulsación de 300 ms. El perfil de gestos envía las teclas del tipo de dispositivo "Keyboard" que trae OsmAnd, más `x`, que en OsmAnd necesita un tipo propio; mira el [mapa de controles](../../docs/control-mapping.es.md#osmand-android-e-ios). Mantener el centro del joystick 5 s cambia de perfil; mira [Perfiles](#perfiles).
+En el perfil de teclado y en el joystick, una tecla mantenida se pulsa cuando se cierra el interruptor y se suelta cuando se abre; la app mide ella misma las pulsaciones cortas y largas. En los perfiles TerraPirata y de gestos, el firmware envía un toque de 50 ms de una tecla distinta para cada gesto de botón. En el perfil TerraPirata una pulsación larga dura 2 s (`RESET_LONG_PRESS_MS`), porque las dos pulsaciones largas ponen un contador a cero. Un control sin doble pulsación envía su toque corto en cuanto se suelta (la C de TerraPirata; B, C y el centro en el perfil de gestos); los demás esperan la ventana de doble pulsación de 300 ms. El perfil de gestos envía las teclas del tipo de dispositivo "Keyboard" que trae OsmAnd, más `x`, que en OsmAnd necesita un tipo propio; mira el [mapa de controles](../../docs/control-mapping.es.md#osmand-android-e-ios). Mantener el centro del joystick 5 s y soltarlo inicia la selección de perfil; mira [Perfiles](#perfiles).
 
 El hardware V0.22/V0.23 no tiene interruptor en D7: al empujar la palanca hacia dentro se cierran los cuatro interruptores de dirección, y el sketch interpreta tres o más cerrados a la vez como pulsación central (mira la [especificación del firmware](../../docs/firmware-spec.md#5-input-processing-and-gesture-rules)). Es el valor por defecto, `CENTER_FROM_CHORD = true`, y entonces D7 no se lee. En la protoboard, donde no se puede hacer un empuje recto, pon `CENTER_FROM_CHORD` a `false` cerca del principio del sketch para leer un interruptor central aparte en D7.
 
@@ -53,7 +53,7 @@ No pruebes este firmware en una app mientras conduces. Las actualizaciones por B
 
 El perfil se guarda en la flash de la XIAO (`/profile` en su sistema de ficheros interno) y se conserva al apagarla. El primer arranque usa el perfil TerraPirata.
 
-- **Cambio:** mantén el centro del joystick 5 s (`PROFILE_SWITCH_MS`). La placa guarda el siguiente perfil (TerraPirata, teclado, gestos y otra vez TerraPirata) y se reinicia. El teléfono se reconecta sin volver a emparejar.
+- **Elegir:** mantén el centro del joystick 5 s (`PROFILE_SWITCH_MS`) y suéltalo; después, en 5 s (`PROFILE_SELECT_MS`), pulsa un botón y suéltalo: A para TerraPirata, B para teclado, C para gestos. Al soltarlo se elige, aunque hayan pasado los 5 s; la placa guarda ese perfil y se reinicia; el teléfono se reconecta sin volver a emparejar. Elegir el perfil actual termina la selección sin reiniciar. Si no se pulsa ningún botón en 5 s, o se pulsan dos, la selección termina sin cambios, y el apagado con A + B + C sigue funcionando. Durante la selección no se envía ninguna tecla. Si se suelta antes de 5 s, el centro no hace nada. Antes del firmware 0.11.0 mantenerlo pasaba al siguiente perfil, y el piloto no podía ver cuál ([diseño](../../docs/superpowers/specs/2026-10-20-profile-selection-design.es.md)).
 - **Indicación:** el LED RGB de la XIAO, junto al conector USB-C, parpadea 100 ms cada 10 s: verde en TerraPirata, azul en teclado y blanco en gestos. El LED se enciende con nivel bajo.
 - **Nombre:** todos los perfiles se anuncian como `Open Rally Remote`. Android conserva el nombre que vio al emparejar, así que un nombre por perfil no se mostraba.
 
@@ -163,6 +163,10 @@ Las teclas salen de la [prueba de teclas](../key-probe/README.es.md); mira el [m
 ### Firmware 0.10.0
 
 Hecho el 20-10-2026 con la versión de protoboard, en el perfil de gestos, con OsmAnd en un teléfono Android y un tipo de dispositivo externo propio con las teclas asignadas. El registro serie mostró cada tecla: B y C alejaron y acercaron, C mantenido bloqueó y desbloqueó la pantalla (`x` asignada a "Touch screen lock"), el centro llevó el mapa a la posición, A corta y larga cambiaron la orientación y mostraron la navegación, y el joystick movió el mapa. A doble (`P`) pasó al perfil de app siguiente y B larga (`S`) abrió la búsqueda, en una prueba anterior.
+
+### Firmware 0.11.0
+
+La selección de perfil sustituye al cambio de perfil en ciclo. La cubren las pruebas en el ordenador (37 pruebas por placa, todas pasan), y las dos versiones compilaron sin avisos del sketch. El 20-10-2026, con la versión de protoboard y un teléfono Android: elegir B y luego A reinició en los perfiles de teclado (LED azul) y TerraPirata (verde), y el teléfono se reconectó; elegir el perfil actual, dejar que caducara la selección y mover el joystick durante ella no cambiaron nada ni enviaron ninguna tecla.
 
 ### Nombre BLE
 

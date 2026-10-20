@@ -29,7 +29,7 @@ El perfil se elige directamente, no en ciclo, así que el botón pulsado le dice
    - B: teclado (DMD2);
    - C: gestos (OsmAnd).
 
-   La pulsación actúa al pulsar el botón, no al soltarlo.
+   La elección actúa al soltar el botón, y solo si mientras tanto no se ha pulsado otro botón (corregido el 20-10-2026: elegir al pulsar elegiría antes de que un segundo botón pudiera cancelar, y el apagado con A + B + C cambiaría el perfil).
 3. **Aplicar.** Un perfil distinto se guarda y la placa se reinicia, como en la 0.10.0. El perfil actual sale de la selección sin reiniciar: la conexión BLE sigue y los controles funcionan al momento.
 4. **Cancelar.** Si no se pulsa ningún botón en 5 s, la selección termina y no cambia nada.
 
@@ -58,7 +58,7 @@ Pruebas en el ordenador (`firmware/xiao-nrf52840/test`), en las dos placas:
 - Selección sin ningún botón durante 5 s: termina, no se guarda ningún perfil y después un botón envía su tecla normal.
 - Durante la selección ningún informe HID lleva una tecla, tampoco del botón que elige ni del joystick.
 - Dos botones durante la selección: ni cambio de perfil ni tecla.
-- Soltar el botón que elige tras elegir el mismo perfil no envía nada.
+- A + B + C durante la selección: ni cambio de perfil, y el apagado sigue funcionando.
 
 En el banco: en la XIAO, elegir cada perfil y comprobar el color del LED tras el reinicio y que el teléfono se reconecta.
 

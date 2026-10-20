@@ -85,8 +85,11 @@ constexpr uint16_t CONSUMER = 0x8000;
 // ---------- Profiles (see docs/control-mapping.md) ----------
 //
 // The joystick directions send held arrow keys in every profile. Holding the
-// joystick center for PROFILE_SWITCH_MS selects the next profile, saves it
-// and restarts the board. The LED shows the profile with a short blink every
+// joystick center for PROFILE_SWITCH_MS and releasing it enters profile
+// selection: the release of a lone button then chooses A TerraPirata, B
+// keyboard or C gestures, saves it and restarts the board (no restart for
+// the current profile). Selection ends with no change after
+// PROFILE_SELECT_MS, on two buttons, or on a disconnect, and sends no key. The LED shows the profile with a short blink every
 // PROFILE_BLINK_PERIOD_MS: green for TerraPirata, blue for keyboard, white
 // for gestures. The BLE name stays the same: Android keeps the name it saw
 // when pairing.
@@ -134,7 +137,7 @@ const uint16_t BUTTON_GESTURE_KEYS[PROFILE_COUNT][3][3] = {
     { HID_KEY_EQUAL, HID_KEY_X, HID_KEY_NONE } }
 };
 
-// The joystick center has no long action: a long hold switches the profile.
+// The joystick center has no long action: a 5 s hold enters profile selection.
 // Columns: short, long, double.
 const uint16_t CENTER_KEYS[PROFILE_COUNT][3] = {
   { HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE },
@@ -143,6 +146,8 @@ const uint16_t CENTER_KEYS[PROFILE_COUNT][3] = {
 };
 
 constexpr uint32_t PROFILE_SWITCH_MS = 5000;
+constexpr uint32_t PROFILE_SELECT_MS = 5000;  // to choose, from the center release
+const Profile SELECT_PROFILES[3] = { PROFILE_TERRAPIRATA, PROFILE_KEYBOARD, PROFILE_GESTURES };
 constexpr uint32_t PROFILE_BLINK_PERIOD_MS = 10000;
 constexpr uint32_t PROFILE_BLINK_MS = 100;
 
@@ -176,7 +181,7 @@ constexpr uint8_t PIN_CHARGE_LED = D8; // charge LED on the V0.24/V0.25 USB-C PC
 constexpr uint8_t PIN_CHG_SENSE = D8;
 constexpr uint8_t PIN_VBUS_SENSE = D9;   // VBUS through a divider
 
-const char *const FIRMWARE_VERSION = "0.10.0";
+const char *const FIRMWARE_VERSION = "0.11.0";
 
 enum GestureType : uint8_t {
   GESTURE_SHORT = 0,
@@ -225,6 +230,11 @@ bool ignoreUntilRelease[CONTROL_COUNT] = {};
 bool buttonHeld[3] = {};
 
 Profile profile = PROFILE_TERRAPIRATA;
+
+// Profile selection (see PROFILE_SELECT_MS).
+bool profileSelecting = false;
+uint32_t profileSelectSince = 0;
+int8_t selectCandidate = -1;  // the lone button pressed, chosen on its release
 
 // Power state.
 uint32_t lastInputAt = 0;
@@ -282,7 +292,7 @@ void clearTapQueue() {
 }
 
 bool enqueueTap(uint16_t keyCode) {
-  if (!Bluefruit.connected()) return false;
+  if (!Bluefruit.connected() || profileSelecting) return false;
 
   const uint8_t nextTail = (tapQueueTail + 1) % TAP_QUEUE_SIZE;
   if (nextTail == tapQueueHead) {
@@ -326,6 +336,7 @@ uint8_t cancelOpposites(uint8_t mask) {
 
 void buildCurrentReport(uint8_t keys[6]) {
   memset(keys, HID_KEY_NONE, 6);
+  if (profileSelecting) return;
 
   if (joyMode == JOY_DIRECTIONS) {
     const uint8_t mask = cancelOpposites(directionMask());
@@ -426,10 +437,18 @@ void startGesture(uint8_t control, uint32_t now) {
   printControlEvent(control, "pressed");
 }
 
+void beginProfileSelection(uint32_t now);
+
 void finishGesture(uint8_t control, uint32_t now) {
   GestureState &state = gestures[control];
   state.isDown = false;
   printControlEvent(control, "released");
+
+  if (control == JOYSTICK_CENTER && (uint32_t)(now - state.pressedAt) >= PROFILE_SWITCH_MS) {
+    state = {};
+    beginProfileSelection(now);
+    return;
+  }
 
   if (state.longSent) {
     state.secondPressCandidate = false;
@@ -455,6 +474,7 @@ void finishGesture(uint8_t control, uint32_t now) {
 
 void holdButton(uint8_t control, bool pressed);
 bool handleButtonCombo(uint32_t now);
+bool handleProfileSelection(uint8_t control, bool pressed);
 void enterSystemOff(const char *reason);
 
 void handleStableTransition(uint8_t control, bool pressed, uint32_t now) {
@@ -468,6 +488,7 @@ void handleStableTransition(uint8_t control, bool pressed, uint32_t now) {
 
   lastInputAt = now;
 
+  if (control <= BUTTON_C && handleProfileSelection(control, pressed)) return;
   if (control <= BUTTON_C && handleButtonCombo(now)) return;
 
   if (control <= BUTTON_C && buttonsHold(profile)) {
@@ -840,14 +861,34 @@ void showProfile(uint32_t now) {
   }
 }
 
-// Called every loop: a center held for PROFILE_SWITCH_MS selects the next
-// profile. The restart applies it and drops the connection.
-void checkProfileSwitch(uint32_t now) {
-  const GestureState &center = gestures[JOYSTICK_CENTER];
-  if (!center.isDown || (uint32_t)(now - center.pressedAt) < PROFILE_SWITCH_MS) {
-    return;
+void beginProfileSelection(uint32_t now) {
+  profileSelecting = true;
+  profileSelectSince = now;
+  selectCandidate = -1;
+  // A button held now (a held key in the keyboard profile) is let go and
+  // ignored until released, so it cannot come back down when selection ends.
+  for (uint8_t i = BUTTON_A; i <= BUTTON_C; ++i) {
+    buttonHeld[i] = false;
+    gestures[i] = {};
+    if (inputs[i].stablePressed) ignoreUntilRelease[i] = true;
   }
-  const Profile next = (Profile)((profile + 1) % PROFILE_COUNT);
+  clearTapQueue();
+  publishReport(); // no keys while selecting
+  if (SERIAL_DEBUG) Serial.println("Profile selection: A TerraPirata, B keyboard, C gestures");
+}
+
+void endProfileSelection() {
+  if (!profileSelecting) return;
+  if (SERIAL_DEBUG) Serial.println("Profile selection ended");
+  profileSelecting = false;
+  selectCandidate = -1;
+  // A direction held during selection sends nothing until it is released.
+  if (directionMask()) joyMode = JOY_BLOCKED;
+}
+
+void chooseProfile(Profile next) {
+  endProfileSelection();
+  if (next == profile) return;
   if (SERIAL_DEBUG) {
     Serial.print("Switching profile to: ");
     Serial.println(PROFILE_NAMES[next]);
@@ -857,6 +898,37 @@ void checkProfileSwitch(uint32_t now) {
   saveProfile(next);
   delay(100);
   NVIC_SystemReset();
+}
+
+// Button events while selecting. Returns true when the event is used here. A
+// second button ends selection and is handed on, so A + B + C still powers off.
+bool handleProfileSelection(uint8_t control, bool pressed) {
+  if (!profileSelecting) return false;
+  if (pressed) {
+    if (pressedButtonCount() == 1) {
+      selectCandidate = control;
+      return true;
+    }
+    endProfileSelection();
+    return false;
+  }
+  if (selectCandidate == control && pressedButtonCount() == 0) {
+    chooseProfile(SELECT_PROFILES[control]);
+  }
+  return true;
+}
+
+// Called every loop: selection ends with no change after PROFILE_SELECT_MS,
+// unless a lone button pressed in time is still down: its release chooses.
+void updateProfileSelection(uint32_t now) {
+  if (!profileSelecting || selectCandidate >= 0 ||
+      (uint32_t)(now - profileSelectSince) < PROFILE_SELECT_MS) {
+    return;
+  }
+  endProfileSelection();
+  for (uint8_t i = BUTTON_A; i <= BUTTON_C; ++i) {
+    if (inputs[i].stablePressed) ignoreUntilRelease[i] = true;
+  }
 }
 
 void beginBleKeyboard() {
@@ -938,7 +1010,8 @@ void setup() {
       Serial.println("Gestures (OsmAnd): A = D / N long / P double, B = - / S long,");
       Serial.println("C = = / x long (lock); center = C; arrows = joystick.");
     }
-    Serial.println("Hold the joystick center 5 s to switch profile.");
+    Serial.println("Hold the joystick center 5 s, release, then A/B/C to choose");
+    Serial.println("TerraPirata/keyboard/gestures.");
     Serial.println(CENTER_FROM_CHORD ? "Center: chord of three or more directions."
                                      : "Center: separate switch on D7.");
   }
@@ -951,6 +1024,7 @@ void loop() {
   if (connected != previousBleConnected) {
     previousBleConnected = connected;
     clearTapQueue();
+    endProfileSelection();
     memset(buttonHeld, 0, sizeof(buttonHeld));
     synchronizeInputs(now); // do not turn a held control into a reconnect event
     lastReportValid = false;
@@ -965,7 +1039,7 @@ void loop() {
   scanInputs(now);
   updateJoystick(now);
   processGestureTimers(now);
-  checkProfileSwitch(now);
+  updateProfileSelection(now);
   checkPowerOff(now);
   updateBattery(now);
   updateChargeLed();

@@ -25,7 +25,7 @@ Wire each normally-open switch between its GPIO and GND:
 | D6 | Joystick right | Hold Right Arrow | Hold Right Arrow | Hold Right Arrow |
 | D7 | Joystick center switch, breadboard only | Nothing | `D` on a short or double press | `C` my position |
 
-In the keyboard profile and on the joystick, a held key goes down when the switch closes and up when it opens; the app times short and long presses itself. In the TerraPirata and gestures profiles, the firmware sends a 50 ms tap of a separate key for each button gesture. In the TerraPirata profile a long press takes 2 s (`RESET_LONG_PRESS_MS`), because both long presses reset a counter. A control with no double press sends its short tap as soon as it is released (TerraPirata's C; the gestures profile's B, C and center); the others wait out the 300 ms double-press window. The gestures profile sends the keys of OsmAnd's built-in "Keyboard" device type, plus `x`, which needs a custom type in OsmAnd; see the [control mapping](../../docs/control-mapping.md#osmand-android-and-ios). Holding the joystick center for 5 s switches the profile; see [Profiles](#profiles).
+In the keyboard profile and on the joystick, a held key goes down when the switch closes and up when it opens; the app times short and long presses itself. In the TerraPirata and gestures profiles, the firmware sends a 50 ms tap of a separate key for each button gesture. In the TerraPirata profile a long press takes 2 s (`RESET_LONG_PRESS_MS`), because both long presses reset a counter. A control with no double press sends its short tap as soon as it is released (TerraPirata's C; the gestures profile's B, C and center); the others wait out the 300 ms double-press window. The gestures profile sends the keys of OsmAnd's built-in "Keyboard" device type, plus `x`, which needs a custom type in OsmAnd; see the [control mapping](../../docs/control-mapping.md#osmand-android-and-ios). Holding the joystick center for 5 s and releasing it starts profile selection; see [Profiles](#profiles).
 
 The V0.22/V0.23 hardware has no D7 switch: pushing the stick straight in closes all four direction switches, and the sketch reads three or more closed together as the center press (see the [firmware specification](../../docs/firmware-spec.md#5-input-processing-and-gesture-rules)). This is the default, `CENTER_FROM_CHORD = true`, and D7 is then not read. For the breadboard, where a straight push cannot be made, set `CENTER_FROM_CHORD` to `false` near the top of the sketch to read a separate center switch on D7.
 
@@ -52,7 +52,7 @@ Do not test this firmware in an app while riding. BLE updates work on the bench;
 
 The profile is stored in the XIAO's flash (`/profile` in its internal file system) and survives a power cycle. The first start uses the TerraPirata profile.
 
-- **Switch:** hold the joystick center for 5 s (`PROFILE_SWITCH_MS`). The board stores the next profile (TerraPirata, keyboard, gestures, then TerraPirata again) and restarts. The phone reconnects without pairing again.
+- **Choose:** hold the joystick center for 5 s (`PROFILE_SWITCH_MS`) and release it, then, within 5 s (`PROFILE_SELECT_MS`), press one button and release it: A for TerraPirata, B for keyboard, C for gestures. The release chooses, even after the 5 s; the board stores that profile and restarts; the phone reconnects without pairing again. Choosing the current profile ends selection without a restart. With no button within 5 s, or with two buttons, selection ends with no change, and the A + B + C power off still works. No key is sent during selection. Released before 5 s, the center does nothing. Before firmware 0.11.0 the hold cycled to the next profile, which the rider could not see ([design](../../docs/superpowers/specs/2026-10-20-profile-selection-design.md)).
 - **Indication:** the XIAO's RGB LED, next to the USB-C connector, blinks 100 ms every 10 s: green for TerraPirata, blue for keyboard, white for gestures. The LED is active low.
 - **Name:** all profiles advertise as `Open Rally Remote`. Android keeps the name it saw when pairing, so a per-profile name was not shown.
 
@@ -161,6 +161,10 @@ The keys came from the [key probe](../key-probe/README.md); see the [control map
 ### Firmware 0.10.0
 
 Run on 2026-10-20 on the breadboard build, in the gestures profile, with OsmAnd on an Android phone and a custom external device type with the keys assigned. The serial log showed each key: B and C zoomed out and in, C held locked and unlocked the screen (`x` assigned to "Touch screen lock"), the center moved the map to the position, A short and long changed the orientation and showed the navigation, and the joystick panned the map. A double (`P`) switched to the next app profile and B long (`S`) opened the search, in an earlier run.
+
+### Firmware 0.11.0
+
+Profile selection replaces the cycling profile switch. The host tests cover it (37 tests per board, all pass), and both builds compiled with no warnings from the sketch. On 2026-10-20, on the breadboard build with an Android phone: choosing B and then A restarted into the keyboard (blue LED) and TerraPirata (green) profiles and the phone reconnected; choosing the current profile, letting selection time out, and moving the joystick during selection changed nothing and sent no key.
 
 ### BLE name
 

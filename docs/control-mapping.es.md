@@ -34,7 +34,7 @@ Probado en Android el 20-10-2026 con el firmware 0.9.0 (mira el [README del firm
 | Botón A, larga (2 s) | Toque de `r` | Abre el diálogo "reiniciar odómetro"; al aceptarlo en la pantalla, el trip vuelve a cero | Funciona |
 | Botón B, larga (2 s) | Toque de `z` | Reset del total | Funciona |
 | Botones A y B, corta o doble | Nada | — | A propósito, para que una pulsación sin querer no resetee nada |
-| Centro del joystick | Nada | — | Mantenido 5 s, cambia de perfil |
+| Centro del joystick | Nada | — | Mantenido 5 s y soltado, luego A/B/C: elige el perfil |
 
 Las pulsaciones largas duran 2 s (`RESET_LONG_PRESS_MS`), no los 600 ms de los otros perfiles, porque las dos ponen un contador a cero. El firmware 0.8.0 enviaba en cambio teclas de medios (Play/Pause en A, subir/bajar volumen en B y C); esas teclas llegan a la app que esté delante, así que la 0.9.0 no envía ninguna.
 
@@ -67,7 +67,7 @@ Probado en Android el 20-10-2026 con el firmware 0.10.0. El perfil de gestos del
 | Botón A, corta / larga / doble | `D` / `N` / `P` | Cambiar la orientación del mapa / mostrar u ocultar la navegación / perfil de app siguiente | Funciona |
 | Botón B, corta / larga | `-` al soltar / `S` | Alejar / mostrar u ocultar la búsqueda | Funciona |
 | Botón C, corta / larga | `=` al soltar / `x` | Acercar / bloqueo de la pantalla táctil | Funciona; `x` necesita un tipo de dispositivo propio, abajo |
-| Centro del joystick, larga | — | — | Mantenido 5 s, cambia el perfil del mando |
+| Centro del joystick, larga | — | — | Mantenido 5 s y soltado, luego A/B/C: elige el perfil del mando |
 
 B y C no tienen doble pulsación, así que su zoom sale al soltar, sin la espera de 300 ms; varios toques seguidos hacen zoom paso a paso. Se usa `=` para acercar porque `+` necesita Mayúsculas.
 

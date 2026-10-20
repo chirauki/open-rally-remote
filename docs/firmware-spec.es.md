@@ -147,7 +147,7 @@ Por eso el firmware tiene tres perfiles. En todos ellos, las direcciones del joy
 | Teclado, para DMD2 | Azul | Mantenidas: `A`, `B`, `C`; la app mide corta y larga | `D` en pulsación corta o doble |
 | Gestos, para OsmAnd | Blanco | A: `D` / `N` larga / `P` doble; B: `-` / `S` larga; C: `=` / `x` larga (bloqueo de pantalla); las teclas del tipo "Keyboard" de OsmAnd | Corta `C`, al soltar |
 
-Mantener el centro del joystick 5 s selecciona el siguiente perfil (verde, azul, blanco y otra vez verde), lo guarda en la flash y reinicia la placa. El centro no tiene acción larga en ningún perfil, porque mantenerlo cambia de perfil. El LED de la XIAO parpadea 100 ms cada 10 s con el color del perfil. El nombre BLE no cambia: Android conserva el nombre que vio al emparejar, así que un nombre por perfil no se veía.
+Mantener el centro del joystick 5 s y soltarlo entra en la selección de perfil: al soltar un único botón se elige el perfil (A TerraPirata, B teclado, C gestos), que se guarda en la flash, y la placa se reinicia; el perfil actual termina la selección sin reiniciar. Sin ningún botón en 5 s, con dos botones o con una desconexión, la selección termina sin cambios; durante ella no se envía ninguna tecla. El botón pulsado le dice al piloto qué perfil ha puesto, sin ver el LED ([diseño](superpowers/specs/2026-10-20-profile-selection-design.es.md)). El centro no tiene acción larga en ningún perfil, porque mantenerlo entra en la selección. El LED de la XIAO parpadea 100 ms cada 10 s con el color del perfil. El nombre BLE no cambia: Android conserva el nombre que vio al emparejar, así que un nombre por perfil no se veía.
 
 En el perfil TerraPirata, el joystick ajusta el trip (izquierda/derecha) y mueve el roadbook (arriba/abajo) con flechas mantenidas.
 
@@ -160,7 +160,7 @@ Evita Espacio, Enter y Tab en todos los perfiles: Android las usa para pulsar el
 - **DMD² / DMD Next:** las acciones corta y larga de cada tecla se configuran en el mapa "Generic Remote" de DMD; con teclas mantenidas, DMD² reconoció la pulsación larga en el banco. No prometas el comportamiento nativo de doble toque. Según su FAQ actual, DMD² es solo para Android.
 - **iOS** queda para más adelante. Puede necesitar otras teclas: iOS gestiona él mismo las teclas de volumen, y seguramente por eso TerraPirata pide a los usuarios de iPhone un modo de mando dedicado o su modo de compatibilidad.
 
-El cambio de perfil se acordó para el prototipo de banco. Mantener 5 s es difícil de hacer sin querer, pero pruébalo en la moto antes de darlo por seguro conduciendo. La carcasa tiene que dejar ver el LED, o el piloto no puede saber el perfil; mira las [notas mecánicas](mechanical-concept.es.md).
+La selección de perfil se acordó para el prototipo de banco. Mantener 5 s es difícil de hacer sin querer, y sin un botón después no cambia nada, pero pruébalo en la moto antes de darlo por seguro conduciendo. El LED queda dentro de la carcasa; el piloto sabe el perfil por el botón que ha elegido.
 
 ## 8. Fases iniciales de implementación
 

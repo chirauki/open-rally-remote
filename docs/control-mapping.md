@@ -34,7 +34,7 @@ Tested on Android on 2026-10-20 with firmware 0.9.0 (see the [firmware README](.
 | Button A, long (2 s) | `r` tap | Opens the "reset odometer" dialog; accepting it on the screen sets the trip to zero | Works |
 | Button B, long (2 s) | `z` tap | Reset the total | Works |
 | Buttons A and B, short or double | Nothing | — | By design, so a stray press resets nothing |
-| Joystick center | Nothing | — | Held 5 s, it switches the profile |
+| Joystick center | Nothing | — | Held 5 s and released, then A/B/C: chooses the profile |
 
 The long presses take 2 s (`RESET_LONG_PRESS_MS`), not the 600 ms of the other profiles, because both reset a counter. Firmware 0.8.0 sent media keys instead (Play/Pause on A, Volume +/− on B and C); they reach whichever app is in front, so 0.9.0 sends none.
 
@@ -67,7 +67,7 @@ Tested on Android on 2026-10-20 with firmware 0.10.0. The firmware's gestures pr
 | Button A, short / long / double | `D` / `N` / `P` | Change map orientation / show or hide navigation / next app profile | Works |
 | Button B, short / long | `-` on release / `S` | Zoom out / show or hide search | Works |
 | Button C, short / long | `=` on release / `x` | Zoom in / touch screen lock | Works; `x` needs a custom device type, below |
-| Joystick center, long | — | — | Held 5 s, it switches the remote's profile |
+| Joystick center, long | — | — | Held 5 s and released, then A/B/C: chooses the remote's profile |
 
 B and C have no double press, so their zoom goes out on release, with no 300 ms wait; repeated taps zoom step by step. `=` is used for zoom in because `+` needs Shift.
 
@@ -110,7 +110,7 @@ Record the phone/tablet model, OS version, app version, selected app profile, ke
 
 | Test | Android | iOS |
 |---|---|---|
-| BLE pairing and automatic reconnect | Pass, including after a profile switch | Pending |
+| BLE pairing and automatic reconnect | Pass, including after a profile change | Pending |
 | TerraPirata dedicated mode / compatibility mode | Not tested; the keys above work without changing a setting | Pending |
 | TerraPirata trip +/−, trip and total reset, screen lock, roadbook scroll | Pass with firmware 0.9.0 (2026-10-20); the trip reset needs a tap on the screen to confirm | Pending |
 | OsmAnd arrows, `C`, `D`, `N`, `=`, `-`, `x` (gestures profile) | Pass with firmware 0.10.0 (2026-10-20), `P` and `S` included, with a custom device type for `x` | Pending |
