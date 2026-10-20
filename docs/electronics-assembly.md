@@ -200,7 +200,7 @@ The two 1 × 7 female headers J1 and J2 go in from the back. Their pins come thr
 
 **Choose the header first.** The design uses the 5.7 mm high header (C55218877).
 - **Try it first:** push the XIAO's pins into a loose 5.7 mm header. They should go in fully and hold the XIAO firmly.
-- **8.5 mm header (C54876729):** use it only if the 5.7 mm one fails that test. It raises the XIAO by 2.8 mm toward the pouch. That leaves 4.4 mm instead of 7.2 mm to the pouch envelope, and fewer foam layers on the XIAO. **Not checked in the CAD.**
+- **8.5 mm header (C54876729):** use it only if the 5.7 mm one fails that test. The CAD (V0.32, `header_h` = 8.5) seats the XIAO 2.4 mm higher, toward the pouch. Its envelope still clears the pouch envelope, the housing and the battery cap (no overlap), with 4.5 mm left between the XIAO's back and the pouch instead of 6.9 mm. The foam pad on the XIAO then takes 4 layers instead of 6. The assembly path checks were not run again for it.
 
 **Keep the headers straight: solder them with the XIAO plugged in.**
 1. Plug the XIAO's pins into both headers, so the XIAO holds them parallel at the right spacing.
@@ -374,7 +374,7 @@ Each of these is checked on the first build. Record the result here.
 - **KSC2 by hand.** Whether the KSC221JLFS J-leads can be soldered well with an iron. The pads show about 1 mm past the body. If not, a hot-air station or a hot plate is needed.
 - **USB4736 by hand.** The signal pads' 0.3 mm gaps, and the heat the shell tabs need.
 - **LED polarity mark.** The LTST-S270KRKT's cathode mark against the footprint: use the meter test above.
-- **Header choice.** Whether the XIAO's 6.1 mm pins seat and hold in the 5.7 mm header. If the 8.5 mm header is needed, the CAD stack has to be checked again.
+- **Header choice.** Whether the XIAO's 6.1 mm pins seat and hold in the 5.7 mm header. The 8.5 mm header clears in the CAD (checked 2026-10-20), but the assembly path checks were not run again for it.
 - **Cables.** That the AliExpress `same direction` cables are straight and latch in the "1.0 WT" sockets.
 - **Readings.** The expected voltages and resistances above come from the circuit and the datasheets, not from a board.
 - **No cell.** The charger's behaviour with USB plugged in and no cell (LED and D8 flicker); see the [control board README](../electronics/control-pcb/README.md#checks).
