@@ -8,19 +8,31 @@ Sourcing preference: parts that builders can buy from mainstream retailers (for 
 
 ## Estimated cost
 
-Rough figures for one remote and one base, in euros including VAT, before shipping unless a line says otherwise. They were checked on 2026-10-13 where a source is given; the rest are estimates that have not been checked against a shop. Many parts only come in packs or kits, so the first build costs much more than each one after it.
+Rough figures for the first remote and base, in euros including VAT. Lines marked checked include shipping and, where the shop charged it, customs duty; the rest are estimates that have not been checked against a shop. Many parts only come in packs, kits or minimum orders, so the first build costs much more than each one after it: see [Cost by number of remotes](#cost-by-number-of-remotes).
 
 | Section | Estimate | Basis |
 |---|---:|---|
 | [Bench prototype](#bench-prototype) | €22–29 | Checked on 2026-10-07; see the section. |
-| [Remote: electronics](#electronics) | €75–110 with bare boards soldered by hand; €110–170 assembled | JLCPCB quotes and JLCPCB library prices on 2026-10-15; parts shipping not checked. |
-| [Remote: hardware](#hardware) | €30–60, plus the vent label | Kit prices checked; single-size packs not checked. No retail price found for the vent label. |
+| [Remote: electronics](#electronics) | about €170 with bare boards soldered by hand; more assembled | Bare boards, LCSC parts, USB4736 kits and cables checked on 2026-10-19 and 2026-10-20, with shipping and import charges. The assembled quotes (2026-10-15) do not include import charges. |
+| [Remote: hardware](#hardware) | about €55, plus the vent label | Checked on 2026-10-20: AliExpress single-size packs for all the remote's and base's screws, nuts and pins (€35.47 with import charges, after a €27.90 promotion), and the foam sheet (€19.99). No retail price found for the vent label. |
 | [Remote: printed parts](#printed-parts) | €20–50 | Not checked: needs a quote from a print service with the exported files. |
-| [Base](#base-one-per-bike) | €25–60 | Not checked; much of the hardware comes from the kits bought for the remote. |
-| [Consumables](#consumables) | €30–45, plus €15–30 of soldering supplies for bare boards | Conformal coating checked; the rest not checked. |
-| **First remote and base, without the bench parts** | **about €195–385** | |
+| [Base](#base-one-per-bike) | €21–41 | The spring checked (€6.49); printed parts not checked. Its screws, nuts and pins are in the remote's hardware packs. |
+| [Consumables](#consumables) | about €31, plus €15–30 of soldering supplies for bare boards | Coating and epoxy checked on 2026-10-20; soldering supplies not checked. |
+| **First remote and base, without the bench parts** | **about €310–380** | |
 
 With assembled boards, the board order (mostly fixed fees, extended-part fees and shipping) is the largest item.
+
+### Cost by number of remotes
+
+About €255 of the first build is paid once, whatever the number of remotes: the board order (5 sets of bare boards), the LCSC minimum quantities, the customs duty and shipping on each order, the fastener packs and the consumables. Each further remote and base needs a XIAO (about €12), a LiPo (€5–10) and its printed parts (€35–85, not checked): about €52–107.
+
+| Remotes and bases | Total | Per remote |
+|---:|---:|---:|
+| 1 | about €310–380 | €310–380 |
+| 2 | about €370–490 | €185–245 |
+| 5 | about €540–830 | €110–165 |
+
+The 5-remote line adds an estimated €20 for the larger LCSC and USB4736 quantities (not checked); the fastener packs, the cables, the spring pack and the consumables cover five. The printed parts are the largest per-remote cost and the largest unknown. For one remote, a DIY build costs more than a commercial rally remote, about €150 (price not checked here). It is cheaper only when several remotes share one order, for example a group buy.
 
 ## Bench prototype
 
@@ -72,7 +84,7 @@ JLCPCB makes at least 5 of each board and assembles at least 2. Three ways to or
 
 Hand soldering needs a fine-tipped iron, no-clean flux, 0.5–0.8 mm flux-cored solder and desoldering braid (see [Consumables](#consumables)). The hard parts are the four 1.0 mm-pitch JST SH sockets, the side-looking LED and the USB4736; the 0603 parts and the SOT-23 packages need flux. Solder a spare board first; the joystick board, with four switches and one socket, is the easiest. Check BAT, 5V and 3V3 against GND with a meter before the first power-up.
 
-Estimated cost: about €75–110 with bare boards, €110–170 assembled.
+Estimated cost: about €170 for the first remote with bare boards, including shipping and import charges; most of it also covers a second remote. Assembled boards cost more.
 
 - XIAO with pins: €9.99 before VAT at Kiwi Electronics.
 - LiPo: €5–10.
@@ -95,10 +107,19 @@ Estimated cost: about €75–110 with bare boards, €110–170 assembled.
 | 1 | Adhesive ePTFE vent label, Ø7.6 mm (Takachi VE8 size), for a Ø3 mm hole | Retail | Inside the battery cap (V0.28). Check the hole size the chosen vent needs. |
 | 1 | Closed-cell foam sheet, EPDM or neoprene, self-adhesive, 1.5 mm thick, about 150 × 150 mm | Retail (sheet or wide roll) | Both seals and the three pads (V0.32), from one piece: the cover strip, cut 2 mm wide and about 25 cm long in all, on the housing rim (V0.30), and the battery cap gasket (V0.31), cut round a paper template printed at 100 % from `mechanical/cad/tools/cap-gasket-template.scad` (its 40 mm bar checks the scale). Soft grade; firm foam needs more screw force. The pads are layers of the same sheet: four on the battery cap, one on the rear wall, and six between the XIAO and the pouch, which hold the XIAO in its headers. |
 
-Estimated cost: about €30–60, plus the vent label.
+Estimated cost: about €55, plus the vent label.
 
-- M2 screws: an M2 stainless assortment with countersunk heads is about €36 at [ManoMano](https://www.manomano.es/p/kit-surtido-de-250-piezas-de-tornillos-pernos-y-llaves-de-vaso-hexagonales-de-cabeza-avellanada-planas-abombadas-y-cilindricas-de-acero-inoxidable-a2-con-tuercas-m2-x-468101216-mm-cabeza-p-94605084). The listing does not state ISO 10642. Packs of single sizes are likely cheaper; not checked.
-- Dowel pin, grub screw and foam sheet: €5–10, not checked.
+- Screws, nuts and pins for the remote and the base: €28.10 for 11 single-size packs of 10–100 on AliExpress, all stainless, prices on 2026-10-20 with free shipping. AliExpress adds the import charges at checkout: on 2026-10-20 it estimated €35.27 for the 11 packs, more than the packs themselves (11 × €3 is €33, so it appears to charge per listing, not per tariff class; not confirmed), and took off a €27.90 AliExpress promotion, for a total of €35.47. Without the promotion the order would cost about €63. The packs cover at least five remotes and bases. The listings, by item number on `aliexpress.com/item/<number>.html`:
+  - ISO 7380 M2 × 4 and M2 × 8, 50 each: 1005002136729466, €1.86 and €1.96.
+  - DIN 7991 M2 × 8 and M2 × 10, 50 each: 32968097507 (HZYUEGOU), €2.06 and €1.96. DIN 7991 is the older standard for the ISO 10642 head.
+  - DIN 913 M2 × 4 grub screw, 50: 33030596345 (HZYUEGOU), €2.42.
+  - DIN 562 M2 thin square nut, 20: 1005001612157787, €2.69.
+  - Dowel pins, Ø1.5 × 4 (100) and Ø3 × 12 (20): 1005012569139327 (HZYUEGOU), €2.69, and 1005007023343232, €2.47. They are GB 119, the Chinese standard for parallel pins, not ISO 8734; not checked against ISO 8734 tolerances.
+  - DIN 912 M4 × 16, 10, black-coated stainless: 1005001785489704 (HZYUEGOU), €2.95.
+  - DIN 912 M3 × 20, 50, A4 stainless: 1005012860629584, €4.69.
+  - DIN 934 M3 nut, 50, black-coated stainless: 1005001639359312 (HZYUEGOU), €2.35. Some listings say "thickened"; the knob's pocket is 2.6 mm deep for a 2.4 mm nut.
+- Kits are not worth it: three M2/M3/M4 assortments on Amazon.es came to about €68 on 2026-10-19 for some 2,400 pieces, and lacked the Ø1.5 × 4 pin and the square nut.
+- Foam sheet: closed-cell neoprene, self-adhesive, 1.5 mm, 300 mm × 3 m, €19.99 on [Amazon.es](https://www.amazon.es/dp/B0HB4P5PN2) on 2026-10-20. The listing says high density; whether it is soft enough is not checked.
 - Vent label: no single-unit retail price was found. Gore adhesive vents come in packs of 50 at about £213 before VAT ([RS UK](https://uk.rs-online.com/web/p/enclosure-ventilation/2842971)), which is too many for one build. Generic ePTFE vent stickers sold in small packs need checking for an IP67 rating before use. Takachi sells its VE8 (Ø7.6 mm) [online](https://takachi-enclosure.com/products/VE8); the price and pack size for one build are not checked.
 
 ### Printed parts
@@ -134,10 +155,11 @@ Estimated cost: about €20–50 from a print service, including shipping. **Not
 | 2 | Sleeve half, bars under 25.4 mm only | PETG, `print_sleeve`, with `bar_diameter` set to the bar measured with a caliper | Between the bar and the liner. Painted 7/8 in bars can measure 0.3 mm over 22.2 mm. |
 | 1 | Lock knob, Ø16 mm quarter turn | PETG, `print_lock_knob` | Top face on the bed. |
 
-Estimated cost: about €25–60. **Not checked.**
+Estimated cost: about €21–41.
 
-- Printed parts: €15–35 from a print service.
-- Hardware: €10–25. This includes a spring assortment, the M3 and M4 screws and the nuts.
+- Printed parts: €15–35 from a print service. **Not checked.**
+- Spring: 5 × 0.5 × 5 × 10 mm, 304 stainless, €6.49 on [Amazon.es](https://www.amazon.es/dp/B0C77XC4WS) on 2026-10-20. Spring assortments checked did not have this size, and a 6 mm outside diameter does not fit the Ø6.0 mm pocket.
+- Screws, nut and pins: in the remote's AliExpress packs (see [Hardware](#hardware)).
 
 ## Consumables
 
@@ -147,10 +169,10 @@ Estimated cost: about €25–60. **Not checked.**
 | Clear two-part epoxy | Potting the back of the charging USB-C receptacle, filling the charge LED window, fixing the lock knob's nut on its screw and gluing the anti-rattle strips. One clear epoxy does all four. |
 | No-clean flux (syringe), 0.5–0.8 mm flux-cored solder, 2 mm desoldering braid, isopropyl alcohol | Bare boards only: hand soldering, and cleaning the flux off before the conformal coating. |
 
-Estimated cost: about €30–45, plus €15–30 for the soldering supplies (not checked).
+Estimated cost: about €31, plus €15–30 for the soldering supplies (not checked). Both last for many builds.
 
-- Acrylic conformal coating, 200 ml aerosol: €21.11 with VAT at [RS Netherlands](https://nl.rs-online.com/web/p/conformal-coatings/0714462).
-- Clear two-part epoxy: about €5–10. **Not checked.**
+- Acrylic conformal coating: Kontakt Chemie Plastik 70, 400 ml aerosol, €22.27 on [Amazon.es](https://www.amazon.es/dp/B00VATOHMC) on 2026-10-20; or 200 ml, €21.11 with VAT at [RS Netherlands](https://nl.rs-online.com/web/p/conformal-coatings/0714462).
+- Clear two-part epoxy: fischer, 25 ml, €8.86 on [Amazon.es](https://www.amazon.es/dp/B07TS8NX5K) on 2026-10-20.
 
 ## Ordering notes
 
