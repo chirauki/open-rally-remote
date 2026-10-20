@@ -41,6 +41,9 @@ constexpr bool SERIAL_DEBUG = true;
 
 constexpr uint32_t DEBOUNCE_MS = 30;
 constexpr uint32_t LONG_PRESS_MS = 600;
+// TerraPirata's long presses reset a trip: longer, so a bump or a glove does
+// not reset one by accident.
+constexpr uint32_t RESET_LONG_PRESS_MS = 2000;
 constexpr uint32_t DOUBLE_PRESS_MS = 300;
 constexpr uint32_t TAP_HOLD_MS = 50;
 // Direction key-down is held back this long after the first direction closes,
@@ -75,11 +78,9 @@ const char *const CONTROL_NAMES[CONTROL_COUNT] = {
 };
 
 // A key is a keyboard key code, or a consumer-control usage (media keys)
-// marked with CONSUMER.
+// marked with CONSUMER. No profile sends media keys since 0.9.0: they reach
+// whichever app is in front.
 constexpr uint16_t CONSUMER = 0x8000;
-constexpr uint16_t VOL_UP = CONSUMER | HID_USAGE_CONSUMER_VOLUME_INCREMENT;
-constexpr uint16_t VOL_DOWN = CONSUMER | HID_USAGE_CONSUMER_VOLUME_DECREMENT;
-constexpr uint16_t PLAY_PAUSE = CONSUMER | HID_USAGE_CONSUMER_PLAY_PAUSE;
 
 // ---------- Profiles (see docs/control-mapping.md) ----------
 //
@@ -104,27 +105,30 @@ constexpr uint8_t LED_R = 1, LED_G = 2, LED_B = 4;
 const uint8_t LED_PINS[3] = { LED_RED, LED_GREEN, LED_BLUE };
 const uint8_t PROFILE_LEDS[PROFILE_COUNT] = { LED_G, LED_B, LED_R | LED_G | LED_B };
 
-// In the TerraPirata and keyboard profiles, Buttons A, B and C hold one key
-// each for as long as they are pressed, with no gestures: TerraPirata and
-// DMD2 time long presses and repeat themselves.
-// TerraPirata: A resets the total trip, B and C adjust it.
-// Keyboard: letters for apps that let the user assign keys (DMD2).
+// In the keyboard profile, Buttons A, B and C hold one key each for as long
+// as they are pressed, with no gestures: DMD2 times long presses and repeats
+// itself. Letters, for apps that let the user assign keys.
 // Space, Enter and Tab are avoided in every profile: Android uses them to
 // press the focused on-screen control.
-const uint16_t HOLD_KEYS[PROFILE_COUNT][3] = {
-  { PLAY_PAUSE, VOL_UP, VOL_DOWN },
-  { HID_KEY_A, HID_KEY_B, HID_KEY_C },
-  { HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE } // gestures: not held
-};
+const uint16_t HOLD_KEYS[3] = { HID_KEY_A, HID_KEY_B, HID_KEY_C };
 
-bool buttonsHold(Profile value) { return value != PROFILE_GESTURES; }
+bool buttonsHold(Profile value) { return value == PROFILE_KEYBOARD; }
 
-// Gestures profile: one letter per button gesture, for apps that assign one
-// action per key (OsmAnd). Rows: Button A, B, C. Columns: short, long, double.
-const uint16_t BUTTON_GESTURE_KEYS[3][3] = {
-  { HID_KEY_A, HID_KEY_B, HID_KEY_C },
-  { HID_KEY_D, HID_KEY_E, HID_KEY_F },
-  { HID_KEY_G, HID_KEY_H, HID_KEY_I }
+// Button gestures, one tap per gesture. Rows: Button A, B, C. Columns:
+// short, long, double.
+// TerraPirata (keys found with firmware/key-probe, 2026-10-20): A long `r`
+// opens the trip reset (confirm on screen), B long `z` resets the total
+// trip, C `x` locks or unlocks the screen. The trip is on the joystick.
+// Gestures: one letter per gesture, for apps that assign one action per key
+// (OsmAnd).
+const uint16_t BUTTON_GESTURE_KEYS[PROFILE_COUNT][3][3] = {
+  { { HID_KEY_NONE, HID_KEY_R, HID_KEY_NONE },
+    { HID_KEY_NONE, HID_KEY_Z, HID_KEY_NONE },
+    { HID_KEY_X, HID_KEY_NONE, HID_KEY_NONE } },
+  {}, // keyboard: held, see HOLD_KEYS
+  { { HID_KEY_A, HID_KEY_B, HID_KEY_C },
+    { HID_KEY_D, HID_KEY_E, HID_KEY_F },
+    { HID_KEY_G, HID_KEY_H, HID_KEY_I } }
 };
 
 // The joystick center has no long action: a long hold switches the profile.
@@ -169,7 +173,7 @@ constexpr uint8_t PIN_CHARGE_LED = D8; // charge LED on the V0.24/V0.25 USB-C PC
 constexpr uint8_t PIN_CHG_SENSE = D8;
 constexpr uint8_t PIN_VBUS_SENSE = D9;   // VBUS through a divider
 
-const char *const FIRMWARE_VERSION = "0.8.0";
+const char *const FIRMWARE_VERSION = "0.9.0";
 
 enum GestureType : uint8_t {
   GESTURE_SHORT = 0,
@@ -328,8 +332,7 @@ void buildCurrentReport(uint8_t keys[6]) {
   }
 
   for (uint8_t i = 0; i < 3; ++i) {
-    const uint16_t key = HOLD_KEYS[profile][i];
-    if (buttonHeld[i] && !(key & CONSUMER)) addKey(keys, (uint8_t)key);
+    if (buttonHeld[i]) addKey(keys, (uint8_t)HOLD_KEYS[i]);
   }
 
   if (tapIsActive && !(activeTapKey & CONSUMER)) {
@@ -375,16 +378,22 @@ void publishAllKeysReleased() {
   }
 }
 
-void emitGesture(uint8_t control, GestureType gesture) {
-  uint16_t keyCode;
+uint16_t gestureKey(uint8_t control, GestureType gesture) {
   if (control <= BUTTON_C) {
-    if (buttonsHold(profile)) return; // see holdButton
-    keyCode = BUTTON_GESTURE_KEYS[control][gesture];
-  } else if (control == JOYSTICK_CENTER) {
-    keyCode = CENTER_KEYS[profile][gesture];
-  } else {
-    return;
+    if (buttonsHold(profile)) return HID_KEY_NONE; // see holdButton
+    return BUTTON_GESTURE_KEYS[profile][control][gesture];
   }
+  if (control == JOYSTICK_CENTER) return CENTER_KEYS[profile][gesture];
+  return HID_KEY_NONE;
+}
+
+uint32_t longPressMs(uint8_t control) {
+  return profile == PROFILE_TERRAPIRATA && control <= BUTTON_C ? RESET_LONG_PRESS_MS
+                                                              : LONG_PRESS_MS;
+}
+
+void emitGesture(uint8_t control, GestureType gesture) {
+  const uint16_t keyCode = gestureKey(control, gesture);
   if (keyCode == HID_KEY_NONE) return;
   if (enqueueTap(keyCode)) {
     if (SERIAL_DEBUG) {
@@ -431,6 +440,12 @@ void finishGesture(uint8_t control, uint32_t now) {
     return;
   }
 
+  // No double press to wait for: send the short press now.
+  if (gestureKey(control, GESTURE_DOUBLE) == HID_KEY_NONE) {
+    emitGesture(control, GESTURE_SHORT);
+    return;
+  }
+
   state.hasPendingShort = true;
   state.pendingShortAt = now;
 }
@@ -467,19 +482,11 @@ void handleStableTransition(uint8_t control, bool pressed, uint32_t now) {
   printControlEvent(control, pressed ? "direction closed" : "direction opened");
 }
 
-// Hold mode: the key goes down and up with the button. The consumer report
-// holds one usage, so a second media key replaces the first.
+// Hold mode: the key goes down and up with the button.
 void holdButton(uint8_t control, bool pressed) {
   printControlEvent(control, pressed ? "held" : "let go");
   buttonHeld[control] = pressed && Bluefruit.connected();
-  const uint16_t key = HOLD_KEYS[profile][control];
-  if (key & CONSUMER) {
-    if (!Bluefruit.connected()) return;
-    if (pressed) bleHid.consumerKeyPress(key & ~CONSUMER);
-    else bleHid.consumerKeyRelease();
-  } else {
-    publishReport();
-  }
+  publishReport();
 }
 
 void pressChordCenter(uint32_t now) {
@@ -592,7 +599,7 @@ void processGestureTimers(uint32_t now) {
     GestureState &state = gestures[i];
 
     if (state.isDown && !state.longSent &&
-        (uint32_t)(now - state.pressedAt) >= LONG_PRESS_MS) {
+        (uint32_t)(now - state.pressedAt) >= longPressMs(i)) {
       state.longSent = true;
       state.secondPressCandidate = false;
       state.hasPendingShort = false;

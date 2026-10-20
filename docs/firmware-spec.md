@@ -1,5 +1,7 @@
 # Firmware Specification — First BLE HID Prototype
 
+> Spanish version: [firmware-spec.es.md](firmware-spec.es.md).
+
 **Status:** proposed implementation contract for the bench prototype. BLE pairing, key delivery, gesture timings, and every app profile remain unvalidated until tested with the purchased XIAO and real phones.
 
 ## 1. Purpose and scope
@@ -52,7 +54,7 @@ Seeed's [XIAO nRF52840 guide](https://wiki.seeedstudio.com/XIAO_BLE/) documents 
 - Use the standard keyboard report protocol with key-down and key-up reports. Do not send text strings or app-specific proprietary packets.
 - Start with one bonded phone at a time. Reconnect to the last bonded host after power-up. Provide a documented way to clear the bond during development; choose the physical reset gesture after the first bench test.
 - Use a stable, recognizable device name such as `Open Rally Remote` and a distinct manufacturer/product string if the selected library supports it.
-- The current Seeed/Bluefruit `BLEHidAdafruit` convenience class uses a stock HID descriptor that includes keyboard, Consumer Control, and mouse collections. The sketch sends keyboard reports, and Consumer Control reports for the media keys of the TerraPirata profile; it does not send mouse or gamepad data. If the extra advertised collections affect phone pairing or app compatibility, replace this helper with a keyboard-only HID descriptor before treating the transport as validated. Do not add a custom GATT service to the first build.
+- The current Seeed/Bluefruit `BLEHidAdafruit` convenience class uses a stock HID descriptor that includes keyboard, Consumer Control, and mouse collections. The sketch sends keyboard reports only; since firmware 0.9.0 no profile sends Consumer Control (media) reports, and it does not send mouse or gamepad data. If the extra advertised collections affect phone pairing or app compatibility, replace this helper with a keyboard-only HID descriptor before treating the transport as validated. Do not add a custom GATT service to the first build.
 
 HOGP is the Bluetooth SIG profile for exposing HID input over BLE/GATT. Android documents BLE central/GATT support, and OsmAnd documents keyboard input on Android and iOS. Those facts make this a sensible first path, but they do not guarantee every key or gesture works identically on every phone. See [Bluetooth SIG HOGP](https://www.bluetooth.com/specifications/specs/hid-over-gatt-profile-hogp/), [Android BLE overview](https://developer.android.com/develop/connectivity/bluetooth/ble/ble-overview), and [OsmAnd external input devices](https://www.osmand.net/docs/user/map/interact-with-map/).
 
@@ -100,10 +102,10 @@ These values are initial tunable settings, not final ergonomic decisions:
 |---|---:|---|
 | Scan interval | 5–10 ms | Sample all inputs from one non-blocking loop or equivalent task. |
 | Debounce | 30 ms | Accept a new stable state only after it remains unchanged for this interval. |
-| Long-press threshold | 600 ms | Emit one long-press action when the control remains pressed for this duration. |
+| Long-press threshold | 600 ms; 2 s for the TerraPirata buttons | Emit one long-press action when the control remains pressed for this duration. TerraPirata's long presses reset a counter, so they take longer. |
 | Double-press window | 300 ms | Two short presses of the same control inside the window produce one double-press action. |
 
-In the TerraPirata and keyboard profiles, Buttons A, B and C do not use gestures: each holds one key for as long as it is pressed (section 7). TerraPirata and DMD2 time short and long presses themselves, and a firmware gesture sent as a separate key was not usable in either. The gestures profile, for OsmAnd, and the derived center input use this state machine:
+In the keyboard profile, Buttons A, B and C do not use gestures: each holds one key for as long as it is pressed (section 7). DMD2 times short and long presses itself, and a firmware gesture sent as a separate key was not usable. The TerraPirata and gestures profiles, and the derived center input, use this state machine:
 
 1. On a debounced press, record the start time; do not emit a key yet when short/double discrimination is active.
 2. If the control is still down at the long-press threshold, emit its long action once. Suppress short and double actions for that press.
@@ -111,7 +113,7 @@ In the TerraPirata and keyboard profiles, Buttons A, B and C do not use gestures
 4. If the window expires without a second press, emit one short action.
 5. A second press of a different control does not cancel the first control's pending short action.
 
-This means a short action can be delayed by up to the double-press window. Profiles that do not use double press may disable double recognition for the affected control and emit short actions on release. Record any profile-specific exception in the mapping table.
+This means a short action can be delayed by up to the double-press window. A control with no double action in the selected profile emits its short action on release (TerraPirata's Button C). Record any profile-specific exception in the mapping table.
 
 Center chord: treat the center as pressed when at least three direction inputs are closed, and released when none is. When a direction first closes, hold its key-down for a chord window (initially 40 ms, tunable). If three or more directions close inside the window, report the center press instead and send no direction keys until all four are released. Otherwise send the held directions as usual. Two opposite directions closed together can only come from a push, so they also suppress direction keys. The window delays direction key-down by up to its length; measure whether that is noticeable on hardware.
 
@@ -125,15 +127,15 @@ Do not block the input scan while waiting for a gesture timeout. Keep a separate
 - Send a release report after each discrete press. Send an all-keys-released report after disconnect, profile change, reset, or any input-state recovery event.
 - For held joystick directions, track each held direction and send the current set of keys, not unrelated successive key presses.
 - Use a standard keyboard report with at least six-key rollover. The controls should not normally require more than four simultaneous direction keys, but verify combinations and gracefully handle the report limit.
-- Do not emit a key repeatedly while a physical button remains held. A held key is one key-down report; the host may repeat it, and TerraPirata uses that to adjust the trip faster.
+- Do not emit a key repeatedly while a physical button or direction remains held. A held key is one key-down report; the host may repeat it, and TerraPirata uses that to adjust the trip faster with the joystick.
 - Ignore input events while BLE is disconnected, then resume cleanly after reconnect. Do not queue old actions for later delivery.
 - Avoid unnecessary flash writes. Store profile/configuration only when it changes.
 
 ## 7. Profiles and mappings
 
-Bench tests on 2026-10-14 with Android showed that one key map cannot serve every app:
+Bench tests on 2026-10-14 and 2026-10-20 with Android showed that one key map cannot serve every app:
 
-- TerraPirata reacts to arrow keys and to media keys (Consumer Control): Play/Pause resets the total trip, Volume +/− adjust the trip. It ignored Page Up/Down. Space opened its "Delete map data" dialog.
+- TerraPirata reacts to arrow keys, to media keys (Consumer Control) and to some letters and function keys: `x` locks the screen, `r` opens the trip reset, `z` and Play/Pause reset the total, F6/F7 scroll the roadbook, Volume +/− adjust the trip (see the [control mapping](control-mapping.md#keys-terrapirata-reacts-to)). It ignored Page Up/Down. Space opened its "Delete map data" dialog.
 - OsmAnd accepts only keyboard keys for its key assignments, not media keys.
 - DMD2 times long presses itself: it needs the key held, not a separate key for the long press.
 
@@ -141,17 +143,19 @@ The firmware therefore has three profiles. The joystick directions send held arr
 
 | Profile | LED | Buttons A, B, C | Joystick center |
 |---|---|---|---|
-| TerraPirata | Green | Held: Play/Pause (reset total trip), Volume + (trip +), Volume − (trip −) | Nothing |
+| TerraPirata | Green | A long (2 s): `r` (trip reset, confirmed on the screen); B long (2 s): `z` (reset the total); C short: `x` (screen lock); short and double presses of A and B send nothing | Nothing |
 | Keyboard, for DMD2 | Blue | Held: `A`, `B`, `C`; the app times short and long | `D` on a short or double press |
 | Gestures, for OsmAnd | White | Short/long/double: `A`/`B`/`C`, `D`/`E`/`F`, `G`/`H`/`I` | Short `J`, double `L` |
 
 Holding the joystick center for 5 s selects the next profile (green, blue, white, then green again), stores it in flash and restarts the board. The center has no long action in any profile, because a long hold switches the profile. The XIAO's LED blinks 100 ms every 10 s in the profile's color. The BLE name does not change: Android keeps the name it saw when pairing, so a per-profile name was not visible.
 
-Avoid Space, Enter and Tab in any profile: Android uses them to press the focused on-screen control. Media keys reach every app, so in the TerraPirata profile the buttons change the phone's volume or playback when another app is in front.
+In the TerraPirata profile the joystick adjusts the trip (left/right) and scrolls the roadbook (up/down) with held arrows.
+
+Avoid Space, Enter and Tab in any profile: Android uses them to press the focused on-screen control. Avoid media keys too: they reach whichever app is in front and change the phone's volume or playback. Firmware 0.8.0 used them in the TerraPirata profile; 0.9.0 does not.
 
 ### Mapping limits to preserve
 
-- **TerraPirata:** the keys for the partial trip reset, the screen lock and hiding the hundreds digits are unknown. They did not respond to any key tested; holding Play/Pause only makes the total trip blink. TerraPirata's dedicated remote mode, offered by several commercial remotes, is not documented publicly.
+- **TerraPirata:** the trip reset opens a dialog that is accepted on the screen; no key that accepts it has been found. The key for hiding the hundreds digits is unknown. TerraPirata's dedicated remote mode is not documented publicly; the keys used here work without changing a setting.
 - **OsmAnd:** it assigns one action per key, so the gestures profile sends a separate letter for each gesture. The short press is delayed by the 300 ms double-press window. With held keys, Android repeats the key and a toggle action may repeat; use the gestures profile instead.
 - **DMD² / DMD Next:** short and long actions per key are set in DMD's Generic Remote mapping; with held keys, DMD² recognized the long press on the bench. Do not promise native double-tap behavior. DMD² is Android-only according to its current FAQ.
 - **iOS** is deferred. It may need different keys: iOS handles the volume keys itself, which is likely why TerraPirata asks iPhone users for a dedicated remote mode or its compatibility mode.
@@ -176,11 +180,11 @@ The profile switch was agreed for the bench prototype. A 5 s hold is hard to tri
 | HID release | Every discrete key has a matching release; disconnect cannot leave a key stuck | Pending | Pending |
 | Directions | Held arrows pan as expected; release stops movement; opposing directions cancel | Pending | Pending |
 | Gestures | Short, long, and double are distinct at the chosen thresholds; no dropped/doubled action | Pending | Pending |
-| TerraPirata | Required remote/compatibility mode accepts each mapped action | Pending | Pending |
+| TerraPirata | Each mapped action works | Pass, firmware 0.9.0 (2026-10-20) | Pending |
 | OsmAnd | A/D, B/+, C/−, arrows, and center/C perform the intended actions | Pending | Pending |
 | DMD² | A follow, B zoom in, C zoom out, and joystick pan work through Generic Remote mapping | Pending | N/A |
 | Center chord | A straight push gives one center event and no direction keys; tilts and diagonals give no center event | Pending | Pending |
-| Power off | A + B + C held 3 s sleeps after release, with no gesture events; any button then wakes it | Bench pass on USB, 2026-10-14; the first button's key is sent in the held-key profiles | Pending |
+| Power off | A + B + C held 3 s sleeps after release, with no gesture events; any button then wakes it | Bench pass on USB, 2026-10-14; the first button's key is sent in the keyboard profile (held keys) | Pending |
 | Auto-off | Sleeps after 6 h without input and without a charger (test with a shortened timeout) | Bench pass on USB with a 60 s timeout, 2026-10-14 | Pending |
 | Charge LED | Charger in: wakes from System OFF and the LED lights; LED goes out when charging ends and when the charger is removed | Pending | Pending |
 

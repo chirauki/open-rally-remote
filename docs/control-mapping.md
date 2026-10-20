@@ -1,5 +1,7 @@
 # Control Mapping — Draft
 
+> Spanish version: [control-mapping.es.md](control-mapping.es.md).
+
 **Status:** proposed input model; app bindings and hardware behavior still require bench validation.
 
 This document separates the physical gestures from each app's actions. The firmware should let builders select a profile and change key bindings; the table below is a starting point, not a claim that every app accepts every gesture.
@@ -22,20 +24,37 @@ Joystick directions are separate directional events, not button gestures. A joys
 
 ### TerraPirata Rally Roadbooks
 
-Tested on Android on 2026-10-14 (see the [firmware README](../firmware/xiao-nrf52840/README.md#app-profiles)). The firmware's TerraPirata profile sends:
+Tested on Android on 2026-10-20 with firmware 0.9.0 (see the [firmware README](../firmware/xiao-nrf52840/README.md#app-profiles)). TerraPirata shows two counters: the trip, which the remote adjusts, and the total. The firmware's TerraPirata profile sends:
 
 | Input | Key sent | TerraPirata action | Status |
 |---|---|---|---|
-| Joystick up/down | Up/Down Arrow, held | Scroll the roadbook | Works |
-| Joystick left/right | Left/Right Arrow, held | Trip − / + ; faster when held | Works |
-| Button A | Play/Pause, held | Reset the total trip | Works |
-| Button B | Volume +, held | Trip + ; faster when held | Works |
-| Button C | Volume −, held | Trip − ; faster when held | Works |
+| Joystick up/down | Up/Down Arrow, held | Scroll the roadbook up/down | Works |
+| Joystick left/right | Left/Right Arrow, held | Trip − / + (10 m a step); faster when held | Works |
+| Button C, short | `x` tap | Lock or unlock the screen | Works |
+| Button A, long (2 s) | `r` tap | Opens the "reset odometer" dialog; accepting it on the screen sets the trip to zero | Works |
+| Button B, long (2 s) | `z` tap | Reset the total | Works |
+| Buttons A and B, short or double | Nothing | — | By design, so a stray press resets nothing |
 | Joystick center | Nothing | — | Held 5 s, it switches the profile |
 
-Not found: the keys for the partial trip reset, the screen lock and hiding the hundreds digits. Holding Play/Pause only makes the total trip blink. TerraPirata's dedicated remote mode is not documented publicly; its key map would have to come from the author or from a remote that has the mode.
+The long presses take 2 s (`RESET_LONG_PRESS_MS`), not the 600 ms of the other profiles, because both reset a counter. Firmware 0.8.0 sent media keys instead (Play/Pause on A, Volume +/− on B and C); they reach whichever app is in front, so 0.9.0 sends none.
 
-The volume and Play/Pause keys are media keys: they also change the phone's volume or playback when another app is in front. TerraPirata recommends its dedicated remote mode, and on iOS requires that mode or the app's compatibility mode. iOS is deferred.
+#### Keys TerraPirata reacts to
+
+Found on 2026-10-20 with the [key probe](../firmware/key-probe/README.md), which sends one key at a time, and checked against its serial log. The candidates are the keys a commercial rally remote sends. Its firmware ("offroad Zone V1.4", ESP32) was read for its key codes only: each of its buttons sends a fixed key, often a media key and a keyboard key together.
+
+| Key | TerraPirata action |
+|---|---|
+| `x` | Lock or unlock the screen |
+| `r` | Opens the "reset odometer" dialog; accepting it sets the trip to zero |
+| `z` | Reset the total |
+| Play/Pause (media) | Reset the total |
+| F6 | Scroll the roadbook down |
+| F7 | Scroll the roadbook up |
+| Volume + / − (media) | Trip + / − |
+| Right / Left Arrow | Trip + / − (Left does nothing while the trip is at zero) |
+| `c`, `k` | Nothing |
+
+Not found yet: a key that accepts the "reset odometer" dialog (Enter and Space were not tried: Android uses them to press the focused control), and hiding the hundreds digits. Not checked: whether these keys depend on a TerraPirata setting, and iOS. TerraPirata recommends its dedicated remote mode, and on iOS requires that mode or the app's compatibility mode; iOS is deferred.
 
 ### OsmAnd (Android and iOS)
 
@@ -89,8 +108,8 @@ Record the phone/tablet model, OS version, app version, selected app profile, ke
 | Test | Android | iOS |
 |---|---|---|
 | BLE pairing and automatic reconnect | Pass, including after a profile switch | Pending |
-| TerraPirata dedicated mode / compatibility mode | Not tested: keys of the dedicated mode unknown | Pending |
-| TerraPirata odometer +/−, third-button reset, screen lock | Trip +/−, total trip reset and roadbook scroll pass; partial reset and screen lock not found | Pending |
+| TerraPirata dedicated mode / compatibility mode | Not tested; the keys above work without changing a setting | Pending |
+| TerraPirata trip +/−, trip and total reset, screen lock, roadbook scroll | Pass with firmware 0.9.0 (2026-10-20); the trip reset needs a tap on the screen to confirm | Pending |
 | OsmAnd arrows, `C`, `D`, `N`, `S`, `M`, `+`, `-` | Media keys rejected; gestures-profile letters assigned and working | Pending |
 | OsmAnd user-assigned keys and Quick Actions | Pending | Pending |
 | DMD² Generic Remote mapping and long press | Pass with held keys (keyboard profile); a separate long-press key fails | Not applicable: DMD² navigation is Android-only |

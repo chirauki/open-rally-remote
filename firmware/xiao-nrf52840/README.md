@@ -1,5 +1,7 @@
 # XIAO nRF52840 Bench Firmware
 
+> Spanish version: [README.es.md](README.es.md).
+
 This folder contains the bench firmware for the Seeed XIAO nRF52840. It reads the switches and acts as a BLE HID keyboard, with a TerraPirata profile, a keyboard profile with held keys for DMD2, and a gestures profile for OsmAnd. It is for bench testing only and is not suitable for use while riding.
 
 ## Upload
@@ -12,18 +14,18 @@ The sketch uses the `Seeed nRF52 Boards` package and its bundled Adafruit Bluefr
 
 Wire each normally-open switch between its GPIO and GND:
 
-| XIAO pin | Input | TerraPirata profile | Keyboard profile | Gestures profile (short/long/double) |
+| XIAO pin | Input | TerraPirata profile (short / long, 2 s) | Keyboard profile | Gestures profile (short/long/double) |
 |---|---|---|---|---|
-| D0 | Button A | Hold Play/Pause | Hold `A` | `A` / `B` / `C` |
-| D1 | Button B | Hold Volume + | Hold `B` | `D` / `E` / `F` |
-| D2 | Button C | Hold Volume − | Hold `C` | `G` / `H` / `I` |
+| D0 | Button A | — / `r` (trip reset dialog) | Hold `A` | `A` / `B` / `C` |
+| D1 | Button B | — / `z` (reset the total) | Hold `B` | `D` / `E` / `F` |
+| D2 | Button C | `x` (lock or unlock the screen) / — | Hold `C` | `G` / `H` / `I` |
 | D3 | Joystick up | Hold Up Arrow | Hold Up Arrow | Hold Up Arrow |
 | D4 | Joystick down | Hold Down Arrow | Hold Down Arrow | Hold Down Arrow |
 | D5 | Joystick left | Hold Left Arrow | Hold Left Arrow | Hold Left Arrow |
 | D6 | Joystick right | Hold Right Arrow | Hold Right Arrow | Hold Right Arrow |
 | D7 | Joystick center switch, breadboard only | Nothing | `D` on a short or double press | `J` short, `L` double |
 
-A held key goes down when the switch closes and up when it opens; the app times short and long presses itself. In the gestures profile, the firmware sends a 50 ms tap of a separate key for each gesture. Holding the joystick center for 5 s switches the profile; see [Profiles](#profiles).
+In the keyboard profile and on the joystick, a held key goes down when the switch closes and up when it opens; the app times short and long presses itself. In the TerraPirata and gestures profiles, the firmware sends a 50 ms tap of a separate key for each button gesture. In the TerraPirata profile a long press takes 2 s (`RESET_LONG_PRESS_MS`), because both long presses reset a counter, and C's tap goes out as soon as the button is released: it has no double press to wait for. Holding the joystick center for 5 s switches the profile; see [Profiles](#profiles).
 
 The V0.22/V0.23 hardware has no D7 switch: pushing the stick straight in closes all four direction switches, and the sketch reads three or more closed together as the center press (see the [firmware specification](../../docs/firmware-spec.md#5-input-processing-and-gesture-rules)). This is the default, `CENTER_FROM_CHORD = true`, and D7 is then not read. For the breadboard, where a straight push cannot be made, set `CENTER_FROM_CHORD` to `false` near the top of the sketch to read a separate center switch on D7.
 
@@ -42,7 +44,7 @@ All connected pins use `INPUT_PULLUP`: open/released reads HIGH, pressed reads L
 3. Switch to the gestures profile (white LED), open a keyboard tester or a harmless text field, then press each control. Letters identify the gestures; joystick directions send held arrow-key reports.
 4. On the joystick, confirm that a straight push gives one center `J` and no arrow key, and that tilts and diagonals give no center press.
 
-Short presses are delayed by the 300 ms double-press window. Initial timings are set near 30 ms debounce, 600 ms long press, 300 ms double press, 40 ms chord window and 50 ms key-down duration for taps. With the chord window, an arrow key-down follows the switch by about 70 ms.
+In the gestures profile, short presses are delayed by the 300 ms double-press window. Initial timings are set near 30 ms debounce, 600 ms long press, 300 ms double press, 40 ms chord window and 50 ms key-down duration for taps. With the chord window, an arrow key-down follows the switch by about 70 ms.
 
 Do not test this firmware in an app while riding. BLE updates work on the bench; see [BLE OTA update](#ble-ota-update).
 
@@ -82,7 +84,7 @@ These follow the [battery study](../../docs/battery-study.md#firmware). The cons
 - **Battery level:** read every 60 s from P0.31 (AIN7) with P0.14 low, averaged over 8 samples. The divider is 1 MΩ over 510 kΩ (`VBAT_DIVIDER`, from Seeed's schematic); calibrate the reading with a multimeter. The level goes to the phone over the BLE Battery Service, added after the HID service so the existing attribute handles do not move. Below 3.5 V the profile blink turns red; below 3.3 V without USB, the board goes to System OFF.
 - **P0.14:** kept low from the first line of `setup()`. The Seeed core drives it high at start, and Seeed warns that P0.31 can then reach its 3.6 V limit while charging.
 - **Charging:** about 50 mA by default; `HIGH_CHARGE_CURRENT` selects about 100 mA. D8 drives the charge LED while USB is present and `CHG` (P0.17) is low.
-- **Power off:** hold A, B and C together for 3 s. The LED turns steady red; the board sleeps when all three are released. While two or more are held, the buttons send nothing, but the first button's key is already sent in the TerraPirata and keyboard profiles. Start with B and C: in the TerraPirata profile, A first resets the total trip.
+- **Power off:** hold A, B and C together for 3 s. The LED turns steady red; the board sleeps when all three are released. While two or more are held, the buttons send nothing, but in the keyboard profile the first button's key is already sent. In the TerraPirata profile nothing is sent: A and B act only after 2 s, and C on release.
 - **Auto-off:** after 6 h without input (`AUTO_OFF_MS`).
 - **Wake:** any released switch, through GPIO sense, or a charger connection. The wake press is not sent.
 - **USB:** while USB power is present, the board does not sleep (power off, auto-off or low battery). For bench tests, `SLEEP_ON_USB = true` lets it sleep on USB.
@@ -115,7 +117,7 @@ The board's bootloader reports itself as "XIAO nRF52840 Sense" (USB PID 0x0045),
 
 ### App profiles
 
-Run on 2026-10-14 with an Android phone. The firmware first sent a different candidate key for each gesture, then held keys on the buttons:
+The TerraPirata profile changed in firmware 0.9.0; see [Firmware 0.9.0](#firmware-090). Run on 2026-10-14 with an Android phone. The firmware first sent a different candidate key for each gesture, then held keys on the buttons:
 
 | Key | TerraPirata |
 |---|---|
@@ -143,6 +145,18 @@ Without a cell, the battery reading floats (3.7 to 4.1 V were logged) and means 
 ### Firmware 0.8.0
 
 Run on 2026-10-14 on the breadboard build (`BOARD_V026 = false`): the firmware still worked in the two profiles tried. Which inputs were pressed was not recorded, and the third profile was not tried.
+
+### Firmware 0.9.0
+
+Run on 2026-10-20 on the breadboard build (`BOARD_V026 = false`), in the TerraPirata profile, with an Android phone. The serial log showed each gesture and its key:
+
+- Joystick left and right lowered and raised the trip; up and down scrolled the roadbook.
+- C sent `x` and locked, then unlocked, the screen.
+- A held 2 s sent `r` and opened the "reset odometer" dialog; accepting it on the screen set the trip to zero.
+- B held 2 s sent `z` and reset the total.
+- Short and double presses of A and B sent nothing.
+
+The keys came from the [key probe](../key-probe/README.md); see the [control mapping](../../docs/control-mapping.md#terrapirata-rally-roadbooks). Both builds (`BOARD_V026` false and true) compiled with no warnings from the sketch.
 
 ### BLE name
 
