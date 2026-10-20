@@ -58,22 +58,25 @@ Not found yet: a key that accepts the "reset odometer" dialog (Enter and Space w
 
 ### OsmAnd (Android and iOS)
 
-OsmAnd supports external keyboard/controller inputs and lets users assign keys to actions. A proposed starting map uses documented keyboard actions:
+Tested on Android on 2026-10-20 with firmware 0.10.0. The firmware's gestures profile sends the keys of OsmAnd's built-in "Keyboard" device type ([OsmAnd: external input devices](https://www.osmand.net/docs/user/map/interact-with-map/)), plus `x` for the screen lock:
 
-| Input | Proposed HID key | Proposed OsmAnd action |
-|---|---|---|
-| Joystick up/down/left/right | Arrow keys | Pan map up/down/left/right |
-| Joystick center — short | `C` | Move to current position / center map |
-| Button A — short | `D` | Change map orientation |
-| Button B — short | `+` | Zoom in |
-| Button C — short | `-` | Zoom out |
-| Button A — long | `N` | Show/hide navigation view |
-| Button B — long | `S` | Show/hide search view |
-| Button C — long | `M` | Show/hide side menu |
-| Double presses | User-configurable keys/actions | Assign in OsmAnd's external-device settings only if the app recognizes the emitted key event as expected. |
-| Joystick center — long/double | User-configurable keys/actions | Validate on current Android and iOS releases. |
+| Input | Key sent | OsmAnd action | Status |
+|---|---|---|---|
+| Joystick up/down/left/right | Arrow keys, held | Pan the map | Works |
+| Joystick center, short | `C`, on release | Move to my position | Works |
+| Button A, short / long / double | `D` / `N` / `P` | Change map orientation / show or hide navigation / next app profile | Short and long work; double sent, its action not checked |
+| Button B, short / long | `-` on release / `S` | Zoom out / show or hide search | Short works; long sent, its action not checked |
+| Button C, short / long | `=` on release / `x` | Zoom in / touch screen lock | Works; `x` needs a custom device type, below |
+| Joystick center, long | — | — | Held 5 s, it switches the remote's profile |
 
-OsmAnd does not accept media keys in its key assignment (tested 2026-10-14). It uses the firmware's gestures profile: each button sends a separate letter for short, long and double (`A`–`I`), the center sends `J` (short) and `L` (double), and the joystick sends arrows. Assign the actions in OsmAnd to those letters. The center has no long action, because a long hold switches the profile. This is a candidate map based on OsmAnd's published keyboard assignments. Confirm the actual received key events and configurable actions on both operating systems before calling it a supported preset.
+B and C have no double press, so their zoom goes out on release, with no 300 ms wait; repeated taps zoom step by step. `=` is used for zoom in because `+` needs Shift.
+
+Two ways to set OsmAnd up, in each app profile used on the bike (the settings are per app profile; there is no "apply to all", only copying or exporting a whole profile):
+
+- **Built-in "Keyboard" type:** no assignment needed, but its actions cannot be changed, so `x` does nothing: everything works except the screen lock.
+- **Custom type:** a new type starts empty. Assign each key above to its action, and `x` to the "Touch screen lock" quick action (Interface). Everything works.
+
+Android: *Menu → Configure profile → General settings → Other → External input devices*. iOS: *Menu → Settings → App profiles → General settings → External input devices*. OsmAnd does not accept media keys in its key assignment (tested 2026-10-14). iOS is not tested.
 
 ### DMD² / DMD Next (Android only)
 
@@ -110,8 +113,8 @@ Record the phone/tablet model, OS version, app version, selected app profile, ke
 | BLE pairing and automatic reconnect | Pass, including after a profile switch | Pending |
 | TerraPirata dedicated mode / compatibility mode | Not tested; the keys above work without changing a setting | Pending |
 | TerraPirata trip +/−, trip and total reset, screen lock, roadbook scroll | Pass with firmware 0.9.0 (2026-10-20); the trip reset needs a tap on the screen to confirm | Pending |
-| OsmAnd arrows, `C`, `D`, `N`, `S`, `M`, `+`, `-` | Media keys rejected; gestures-profile letters assigned and working | Pending |
-| OsmAnd user-assigned keys and Quick Actions | Pending | Pending |
+| OsmAnd arrows, `C`, `D`, `N`, `=`, `-`, `x` (gestures profile) | Pass with firmware 0.10.0 (2026-10-20), with a custom device type for `x`; `P` and `S` sent, actions not checked | Pending |
+| OsmAnd user-assigned keys and Quick Actions | `x` assigned to "Touch screen lock" in a custom type: pass | Pending |
 | DMD² Generic Remote mapping and long press | Pass with held keys (keyboard profile); a separate long-press key fails | Not applicable: DMD² navigation is Android-only |
 | Short/long/double event distinction and repeat behavior | Pending | Pending |
 | Joystick center-switch variant and no-center variant | Pending | Pending |

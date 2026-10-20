@@ -119,16 +119,19 @@ bool buttonsHold(Profile value) { return value == PROFILE_KEYBOARD; }
 // TerraPirata (keys found with firmware/key-probe, 2026-10-20): A long `r`
 // opens the trip reset (confirm on screen), B long `z` resets the total
 // trip, C `x` locks or unlocks the screen. The trip is on the joystick.
-// Gestures: one letter per gesture, for apps that assign one action per key
-// (OsmAnd).
+// Gestures, for OsmAnd: its default "Keyboard" keys. A: D map orientation, N
+// navigation view, P next app profile. B: - zoom out, S search. C: = zoom
+// in, x screen lock (the one key to assign in OsmAnd, to "Touch screen
+// lock"; the same key as in TerraPirata). B and C have no double press, so
+// their zoom goes out on release.
 const uint16_t BUTTON_GESTURE_KEYS[PROFILE_COUNT][3][3] = {
   { { HID_KEY_NONE, HID_KEY_R, HID_KEY_NONE },
     { HID_KEY_NONE, HID_KEY_Z, HID_KEY_NONE },
     { HID_KEY_X, HID_KEY_NONE, HID_KEY_NONE } },
   {}, // keyboard: held, see HOLD_KEYS
-  { { HID_KEY_A, HID_KEY_B, HID_KEY_C },
-    { HID_KEY_D, HID_KEY_E, HID_KEY_F },
-    { HID_KEY_G, HID_KEY_H, HID_KEY_I } }
+  { { HID_KEY_D, HID_KEY_N, HID_KEY_P },
+    { HID_KEY_MINUS, HID_KEY_S, HID_KEY_NONE },
+    { HID_KEY_EQUAL, HID_KEY_X, HID_KEY_NONE } }
 };
 
 // The joystick center has no long action: a long hold switches the profile.
@@ -136,7 +139,7 @@ const uint16_t BUTTON_GESTURE_KEYS[PROFILE_COUNT][3][3] = {
 const uint16_t CENTER_KEYS[PROFILE_COUNT][3] = {
   { HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE },
   { HID_KEY_D, HID_KEY_NONE, HID_KEY_D },
-  { HID_KEY_J, HID_KEY_NONE, HID_KEY_L }
+  { HID_KEY_C, HID_KEY_NONE, HID_KEY_NONE } // OsmAnd: move to my position
 };
 
 constexpr uint32_t PROFILE_SWITCH_MS = 5000;
@@ -173,7 +176,7 @@ constexpr uint8_t PIN_CHARGE_LED = D8; // charge LED on the V0.24/V0.25 USB-C PC
 constexpr uint8_t PIN_CHG_SENSE = D8;
 constexpr uint8_t PIN_VBUS_SENSE = D9;   // VBUS through a divider
 
-const char *const FIRMWARE_VERSION = "0.9.0";
+const char *const FIRMWARE_VERSION = "0.10.0";
 
 enum GestureType : uint8_t {
   GESTURE_SHORT = 0,
@@ -932,8 +935,8 @@ void setup() {
       Serial.println("Keyboard: A, B, C = Buttons A, B, C while held;");
       Serial.println("D = joystick center tap, arrows = joystick.");
     } else {
-      Serial.println("Gestures: short/long/double A-C = Button A, D-F = Button B,");
-      Serial.println("G-I = Button C; center short J, double L; arrows = joystick.");
+      Serial.println("Gestures (OsmAnd): A = D / N long / P double, B = - / S long,");
+      Serial.println("C = = / x long (lock); center = C; arrows = joystick.");
     }
     Serial.println("Hold the joystick center 5 s to switch profile.");
     Serial.println(CENTER_FROM_CHORD ? "Center: chord of three or more directions."

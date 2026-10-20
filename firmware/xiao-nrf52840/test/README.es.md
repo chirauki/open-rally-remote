@@ -15,7 +15,7 @@ make -C firmware/xiao-nrf52840/test TEST=terrapirata   # las pruebas cuyo nombre
 
 - **Perfil TerraPirata:** C envía `x` al soltarlo, sin esperar una doble pulsación; A y B mantenidos 2 s envían `r` y `z`; sus pulsaciones cortas y dobles, y las mantenidas menos de 2 s, no envían nada; el joystick mantiene las flechas; el centro no envía nada; ninguna tecla de medios.
 - **Perfil de teclado:** los botones mantienen `A`, `B`, `C`; el centro envía `D` en pulsación corta o doble.
-- **Perfil de gestos:** las pulsaciones corta, larga y doble de un botón envían tres letras, la corta tras la ventana de doble pulsación de 300 ms; el centro envía `J` y `L`.
+- **Perfil de gestos (OsmAnd):** las pulsaciones corta, larga y doble de A envían `D`, `N`, `P`, la corta tras la ventana de doble pulsación de 300 ms; B y C envían `-` y `=` al soltarlas, y `S` y `x` mantenidas; el centro envía `C` al soltarlo.
 - **Joystick:** las direcciones opuestas no envían nada; el acorde central no envía flechas; una inclinación soltada dentro de la ventana de acorde es un toque de flecha.
 - **Perfiles, alimentación y conexión:** mantener el centro 5 s guarda el siguiente perfil y reinicia; un perfil guardado desconocido arranca en TerraPirata; el apagado con A + B + C no envía ninguna tecla en TerraPirata; no se envía nada mientras está desconectado; un control mantenido al reconectar se ignora hasta soltarlo; el mensaje de arranque describe el mapa actual de TerraPirata.
 
@@ -23,4 +23,4 @@ No cubren: la lectura de la batería y la carga, el LED, el BLE OTA, ni nada que
 
 ## Comprobaciones
 
-El 20-10-2026 pasaron las 20 pruebas en las dos placas, sin avisos del compilador. La primera ejecución encontró un mensaje de arranque desfasado, que todavía describía las teclas de TerraPirata de la 0.8.0; se corrigió. Se introdujeron a mano tres fallos en una copia del sketch y las pruebas detectaron los tres: una pulsación de reset de 600 ms (fallaron 2 pruebas), una acción doble en C (falló 1) y teclas mantenidas en el perfil TerraPirata (fallaron 5).
+El 20-10-2026 pasaron las 20 pruebas (22 desde el perfil de gestos de la 0.10.0) en las dos placas, sin avisos del compilador. La primera ejecución encontró un mensaje de arranque desfasado, que todavía describía las teclas de TerraPirata de la 0.8.0; se corrigió. Se introdujeron a mano tres fallos en una copia del sketch y las pruebas detectaron los tres: una pulsación de reset de 600 ms (fallaron 2 pruebas), una acción doble en C (falló 1) y teclas mantenidas en el perfil TerraPirata (fallaron 5).

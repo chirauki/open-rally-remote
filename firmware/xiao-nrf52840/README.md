@@ -14,18 +14,18 @@ The sketch uses the `Seeed nRF52 Boards` package and its bundled Adafruit Bluefr
 
 Wire each normally-open switch between its GPIO and GND:
 
-| XIAO pin | Input | TerraPirata profile (short / long, 2 s) | Keyboard profile | Gestures profile (short/long/double) |
+| XIAO pin | Input | TerraPirata profile (short / long, 2 s) | Keyboard profile | Gestures profile, for OsmAnd (short / long / double) |
 |---|---|---|---|---|
-| D0 | Button A | — / `r` (trip reset dialog) | Hold `A` | `A` / `B` / `C` |
-| D1 | Button B | — / `z` (reset the total) | Hold `B` | `D` / `E` / `F` |
-| D2 | Button C | `x` (lock or unlock the screen) / — | Hold `C` | `G` / `H` / `I` |
+| D0 | Button A | — / `r` (trip reset dialog) | Hold `A` | `D` orientation / `N` navigation / `P` next app profile |
+| D1 | Button B | — / `z` (reset the total) | Hold `B` | `-` zoom out / `S` search / — |
+| D2 | Button C | `x` (lock or unlock the screen) / — | Hold `C` | `=` zoom in / `x` screen lock / — |
 | D3 | Joystick up | Hold Up Arrow | Hold Up Arrow | Hold Up Arrow |
 | D4 | Joystick down | Hold Down Arrow | Hold Down Arrow | Hold Down Arrow |
 | D5 | Joystick left | Hold Left Arrow | Hold Left Arrow | Hold Left Arrow |
 | D6 | Joystick right | Hold Right Arrow | Hold Right Arrow | Hold Right Arrow |
-| D7 | Joystick center switch, breadboard only | Nothing | `D` on a short or double press | `J` short, `L` double |
+| D7 | Joystick center switch, breadboard only | Nothing | `D` on a short or double press | `C` my position |
 
-In the keyboard profile and on the joystick, a held key goes down when the switch closes and up when it opens; the app times short and long presses itself. In the TerraPirata and gestures profiles, the firmware sends a 50 ms tap of a separate key for each button gesture. In the TerraPirata profile a long press takes 2 s (`RESET_LONG_PRESS_MS`), because both long presses reset a counter, and C's tap goes out as soon as the button is released: it has no double press to wait for. Holding the joystick center for 5 s switches the profile; see [Profiles](#profiles).
+In the keyboard profile and on the joystick, a held key goes down when the switch closes and up when it opens; the app times short and long presses itself. In the TerraPirata and gestures profiles, the firmware sends a 50 ms tap of a separate key for each button gesture. In the TerraPirata profile a long press takes 2 s (`RESET_LONG_PRESS_MS`), because both long presses reset a counter. A control with no double press sends its short tap as soon as it is released (TerraPirata's C; the gestures profile's B, C and center); the others wait out the 300 ms double-press window. The gestures profile sends the keys of OsmAnd's built-in "Keyboard" device type, plus `x`, which needs a custom type in OsmAnd; see the [control mapping](../../docs/control-mapping.md#osmand-android-and-ios). Holding the joystick center for 5 s switches the profile; see [Profiles](#profiles).
 
 The V0.22/V0.23 hardware has no D7 switch: pushing the stick straight in closes all four direction switches, and the sketch reads three or more closed together as the center press (see the [firmware specification](../../docs/firmware-spec.md#5-input-processing-and-gesture-rules)). This is the default, `CENTER_FROM_CHORD = true`, and D7 is then not read. For the breadboard, where a straight push cannot be made, set `CENTER_FROM_CHORD` to `false` near the top of the sketch to read a separate center switch on D7.
 
@@ -41,10 +41,10 @@ All connected pins use `INPUT_PULLUP`: open/released reads HIGH, pressed reads L
 
 1. Upload the sketch and open the Serial Monitor at 115200 baud.
 2. Pair **Open Rally Remote** from the phone's Bluetooth settings.
-3. Switch to the gestures profile (white LED), open a keyboard tester or a harmless text field, then press each control. Letters identify the gestures; joystick directions send held arrow-key reports.
-4. On the joystick, confirm that a straight push gives one center `J` and no arrow key, and that tilts and diagonals give no center press.
+3. Switch to the gestures profile (white LED), open a keyboard tester or a harmless text field, then press each control. The keys identify the gestures; joystick directions send held arrow-key reports.
+4. On the joystick, confirm that a straight push gives one center `C` and no arrow key, and that tilts and diagonals give no center press.
 
-In the gestures profile, short presses are delayed by the 300 ms double-press window. Initial timings are set near 30 ms debounce, 600 ms long press, 300 ms double press, 40 ms chord window and 50 ms key-down duration for taps. With the chord window, an arrow key-down follows the switch by about 70 ms.
+Short presses of controls with a double press are delayed by the 300 ms double-press window. Initial timings are set near 30 ms debounce, 600 ms long press, 300 ms double press, 40 ms chord window and 50 ms key-down duration for taps. With the chord window, an arrow key-down follows the switch by about 70 ms.
 
 Do not test this firmware in an app while riding. BLE updates work on the bench; see [BLE OTA update](#ble-ota-update).
 
@@ -157,6 +157,10 @@ Run on 2026-10-20 on the breadboard build (`BOARD_V026 = false`), in the TerraPi
 - Short and double presses of A and B sent nothing.
 
 The keys came from the [key probe](../key-probe/README.md); see the [control mapping](../../docs/control-mapping.md#terrapirata-rally-roadbooks). Both builds (`BOARD_V026` false and true) compiled with no warnings from the sketch.
+
+### Firmware 0.10.0
+
+Run on 2026-10-20 on the breadboard build, in the gestures profile, with OsmAnd on an Android phone and a custom external device type with the keys assigned. The serial log showed each key: B and C zoomed out and in, C held locked and unlocked the screen (`x` assigned to "Touch screen lock"), the center moved the map to the position, A short and long changed the orientation and showed the navigation, and the joystick panned the map. A double (`P`) and B long (`S`) were sent in an earlier run; their actions were not checked.
 
 ### BLE name
 

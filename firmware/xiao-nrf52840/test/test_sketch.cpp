@@ -231,40 +231,58 @@ TEST(keyboard_center_short_and_double_send_d) {
 
 // ---------- Gestures profile ----------
 
-TEST(gestures_button_short_long_double) {
+TEST(gestures_a_short_long_double_send_osmand_keys) {
   start(PROFILE_GESTURES);
   tap(BUTTON_A, 100);
   run(200);
   EXPECT(keyDowns().empty());  // waiting out the double-press window
   run(300);
-  EXPECT(onlyKey(keyDowns(), HID_KEY_A));
+  EXPECT(onlyKey(keyDowns(), HID_KEY_D));  // map orientation
   host.events.clear();
   tap(BUTTON_A, 800);
   run(500);
-  EXPECT(onlyKey(keyDowns(), HID_KEY_B));
+  EXPECT(onlyKey(keyDowns(), HID_KEY_N));  // navigation view
   host.events.clear();
   tap(BUTTON_A, 100);
   run(100);
   tap(BUTTON_A, 100);
   run(500);
-  EXPECT(onlyKey(keyDowns(), HID_KEY_C));
+  EXPECT(onlyKey(keyDowns(), HID_KEY_P));  // next app profile
+}
+
+TEST(gestures_b_zooms_out_and_c_zooms_in_on_release) {
+  start(PROFILE_GESTURES);
+  tap(BUTTON_B, 100);
+  run(50);
+  EXPECT(onlyKey(keyDowns(), HID_KEY_MINUS));  // no double-press wait
+  host.events.clear();
+  tap(BUTTON_C, 100);
+  run(50);
+  EXPECT(onlyKey(keyDowns(), HID_KEY_EQUAL));
+  host.events.clear();
+  tap(BUTTON_B, 100);
+  run(100);
+  tap(BUTTON_B, 100);
+  run(100);
+  EXPECT(keyDowns().size() == 2 && keyDowns()[1].key == HID_KEY_MINUS);  // two zoom steps
+}
+
+TEST(gestures_b_long_searches_and_c_long_locks) {
+  start(PROFILE_GESTURES);
+  tap(BUTTON_B, 800);
+  run(500);
+  EXPECT(onlyKey(keyDowns(), HID_KEY_S));
   host.events.clear();
   tap(BUTTON_C, 800);
   run(500);
-  EXPECT(onlyKey(keyDowns(), HID_KEY_H));
+  EXPECT(onlyKey(keyDowns(), HID_KEY_X));  // assigned to "Touch screen lock" in OsmAnd
 }
 
-TEST(gestures_center_short_j_double_l) {
+TEST(gestures_center_sends_c_on_release) {
   start(PROFILE_GESTURES);
   pushCenter(100);
-  run(500);
-  EXPECT(onlyKey(keyDowns(), HID_KEY_J));
-  host.events.clear();
-  pushCenter(100);
-  run(100);
-  pushCenter(100);
-  run(500);
-  EXPECT(onlyKey(keyDowns(), HID_KEY_L));
+  run(50);
+  EXPECT(onlyKey(keyDowns(), HID_KEY_C));  // my position, no double-press wait
 }
 
 // ---------- Joystick, every profile ----------

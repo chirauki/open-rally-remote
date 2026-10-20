@@ -145,7 +145,7 @@ The firmware therefore has three profiles. The joystick directions send held arr
 |---|---|---|---|
 | TerraPirata | Green | A long (2 s): `r` (trip reset, confirmed on the screen); B long (2 s): `z` (reset the total); C short: `x` (screen lock); short and double presses of A and B send nothing | Nothing |
 | Keyboard, for DMD2 | Blue | Held: `A`, `B`, `C`; the app times short and long | `D` on a short or double press |
-| Gestures, for OsmAnd | White | Short/long/double: `A`/`B`/`C`, `D`/`E`/`F`, `G`/`H`/`I` | Short `J`, double `L` |
+| Gestures, for OsmAnd | White | A: `D` / `N` long / `P` double; B: `-` / `S` long; C: `=` / `x` long (screen lock); OsmAnd's "Keyboard" keys | Short `C`, on release |
 
 Holding the joystick center for 5 s selects the next profile (green, blue, white, then green again), stores it in flash and restarts the board. The center has no long action in any profile, because a long hold switches the profile. The XIAO's LED blinks 100 ms every 10 s in the profile's color. The BLE name does not change: Android keeps the name it saw when pairing, so a per-profile name was not visible.
 
@@ -156,7 +156,7 @@ Avoid Space, Enter and Tab in any profile: Android uses them to press the focuse
 ### Mapping limits to preserve
 
 - **TerraPirata:** the trip reset opens a dialog that is accepted on the screen; no key that accepts it has been found. The key for hiding the hundreds digits is unknown. TerraPirata's dedicated remote mode is not documented publicly; the keys used here work without changing a setting.
-- **OsmAnd:** it assigns one action per key, so the gestures profile sends a separate letter for each gesture. The short press is delayed by the 300 ms double-press window. With held keys, Android repeats the key and a toggle action may repeat; use the gestures profile instead.
+- **OsmAnd:** it assigns one action per key, so the gestures profile sends a separate key for each gesture: the keys of its built-in "Keyboard" type, which needs no assignment but cannot be changed, plus `x` for the screen lock, which needs a custom type. A's short press is delayed by the 300 ms double-press window; B, C and the center have no double press and send on release. With held keys, Android repeats the key and a toggle action may repeat; use the gestures profile instead.
 - **DMD² / DMD Next:** short and long actions per key are set in DMD's Generic Remote mapping; with held keys, DMD² recognized the long press on the bench. Do not promise native double-tap behavior. DMD² is Android-only according to its current FAQ.
 - **iOS** is deferred. It may need different keys: iOS handles the volume keys itself, which is likely why TerraPirata asks iPhone users for a dedicated remote mode or its compatibility mode.
 
@@ -181,7 +181,7 @@ The profile switch was agreed for the bench prototype. A 5 s hold is hard to tri
 | Directions | Held arrows pan as expected; release stops movement; opposing directions cancel | Pending | Pending |
 | Gestures | Short, long, and double are distinct at the chosen thresholds; no dropped/doubled action | Pending | Pending |
 | TerraPirata | Each mapped action works | Pass, firmware 0.9.0 (2026-10-20) | Pending |
-| OsmAnd | A/D, B/+, C/−, arrows, and center/C perform the intended actions | Pending | Pending |
+| OsmAnd | Each mapped action works | Pass, firmware 0.10.0 (2026-10-20), except `P` and `S` not checked | Pending |
 | DMD² | A follow, B zoom in, C zoom out, and joystick pan work through Generic Remote mapping | Pending | N/A |
 | Center chord | A straight push gives one center event and no direction keys; tilts and diagonals give no center event | Pending | Pending |
 | Power off | A + B + C held 3 s sleeps after release, with no gesture events; any button then wakes it | Bench pass on USB, 2026-10-14; the first button's key is sent in the keyboard profile (held keys) | Pending |

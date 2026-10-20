@@ -15,7 +15,7 @@ make -C firmware/xiao-nrf52840/test TEST=terrapirata   # tests whose name has "t
 
 - **TerraPirata profile:** C sends `x` on release, with no double-press wait; A and B held 2 s send `r` and `z`; their short and double presses, and holds under 2 s, send nothing; the joystick holds arrows; the center sends nothing; no media keys.
 - **Keyboard profile:** buttons hold `A`, `B`, `C`; the center sends `D` on a short or double press.
-- **Gestures profile:** a button's short, long and double presses send three letters, the short one after the 300 ms double-press window; the center sends `J` and `L`.
+- **Gestures profile (OsmAnd):** A's short, long and double presses send `D`, `N`, `P`, the short one after the 300 ms double-press window; B and C send `-` and `=` on release, `S` and `x` when held; the center sends `C` on release.
 - **Joystick:** opposite directions send nothing; the center chord sends no arrows; a tilt released inside the chord window is one arrow tap.
 - **Profiles, power and connection:** holding the center 5 s stores the next profile and restarts; an unknown stored profile starts TerraPirata; the A + B + C power off sends no key in TerraPirata; nothing is sent while disconnected; a control held at reconnect is ignored until released; the startup log describes the current TerraPirata map.
 
@@ -23,4 +23,4 @@ Not covered: the battery reading and charging, the LED, BLE OTA, and anything th
 
 ## Checks
 
-On 2026-10-20 all 20 tests passed on both boards, with no compiler warnings. The first run found a stale startup message, which still described the 0.8.0 TerraPirata keys; it was fixed. Three bugs injected by hand into a copy of the sketch were each caught: a 600 ms reset hold (2 tests failed), a double action on C (1 failed), and held keys in the TerraPirata profile (5 failed).
+On 2026-10-20 all 20 tests passed (22 since the 0.10.0 gestures profile) on both boards, with no compiler warnings. The first run found a stale startup message, which still described the 0.8.0 TerraPirata keys; it was fixed. Three bugs injected by hand into a copy of the sketch were each caught: a 600 ms reset hold (2 tests failed), a double action on C (1 failed), and held keys in the TerraPirata profile (5 failed).

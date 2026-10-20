@@ -145,7 +145,7 @@ Por eso el firmware tiene tres perfiles. En todos ellos, las direcciones del joy
 |---|---|---|---|
 | TerraPirata | Verde | A larga (2 s): `r` (reset del trip, se confirma en la pantalla); B larga (2 s): `z` (reset del total); C corta: `x` (bloqueo de pantalla); las pulsaciones cortas y dobles de A y B no envían nada | Nada |
 | Teclado, para DMD2 | Azul | Mantenidas: `A`, `B`, `C`; la app mide corta y larga | `D` en pulsación corta o doble |
-| Gestos, para OsmAnd | Blanco | Corta/larga/doble: `A`/`B`/`C`, `D`/`E`/`F`, `G`/`H`/`I` | Corta `J`, doble `L` |
+| Gestos, para OsmAnd | Blanco | A: `D` / `N` larga / `P` doble; B: `-` / `S` larga; C: `=` / `x` larga (bloqueo de pantalla); las teclas del tipo "Keyboard" de OsmAnd | Corta `C`, al soltar |
 
 Mantener el centro del joystick 5 s selecciona el siguiente perfil (verde, azul, blanco y otra vez verde), lo guarda en la flash y reinicia la placa. El centro no tiene acción larga en ningún perfil, porque mantenerlo cambia de perfil. El LED de la XIAO parpadea 100 ms cada 10 s con el color del perfil. El nombre BLE no cambia: Android conserva el nombre que vio al emparejar, así que un nombre por perfil no se veía.
 
@@ -156,7 +156,7 @@ Evita Espacio, Enter y Tab en todos los perfiles: Android las usa para pulsar el
 ### Límites de las asignaciones que hay que respetar
 
 - **TerraPirata:** el reset del trip abre un diálogo que se acepta en la pantalla; no se ha encontrado ninguna tecla que lo acepte. La tecla para ocultar las centenas es desconocida. El modo de mando dedicado de TerraPirata no está documentado públicamente; las teclas usadas aquí funcionan sin cambiar ningún ajuste.
-- **OsmAnd:** asigna una acción por tecla, así que el perfil de gestos envía una letra distinta para cada gesto. La pulsación corta se retrasa por la ventana de doble pulsación de 300 ms. Con teclas mantenidas, Android repite la tecla y una acción de activar/desactivar puede repetirse; usa en su lugar el perfil de gestos.
+- **OsmAnd:** asigna una acción por tecla, así que el perfil de gestos envía una tecla distinta para cada gesto: las de su tipo "Keyboard" integrado, que no necesita asignaciones pero no se puede cambiar, más `x` para el bloqueo de pantalla, que necesita un tipo propio. La pulsación corta de A se retrasa por la ventana de doble pulsación de 300 ms; B, C y el centro no tienen doble pulsación y envían al soltar. Con teclas mantenidas, Android repite la tecla y una acción de activar/desactivar puede repetirse; usa en su lugar el perfil de gestos.
 - **DMD² / DMD Next:** las acciones corta y larga de cada tecla se configuran en el mapa "Generic Remote" de DMD; con teclas mantenidas, DMD² reconoció la pulsación larga en el banco. No prometas el comportamiento nativo de doble toque. Según su FAQ actual, DMD² es solo para Android.
 - **iOS** queda para más adelante. Puede necesitar otras teclas: iOS gestiona él mismo las teclas de volumen, y seguramente por eso TerraPirata pide a los usuarios de iPhone un modo de mando dedicado o su modo de compatibilidad.
 
@@ -181,7 +181,7 @@ El cambio de perfil se acordó para el prototipo de banco. Mantener 5 s es difí
 | Direcciones | Las flechas mantenidas desplazan como se espera; al soltar se para; las direcciones opuestas se anulan | Pendiente | Pendiente |
 | Gestos | Corta, larga y doble se distinguen con los umbrales elegidos; ninguna acción se pierde ni se duplica | Pendiente | Pendiente |
 | TerraPirata | Cada acción asignada funciona | Pasa, firmware 0.9.0 (20-10-2026) | Pendiente |
-| OsmAnd | A/D, B/+, C/−, flechas y centro/C hacen las acciones previstas | Pendiente | Pendiente |
+| OsmAnd | Cada acción asignada funciona | Pasa, firmware 0.10.0 (20-10-2026), salvo `P` y `S`, no comprobadas | Pendiente |
 | DMD² | A seguimiento, B acercar, C alejar y el desplazamiento con el joystick funcionan con el mapa "Generic Remote" | Pendiente | No aplica |
 | Acorde central | Un empuje recto da un evento central y ninguna tecla de dirección; las inclinaciones y diagonales no dan evento central | Pendiente | Pendiente |
 | Apagado | A + B + C mantenidos 3 s duermen la placa al soltar, sin eventos de gesto; después cualquier botón la despierta | Pasa en banco con USB, 14-10-2026; la tecla del primer botón sale en el perfil de teclado (teclas mantenidas) | Pendiente |

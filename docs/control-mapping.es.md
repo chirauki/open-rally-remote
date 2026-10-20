@@ -58,22 +58,25 @@ Aún no se ha encontrado: una tecla que acepte el diálogo "reiniciar odómetro"
 
 ### OsmAnd (Android e iOS)
 
-OsmAnd admite teclados y mandos externos y permite asignar teclas a acciones. Un mapa inicial propuesto usa acciones de teclado documentadas:
+Probado en Android el 20-10-2026 con el firmware 0.10.0. El perfil de gestos del firmware envía las teclas del tipo de dispositivo "Keyboard" que trae OsmAnd ([OsmAnd: dispositivos de entrada externos](https://www.osmand.net/docs/user/map/interact-with-map/)), más `x` para el bloqueo de pantalla:
 
-| Entrada | Tecla HID propuesta | Acción de OsmAnd propuesta |
-|---|---|---|
-| Joystick arriba/abajo/izquierda/derecha | Flechas | Mover el mapa arriba/abajo/izquierda/derecha |
-| Centro del joystick — corta | `C` | Ir a la posición actual / centrar el mapa |
-| Botón A — corta | `D` | Cambiar la orientación del mapa |
-| Botón B — corta | `+` | Acercar |
-| Botón C — corta | `-` | Alejar |
-| Botón A — larga | `N` | Mostrar/ocultar la vista de navegación |
-| Botón B — larga | `S` | Mostrar/ocultar la búsqueda |
-| Botón C — larga | `M` | Mostrar/ocultar el menú lateral |
-| Pulsaciones dobles | Teclas/acciones configurables | Asignarlas en los ajustes de dispositivos externos de OsmAnd solo si la app reconoce la tecla enviada como se espera. |
-| Centro del joystick — larga/doble | Teclas/acciones configurables | Validar en las versiones actuales de Android e iOS. |
+| Entrada | Tecla enviada | Acción en OsmAnd | Estado |
+|---|---|---|---|
+| Joystick arriba/abajo/izquierda/derecha | Flechas, mantenidas | Mover el mapa | Funciona |
+| Centro del joystick, corta | `C`, al soltar | Ir a mi posición | Funciona |
+| Botón A, corta / larga / doble | `D` / `N` / `P` | Cambiar la orientación del mapa / mostrar u ocultar la navegación / perfil de app siguiente | Corta y larga funcionan; la doble se envía, su acción no se ha comprobado |
+| Botón B, corta / larga | `-` al soltar / `S` | Alejar / mostrar u ocultar la búsqueda | La corta funciona; la larga se envía, su acción no se ha comprobado |
+| Botón C, corta / larga | `=` al soltar / `x` | Acercar / bloqueo de la pantalla táctil | Funciona; `x` necesita un tipo de dispositivo propio, abajo |
+| Centro del joystick, larga | — | — | Mantenido 5 s, cambia el perfil del mando |
 
-OsmAnd no acepta teclas de medios en su asignación de teclas (probado el 14-10-2026). Usa el perfil de gestos del firmware: cada botón envía una letra distinta para corta, larga y doble (`A`–`I`), el centro envía `J` (corta) y `L` (doble), y el joystick envía flechas. Asigna en OsmAnd las acciones a esas letras. El centro no tiene acción larga, porque mantenerlo cambia de perfil. Es un mapa candidato basado en las asignaciones de teclado publicadas por OsmAnd. Confirma las teclas que llegan y las acciones configurables en los dos sistemas operativos antes de considerarlo un perfil soportado.
+B y C no tienen doble pulsación, así que su zoom sale al soltar, sin la espera de 300 ms; varios toques seguidos hacen zoom paso a paso. Se usa `=` para acercar porque `+` necesita Mayúsculas.
+
+Hay dos formas de configurar OsmAnd, en cada perfil de app que uses en moto (los ajustes van por perfil de app; no hay "aplicar a todos", solo copiar o exportar un perfil entero):
+
+- **Tipo "Keyboard" integrado:** no hay que asignar nada, pero sus acciones no se pueden cambiar, así que `x` no hace nada: funciona todo menos el bloqueo de pantalla.
+- **Tipo propio (Custom):** un tipo nuevo empieza vacío. Asigna cada tecla de arriba a su acción, y `x` a la acción rápida "Touch screen lock" (Interface). Funciona todo.
+
+Android: *Menu → Configure profile → General settings → Other → External input devices*. iOS: *Menu → Settings → App profiles → General settings → External input devices*. OsmAnd no acepta teclas de medios en su asignación de teclas (probado el 14-10-2026). iOS no se ha probado.
 
 ### DMD² / DMD Next (solo Android)
 
@@ -110,8 +113,8 @@ Anota el modelo de teléfono o tablet, la versión del sistema, la versión de l
 | Emparejamiento BLE y reconexión automática | Pasa, también tras cambiar de perfil | Pendiente |
 | Modo dedicado / modo de compatibilidad de TerraPirata | No probado; las teclas de arriba funcionan sin cambiar ningún ajuste | Pendiente |
 | TerraPirata: trip +/−, reset del trip y del total, bloqueo de pantalla, desplazamiento del roadbook | Pasa con el firmware 0.9.0 (20-10-2026); el reset del trip hay que confirmarlo tocando la pantalla | Pendiente |
-| OsmAnd: flechas, `C`, `D`, `N`, `S`, `M`, `+`, `-` | Teclas de medios rechazadas; letras del perfil de gestos asignadas y funcionando | Pendiente |
-| OsmAnd: teclas asignadas por el usuario y Acciones rápidas | Pendiente | Pendiente |
+| OsmAnd: flechas, `C`, `D`, `N`, `=`, `-`, `x` (perfil de gestos) | Pasa con el firmware 0.10.0 (20-10-2026), con un tipo de dispositivo propio para `x`; `P` y `S` se envían, sus acciones no se han comprobado | Pendiente |
+| OsmAnd: teclas asignadas por el usuario y Acciones rápidas | `x` asignada a "Touch screen lock" en un tipo propio: pasa | Pendiente |
 | DMD²: mapa "Generic Remote" y pulsación larga | Pasa con teclas mantenidas (perfil de teclado); una tecla aparte para la pulsación larga falla | No aplica: la navegación de DMD² es solo para Android |
 | Distinción entre corta, larga y doble, y comportamiento al mantener | Pendiente | Pendiente |
 | Variante de joystick con interruptor central y sin él | Pendiente | Pendiente |

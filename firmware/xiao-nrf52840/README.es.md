@@ -14,18 +14,18 @@ El sketch usa el paquete `Seeed nRF52 Boards` y la librería Adafruit Bluefruit 
 
 Conecta cada interruptor normalmente abierto entre su GPIO y GND:
 
-| Pin de la XIAO | Entrada | Perfil TerraPirata (corta / larga, 2 s) | Perfil de teclado | Perfil de gestos (corta/larga/doble) |
+| Pin de la XIAO | Entrada | Perfil TerraPirata (corta / larga, 2 s) | Perfil de teclado | Perfil de gestos, para OsmAnd (corta / larga / doble) |
 |---|---|---|---|---|
-| D0 | Botón A | — / `r` (diálogo de reset del trip) | Mantiene `A` | `A` / `B` / `C` |
-| D1 | Botón B | — / `z` (reset del total) | Mantiene `B` | `D` / `E` / `F` |
-| D2 | Botón C | `x` (bloquea o desbloquea la pantalla) / — | Mantiene `C` | `G` / `H` / `I` |
+| D0 | Botón A | — / `r` (diálogo de reset del trip) | Mantiene `A` | `D` orientación / `N` navegación / `P` perfil de app siguiente |
+| D1 | Botón B | — / `z` (reset del total) | Mantiene `B` | `-` alejar / `S` búsqueda / — |
+| D2 | Botón C | `x` (bloquea o desbloquea la pantalla) / — | Mantiene `C` | `=` acercar / `x` bloqueo de pantalla / — |
 | D3 | Joystick arriba | Mantiene flecha arriba | Mantiene flecha arriba | Mantiene flecha arriba |
 | D4 | Joystick abajo | Mantiene flecha abajo | Mantiene flecha abajo | Mantiene flecha abajo |
 | D5 | Joystick izquierda | Mantiene flecha izquierda | Mantiene flecha izquierda | Mantiene flecha izquierda |
 | D6 | Joystick derecha | Mantiene flecha derecha | Mantiene flecha derecha | Mantiene flecha derecha |
-| D7 | Interruptor central del joystick, solo en la protoboard | Nada | `D` en pulsación corta o doble | `J` corta, `L` doble |
+| D7 | Interruptor central del joystick, solo en la protoboard | Nada | `D` en pulsación corta o doble | `C` mi posición |
 
-En el perfil de teclado y en el joystick, una tecla mantenida se pulsa cuando se cierra el interruptor y se suelta cuando se abre; la app mide ella misma las pulsaciones cortas y largas. En los perfiles TerraPirata y de gestos, el firmware envía un toque de 50 ms de una tecla distinta para cada gesto de botón. En el perfil TerraPirata una pulsación larga dura 2 s (`RESET_LONG_PRESS_MS`), porque las dos pulsaciones largas ponen un contador a cero, y el toque de C sale en cuanto se suelta el botón: no tiene doble pulsación que esperar. Mantener el centro del joystick 5 s cambia de perfil; mira [Perfiles](#perfiles).
+En el perfil de teclado y en el joystick, una tecla mantenida se pulsa cuando se cierra el interruptor y se suelta cuando se abre; la app mide ella misma las pulsaciones cortas y largas. En los perfiles TerraPirata y de gestos, el firmware envía un toque de 50 ms de una tecla distinta para cada gesto de botón. En el perfil TerraPirata una pulsación larga dura 2 s (`RESET_LONG_PRESS_MS`), porque las dos pulsaciones largas ponen un contador a cero. Un control sin doble pulsación envía su toque corto en cuanto se suelta (la C de TerraPirata; B, C y el centro en el perfil de gestos); los demás esperan la ventana de doble pulsación de 300 ms. El perfil de gestos envía las teclas del tipo de dispositivo "Keyboard" que trae OsmAnd, más `x`, que en OsmAnd necesita un tipo propio; mira el [mapa de controles](../../docs/control-mapping.es.md#osmand-android-e-ios). Mantener el centro del joystick 5 s cambia de perfil; mira [Perfiles](#perfiles).
 
 El hardware V0.22/V0.23 no tiene interruptor en D7: al empujar la palanca hacia dentro se cierran los cuatro interruptores de dirección, y el sketch interpreta tres o más cerrados a la vez como pulsación central (mira la [especificación del firmware](../../docs/firmware-spec.md#5-input-processing-and-gesture-rules)). Es el valor por defecto, `CENTER_FROM_CHORD = true`, y entonces D7 no se lee. En la protoboard, donde no se puede hacer un empuje recto, pon `CENTER_FROM_CHORD` a `false` cerca del principio del sketch para leer un interruptor central aparte en D7.
 
@@ -41,10 +41,10 @@ Todos los pines conectados usan `INPUT_PULLUP`: abierto o suelto se lee HIGH, pu
 
 1. Carga el sketch y abre el Monitor Serie a 115200 baudios.
 2. Empareja **Open Rally Remote** desde los ajustes de Bluetooth del teléfono.
-3. Cambia al perfil de gestos (LED blanco), abre un comprobador de teclado o un campo de texto inofensivo y pulsa cada control. Las letras identifican los gestos; las direcciones del joystick envían flechas mantenidas.
-4. En el joystick, comprueba que un empuje recto da una sola `J` central y ninguna flecha, y que las inclinaciones y diagonales no dan pulsación central.
+3. Cambia al perfil de gestos (LED blanco), abre un comprobador de teclado o un campo de texto inofensivo y pulsa cada control. Las teclas identifican los gestos; las direcciones del joystick envían flechas mantenidas.
+4. En el joystick, comprueba que un empuje recto da una sola `C` central y ninguna flecha, y que las inclinaciones y diagonales no dan pulsación central.
 
-En el perfil de gestos, las pulsaciones cortas se retrasan por la ventana de doble pulsación de 300 ms. Los tiempos iniciales son unos 30 ms de antirrebote, 600 ms de pulsación larga, 300 ms de doble pulsación, 40 ms de ventana de acorde y 50 ms de tecla pulsada en los toques. Con la ventana de acorde, una flecha sale unos 70 ms después del interruptor.
+Las pulsaciones cortas de los controles con doble pulsación se retrasan por la ventana de doble pulsación de 300 ms. Los tiempos iniciales son unos 30 ms de antirrebote, 600 ms de pulsación larga, 300 ms de doble pulsación, 40 ms de ventana de acorde y 50 ms de tecla pulsada en los toques. Con la ventana de acorde, una flecha sale unos 70 ms después del interruptor.
 
 No pruebes este firmware en una app mientras conduces. Las actualizaciones por BLE funcionan en el banco; mira [Actualización por BLE](#actualizacion-ble).
 
@@ -159,6 +159,10 @@ Hecho el 20-10-2026 con la versión de protoboard (`BOARD_V026 = false`), en el 
 - Las pulsaciones cortas y dobles de A y B no enviaron nada.
 
 Las teclas salen de la [prueba de teclas](../key-probe/README.es.md); mira el [mapa de controles](../../docs/control-mapping.es.md#terrapirata-rally-roadbooks). Las dos versiones (`BOARD_V026` false y true) compilaron sin avisos del sketch.
+
+### Firmware 0.10.0
+
+Hecho el 20-10-2026 con la versión de protoboard, en el perfil de gestos, con OsmAnd en un teléfono Android y un tipo de dispositivo externo propio con las teclas asignadas. El registro serie mostró cada tecla: B y C alejaron y acercaron, C mantenido bloqueó y desbloqueó la pantalla (`x` asignada a "Touch screen lock"), el centro llevó el mapa a la posición, A corta y larga cambiaron la orientación y mostraron la navegación, y el joystick movió el mapa. A doble (`P`) y B larga (`S`) se enviaron en una prueba anterior; sus acciones no se comprobaron.
 
 ### Nombre BLE
 
