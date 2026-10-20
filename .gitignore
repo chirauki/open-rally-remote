@@ -4,3 +4,4 @@ __pycache__/
 mechanical/cad/build/
 __pycache__/
 .DS_Store
+firmware/xiao-nrf52840/test/build/

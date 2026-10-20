@@ -93,7 +93,7 @@ These follow the [battery study](../../docs/battery-study.md#firmware). The cons
 
 The sketch was compiled on 2026-10-10 with `arduino-cli` and Seeed nRF52 Boards 1.1.13 for `Seeeduino:nrf52:xiaonRF52840`, in both center modes, with no warnings from the sketch. The package's own GCC 9 toolchain is an Intel binary and did not run on the Apple Silicon build machine without Rosetta, so the check used Arm GNU Toolchain 13.3. The Arduino IDE on a machine that runs the package toolchain may still report something different.
 
-The chord logic was also run on the host against mocked switch timelines (tilt, short tilt, diagonal, staggered push, long and double push, slow push, opposite pair).
+The sketch also builds and runs on a computer, with simulated switches, clock and BLE link: `make -C firmware/xiao-nrf52840/test` runs host tests of the profiles, gestures, joystick chord, profile switch, power off and reconnect on both boards. See the [test README](test/README.md).
 
 The package's `adafruit-nrfutil` upload tool is also an Intel binary. On an Apple Silicon Mac without Rosetta, install the Python version (`pip install adafruit-nrfutil`, 0.5.3 was used) and point the package at it with a `platform.local.txt` next to its `platform.txt`:
 

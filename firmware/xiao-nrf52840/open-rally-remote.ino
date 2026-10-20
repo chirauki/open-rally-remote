@@ -926,8 +926,8 @@ void setup() {
     Serial.printf("BLE address: %02X:%02X:%02X:%02X:%02X:%02X\n",
                   mac[5], mac[4], mac[3], mac[2], mac[1], mac[0]);
     if (profile == PROFILE_TERRAPIRATA) {
-      Serial.println("TerraPirata: A = Play/Pause, B = Vol+, C = Vol- while held;");
-      Serial.println("arrows = joystick; center sends nothing.");
+      Serial.println("TerraPirata: A long = r (trip reset), B long = z (total reset),");
+      Serial.println("C = x = screen lock; arrows = joystick; center sends nothing.");
     } else if (profile == PROFILE_KEYBOARD) {
       Serial.println("Keyboard: A, B, C = Buttons A, B, C while held;");
       Serial.println("D = joystick center tap, arrows = joystick.");

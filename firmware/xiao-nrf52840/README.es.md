@@ -94,7 +94,7 @@ Siguen el [estudio de la batería](../../docs/battery-study.md#firmware). Las co
 
 El sketch se compiló el 10-10-2026 con `arduino-cli` y Seeed nRF52 Boards 1.1.13 para `Seeeduino:nrf52:xiaonRF52840`, en los dos modos de pulsación central, sin avisos del sketch. El GCC 9 que trae el paquete es un binario Intel y no funcionaba en el Mac Apple Silicon sin Rosetta, así que la comprobación usó Arm GNU Toolchain 13.3. El Arduino IDE en una máquina que sí ejecute las herramientas del paquete puede mostrar otra cosa.
 
-La lógica del acorde también se ejecutó en el ordenador contra secuencias de interruptores simuladas (inclinación, inclinación corta, diagonal, empuje escalonado, empuje largo y doble, empuje lento, par opuesto).
+El sketch también se compila y se ejecuta en un ordenador, con interruptores, reloj y enlace BLE simulados: `make -C firmware/xiao-nrf52840/test` ejecuta pruebas de los perfiles, los gestos, el acorde del joystick, el cambio de perfil, el apagado y la reconexión en las dos placas. Mira el [README de las pruebas](test/README.es.md).
 
 La herramienta de carga `adafruit-nrfutil` del paquete también es un binario Intel. En un Mac Apple Silicon sin Rosetta, instala la versión de Python (`pip install adafruit-nrfutil`; se usó la 0.5.3) e indica su ruta al paquete con un `platform.local.txt` junto a su `platform.txt`:
 
