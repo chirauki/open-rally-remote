@@ -160,7 +160,7 @@ The keys came from the [key probe](../key-probe/README.md); see the [control map
 
 ### Firmware 0.10.0
 
-Run on 2026-10-20 on the breadboard build, in the gestures profile, with OsmAnd on an Android phone and a custom external device type with the keys assigned. The serial log showed each key: B and C zoomed out and in, C held locked and unlocked the screen (`x` assigned to "Touch screen lock"), the center moved the map to the position, A short and long changed the orientation and showed the navigation, and the joystick panned the map. A double (`P`) and B long (`S`) were sent in an earlier run; their actions were not checked.
+Run on 2026-10-20 on the breadboard build, in the gestures profile, with OsmAnd on an Android phone and a custom external device type with the keys assigned. The serial log showed each key: B and C zoomed out and in, C held locked and unlocked the screen (`x` assigned to "Touch screen lock"), the center moved the map to the position, A short and long changed the orientation and showed the navigation, and the joystick panned the map. A double (`P`) switched to the next app profile and B long (`S`) opened the search, in an earlier run.
 
 ### BLE name
 

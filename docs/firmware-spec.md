@@ -181,7 +181,7 @@ The profile switch was agreed for the bench prototype. A 5 s hold is hard to tri
 | Directions | Held arrows pan as expected; release stops movement; opposing directions cancel | Pending | Pending |
 | Gestures | Short, long, and double are distinct at the chosen thresholds; no dropped/doubled action | Pending | Pending |
 | TerraPirata | Each mapped action works | Pass, firmware 0.9.0 (2026-10-20) | Pending |
-| OsmAnd | Each mapped action works | Pass, firmware 0.10.0 (2026-10-20), except `P` and `S` not checked | Pending |
+| OsmAnd | Each mapped action works | Pass, firmware 0.10.0 (2026-10-20) | Pending |
 | DMD² | A follow, B zoom in, C zoom out, and joystick pan work through Generic Remote mapping | Pending | N/A |
 | Center chord | A straight push gives one center event and no direction keys; tilts and diagonals give no center event | Pending | Pending |
 | Power off | A + B + C held 3 s sleeps after release, with no gesture events; any button then wakes it | Bench pass on USB, 2026-10-14; the first button's key is sent in the keyboard profile (held keys) | Pending |

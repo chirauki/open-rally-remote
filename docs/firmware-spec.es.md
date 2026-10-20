@@ -181,7 +181,7 @@ El cambio de perfil se acordó para el prototipo de banco. Mantener 5 s es difí
 | Direcciones | Las flechas mantenidas desplazan como se espera; al soltar se para; las direcciones opuestas se anulan | Pendiente | Pendiente |
 | Gestos | Corta, larga y doble se distinguen con los umbrales elegidos; ninguna acción se pierde ni se duplica | Pendiente | Pendiente |
 | TerraPirata | Cada acción asignada funciona | Pasa, firmware 0.9.0 (20-10-2026) | Pendiente |
-| OsmAnd | Cada acción asignada funciona | Pasa, firmware 0.10.0 (20-10-2026), salvo `P` y `S`, no comprobadas | Pendiente |
+| OsmAnd | Cada acción asignada funciona | Pasa, firmware 0.10.0 (20-10-2026) | Pendiente |
 | DMD² | A seguimiento, B acercar, C alejar y el desplazamiento con el joystick funcionan con el mapa "Generic Remote" | Pendiente | No aplica |
 | Acorde central | Un empuje recto da un evento central y ninguna tecla de dirección; las inclinaciones y diagonales no dan evento central | Pendiente | Pendiente |
 | Apagado | A + B + C mantenidos 3 s duermen la placa al soltar, sin eventos de gesto; después cualquier botón la despierta | Pasa en banco con USB, 14-10-2026; la tecla del primer botón sale en el perfil de teclado (teclas mantenidas) | Pendiente |

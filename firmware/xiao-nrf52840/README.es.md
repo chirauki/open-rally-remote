@@ -162,7 +162,7 @@ Las teclas salen de la [prueba de teclas](../key-probe/README.es.md); mira el [m
 
 ### Firmware 0.10.0
 
-Hecho el 20-10-2026 con la versión de protoboard, en el perfil de gestos, con OsmAnd en un teléfono Android y un tipo de dispositivo externo propio con las teclas asignadas. El registro serie mostró cada tecla: B y C alejaron y acercaron, C mantenido bloqueó y desbloqueó la pantalla (`x` asignada a "Touch screen lock"), el centro llevó el mapa a la posición, A corta y larga cambiaron la orientación y mostraron la navegación, y el joystick movió el mapa. A doble (`P`) y B larga (`S`) se enviaron en una prueba anterior; sus acciones no se comprobaron.
+Hecho el 20-10-2026 con la versión de protoboard, en el perfil de gestos, con OsmAnd en un teléfono Android y un tipo de dispositivo externo propio con las teclas asignadas. El registro serie mostró cada tecla: B y C alejaron y acercaron, C mantenido bloqueó y desbloqueó la pantalla (`x` asignada a "Touch screen lock"), el centro llevó el mapa a la posición, A corta y larga cambiaron la orientación y mostraron la navegación, y el joystick movió el mapa. A doble (`P`) pasó al perfil de app siguiente y B larga (`S`) abrió la búsqueda, en una prueba anterior.
 
 ### Nombre BLE
 

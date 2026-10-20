@@ -64,8 +64,8 @@ Probado en Android el 20-10-2026 con el firmware 0.10.0. El perfil de gestos del
 |---|---|---|---|
 | Joystick arriba/abajo/izquierda/derecha | Flechas, mantenidas | Mover el mapa | Funciona |
 | Centro del joystick, corta | `C`, al soltar | Ir a mi posición | Funciona |
-| Botón A, corta / larga / doble | `D` / `N` / `P` | Cambiar la orientación del mapa / mostrar u ocultar la navegación / perfil de app siguiente | Corta y larga funcionan; la doble se envía, su acción no se ha comprobado |
-| Botón B, corta / larga | `-` al soltar / `S` | Alejar / mostrar u ocultar la búsqueda | La corta funciona; la larga se envía, su acción no se ha comprobado |
+| Botón A, corta / larga / doble | `D` / `N` / `P` | Cambiar la orientación del mapa / mostrar u ocultar la navegación / perfil de app siguiente | Funciona |
+| Botón B, corta / larga | `-` al soltar / `S` | Alejar / mostrar u ocultar la búsqueda | Funciona |
 | Botón C, corta / larga | `=` al soltar / `x` | Acercar / bloqueo de la pantalla táctil | Funciona; `x` necesita un tipo de dispositivo propio, abajo |
 | Centro del joystick, larga | — | — | Mantenido 5 s, cambia el perfil del mando |
 
@@ -113,7 +113,7 @@ Anota el modelo de teléfono o tablet, la versión del sistema, la versión de l
 | Emparejamiento BLE y reconexión automática | Pasa, también tras cambiar de perfil | Pendiente |
 | Modo dedicado / modo de compatibilidad de TerraPirata | No probado; las teclas de arriba funcionan sin cambiar ningún ajuste | Pendiente |
 | TerraPirata: trip +/−, reset del trip y del total, bloqueo de pantalla, desplazamiento del roadbook | Pasa con el firmware 0.9.0 (20-10-2026); el reset del trip hay que confirmarlo tocando la pantalla | Pendiente |
-| OsmAnd: flechas, `C`, `D`, `N`, `=`, `-`, `x` (perfil de gestos) | Pasa con el firmware 0.10.0 (20-10-2026), con un tipo de dispositivo propio para `x`; `P` y `S` se envían, sus acciones no se han comprobado | Pendiente |
+| OsmAnd: flechas, `C`, `D`, `N`, `=`, `-`, `x` (perfil de gestos) | Pasa con el firmware 0.10.0 (20-10-2026), `P` y `S` incluidas, con un tipo de dispositivo propio para `x` | Pendiente |
 | OsmAnd: teclas asignadas por el usuario y Acciones rápidas | `x` asignada a "Touch screen lock" en un tipo propio: pasa | Pendiente |
 | DMD²: mapa "Generic Remote" y pulsación larga | Pasa con teclas mantenidas (perfil de teclado); una tecla aparte para la pulsación larga falla | No aplica: la navegación de DMD² es solo para Android |
 | Distinción entre corta, larga y doble, y comportamiento al mantener | Pendiente | Pendiente |

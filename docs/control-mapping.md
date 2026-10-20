@@ -64,8 +64,8 @@ Tested on Android on 2026-10-20 with firmware 0.10.0. The firmware's gestures pr
 |---|---|---|---|
 | Joystick up/down/left/right | Arrow keys, held | Pan the map | Works |
 | Joystick center, short | `C`, on release | Move to my position | Works |
-| Button A, short / long / double | `D` / `N` / `P` | Change map orientation / show or hide navigation / next app profile | Short and long work; double sent, its action not checked |
-| Button B, short / long | `-` on release / `S` | Zoom out / show or hide search | Short works; long sent, its action not checked |
+| Button A, short / long / double | `D` / `N` / `P` | Change map orientation / show or hide navigation / next app profile | Works |
+| Button B, short / long | `-` on release / `S` | Zoom out / show or hide search | Works |
 | Button C, short / long | `=` on release / `x` | Zoom in / touch screen lock | Works; `x` needs a custom device type, below |
 | Joystick center, long | — | — | Held 5 s, it switches the remote's profile |
 
@@ -113,7 +113,7 @@ Record the phone/tablet model, OS version, app version, selected app profile, ke
 | BLE pairing and automatic reconnect | Pass, including after a profile switch | Pending |
 | TerraPirata dedicated mode / compatibility mode | Not tested; the keys above work without changing a setting | Pending |
 | TerraPirata trip +/−, trip and total reset, screen lock, roadbook scroll | Pass with firmware 0.9.0 (2026-10-20); the trip reset needs a tap on the screen to confirm | Pending |
-| OsmAnd arrows, `C`, `D`, `N`, `=`, `-`, `x` (gestures profile) | Pass with firmware 0.10.0 (2026-10-20), with a custom device type for `x`; `P` and `S` sent, actions not checked | Pending |
+| OsmAnd arrows, `C`, `D`, `N`, `=`, `-`, `x` (gestures profile) | Pass with firmware 0.10.0 (2026-10-20), `P` and `S` included, with a custom device type for `x` | Pending |
 | OsmAnd user-assigned keys and Quick Actions | `x` assigned to "Touch screen lock" in a custom type: pass | Pending |
 | DMD² Generic Remote mapping and long press | Pass with held keys (keyboard profile); a separate long-press key fails | Not applicable: DMD² navigation is Android-only |
 | Short/long/double event distinction and repeat behavior | Pending | Pending |
