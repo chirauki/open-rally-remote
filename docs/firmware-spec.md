@@ -155,7 +155,7 @@ Avoid Space, Enter and Tab in any profile: Android uses them to press the focuse
 
 ### Mapping limits to preserve
 
-- **TerraPirata:** the trip reset opens a dialog that is accepted on the screen; no key that accepts it has been found. The key for hiding the hundreds digits is unknown. TerraPirata's dedicated remote mode is not documented publicly; the keys used here work without changing a setting.
+- **TerraPirata:** the trip reset opens a dialog that is confirmed with a tap on the screen, by choice; no key is sent for it. The key for hiding the hundreds digits is unknown. TerraPirata's dedicated remote mode is not documented publicly; the keys used here work without changing a setting.
 - **OsmAnd:** it assigns one action per key, so the gestures profile sends a separate key for each gesture: the keys of its built-in "Keyboard" type, which needs no assignment but cannot be changed, plus `x` for the screen lock, which needs a custom type. A's short press is delayed by the 300 ms double-press window; B, C and the center have no double press and send on release. With held keys, Android repeats the key and a toggle action may repeat; use the gestures profile instead.
 - **DMD² / DMD Next:** short and long actions per key are set in DMD's Generic Remote mapping; with held keys, DMD² recognized the long press on the bench. Do not promise native double-tap behavior. DMD² is Android-only according to its current FAQ.
 - **iOS** is deferred. It may need different keys: iOS handles the volume keys itself, which is likely why TerraPirata asks iPhone users for a dedicated remote mode or its compatibility mode.

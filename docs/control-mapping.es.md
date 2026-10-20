@@ -54,7 +54,7 @@ Encontradas el 20-10-2026 con la [prueba de teclas](../firmware/key-probe/README
 | Flecha derecha / izquierda | Trip + / − (la izquierda no hace nada con el trip a cero) |
 | `c`, `k` | Nada |
 
-Aún no se ha encontrado: una tecla que acepte el diálogo "reiniciar odómetro" (Enter y Espacio no se han probado, porque Android las usa para pulsar el control que tiene el foco), ni la de ocultar las centenas. No se ha comprobado si estas teclas dependen de algún ajuste de TerraPirata, ni en iOS. TerraPirata recomienda su modo de mando dedicado, y en iOS exige ese modo o el modo de compatibilidad de la app; iOS queda para más adelante.
+El diálogo "reiniciar odómetro" se confirma tocando la pantalla, por decisión: es un botón grande en pantalla, y Enter o Espacio podrían pulsar el control que tenga el foco. Aún no se ha encontrado: la tecla para ocultar las centenas. No se ha comprobado si estas teclas dependen de algún ajuste de TerraPirata, ni en iOS. TerraPirata recomienda su modo de mando dedicado, y en iOS exige ese modo o el modo de compatibilidad de la app; iOS queda para más adelante.
 
 ### OsmAnd (Android e iOS)
 

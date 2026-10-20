@@ -54,7 +54,7 @@ Found on 2026-10-20 with the [key probe](../firmware/key-probe/README.md), which
 | Right / Left Arrow | Trip + / − (Left does nothing while the trip is at zero) |
 | `c`, `k` | Nothing |
 
-Not found yet: a key that accepts the "reset odometer" dialog (Enter and Space were not tried: Android uses them to press the focused control), and hiding the hundreds digits. Not checked: whether these keys depend on a TerraPirata setting, and iOS. TerraPirata recommends its dedicated remote mode, and on iOS requires that mode or the app's compatibility mode; iOS is deferred.
+The "reset odometer" dialog is confirmed with a tap on the screen, by choice: it is a large on-screen button, and Enter or Space would risk pressing whatever control has the focus. Not found yet: the key for hiding the hundreds digits. Not checked: whether these keys depend on a TerraPirata setting, and iOS. TerraPirata recommends its dedicated remote mode, and on iOS requires that mode or the app's compatibility mode; iOS is deferred.
 
 ### OsmAnd (Android and iOS)
 
