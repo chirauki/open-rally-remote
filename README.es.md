@@ -14,7 +14,7 @@ La persona fija los objetivos, toma las decisiones, compra las piezas y prueba e
 
 Se están definiendo los requisitos y el concepto de la primera versión. Todavía no se ha validado ningún diseño de hardware ni ninguna afirmación de compatibilidad.
 
-Mira el [resumen del proyecto](docs/project-brief.md) para los objetivos actuales, el diseño propuesto, las restricciones y el plan de desarrollo. El [borrador del mapa de controles](docs/control-mapping.es.md) recoge los perfiles de app propuestos y las comprobaciones de compatibilidad que faltan. El [plan del prototipo](docs/prototype-plan.md) compara los controladores candidatos y plantea una prueba de concepto en el banco. La [guía de montaje en protoboard de la XIAO](docs/breadboard-assembly.md) da el esquema de conexiones del montaje provisional de entradas.
+Mira el [resumen del proyecto](docs/project-brief.md) para los objetivos actuales, el diseño propuesto, las restricciones y el plan de desarrollo. El [borrador del mapa de controles](docs/control-mapping.es.md) recoge los perfiles de app propuestos y las comprobaciones de compatibilidad que faltan. El [plan del prototipo](docs/prototype-plan.md) compara los controladores candidatos y plantea una prueba de concepto en el banco. La [guía de montaje en protoboard de la XIAO](docs/breadboard-assembly.es.md) da el esquema de conexiones del montaje provisional de entradas.
 
 La [especificación del firmware](docs/firmware-spec.es.md) propuesta define el primer planteamiento BLE HID, el comportamiento de las entradas y los gestos, los límites de los perfiles de app, la validación en banco y el requisito de producto de actualizar el firmware por BLE desde el teléfono.
 

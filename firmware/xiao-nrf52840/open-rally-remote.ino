@@ -2,9 +2,9 @@
  * Open Rally Remote - XIAO nRF52840 bench firmware
  *
  * Purpose: read the active-low switches (three buttons, four joystick
- * directions) and send keyboard and media keys over BLE HID, in a TerraPirata,
+ * directions) and send keyboard keys over BLE HID, in a TerraPirata,
  * keyboard (held keys) or gestures profile. The joystick center press is the
- * chord of three or more directions, or optionally a separate switch on D7.
+ * chord of three or more directions.
  * This is a desk prototype, not riding firmware.
  *
  * Board package: Seeed nRF52 Boards
@@ -21,11 +21,6 @@
 using namespace Adafruit_LittleFS_Namespace;
 
 // ---------- Build options ----------
-
-// Center press source. true: three or more direction switches closed
-// together, as on the V0.22+ joystick (D7 unused). false: a separate switch
-// on D7, as on the breadboard prototype.
-constexpr bool CENTER_FROM_CHORD = true;
 
 // Board. false: the XIAO on its own, as on the breadboard and in V0.25 (its
 // charger, BAT pads and P0.31 divider). true: the V0.26 control board
@@ -64,13 +59,14 @@ enum ControlIndex : uint8_t {
   CONTROL_COUNT
 };
 
-// The V0.26 board has no centre switch: D10 is a placeholder, never read.
+// The joystick has no centre switch: the centre is the chord of three or
+// more directions, so its entry is a placeholder, never read.
+constexpr uint8_t NO_PIN = 0xFF;
 const uint8_t CONTROL_PINS[CONTROL_COUNT] = {
   BOARD_V026 ? D1 : D0, BOARD_V026 ? D2 : D1, BOARD_V026 ? D3 : D2,
   BOARD_V026 ? D4 : D3, BOARD_V026 ? D5 : D4, BOARD_V026 ? D6 : D5, BOARD_V026 ? D7 : D6,
-  BOARD_V026 ? D10 : D7
+  NO_PIN
 };
-static_assert(!BOARD_V026 || CENTER_FROM_CHORD, "The V0.26 joystick has no centre switch");
 
 const char *const CONTROL_NAMES[CONTROL_COUNT] = {
   "Button A", "Button B", "Button C", "Joystick up", "Joystick down",
@@ -181,7 +177,7 @@ constexpr uint8_t PIN_CHARGE_LED = D8; // charge LED on the V0.24/V0.25 USB-C PC
 constexpr uint8_t PIN_CHG_SENSE = D8;
 constexpr uint8_t PIN_VBUS_SENSE = D9;   // VBUS through a divider
 
-const char *const FIRMWARE_VERSION = "0.11.0";
+const char *const FIRMWARE_VERSION = "0.11.1";
 
 enum GestureType : uint8_t {
   GESTURE_SHORT = 0,
@@ -266,9 +262,9 @@ const uint8_t DIRECTION_KEYS[4] = {
   HID_KEY_ARROW_UP, HID_KEY_ARROW_DOWN, HID_KEY_ARROW_LEFT, HID_KEY_ARROW_RIGHT
 };
 
-// A physical input on its pin; in chord mode the center has no pin.
+// A physical input on its pin; the center has none (it is the chord).
 bool controlIsInstalled(uint8_t control) {
-  return control != JOYSTICK_CENTER || !CENTER_FROM_CHORD;
+  return control != JOYSTICK_CENTER;
 }
 
 void printControlEvent(uint8_t control, const char *eventName) {
@@ -528,10 +524,6 @@ void updateJoystick(uint32_t now) {
   switch (joyMode) {
     case JOY_IDLE:
       if (!mask) break;
-      if (!CENTER_FROM_CHORD) {
-        joyMode = JOY_DIRECTIONS;
-        break;
-      }
       joyMode = JOY_PENDING;
       joyPendingSince = now;
       joySeenMask = 0;
@@ -556,10 +548,10 @@ void updateJoystick(uint32_t now) {
     case JOY_DIRECTIONS:
       if (!mask) {
         joyMode = JOY_IDLE;
-      } else if (CENTER_FROM_CHORD && count >= 3) {
+      } else if (count >= 3) {
         // A slow push: direction keys already sent are released here.
         pressChordCenter(now);
-      } else if (CENTER_FROM_CHORD && opposite) {
+      } else if (opposite) {
         joyMode = JOY_SUPPRESSED;
       }
       break;
@@ -1012,8 +1004,7 @@ void setup() {
     }
     Serial.println("Hold the joystick center 5 s, release, then A/B/C to choose");
     Serial.println("TerraPirata/keyboard/gestures.");
-    Serial.println(CENTER_FROM_CHORD ? "Center: chord of three or more directions."
-                                     : "Center: separate switch on D7.");
+    Serial.println("Center: chord of three or more directions.");
   }
 }
 

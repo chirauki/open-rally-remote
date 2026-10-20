@@ -16,9 +16,9 @@ El orden de controles propuesto es de tres botones encima de un joystick.
 | Botón B (en medio) | Pulsación corta, larga y doble |
 | Botón C (el botón de abajo) | Pulsación corta, larga y doble |
 | Joystick | Arriba, abajo, izquierda, derecha y pulsación central |
-| Pulsación central del joystick | Corta, larga y doble, si el joystick elegido tiene interruptor central |
+| Pulsación central del joystick | Corta, larga y doble; el firmware interpreta tres o más direcciones cerradas a la vez como el centro |
 
-Las direcciones del joystick son eventos de dirección, no gestos de botón. Una variante de joystick sin interruptor central simplemente no tiene esos tres gestos centrales.
+Las direcciones del joystick son eventos de dirección, no gestos de botón. El joystick no tiene interruptor central: al empujar la palanca hacia dentro se cierran los cuatro interruptores de dirección.
 
 ## Perfiles de app propuestos
 
@@ -117,7 +117,6 @@ Anota el modelo de teléfono o tablet, la versión del sistema, la versión de l
 | OsmAnd: teclas asignadas por el usuario y Acciones rápidas | `x` asignada a "Touch screen lock" en un tipo propio: pasa | Pendiente |
 | DMD²: mapa "Generic Remote" y pulsación larga | Pasa con teclas mantenidas (perfil de teclado); una tecla aparte para la pulsación larga falla | No aplica: la navegación de DMD² es solo para Android |
 | Distinción entre corta, larga y doble, y comportamiento al mantener | Pendiente | Pendiente |
-| Variante de joystick con interruptor central y sin él | Pendiente | Pendiente |
 
 ## Referencias
 

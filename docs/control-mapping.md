@@ -16,9 +16,9 @@ The proposed control order is three buttons above a lower joystick.
 | Button B (middle) | Short press, long press, double press |
 | Button C (lower button) | Short press, long press, double press |
 | Joystick | Up, down, left, right, and center press |
-| Joystick center press | Short press, long press, double press, when the selected joystick includes a center switch |
+| Joystick center press | Short press, long press, double press; the firmware reads three or more directions closed together as the center |
 
-Joystick directions are separate directional events, not button gestures. A joystick variant without a center switch simply omits those three center gestures.
+Joystick directions are separate directional events, not button gestures. The joystick has no center switch: pushing the stick straight in closes the four direction switches.
 
 ## Proposed app profiles
 
@@ -117,7 +117,6 @@ Record the phone/tablet model, OS version, app version, selected app profile, ke
 | OsmAnd user-assigned keys and Quick Actions | `x` assigned to "Touch screen lock" in a custom type: pass | Pending |
 | DMD² Generic Remote mapping and long press | Pass with held keys (keyboard profile); a separate long-press key fails | Not applicable: DMD² navigation is Android-only |
 | Short/long/double event distinction and repeat behavior | Pending | Pending |
-| Joystick center-switch variant and no-center variant | Pending | Pending |
 
 ## References
 

@@ -1,8 +1,10 @@
 # XIAO nRF52840 Breadboard Assembly
 
+> Spanish version: [breadboard-assembly.es.md](breadboard-assembly.es.md).
+
 **Status:** bench prototype instructions. This temporary switch fixture is for firmware and BLE experiments; it is not a riding-ready remote.
 
-This guide uses a Seeed XIAO nRF52840 and eight momentary switches to represent the three buttons and a joystick with four directions and an optional center press. It keeps the XIAO off the breadboard and connects it with Dupont leads. Power and programming come from the XIAO's USB-C connector.
+This guide uses a Seeed XIAO nRF52840 and seven momentary switches to represent the three buttons and a joystick with four directions; the center press is three directions pressed together, as on the remote. It keeps the XIAO off the breadboard and connects it with Dupont leads. Power and programming come from the XIAO's USB-C connector.
 
 ## Parts
 
@@ -28,10 +30,9 @@ The firmware should configure these GPIOs as inputs with internal pull-ups. Each
 | D4 | SW5 | Joystick down |
 | D5 | SW6 | Joystick left |
 | D6 | SW7 | Joystick right |
-| D7 | SW8 | Joystick center press (breadboard only) |
 | GND | Blue/negative rail | Shared switch ground |
 
-The enclosure joystick has no center switch; the firmware reads three or more directions closed together as the center. On the breadboard, press three or four direction switches at once with a flat object, such as a ruler, to make that chord; this tests the same logic as the remote and needs only SW1–SW7. SW8 on D7 is an optional stand-in if the chord is too awkward: set `CENTER_FROM_CHORD` to `false` in the sketch. With the default `true`, D7 is not read. No 3.3 V or 5 V rail connection is needed for this switch circuit.
+The joystick has no center switch; the firmware reads three or more directions closed together as the center. On the breadboard, press three or four direction switches at once with a flat object, such as a ruler, or with three fingers, to make that chord; this tests the same logic as the remote. D7 is not read. (Up to firmware 0.11.0 an eighth switch on D7 could stand in for the center; 0.11.1 removed that option.) No 3.3 V or 5 V rail connection is needed for this switch circuit.
 
 The XIAO's pins, seen from the component side with the USB-C connector at the top (from the Seeed pinout):
 
@@ -50,7 +51,7 @@ The XIAO's pins, seen from the component side with the USB-C connector at the to
 
 Keep the XIAO beside the breadboard rather than forcing the small board into it. Each switch straddles the breadboard's center trench. One electrical side goes to its GPIO row; the other side goes to the blue ground rail. On a standard breadboard, the five holes on each side of a numbered row are connected together, but the two groups across the center trench are separate.
 
-![Non-crossing XIAO nRF52840 wiring diagram for eight temporary switches](images/breadboard-layout.svg)
+![Non-crossing XIAO nRF52840 wiring diagram for the temporary switches; its eighth switch, on D7, is no longer used](images/breadboard-layout.svg)
 
 ```text
 XIAO nRF52840 (kept beside the breadboard)
@@ -61,8 +62,7 @@ XIAO nRF52840 (kept beside the breadboard)
   D4 ───────────────────────────────────────────┐  │  │  │  │
   D5 ────────────────────────────────────────┐  │  │  │  │  │
   D6 ─────────────────────────────────────┐  │  │  │  │  │  │
-  D7 ──────────────────────────────────┐  │  │  │  │  │  │  │
- GND ──────────────────────────────────┼──┼──┼──┼──┼──┼──┼──┼──── blue (−) rail
+GND ──────────────────────────────────────┼──┼──┼──┼──┼──┼──┼──── blue (−) rail
 
 Breadboard rows (switches straddle the center trench):
                        a b c d e  ║  f g h i j
@@ -73,21 +73,20 @@ Breadboard rows (switches straddle the center trench):
  Joystick DOWN / D4:   GPIO ──────║───o/ o─────── GND ─── blue (−)
  Joystick LEFT / D5:   GPIO ──────║───o/ o─────── GND ─── blue (−)
  Joystick RIGHT / D6:  GPIO ──────║───o/ o─────── GND ─── blue (−)
- Center press / D7:    GPIO ──────║───o/ o─────── GND ─── blue (−)
                                      switch
 
 USB-C on XIAO ── data cable ── computer / USB supply
 ```
 
-The SVG is a wiring view, not a scale drawing of the physical jumper routes. Place the eight switches in separate numbered rows and connect each switch's opposite side to the ground rail. The two five-hole groups in each row (a–e and f–j) are not connected across the center trench. Switch leg layout can vary, so check the switch drawing or use continuity mode to identify the internally joined pairs before wiring. Without a meter, connect the GPIO and ground leads to diagonally opposite legs: these are never joined internally, whichever way the switch is turned. On the 6×6×5 mm switches used here, the two legs that face each other across the trench, in the same numbered row, are joined internally; a GPIO and ground lead in that same row read as permanently pressed.
+The SVG is a wiring view, not a scale drawing of the physical jumper routes; its eighth switch, on D7, is no longer used. Place the seven switches in separate numbered rows and connect each switch's opposite side to the ground rail. The two five-hole groups in each row (a–e and f–j) are not connected across the center trench. Switch leg layout can vary, so check the switch drawing or use continuity mode to identify the internally joined pairs before wiring. Without a meter, connect the GPIO and ground leads to diagonally opposite legs: these are never joined internally, whichever way the switch is turned. On the 6×6×5 mm switches used here, the two legs that face each other across the trench, in the same numbered row, are joined internally; a GPIO and ground lead in that same row read as permanently pressed.
 
 ### Wiring steps
 
 1. **Fit the headers.** Solder one 1×7 male header to each long edge of the XIAO, with the pins projecting downward. Avoid solder bridges between adjacent pads. If using a pre-soldered board, skip this step.
-2. **Place the switches.** Insert the tactile switches across the breadboard's center trench. Each switch spans two numbered rows; leave a free row between switches. Label them A, B, C, UP, DOWN, LEFT, RIGHT and, if fitted, CENTER. Put the four direction switches side by side so that one flat object can press three or four of them.
+2. **Place the switches.** Insert the tactile switches across the breadboard's center trench. Each switch spans two numbered rows; leave a free row between switches. Label them A, B, C, UP, DOWN, LEFT and RIGHT. Put the four direction switches side by side so that one flat object can press three or four of them.
 3. **Connect ground.** Use one jumper from a XIAO GND pin to the breadboard's blue/negative rail. If the rail is split halfway along its length, bridge the two rail sections with another jumper.
-4. **Connect the GPIO leads.** Use eight male-to-female leads to connect D0 through D7 to one electrical side of the corresponding switch. Use the pin map above. D7 is optional.
-5. **Ground the other switch side.** Use eight male-to-male leads to connect the opposite electrical side of each switch to the blue ground rail. Connect the XIAO GND pin to that rail with a separate male-to-female lead.
+4. **Connect the GPIO leads.** Use seven male-to-female leads to connect D0 through D6 to one electrical side of the corresponding switch. Use the pin map above.
+5. **Ground the other switch side.** Use seven male-to-male leads to connect the opposite electrical side of each switch to the blue ground rail. Connect the XIAO GND pin to that rail with a separate male-to-female lead.
 6. **Inspect before power.** Check that no GPIO row is accidentally connected to the red rail. Check that the switch legs span the trench and that each GPIO and ground wire reaches opposite electrical sides of its switch.
 7. **Power over USB.** Connect the XIAO's USB-C port to a computer or USB supply using a data-capable cable when programming. Do not feed 5 V into a GPIO, and do not connect a second supply to the breadboard while USB is connected.
 

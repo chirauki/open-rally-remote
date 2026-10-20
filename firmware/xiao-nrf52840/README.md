@@ -23,11 +23,11 @@ Wire each normally-open switch between its GPIO and GND:
 | D4 | Joystick down | Hold Down Arrow | Hold Down Arrow | Hold Down Arrow |
 | D5 | Joystick left | Hold Left Arrow | Hold Left Arrow | Hold Left Arrow |
 | D6 | Joystick right | Hold Right Arrow | Hold Right Arrow | Hold Right Arrow |
-| D7 | Joystick center switch, breadboard only | Nothing | `D` on a short or double press | `C` my position |
+| — | Joystick center: three or more directions closed together, no pin of its own | Nothing | `D` on a short or double press | `C` my position |
 
 In the keyboard profile and on the joystick, a held key goes down when the switch closes and up when it opens; the app times short and long presses itself. In the TerraPirata and gestures profiles, the firmware sends a 50 ms tap of a separate key for each button gesture. In the TerraPirata profile a long press takes 2 s (`RESET_LONG_PRESS_MS`), because both long presses reset a counter. A control with no double press sends its short tap as soon as it is released (TerraPirata's C; the gestures profile's B, C and center); the others wait out the 300 ms double-press window. The gestures profile sends the keys of OsmAnd's built-in "Keyboard" device type, plus `x`, which needs a custom type in OsmAnd; see the [control mapping](../../docs/control-mapping.md#osmand-android-and-ios). Holding the joystick center for 5 s and releasing it starts profile selection; see [Profiles](#profiles).
 
-The V0.22/V0.23 hardware has no D7 switch: pushing the stick straight in closes all four direction switches, and the sketch reads three or more closed together as the center press (see the [firmware specification](../../docs/firmware-spec.md#5-input-processing-and-gesture-rules)). This is the default, `CENTER_FROM_CHORD = true`, and D7 is then not read. For the breadboard, where a straight push cannot be made, set `CENTER_FROM_CHORD` to `false` near the top of the sketch to read a separate center switch on D7.
+The joystick has no center switch: pushing the stick straight in closes all four direction switches, and the sketch reads three or more closed together as the center press (see the [firmware specification](../../docs/firmware-spec.md#5-input-processing-and-gesture-rules)). On the breadboard, press three direction switches at once. D7 is not read. (Firmware 0.11.0 and earlier also had a `CENTER_FROM_CHORD = false` option for a separate center switch on D7; 0.11.1 removed it.)
 
 In chord mode, a direction key-down is held back for the 40 ms chord window (`CHORD_WINDOW_MS`) after the first direction closes:
 - If three or more directions close inside the window, the sketch reads the center press and sends no arrow key until all directions are released.
@@ -69,11 +69,11 @@ The profile choices come from the app tests in the [firmware specification](../.
 | D0 | Button A | Battery voltage (A0, 1 MΩ / 1 MΩ divider) |
 | D1–D3 | Button B, Button C, joystick up | Buttons A, B, C |
 | D4–D6 | Joystick down, left, right | Joystick up, down, left |
-| D7 | Centre switch (breadboard option) | Joystick right |
+| D7 | — | Joystick right |
 | D8 | Charge LED output | Charger STAT through a divider: low while charging, high when done |
 | D9 | — | Charging-port VBUS through a divider; also a System OFF wake source |
 
-With `BOARD_V026 = true` the firmware leaves P0.13, P0.14 and the XIAO's charger alone, does not drive a charge LED (the charger's STAT does), and reads "charger present" from D9 instead of the nRF52840's USB detection. The centre press must come from the chord (`CENTER_FROM_CHORD = true`); a compile-time check enforces it. Both settings compiled on 2026-10-14 with no warnings from the sketch; the `true` build has not run on a board yet.
+With `BOARD_V026 = true` the firmware leaves P0.13, P0.14 and the XIAO's charger alone, does not drive a charge LED (the charger's STAT does), and reads "charger present" from D9 instead of the nRF52840's USB detection. Both settings compiled on 2026-10-14 with no warnings from the sketch; the `true` build has not run on a board yet.
 
 From the 2026-10-15 board review: with no cell fitted, the charger's STAT is high impedance and the board's divider pulls D8 low, so `charging()` reads true; and the charger only ends a charge when the XIAO's average load stays under about 5.6 mA, because it measures its whole output current (see "Charge termination" in the [control board README](../../electronics/control-pcb/README.md)). Measure the awake current on USB before relying on the charge LED going out.
 
@@ -165,6 +165,10 @@ Run on 2026-10-20 on the breadboard build, in the gestures profile, with OsmAnd 
 ### Firmware 0.11.0
 
 Profile selection replaces the cycling profile switch. The host tests cover it (37 tests per board, all pass), and both builds compiled with no warnings from the sketch. On 2026-10-20, on the breadboard build with an Android phone: choosing B and then A restarted into the keyboard (blue LED) and TerraPirata (green) profiles and the phone reconnected; choosing the current profile, letting selection time out, and moving the joystick during selection changed nothing and sent no key.
+
+### Firmware 0.11.1
+
+The separate center switch on D7 (`CENTER_FROM_CHORD = false`) is removed: no joystick in the design has one, and the breadboard makes the center as a chord too. The host tests pass on both boards, unchanged.
 
 ### BLE name
 

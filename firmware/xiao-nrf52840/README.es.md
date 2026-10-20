@@ -23,11 +23,11 @@ Conecta cada interruptor normalmente abierto entre su GPIO y GND:
 | D4 | Joystick abajo | Mantiene flecha abajo | Mantiene flecha abajo | Mantiene flecha abajo |
 | D5 | Joystick izquierda | Mantiene flecha izquierda | Mantiene flecha izquierda | Mantiene flecha izquierda |
 | D6 | Joystick derecha | Mantiene flecha derecha | Mantiene flecha derecha | Mantiene flecha derecha |
-| D7 | Interruptor central del joystick, solo en la protoboard | Nada | `D` en pulsación corta o doble | `C` mi posición |
+| — | Centro del joystick: tres o más direcciones cerradas a la vez, sin pin propio | Nada | `D` en pulsación corta o doble | `C` mi posición |
 
 En el perfil de teclado y en el joystick, una tecla mantenida se pulsa cuando se cierra el interruptor y se suelta cuando se abre; la app mide ella misma las pulsaciones cortas y largas. En los perfiles TerraPirata y de gestos, el firmware envía un toque de 50 ms de una tecla distinta para cada gesto de botón. En el perfil TerraPirata una pulsación larga dura 2 s (`RESET_LONG_PRESS_MS`), porque las dos pulsaciones largas ponen un contador a cero. Un control sin doble pulsación envía su toque corto en cuanto se suelta (la C de TerraPirata; B, C y el centro en el perfil de gestos); los demás esperan la ventana de doble pulsación de 300 ms. El perfil de gestos envía las teclas del tipo de dispositivo "Keyboard" que trae OsmAnd, más `x`, que en OsmAnd necesita un tipo propio; mira el [mapa de controles](../../docs/control-mapping.es.md#osmand-android-e-ios). Mantener el centro del joystick 5 s y soltarlo inicia la selección de perfil; mira [Perfiles](#perfiles).
 
-El hardware V0.22/V0.23 no tiene interruptor en D7: al empujar la palanca hacia dentro se cierran los cuatro interruptores de dirección, y el sketch interpreta tres o más cerrados a la vez como pulsación central (mira la [especificación del firmware](../../docs/firmware-spec.md#5-input-processing-and-gesture-rules)). Es el valor por defecto, `CENTER_FROM_CHORD = true`, y entonces D7 no se lee. En la protoboard, donde no se puede hacer un empuje recto, pon `CENTER_FROM_CHORD` a `false` cerca del principio del sketch para leer un interruptor central aparte en D7.
+El joystick no tiene interruptor central: al empujar la palanca hacia dentro se cierran los cuatro interruptores de dirección, y el sketch interpreta tres o más cerrados a la vez como pulsación central (mira la [especificación del firmware](../../docs/firmware-spec.es.md#5-procesado-de-entradas-y-reglas-de-gestos)). En la protoboard, pulsa tres interruptores de dirección a la vez. D7 no se lee. (El firmware 0.11.0 y anteriores tenían además una opción `CENTER_FROM_CHORD = false` para un interruptor central aparte en D7; la 0.11.1 la quitó.)
 
 En modo acorde, la pulsación de una dirección se retiene durante la ventana de acorde de 40 ms (`CHORD_WINDOW_MS`) desde que se cierra la primera dirección:
 - Si se cierran tres o más direcciones dentro de la ventana, el sketch lee la pulsación central y no envía ninguna flecha hasta que se sueltan todas.
@@ -70,11 +70,11 @@ La elección de perfiles sale de las pruebas con apps de la [especificación del
 | D0 | Botón A | Tensión de la batería (A0, divisor de 1 MΩ / 1 MΩ) |
 | D1–D3 | Botón B, botón C, joystick arriba | Botones A, B, C |
 | D4–D6 | Joystick abajo, izquierda, derecha | Joystick arriba, abajo, izquierda |
-| D7 | Interruptor central (opción de la protoboard) | Joystick derecha |
+| D7 | — | Joystick derecha |
 | D8 | Salida del LED de carga | STAT del cargador a través de un divisor: bajo mientras carga, alto al terminar |
 | D9 | — | VBUS del puerto de carga a través de un divisor; también despierta de System OFF |
 
-Con `BOARD_V026 = true` el firmware no toca P0.13, P0.14 ni el cargador de la XIAO, no maneja ningún LED de carga (lo hace la salida STAT del cargador) y lee "cargador presente" en D9 en vez de usar la detección USB del nRF52840. La pulsación central tiene que salir del acorde (`CENTER_FROM_CHORD = true`); una comprobación al compilar lo obliga. Los dos valores compilaron el 14-10-2026 sin avisos del sketch; la versión `true` todavía no se ha ejecutado en una placa.
+Con `BOARD_V026 = true` el firmware no toca P0.13, P0.14 ni el cargador de la XIAO, no maneja ningún LED de carga (lo hace la salida STAT del cargador) y lee "cargador presente" en D9 en vez de usar la detección USB del nRF52840. Los dos valores compilaron el 14-10-2026 sin avisos del sketch; la versión `true` todavía no se ha ejecutado en una placa.
 
 De la revisión de la placa del 15-10-2026: sin batería, la salida STAT del cargador queda en alta impedancia y el divisor de la placa lleva D8 a nivel bajo, así que `charging()` devuelve verdadero. Además, el cargador solo termina una carga cuando el consumo medio de la XIAO se queda por debajo de unos 5,6 mA, porque mide toda su corriente de salida (mira "Charge termination" en el [README de la placa de control](../../electronics/control-pcb/README.md)). Mide la corriente con la placa despierta y en USB antes de fiarte de que el LED de carga se apague.
 
@@ -167,6 +167,10 @@ Hecho el 20-10-2026 con la versión de protoboard, en el perfil de gestos, con O
 ### Firmware 0.11.0
 
 La selección de perfil sustituye al cambio de perfil en ciclo. La cubren las pruebas en el ordenador (37 pruebas por placa, todas pasan), y las dos versiones compilaron sin avisos del sketch. El 20-10-2026, con la versión de protoboard y un teléfono Android: elegir B y luego A reinició en los perfiles de teclado (LED azul) y TerraPirata (verde), y el teléfono se reconectó; elegir el perfil actual, dejar que caducara la selección y mover el joystick durante ella no cambiaron nada ni enviaron ninguna tecla.
+
+### Firmware 0.11.1
+
+Se quita el interruptor central aparte en D7 (`CENTER_FROM_CHORD = false`): ningún joystick del diseño lo tiene, y en la protoboard el centro también se hace con el acorde. Las pruebas en el ordenador pasan en las dos placas, sin cambios.
 
 ### Nombre BLE
 
