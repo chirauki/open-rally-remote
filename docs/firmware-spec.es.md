@@ -160,7 +160,7 @@ Evita Espacio, Enter y Tab en todos los perfiles: Android las usa para pulsar el
 - **DMD² / DMD Next:** las acciones corta y larga de cada tecla se configuran en el mapa "Generic Remote" de DMD; con teclas mantenidas, DMD² reconoció la pulsación larga en el banco. No prometas el comportamiento nativo de doble toque. Según su FAQ actual, DMD² es solo para Android.
 - **iOS** queda para más adelante. Puede necesitar otras teclas: iOS gestiona él mismo las teclas de volumen, y seguramente por eso TerraPirata pide a los usuarios de iPhone un modo de mando dedicado o su modo de compatibilidad.
 
-El cambio de perfil se acordó para el prototipo de banco. Mantener 5 s es difícil de hacer sin querer, pero pruébalo en la moto antes de darlo por seguro conduciendo. La carcasa tiene que dejar ver el LED, o el piloto no puede saber el perfil; mira las [notas mecánicas](mechanical-concept.md).
+El cambio de perfil se acordó para el prototipo de banco. Mantener 5 s es difícil de hacer sin querer, pero pruébalo en la moto antes de darlo por seguro conduciendo. La carcasa tiene que dejar ver el LED, o el piloto no puede saber el perfil; mira las [notas mecánicas](mechanical-concept.es.md).
 
 ## 8. Fases iniciales de implementación
 

@@ -2,7 +2,7 @@
 
 > Traducción al castellano de [electronics-assembly.md](electronics-assembly.md). La versión en inglés es la de referencia; si las dos difieren, vale la inglesa. Los textos de las imágenes están en inglés.
 
-Esta guía lleva las tres placas desnudas del pedido de JLCPCB y los componentes de [`electronics/lcsc-parts.csv`](../electronics/lcsc-parts.csv) hasta tener tres placas soldadas, probadas y barnizadas. Después, el [montaje mecánico](mechanical-concept.md#assembly) las coloca en el mando.
+Esta guía lleva las tres placas desnudas del pedido de JLCPCB y los componentes de [`electronics/lcsc-parts.csv`](../electronics/lcsc-parts.csv) hasta tener tres placas soldadas, probadas y barnizadas. Después, el [montaje mecánico](mechanical-concept.es.md#assembly) las coloca en el mando.
 
 Si las placas llegaron montadas, sáltate la soldadura y empieza en [Cables](#cables). Con el montaje Economic de JLCPCB aún hay que soldar los interruptores y los zócalos de la XIAO (pasos J1, C5 y C7) y el receptáculo USB-C (paso U3).
 
@@ -269,7 +269,7 @@ J2 es el conector de 3 pines; se suelda como en el paso C6.
   - Usa mucho flux y una punta fina.
   - Entre pads solo hay unos 0,3 mm. Busca puentes con aumento y quítalos con la malla.
 - **Después las cuatro patas de la carcasa**, en sus ranuras metalizadas, desde cualquier cara. Están sobre el plano de masa y necesitan calor: usa la punta más caliente o más grande y dale unos segundos a cada una.
-- **No pongas la junta todavía.** La junta USBTJ-06, el relleno de epoxi y la ventana del LED van en el [montaje mecánico](mechanical-concept.md#assembly), paso 2.
+- **No pongas la junta todavía.** La junta USBTJ-06, el relleno de epoxi y la ventana del LED van en el [montaje mecánico](mechanical-concept.es.md#assembly), paso 2.
 
 ### Paso U4: LED de carga
 
@@ -380,7 +380,7 @@ Barniza las tres placas y la XIAO cuando todas las pruebas estén bien.
 5. **Deja curar.** Deja secar cada capa el tiempo que diga el bote. Quita la cinta antes de que la última capa endurezca del todo.
 6. **Revisa.** Busca zonas sin barniz mirando de lado bajo una lámpara. Si el bote dice que el barniz lleva trazador UV, una linterna UV las muestra mejor.
 
-El barniz no va en la batería ni en la membrana de ventilación, que no están en las placas. El montaje mecánico empieza luego con la placa USB-C en la carcasa ([paso 2](mechanical-concept.md#assembly)).
+El barniz no va en la batería ni en la membrana de ventilación, que no están en las placas. El montaje mecánico empieza luego con la placa USB-C en la carcasa ([paso 2](mechanical-concept.es.md#assembly)).
 
 <a id="puntos-abiertos"></a>
 ## Puntos abiertos
