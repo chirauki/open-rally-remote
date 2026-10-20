@@ -14,25 +14,25 @@ Rough figures for the first remote and base, in euros including VAT. Lines marke
 |---|---:|---|
 | [Bench prototype](#bench-prototype) | €22–29 | Checked on 2026-10-07; see the section. |
 | [Remote: electronics](#electronics) | about €170 with bare boards soldered by hand; more assembled | Bare boards, LCSC parts, USB4736 kits and cables checked on 2026-10-19 and 2026-10-20, with shipping and import charges. The assembled quotes (2026-10-15) do not include import charges. |
-| [Remote: hardware](#hardware) | about €55, plus the vent label | Checked on 2026-10-20: AliExpress single-size packs for all the remote's and base's screws, nuts and pins (€35.47 with import charges, after a €27.90 promotion), and the foam sheet (€19.99). No retail price found for the vent label. |
+| [Remote: hardware](#hardware) | about €75 | Checked on 2026-10-20: AliExpress single-size packs for all the remote's and base's screws, nuts and pins (€35.47 with import charges, after a €27.90 promotion), and the foam sheet (€19.99), and 100 vent labels (€15.89 before import charges). |
 | [Remote: printed parts](#printed-parts) | €20–50 | Not checked: needs a quote from a print service with the exported files. |
 | [Base](#base-one-per-bike) | €21–41 | The spring checked (€6.49); printed parts not checked. Its screws, nuts and pins are in the remote's hardware packs. |
 | [Consumables](#consumables) | about €31, plus €15–30 of soldering supplies for bare boards | Coating and epoxy checked on 2026-10-20; soldering supplies not checked. |
-| **First remote and base, without the bench parts** | **about €310–380** | |
+| **First remote and base, without the bench parts** | **about €330–400** | |
 
 With assembled boards, the board order (mostly fixed fees, extended-part fees and shipping) is the largest item.
 
 ### Cost by number of remotes
 
-About €255 of the first build is paid once, whatever the number of remotes: the board order (5 sets of bare boards), the LCSC minimum quantities, the customs duty and shipping on each order, the fastener packs and the consumables. Each further remote and base needs a XIAO (about €12), a LiPo (€5–10) and its printed parts (€35–85, not checked): about €52–107.
+About €275 of the first build is paid once, whatever the number of remotes: the board order (5 sets of bare boards), the LCSC minimum quantities, the customs duty and shipping on each order, the fastener packs and the consumables. Each further remote and base needs a XIAO (about €12), a LiPo (€5–10) and its printed parts (€35–85, not checked): about €52–107.
 
 | Remotes and bases | Total | Per remote |
 |---:|---:|---:|
-| 1 | about €310–380 | €310–380 |
-| 2 | about €370–490 | €185–245 |
-| 5 | about €540–830 | €110–165 |
+| 1 | about €330–400 | €330–400 |
+| 2 | about €390–510 | €195–255 |
+| 5 | about €560–850 | €110–170 |
 
-The 5-remote line adds an estimated €20 for the larger LCSC and USB4736 quantities (not checked); the fastener packs, the cables, the spring pack and the consumables cover five. The printed parts are the largest per-remote cost and the largest unknown. For one remote, a DIY build costs more than a commercial rally remote, about €150 (price not checked here). It is cheaper only when several remotes share one order, for example a group buy.
+The 5-remote line adds an estimated €20 for the larger LCSC and USB4736 quantities (not checked); the fastener packs, the cables, the spring pack, the vent labels and the consumables cover five. The printed parts are the largest per-remote cost and the largest unknown. For one remote, a DIY build costs more than a commercial rally remote, about €150 (price not checked here). It is cheaper only when several remotes share one order, for example a group buy.
 
 ## Bench prototype
 
@@ -104,10 +104,10 @@ Estimated cost: about €170 for the first remote with bare boards, including sh
 | 1 | Ø3 × 12 mm steel dowel pin, ISO 8734 | Retail | Joystick stick. |
 | 1 | M2 × 4 grub screw | Retail | Joystick knob. |
 | 1 | M2 square nut, DIN 562 (4 × 1.2 mm) | Retail | Joystick knob, in the slot under it, for the grub screw. |
-| 1 | Adhesive ePTFE vent label, Ø7.6 mm (Takachi VE8 size), for a Ø3 mm hole | Retail | Inside the battery cap (V0.28). Check the hole size the chosen vent needs. |
+| 1 | Adhesive ePTFE vent label, Ø7.6–8 mm, breathable area at least Ø3 mm, for a Ø3 mm hole | Retail | Inside the battery cap (V0.28). Ø8 mm also clears the cap gasket and the housing (CAD check, 2026-10-20), with 0.9 mm to the opening's edges. |
 | 1 | Closed-cell foam sheet, EPDM or neoprene, self-adhesive, 1.5 mm thick, about 150 × 150 mm | Retail (sheet or wide roll) | Both seals and the three pads (V0.32), from one piece: the cover strip, cut 2 mm wide and about 25 cm long in all, on the housing rim (V0.30), and the battery cap gasket (V0.31), cut round a paper template printed at 100 % from `mechanical/cad/tools/cap-gasket-template.scad` (its 40 mm bar checks the scale). Soft grade; firm foam needs more screw force. The pads are layers of the same sheet: four on the battery cap, one on the rear wall, and six between the XIAO and the pouch, which hold the XIAO in its headers. |
 
-Estimated cost: about €55, plus the vent label.
+Estimated cost: about €75.
 
 - Screws, nuts and pins for the remote and the base: €28.10 for 11 single-size packs of 10–100 on AliExpress, all stainless, prices on 2026-10-20 with free shipping. AliExpress adds the import charges at checkout: on 2026-10-20 it estimated €35.27 for the 11 packs, more than the packs themselves (11 × €3 is €33, so it appears to charge per listing, not per tariff class; not confirmed), and took off a €27.90 AliExpress promotion, for a total of €35.47. Without the promotion the order would cost about €63. The packs cover at least five remotes and bases. The listings, by item number on `aliexpress.com/item/<number>.html`:
   - ISO 7380 M2 × 4 and M2 × 8, 50 each: 1005002136729466, €1.86 and €1.96.
@@ -120,7 +120,7 @@ Estimated cost: about €55, plus the vent label.
   - DIN 934 M3 nut, 50, black-coated stainless: 1005001639359312 (HZYUEGOU), €2.35. Some listings say "thickened"; the knob's pocket is 2.6 mm deep for a 2.4 mm nut.
 - Kits are not worth it: three M2/M3/M4 assortments on Amazon.es came to about €68 on 2026-10-19 for some 2,400 pieces, and lacked the Ø1.5 × 4 pin and the square nut.
 - Foam sheet: closed-cell neoprene, self-adhesive, 1.5 mm, 300 mm × 3 m, €19.99 on [Amazon.es](https://www.amazon.es/dp/B0HB4P5PN2) on 2026-10-20. The listing says high density; whether it is soft enough is not checked.
-- Vent label: no single-unit retail price was found. Gore adhesive vents come in packs of 50 at about £213 before VAT ([RS UK](https://uk.rs-online.com/web/p/enclosure-ventilation/2842971)), which is too many for one build. Generic ePTFE vent stickers sold in small packs need checking for an IP67 rating before use. Takachi sells its VE8 (Ø7.6 mm) [online](https://takachi-enclosure.com/products/VE8); the price and pack size for one build are not checked.
+- Vent label: 100 ePTFE labels, Ø8 mm outside, Ø4 mm breathable, €15.89 with free shipping on AliExpress (item 1005008646960056, variant OD8 ID4MM 100PCS) on 2026-10-20; the checkout added just over €3 in import charges. The listing claims IP67 and 120 mbar water entry pressure; not checked. No single-unit retail price was found. Gore adhesive vents come in packs of 50 at about £213 before VAT ([RS UK](https://uk.rs-online.com/web/p/enclosure-ventilation/2842971)), which is too many for one build. Generic ePTFE vent stickers sold in small packs need checking for an IP67 rating before use. Takachi sells its VE8 (Ø7.6 mm) [online](https://takachi-enclosure.com/products/VE8); the price and pack size for one build are not checked.
 
 ### Printed parts
 
