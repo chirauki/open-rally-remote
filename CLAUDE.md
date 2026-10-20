@@ -6,10 +6,11 @@ Guidance for AI assistants working in this repository. The project state lives i
 
 - `docs/`: the design record.
   - `mechanical-concept.md`: the current CAD version, its changes, the checks table, assembly steps and open unknowns.
-  - `battery-study.md`, `bom.md`, `firmware-spec.md`, `control-mapping.md`, `breadboard-assembly.md`, `prototype-plan.md`, `project-brief.md`, `development-environment.md`.
+  - `battery-study.md`, `bom.md`, `electronics-assembly.md`, `firmware-spec.md`, `control-mapping.md`, `breadboard-assembly.md`, `prototype-plan.md`, `project-brief.md`, `development-environment.md`.
   - `images/`: renders and photos named `<part>-v<version>-<view>.png`.
 - `mechanical/cad/`: OpenSCAD models. `complete-remote-v0.N.scad` is the whole remote. Other files, such as `battery-assembly-v0.25.scad`, include it.
 - `electronics/`: KiCad boards generated from Python (`design.py`, `gen_pcb.py`, `gen_sch.py`). V0.27 to V0.32 use `control-pcb/`, `joystick-pcb-rev-c/` and `usbc-pcb-rev-b/`, which share one generator and route with Freerouting; `panel-ctrl-joy/` panels the control and joystick boards for one order (KiKit, see its README); `joystick-pcb-rev-b/` is the V0.26 board, and `joystick-pcb/` and `usbc-pcb/` are the V0.23–V0.25 boards. Each README has a "Regenerating" section.
+- `electronics/tools/assembly_images.py` draws the step images for `docs/electronics-assembly.md` (run with KiCad's Python).
 - `firmware/xiao-nrf52840/`: the Arduino diagnostic sketch for the Seeed XIAO nRF52840. Its README covers the build, the upload and the bench test results.
 
 ## Working rules

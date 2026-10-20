@@ -16,7 +16,7 @@ The [development environment guide](docs/development-environment.md) explains ho
 
 The [battery study](docs/battery-study.md) compares battery options and settles on a removable remote with a fixed LiPo pouch, shared between bikes on a sliding dovetail base and charged off the bike (issue #1). V0.24 models it, V0.25 moves the pouch to a battery cap in the bottom end, and V0.26 fits it protection board up so its lead plugs straight into the control board; see the [mechanical CAD notes](docs/mechanical-concept.md). Nothing of it has been built or measured.
 
-The [bill of materials](docs/bom.md) lists every part for the bench prototype, the remote and the base, with sources.
+The [bill of materials](docs/bom.md) lists every part for the bench prototype, the remote and the base, with sources. The [electronics assembly guide](docs/electronics-assembly.md) takes the bare boards through hand soldering, tests and conformal coating, step by step with images; it has not been tried on a build yet.
 
 V0.31 and V0.32 have three KiCad boards, each with Gerbers, a BOM and a placement file for assembly: the [control board](electronics/control-pcb/README.md) (buttons, plug-in XIAO, charger, regulator, sockets), the [joystick board rev C](electronics/joystick-pcb-rev-c/README.md) and the [USB-C charging board rev B](electronics/usbc-pcb-rev-b/README.md). The control and joystick boards are ordered together as [one panel](electronics/panel-ctrl-joy/README.md). The [joystick board rev B](electronics/joystick-pcb-rev-b/README.md) belongs to V0.26, and the rev A [joystick](electronics/joystick-pcb/README.md) and [USB-C](electronics/usbc-pcb/README.md) boards to V0.23–V0.25. None has been built yet.
 
