@@ -28,7 +28,8 @@ Guidance for AI assistants working in this repository. The project state lives i
 
 ## Writing style
 
-- Docs, code comments and commit messages are in English.
+- Docs are in English and Spanish. The English file (`name.md`) is the reference; the Spanish one sits beside it as `name.es.md`, links to it at the top and says so. Change both in the same commit. Code comments and commit messages stay in English only.
+- Existing docs without a `.es.md` are not translated yet; translate a doc when it is next changed, or when asked.
 - Use short sentences, one idea each, in the active voice. Use the same term for the same thing every time.
 - Commit subjects use the imperative mood ("Add V0.25 ..."), about 50 characters. Wrap the body at 72 characters and explain why.
 - Sign every commit (`git commit -S -s`). Do not add AI attribution or Co-Authored-By lines.

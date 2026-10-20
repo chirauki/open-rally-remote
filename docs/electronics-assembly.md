@@ -1,5 +1,7 @@
 # Electronics Assembly — V0.32
 
+> Spanish version: [electronics-assembly.es.md](electronics-assembly.es.md).
+
 This guide takes the three bare boards from the JLCPCB order and the parts from [`electronics/lcsc-parts.csv`](../electronics/lcsc-parts.csv) to three soldered, tested and coated boards. The [mechanical assembly](mechanical-concept.md#assembly) then fits them into the remote.
 
 If the boards came assembled, skip the soldering steps and start at [Cables](#4-cables). Boards with Economic assembly still need the switches and the XIAO headers (steps J1, C5 and C7) and the USB-C receptacle (step U3).
