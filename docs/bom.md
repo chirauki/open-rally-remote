@@ -1,8 +1,10 @@
-# Bill of Materials — V0.32
+# Bill of Materials — V0.33
 
-This is the single parts list for the project: the bench prototype and the V0.32 removable, battery-powered remote with its base. V0.32 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap, no heat-set inserts, foam seals on the cover and the battery cap, and fewer different parts to buy (V0.32). The three circuit boards are joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). They can be ordered assembled, so the build needs no soldering, or bare, for the builder to solder by hand at a much lower cost: see [Ordering the boards](#ordering-the-boards). Design details stay in the linked documents; this page lists what to buy.
+> Spanish version: [bom.es.md](bom.es.md).
 
-**Status:** nothing in the V0.32 list has been built or tested. The V0.25 list is in the git history.
+This is the single parts list for the project: the bench prototype and the V0.33 removable, battery-powered remote with its base. V0.33 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap, no heat-set inserts, foam seals on the cover and the battery cap, fewer different parts to buy (V0.32), and 2 mm walls, which make the remote and the base 25 mm wide (V0.33). The three circuit boards are joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). They can be ordered assembled, so the build needs no soldering, or bare, for the builder to solder by hand at a much lower cost: see [Ordering the boards](#ordering-the-boards). Design details stay in the linked documents; this page lists what to buy.
+
+**Status:** nothing in the V0.33 list has been built or tested. The print material is not chosen yet ([materials study](materials-study.md)). The V0.25 list is in the git history.
 
 Sourcing preference: parts that builders can buy from mainstream retailers (for example Amazon) come first. Distributor-only parts are used only where no retail part meets the requirement, and the reason is given.
 
@@ -15,24 +17,24 @@ Rough figures for the first remote and base, in euros including VAT. Lines marke
 | [Bench prototype](#bench-prototype) | €22–29 | Checked on 2026-10-07; see the section. |
 | [Remote: electronics](#electronics) | about €170 with bare boards soldered by hand; more assembled | Bare boards, LCSC parts, USB4736 kits and cables checked on 2026-10-19 and 2026-10-20, with shipping and import charges. The assembled quotes (2026-10-15) do not include import charges. |
 | [Remote: hardware](#hardware) | about €75 | Checked on 2026-10-20: AliExpress single-size packs for all the remote's and base's screws, nuts and pins (€35.47 with import charges, after a €27.90 promotion), and the foam sheet (€19.99), and 100 vent labels (€15.89 before import charges). |
-| [Remote: printed parts](#printed-parts) | €20–50 | Not checked: needs a quote from a print service with the exported files. |
-| [Base](#base-one-per-bike) | €21–41 | The spring checked (€6.49); printed parts not checked. Its screws, nuts and pins are in the remote's hardware packs. |
+| [Printed parts, remote and base](#printed-parts) | €170–196 | Craftcloud quotes of 2026-10-21, EU workshops, with shipping: MJF nylon from one workshop with an FDM TPU keypad, or an ASA remote, a PA12 base and the keypad from three. See [Printed parts](#printed-parts). |
+| [Base](#base-one-per-bike) | €6.49 | The spring, checked. Its printed parts are in the line above; its screws, nuts and pins are in the remote's hardware packs. |
 | [Consumables](#consumables) | about €31, plus €15–30 of soldering supplies for bare boards | Coating and epoxy checked on 2026-10-20; soldering supplies not checked. |
-| **First remote and base, without the bench parts** | **about €330–400** | |
+| **First remote and base, without the bench parts** | **about €470–510** | |
 
 With assembled boards, the board order (mostly fixed fees, extended-part fees and shipping) is the largest item.
 
 ### Cost by number of remotes
 
-About €275 of the first build is paid once, whatever the number of remotes: the board order (5 sets of bare boards), the LCSC minimum quantities, the customs duty and shipping on each order, the fastener packs and the consumables. Each further remote and base needs a XIAO (about €12), a LiPo (€5–10) and its printed parts (€35–85, not checked): about €52–107.
+About €275 of the first build is paid once, whatever the number of remotes: the board order (5 sets of bare boards), the LCSC minimum quantities, the customs duty and shipping on each order, the fastener packs and the consumables. Each further remote and base needs a XIAO (about €12), a LiPo (€5–10) and its printed parts (€170–192 for one set at the 2026-10-21 quotes; several sets in one order probably cost less each, not checked): about €187–214.
 
 | Remotes and bases | Total | Per remote |
 |---:|---:|---:|
-| 1 | about €330–400 | €330–400 |
-| 2 | about €390–510 | €195–255 |
-| 5 | about €560–850 | €110–170 |
+| 1 | about €470–510 | €470–510 |
+| 2 | about €660–720 | €330–360 |
+| 5 | about €1,240–1,390 | €250–280 |
 
-The 5-remote line adds an estimated €20 for the larger LCSC and USB4736 quantities (not checked); the fastener packs, the cables, the spring pack, the vent labels and the consumables cover five. The printed parts are the largest per-remote cost and the largest unknown. For one remote, a DIY build costs more than a commercial rally remote, about €150 (price not checked here). It is cheaper only when several remotes share one order, for example a group buy.
+The 5-remote line adds an estimated €20 for the larger LCSC and USB4736 quantities (not checked); the fastener packs, the cables, the spring pack, the vent labels and the consumables cover five. The printed parts are the largest per-remote cost. For one remote, a DIY build costs more than a commercial rally remote, about €150 (price not checked here). It is cheaper only when several remotes share one order, for example a group buy.
 
 ## Bench prototype
 
@@ -126,20 +128,28 @@ Estimated cost: about €75.
 
 ### Printed parts
 
-| Qty | Part | Material | Print mode |
+| Qty | Part | Material group | Print mode |
 |---:|---|---|---|
-| 1 | Housing | PETG or ASA | `print_housing` |
-| 1 | Control cover | PETG or ASA | `print_cover` |
-| 1 | Joystick plate | PETG | `print_joy_plate` |
-| 1 | Ball and disc | PETG | `print_ball_disc` |
-| 1 | Joystick knob | PETG or ASA | `print_knob` |
-| 1 | Keypad and gasket, one piece with the three keys | Soft TPU (85A or softer); it can no longer be cut from sheet, because the keys stand on it | `print_gasket` |
-| 1 | Button plate | PETG | `print_button_plate` |
-| 1 | Battery cap | PETG or ASA | `print_battery_cap` |
+| 1 | Housing | Remote, rigid | `print_housing` |
+| 1 | Control cover | Remote, rigid | `print_cover` |
+| 1 | Joystick plate | Remote, rigid | `print_joy_plate` |
+| 1 | Ball and disc | Remote, rigid | `print_ball_disc` |
+| 1 | Joystick knob | Remote, rigid | `print_knob` |
+| 1 | Keypad and gasket, one piece with the three keys | Keypad: soft TPU (85A or softer); it can no longer be cut from sheet, because the keys stand on it | `print_gasket` |
+| 1 | Button plate | Remote, rigid | `print_button_plate` |
+| 1 | Battery cap | Remote, rigid | `print_battery_cap` |
 
-Print settings and orientations are in the [mechanical notes](mechanical-concept.md#printing).
+The base's printed parts are listed under [Base](#base-one-per-bike). Print settings and orientations are in the [mechanical notes](mechanical-concept.md#printing).
 
-Estimated cost: about €20–50 from a print service, including shipping. **Not checked.** [JLC3DP](https://jlc3dp.com/fr) lists FDM parts from USD 1 each, but does not list PETG. Get a quote with the exported STL files.
+The materials are not chosen yet. The [materials study](materials-study.md) recommends PA11 by MJF for the remote's rigid parts (ASA by FDM is the alternative), PA12 by MJF for the base's and TPU near 85A for the keypad. PETG is ruled out: a dark part in the Spanish sun reaches its heat deflection temperature.
+
+Estimated cost, from Craftcloud quotes of 2026-10-21 for the V0.33 files, EU workshops only, shipping to Spain included, VAT not checked:
+
+- All 11 rigid parts of the remote and the base from one MJF workshop: €143.84 in dyed black PA12, €161.49 in dyed black PA11 (WAITKUS 360°, Germany). A PA11 remote with a PA12 base in one order should fall between them; not quoted.
+- Remote in black ASA by FDM: €56.99 at 20 % infill (Ľubomír Pavliš, Slovakia), about €74 at 100 %. The base in PA12 apart: €91.97 (Smart Factory, Lithuania).
+- Keypad in FDM TPU, Shore 81–90A: €26.14 (Amber Layer, Lithuania) or €30.19 (Imagination 3D, Romania). Ask for the exact filament; the 0.8 mm sheet is under the 1 mm minimum wall given for FDM TPU.
+
+The full list is in the [materials study](materials-study.md#quotes). Orders from outside the EU were cheaper (from about €115 for the rigid parts) but pay import duties.
 
 ## Base, one per bike
 
@@ -150,16 +160,16 @@ Estimated cost: about €20–50 from a print service, including shipping. **Not
 | 1 | Compression spring 0.5 × 5 × 10 mm, stainless (wire × outside diameter × free length) | Retail (spring assortments; cut a longer one to length if needed) | Lock. About 3.4 N locked, estimated. |
 | 2 | Ø1.5 × 4 mm steel dowel pin, ISO 8734 | Retail | Quarter-turn lock knob. |
 | 1 | M3 nut, ISO 4032 | Retail | Lock knob, in its hex pocket; fixed on the thread with the clear epoxy (V0.32: no lock nut). |
-| 1 | Bike inner tube, butyl, about 0.8–1.2 mm wall; an old one will do | Retail or a used tube | Two anti-rattle strips, 4 × 50 mm, glued into the platform pockets with the clear epoxy. Optionally the two liner halves, 23 × 43 mm, instead of the printed TPU. Measure the wall and set `strip_t` (and `liner_radial`) before printing the base front. |
-| 1 | Base front | PETG or ASA, `print_base_front` | One part for both bar sizes (V0.28). |
-| 1 | Base cap | PETG or ASA, `print_base_cap` | |
+| 1 | Bike inner tube, butyl, about 0.8–1.2 mm wall; an old one will do | Retail or a used tube | Two anti-rattle strips, 4 × 50 mm, glued into the platform pockets with the clear epoxy. Optionally the two liner halves, 25 × 43 mm (V0.33), instead of the printed TPU. Measure the wall and set `strip_t` (and `liner_radial`) before printing the base front. |
+| 1 | Base front | Base, rigid; `print_base_front` | One part for both bar sizes (V0.28). 25 mm wide since V0.33. |
+| 1 | Base cap | Base, rigid; `print_base_cap` | |
 | 2 | Bar liner half | TPU 95A, `liner_main`, `liner_cap`, or cut from the inner tube | Fits a 25.4 mm bar or the sleeve. |
-| 2 | Sleeve half, bars under 25.4 mm only | PETG, `print_sleeve`, with `bar_diameter` set to the bar measured with a caliper | Between the bar and the liner. Painted 7/8 in bars can measure 0.3 mm over 22.2 mm. |
-| 1 | Lock knob, Ø16 mm quarter turn | PETG, `print_lock_knob` | Top face on the bed. |
+| 2 | Sleeve half, bars under 25.4 mm only | Base, rigid; `print_sleeve`, with `bar_diameter` set to the bar measured with a caliper | Between the bar and the liner. Painted 7/8 in bars can measure 0.3 mm over 22.2 mm. |
+| 1 | Lock knob, Ø16 mm quarter turn | Base, rigid; `print_lock_knob` | Top face on the bed. |
 
-Estimated cost: about €21–41.
+Estimated cost: €6.49 for the spring.
 
-- Printed parts: €15–35 from a print service. **Not checked.**
+- Printed parts: quoted with the remote's (see [Printed parts](#printed-parts)); the base alone in PA12 by MJF was €91.97 on 2026-10-21.
 - Spring: 5 × 0.5 × 5 × 10 mm, 304 stainless, €6.49 on [Amazon.es](https://www.amazon.es/dp/B0C77XC4WS) on 2026-10-20. Spring assortments checked did not have this size, and a 6 mm outside diameter does not fit the Ø6.0 mm pocket.
 - Screws, nut and pins: in the remote's AliExpress packs (see [Hardware](#hardware)).
 
