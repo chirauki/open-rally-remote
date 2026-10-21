@@ -255,7 +255,7 @@ J2 is the 3-pin socket, as in [step C6](#step-c6-sockets-back).
 
 ![Step U3](images/usbc-pcb-rev-b-v0.32-asm-u3-receptacle.png)
 
-- **Seating.** J1 is the GCT USB4736-GF-A, without its gasket. Its two locating posts drop into the two small holes. Its nose sticks 1.7 mm past the board edge.
+- **Seating.** J1 is the GCT USB4736-GF-A, without its gasket. Its two locating posts drop into the two small holes. Its nose sticks about 1.7 mm past the board edge: 1.5–1.9 mm on the first boards, because the milled outline varies by about ±0.2 mm. The drilled holes, not the edge, set where the receptacle sits.
 - **Signal pads first.** Solder the six signal pads at the back of the receptacle while the posts hold it in place.
   - Use plenty of flux and a fine tip.
   - The gaps between pads are only about 0.3 mm. Check for bridges under magnification and clear them with braid.
@@ -375,6 +375,7 @@ Each of these is checked on the first build. Record the result here.
 
 - **KSC2 by hand.** Whether the KSC221JLFS J-leads can be soldered well with an iron. The pads show about 1 mm past the body. If not, a hot-air station or a hot plate is needed.
 - **USB4736 by hand.** The signal pads' 0.3 mm gaps, and the heat the shell tabs need.
+- **USB4736 position.** Once it is soldered, measure from the body's front face (where the gasket bears) to the centre of each M2 hole, with a Ø2 mm pin in the hole: 11.10 mm in the design. It sets the gasket squeeze; see the open unknowns in the [mechanical concept](mechanical-concept.md#open-unknowns-before-printing).
 - **LED polarity mark.** The LTST-S270KRKT's cathode mark against the footprint: use the meter test above.
 - **Header choice.** Whether the XIAO's 6.1 mm pins seat and hold in the 5.7 mm header. The 8.5 mm header clears in the CAD (checked 2026-10-20), but the assembly path checks were not run again for it.
 - **Cables.** That the AliExpress `same direction` cables are straight and latch in the "1.0 WT" sockets.

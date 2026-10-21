@@ -264,7 +264,7 @@ J2 es el conector de 3 pines; se suelda como en el paso C6.
 
 ![Paso U3](images/usbc-pcb-rev-b-v0.32-asm-u3-receptacle.png)
 
-- **Colocación.** J1 es el GCT USB4736-GF-A, sin su junta. Sus dos tetones de posicionado entran en los dos agujeros pequeños, y su boca sobresale 1,7 mm del borde de la placa.
+- **Colocación.** J1 es el GCT USB4736-GF-A, sin su junta. Sus dos tetones de posicionado entran en los dos agujeros pequeños, y su boca sobresale unos 1,7 mm del borde de la placa: 1,5–1,9 mm en las primeras placas, porque el contorno fresado varía unos ±0,2 mm. Los agujeros taladrados, no el borde, fijan dónde queda el receptáculo.
 - **Primero los pads de señal.** Suelda los seis pads de señal de la parte de atrás del receptáculo mientras los tetones lo sujetan.
   - Usa mucho flux y una punta fina.
   - Entre pads solo hay unos 0,3 mm. Busca puentes con aumento y quítalos con la malla.
@@ -389,6 +389,7 @@ Cada uno se comprueba en el primer montaje. Apunta aquí el resultado.
 
 - **KSC2 a mano.** Si las patas en J del KSC221JLFS se sueldan bien con soldador. De cada pad asoma alrededor de 1 mm. Si no, hace falta una estación de aire caliente o una placa calefactora.
 - **USB4736 a mano.** La separación de 0,3 mm entre sus pads de señal, y el calor que necesitan las patas de la carcasa.
+- **Posición del USB4736.** Una vez soldado, mide desde la cara frontal del cuerpo (donde apoya la junta) hasta el centro de cada agujero M2, con un pasador de Ø2 mm en el agujero: 11,10 mm en el diseño. Fija la compresión de la junta; mira las incógnitas abiertas del [concepto mecánico](mechanical-concept.es.md#open-unknowns-before-printing).
 - **Marca de polaridad del LED.** La marca de cátodo del LTST-S270KRKT frente a la huella: usa la prueba con el multímetro de arriba.
 - **Elección del zócalo.** Si los pines de 6,1 mm de la XIAO entran y sujetan en el zócalo de 5,7 mm. El de 8,5 mm cabe en el CAD (comprobado el 20-10-2026), pero no se ha vuelto a comprobar el recorrido de montaje con él.
 - **Cables.** Que los cables `same direction` de AliExpress sean rectos y encajen en los conectores "1.0 WT".
