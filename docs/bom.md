@@ -157,7 +157,7 @@ The full list is in the [materials study](materials-study.md#quotes). Orders fro
 |---:|---|---|---|
 | 2 | M4 × 16 socket-head screw, ISO 4762 | Retail | Clamp. Cuts its own thread in Ø3.4 mm pilots in the base front. |
 | 1 | M3 × 20 socket-head screw, ISO 4762 | Retail | Its head is the lock pin. V0.31 asked for M3 × 22, which is not a standard length. |
-| 1 | Compression spring 0.5 × 5 × 10 mm, stainless (wire × outside diameter × free length) | Retail (spring assortments; cut a longer one to length if needed) | Lock. About 3.4 N locked, estimated. |
+| 1 | Compression spring 0.5 × 5 × 10 mm, stainless (wire × outside diameter × free length) | Retail (spring assortments; cut a longer one to length if needed) | Lock. About 4–4.7 N locked and 6–7 N pulled, estimated from the spring measured below. |
 | 2 | Ø1.5 × 4 mm steel dowel pin, ISO 8734 | Retail | Quarter-turn lock knob. |
 | 1 | M3 nut, ISO 4032 | Retail | Lock knob, in its hex pocket; fixed on the thread with the clear epoxy (V0.32: no lock nut). |
 | 1 | Bike inner tube, butyl, about 0.8–1.2 mm wall; an old one will do | Retail or a used tube | Two anti-rattle strips, 4 × 50 mm, glued into the platform pockets with the clear epoxy. Optionally the two liner halves, 25 × 43 mm (V0.33), instead of the printed TPU. Measure the wall and set `strip_t` (and `liner_radial`) before printing the base front. |
@@ -171,6 +171,7 @@ Estimated cost: €6.49 for the spring.
 
 - Printed parts: quoted with the remote's (see [Printed parts](#printed-parts)); the base alone in PA12 by MJF was €91.97 on 2026-10-21.
 - Spring: 5 × 0.5 × 5 × 10 mm, 304 stainless, €6.49 on [Amazon.es](https://www.amazon.es/dp/B0C77XC4WS) on 2026-10-20. Spring assortments checked did not have this size, and a 6 mm outside diameter does not fit the Ø6.0 mm pocket.
+  Measured on 2026-10-22: 0.5 mm wire, 5 mm outside diameter, 10 mm free length, 7 coils with closed, unground ends (5–6 active), 3.6 mm solid. The lock compresses it to 4.0 mm (`lock_spring_solid`), so it never goes solid. Put the end with the cut tip against the pocket floor, so the tip does not rub the screw head as the knob turns.
 - Screws, nut and pins: in the remote's AliExpress packs (see [Hardware](#hardware)).
 
 ## Consumables

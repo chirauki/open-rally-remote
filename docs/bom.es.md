@@ -166,7 +166,7 @@ La lista completa está en el [estudio de materiales](materials-study.es.md#quot
 |---:|---|---|---|
 | 2 | Tornillo de cabeza cilíndrica M4 × 16, ISO 4762 | Tienda | Abrazadera. Se hace su propia rosca en pilotos de Ø3,4 mm en la parte delantera de la base. |
 | 1 | Tornillo de cabeza cilíndrica M3 × 20, ISO 4762 | Tienda | Su cabeza es el pestillo del cierre. La V0.31 pedía M3 × 22, que no es un largo estándar. |
-| 1 | Muelle de compresión 0,5 × 5 × 10 mm, inoxidable (hilo × diámetro exterior × largo libre) | Tienda (surtidos de muelles; corta uno más largo si hace falta) | Cierre. Unos 3,4 N cerrado, estimado. |
+| 1 | Muelle de compresión 0,5 × 5 × 10 mm, inoxidable (hilo × diámetro exterior × largo libre) | Tienda (surtidos de muelles; corta uno más largo si hace falta) | Cierre. Unos 4–4,7 N cerrado y 6–7 N al tirar, estimados con el muelle medido más abajo. |
 | 2 | Pasador de acero de Ø1,5 × 4 mm, ISO 8734 | Tienda | Pomo del cierre de cuarto de vuelta. |
 | 1 | Tuerca M3, ISO 4032 | Tienda | Pomo del cierre, en su alojamiento hexagonal; fijada en la rosca con el epoxi transparente (V0.32: sin contratuerca). |
 | 1 | Cámara de bicicleta, butilo, pared de unos 0,8–1,2 mm; sirve una vieja | Tienda o una cámara usada | Dos tiras antivibración de 4 × 50 mm, pegadas en los alojamientos de la plataforma con el epoxi transparente. Opcionalmente las dos mitades del forro, de 25 × 43 mm (V0.33), en vez del TPU impreso. Mide la pared y ajusta `strip_t` (y `liner_radial`) antes de imprimir la parte delantera de la base. |
@@ -180,6 +180,7 @@ Coste estimado: 6,49 € por el muelle.
 
 - Piezas impresas: presupuestadas con las del mando (mira [Piezas impresas](#printed-parts)); la base sola en PA12 por MJF costaba 91,97 € el 21-10-2026.
 - Muelle: 5 × 0,5 × 5 × 10 mm, inoxidable 304, 6,49 € en [Amazon.es](https://www.amazon.es/dp/B0C77XC4WS) el 20-10-2026. Los surtidos de muelles revisados no tenían esta medida, y un diámetro exterior de 6 mm no cabe en el alojamiento de Ø6,0 mm.
+  Medido el 22-10-2026: hilo de 0,5 mm, diámetro exterior de 5 mm, largo libre de 10 mm, 7 espiras con extremos cerrados sin rectificar (5–6 activas), 3,6 mm a tope. El cierre lo comprime a 4,0 mm (`lock_spring_solid`), así que nunca llega a tope. Pon el extremo con la punta cortada contra el fondo del alojamiento, para que la punta no roce la cabeza del tornillo al girar el pomo.
 - Tornillos, tuerca y pasadores: en los paquetes de AliExpress del mando (mira [Tornillería y piezas](#hardware)).
 
 <a id="consumables"></a>
