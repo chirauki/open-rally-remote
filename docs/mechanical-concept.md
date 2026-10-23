@@ -36,73 +36,53 @@ The remote mounts on the left side of the bar only, never the right. The turn-si
 
 ![V0.33 seen along the bar: the folded control face, the 2 mm walls and the base with its lock knob.](images/complete-remote-v0.33-photo-side.png)
 
-![V0.31 battery cap from inside: the die-cut foam gasket (black) inside the cap's 0.5 mm lip, with the three screw holes in the foam and the vent label in the opening.](images/complete-remote-v0.31-cap-seal.png)
+![V0.33 on its base, from the rider's side: the three TPU keys stand 3 mm out of the cover through Ø13 mm holes, and the joystick sits on the lower facet.](images/complete-remote-v0.33-assembly.png)
 
-![V0.30 housing seen from the cover side: the foam strip (black) runs on the rim along both side walls and through the fold, with the cover screw bosses just inside it.](images/complete-remote-v0.30-foam.png)
+![V0.33 control cover seen straight from the rider's side.](images/complete-remote-v0.33-front.png)
 
-![V0.30 section through the upper cover screws (Y = 24 mm), the axis of the bar up the page: cover with the countersink, loose keypad sheet (black), foam strip (blue) on the wall, button plate (ochre) with its stop pad against the sheet beside the screw (red), the boss behind, and the control board (green).](images/complete-remote-v0.30-seal-section.png)
+![V0.33 seen along the bar: the upper facet with keys A, B, C and the lower facet with the joystick, turned 20 degrees toward the bar.](images/complete-remote-v0.33-side.png)
 
-![V0.28 base on a 22.2 mm bar: the TPU liner (orange) and the printed sleeve (white) inside the one 25.4 mm bore.](images/complete-remote-v0.28-base-sleeve.png)
+![V0.33 joystick knob on the lower facet, between the four lower cover screws.](images/complete-remote-v0.33-joy.png)
 
-![V0.28 sleeve halves in their print orientation, on an end face. Each stops 0.5 mm short of the split.](images/complete-remote-v0.28-print-sleeve.png)
+![V0.33 on its base, from behind the bar: the base platform under the remote's rear face, and the lock knob below the clamp ring.](images/complete-remote-v0.33-rear.png)
 
-![V0.27 interior with the upper axial wall removed. It differs from V0.26 only at the joystick board: two screws in its lower half, and slots at its two upper notches.](images/complete-remote-v0.27-interior.png)
+![V0.33 entry position: the remote held off the platform, 9 mm below its working position, with the lock knob pulled.](images/complete-remote-v0.33-entry.png)
 
-![V0.27 joystick plate in its print orientation: both PCB standoffs in the lower half, below the seat hole.](images/complete-remote-v0.27-print-joy-plate.png)
+![V0.33 fitting and removal, animated. Left: pull the knob, press the remote onto the platform 9 mm low, slide it up to the stop, release the knob; then pull the knob, slide down and lift off. Right: the same, cut at mid-width and seen along the bar, with the rails in the groove and the lock head (orange) in its hole.](images/complete-remote-v0.33-fit.gif)
 
-![V0.26 on its base, from the rider's side: the three TPU keys stand 3 mm out of the cover through Ø13 mm holes; the joystick is unchanged.](images/complete-remote-v0.26-assembly.png)
+![V0.33 base on the bar: the clamp ring, the platform with two dovetail rail segments, the two black anti-rattle strips, and the lock knob.](images/complete-remote-v0.33-base.png)
 
-![V0.26 interior with the upper axial wall removed: the control board behind the upper facet with the XIAO on its headers, the pouch behind them (protection board up), the USB-C board at the top, and the three cables: joystick (round the top edge of the joystick board), USB-C board, and the pouch lead (red) up to the control board.](images/complete-remote-v0.26-interior.png)
+![V0.33 base on a 22.2 mm bar, without the bar: the liner and the printed sleeve inside the one 25.4 mm bore.](images/complete-remote-v0.33-base-sleeve.png)
 
-![V0.26 section through the middle of the pod: cover, keypad sheet, button plate, switches, control board, headers and XIAO.](images/complete-remote-v0.26-section.png)
+![V0.33 remote seen from the bar side: the rear face with the lock hole, the interrupted dovetail groove and the USB-C opening.](images/complete-remote-v0.33-back.png)
 
-The images below are of V0.25 and earlier; behind the upper facet, V0.26 differs as described.
+![V0.33 dovetail section through the lower rail: the 45-degree rail on the base (right) inside the groove in the remote's rear wall (left), and the anti-rattle strips (black) either side, drawn at their uncompressed thickness.](images/complete-remote-v0.33-dovetail.png)
 
-![V0.25 battery cap, exploded from below: the housing with its bottom opening and the cap gasket land, the pouch envelope (red), the cap gasket and the cap with its three countersunk screw holes. The vent hole is in front of the opening.](images/complete-remote-v0.25-battery-cap.png)
+![V0.33 interior with the upper axial wall removed: the control board behind the upper facet with the XIAO on its headers, the pouch (red) behind them, the USB-C board at the top, the joystick board on the lower facet, and the cables.](images/complete-remote-v0.33-interior.png)
 
-![V0.25 section through the middle of the pod and the base: the 50 mm pouch behind the XIAO, and the cap at the rear of the bottom end with the front screw boss.](images/complete-remote-v0.25-section.png)
+![V0.33 section through the middle of the pod and the base: cover, keypad sheet, button plate, switches, control board, XIAO and pouch.](images/complete-remote-v0.33-section.png)
 
-![V0.25 interior with the upper axial wall removed: the pouch envelope (red) behind the XIAO, from the cap up to Y = 17.5 mm.](images/complete-remote-v0.25-interior.png)
+![V0.33 section through the upper cover screws (Y = 24 mm), the axis of the bar up the page: cover (left), loose keypad sheet (black), foam strip (blue) on the housing rim, button plate (ochre), the two screws (red) in their bosses, and the control board (green).](images/complete-remote-v0.33-seal-section.png)
 
-![V0.25 remote seen from the bar side. The bottom band (left) is 26 mm wide for the cap gasket.](images/complete-remote-v0.25-back.png)
+![V0.33 housing seen from the cover side: the foam strip (black) runs on the rim along both side walls and through the fold, with the cover screw bosses just inside it.](images/complete-remote-v0.33-foam.png)
 
-The renders below are of V0.24; apart from the bottom end, the remote and the base are unchanged.
+![V0.33 battery cap, exploded from below: the housing with its bottom opening, the pouch envelope (red), the die-cut foam cap gasket and the cap with its three countersunk screw holes.](images/complete-remote-v0.33-battery-cap.png)
 
-![V0.24 on its base, from the control side.](images/complete-remote-v0.24-iso.png)
+![V0.33 battery cap from inside: the die-cut foam gasket (black) inside the cap's 0.5 mm lip, and the vent label in the opening.](images/complete-remote-v0.33-cap-seal.png)
 
-![V0.24 on its base, from behind the bar: the base platform under the remote's rear face, and the lock knob below the clamp ring.](images/complete-remote-v0.24-rear.png)
+![V0.33 section through the joystick axis, drawn with the knob at the bottom: knob, cover, keypad sheet, joystick plate with the ball seat, ball and cross disc, switches, and the joystick board on its standoffs.](images/complete-remote-v0.33-joy-section.png)
 
-![V0.24 entry position: the remote held off the platform, 9 mm below its working position, with the lock knob pulled. The groove's wide openings line up with the two rail segments.](images/complete-remote-v0.24-entry.png)
+![V0.33 cover in its print orientation, on its axial face.](images/complete-remote-v0.33-print-cover.png)
 
-![V0.24 fitting and removal, animated. Left: pull the knob, press the remote onto the platform 9 mm low, slide it up to the stop, release the knob; then pull the knob, slide down and lift off. Right: the same, cut at mid-width and seen along the bar, with the rails in the groove and the lock head (orange) in its hole.](images/complete-remote-v0.24-fit.gif)
+![V0.33 keypad sheet unfolded flat in its print orientation, seen from the key side.](images/complete-remote-v0.33-gasket-flat.png)
 
-![V0.24 base on the bar: the clamp ring, the platform with two dovetail rail segments, the two black TPU anti-rattle strips, and the lock screw head below the rails.](images/complete-remote-v0.24-base.png)
+![V0.33 joystick parts in their print orientations: the plate on its sheet side with the two PCB standoffs up, the ball and disc on the disc, the knob on its top face, and the Ø3 × 12 mm steel pin (bought).](images/complete-remote-v0.33-print-joy.png)
 
-![V0.24 remote seen from the bar side: the rear face with the lock hole (left), the interrupted dovetail groove (centre) and the USB-C opening (right).](images/complete-remote-v0.24-back.png)
+![V0.33 joystick plate in its print orientation: both PCB standoffs in the lower half, below the seat hole.](images/complete-remote-v0.33-print-joy-plate.png)
 
-![V0.24 dovetail section through the lower rail: the 45-degree rail on the base (right) inside the groove in the remote's rear wall (left), and the TPU strips either side, drawn at their uncompressed thickness.](images/complete-remote-v0.24-dovetail.png)
+![V0.33 sleeve halves in their print orientation, on an end face. Each stops 0.5 mm short of the split.](images/complete-remote-v0.33-print-sleeve.png)
 
-![V0.24 section through the middle of the pod and the base.](images/complete-remote-v0.24-section.png)
-
-![V0.24 interior with the upper axial wall removed: the LiPo pouch envelope (red) in the lower rear of the cavity, below the XIAO; the USB-C receptacle on its charging PCB (green), resting on its rib at the top of the rear wall.](images/complete-remote-v0.24-interior.png)
-
-The control end is unchanged from V0.23. These V0.23 renders still show it:
-
-![V0.23 joystick knob on the lower facet, between the four lower cover screws. The engraved cross shows the four directions.](images/complete-remote-v0.23-joy.png)
-
-![V0.23 seen along the bar: the upper facet with buttons A, B, C and the lower facet with the joystick, turned 20 degrees toward the bar.](images/complete-remote-v0.23-side.png)
-
-![V0.23 control cover seen from the rider's side.](images/complete-remote-v0.23-front.png)
-
-![V0.23 section through the joystick axis, drawn with the cover at the bottom: knob, cover, sheet gasket gripping the stick, joystick plate with the ball seat, ball and cross disc, switches, PCB on its standoffs, and the rear component zone behind it.](images/complete-remote-v0.23-joy-section.png)
-
-![V0.23 cover in its print orientation, on its axial face.](images/complete-remote-v0.23-print-cover.png)
-
-![V0.23 joystick parts in their print orientations: the plate on its sheet side with the two PCB standoffs up, the ball and disc on the disc, the knob on its top face, and the Ø3 × 12 mm steel pin (bought).](images/complete-remote-v0.23-print-joy.png)
-
-![V0.23 gasket unfolded flat: wall land on the upper facet, a full sheet with the stick hole on the lower facet.](images/complete-remote-v0.23-gasket-flat.png)
-
-The two V0.33 images are Blender renders of the CAD (see [Photo renders](#photo-renders)). The others are direct OpenSCAD renders of the V0.25, V0.24 or V0.23 file. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb/README.md).
+The two photo images are Blender renders of the CAD (see [Photo renders](#photo-renders)). The others are direct OpenSCAD renders of the V0.33 file. Images of earlier versions stay in `docs/images/`. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb-rev-c/README.md).
 
 ## Changes from V0.32
 
@@ -171,7 +151,7 @@ The design kept heat-set inserts in the hope that the print service would fit th
 | Joystick knob | Radial M2 insert for the grub screw | An M2 square nut (DIN 562, 4 × 1.2 mm) in a slot open toward the cover (`knob_nut`), 0.65 mm from the pin bore. The engraved cross starts 4.9 mm from the centre so it clears the slot |
 | Lock knob | M3 insert from inside the cup | An M3 nut in a hex pocket on the knob's outer face (`lock_nut`). Screw tension pulls the nut onto the pocket floor, and the lock nut jams against it. V0.32: no lock nut; epoxy on the thread fixes the nut |
 
-![V0.29 joystick knob from below, with the square-nut slot beside the pin bore, and the lock knob with its M3 nut pocket.](images/complete-remote-v0.29-print-knobs.png)
+![V0.33 joystick knob from below, with the square-nut slot beside the pin bore, and the lock knob with its M3 nut pocket.](images/complete-remote-v0.33-print-knobs.png)
 
 The engraved cross on the joystick knob shrinks to four 0.6 mm ticks at the rim. Cost: printed threads in PETG wear with each opening. The cover and the clamp are rarely undone; the battery cap screws were already like this. The pilot sizes are first estimates and need a check on the first print.
 

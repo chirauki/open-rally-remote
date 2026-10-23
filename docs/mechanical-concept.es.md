@@ -32,77 +32,57 @@ El mando se monta solo en el lado izquierdo del manillar, nunca en el derecho. E
 
 **Concepto paramétrico actual:** [complete-remote-v0.33.scad](../mechanical/cad/complete-remote-v0.33.scad)
 
-![V0.33 on its base, from the rider's side: a Blender render of the CAD with the remote in dyed black nylon and the base in grey nylon. The material is not chosen yet.](images/complete-remote-v0.33-photo-front.png)
+![La V0.33 sobre su base, desde el lado del piloto: un render del CAD hecho con Blender, con el mando en nylon teñido de negro y la base en nylon gris. El material aún no está elegido.](images/complete-remote-v0.33-photo-front.png)
 
-![V0.33 seen along the bar: the folded control face, the 2 mm walls and the base with its lock knob.](images/complete-remote-v0.33-photo-side.png)
+![La V0.33 vista a lo largo del manillar: la cara de controles plegada, las paredes de 2 mm y la base con su pomo de bloqueo.](images/complete-remote-v0.33-photo-side.png)
 
-![V0.31 battery cap from inside: the die-cut foam gasket (black) inside the cap's 0.5 mm lip, with the three screw holes in the foam and the vent label in the opening.](images/complete-remote-v0.31-cap-seal.png)
+![La V0.33 sobre su base, desde el lado del piloto: las tres teclas de TPU sobresalen 3 mm de la tapa por agujeros de Ø13 mm, y el joystick está en la cara inferior.](images/complete-remote-v0.33-assembly.png)
 
-![V0.30 housing seen from the cover side: the foam strip (black) runs on the rim along both side walls and through the fold, with the cover screw bosses just inside it.](images/complete-remote-v0.30-foam.png)
+![La tapa de controles de la V0.33, vista de frente desde el lado del piloto.](images/complete-remote-v0.33-front.png)
 
-![V0.30 section through the upper cover screws (Y = 24 mm), the axis of the bar up the page: cover with the countersink, loose keypad sheet (black), foam strip (blue) on the wall, button plate (ochre) with its stop pad against the sheet beside the screw (red), the boss behind, and the control board (green).](images/complete-remote-v0.30-seal-section.png)
+![La V0.33 vista a lo largo del manillar: la cara superior con las teclas A, B, C y la cara inferior con el joystick, girada 20 grados hacia el manillar.](images/complete-remote-v0.33-side.png)
 
-![V0.28 base on a 22.2 mm bar: the TPU liner (orange) and the printed sleeve (white) inside the one 25.4 mm bore.](images/complete-remote-v0.28-base-sleeve.png)
+![El pomo del joystick de la V0.33 en la cara inferior, entre los cuatro tornillos inferiores de la tapa.](images/complete-remote-v0.33-joy.png)
 
-![V0.28 sleeve halves in their print orientation, on an end face. Each stops 0.5 mm short of the split.](images/complete-remote-v0.28-print-sleeve.png)
+![La V0.33 sobre su base, desde detrás del manillar: la plataforma de la base bajo la cara trasera del mando, y el pomo de bloqueo debajo del anillo de la abrazadera.](images/complete-remote-v0.33-rear.png)
 
-![V0.27 interior with the upper axial wall removed. It differs from V0.26 only at the joystick board: two screws in its lower half, and slots at its two upper notches.](images/complete-remote-v0.27-interior.png)
+![Posición de entrada de la V0.33: el mando separado de la plataforma, 9 mm por debajo de su posición de trabajo, con el pomo de bloqueo tirado.](images/complete-remote-v0.33-entry.png)
 
-![V0.27 joystick plate in its print orientation: both PCB standoffs in the lower half, below the seat hole.](images/complete-remote-v0.27-print-joy-plate.png)
+![Colocación y retirada de la V0.33, animadas. Izquierda: tira del pomo, apoya el mando en la plataforma 9 mm más abajo, deslízalo hasta el tope y suelta el pomo; después tira del pomo, desliza hacia abajo y levanta. Derecha: lo mismo, cortado a media anchura y visto a lo largo del manillar, con los raíles en la ranura y la cabeza del bloqueo (naranja) en su agujero.](images/complete-remote-v0.33-fit.gif)
 
-![V0.26 on its base, from the rider's side: the three TPU keys stand 3 mm out of the cover through Ø13 mm holes; the joystick is unchanged.](images/complete-remote-v0.26-assembly.png)
+![La base de la V0.33 en el manillar: el anillo de la abrazadera, la plataforma con dos tramos de raíl de cola de milano, las dos tiras antivibración negras y el pomo de bloqueo.](images/complete-remote-v0.33-base.png)
 
-![V0.26 interior with the upper axial wall removed: the control board behind the upper facet with the XIAO on its headers, the pouch behind them (protection board up), the USB-C board at the top, and the three cables: joystick (round the top edge of the joystick board), USB-C board, and the pouch lead (red) up to the control board.](images/complete-remote-v0.26-interior.png)
+![La base de la V0.33 para un manillar de 22,2 mm, sin el manillar: el forro y el casquillo impreso dentro del único agujero de 25,4 mm.](images/complete-remote-v0.33-base-sleeve.png)
 
-![V0.26 section through the middle of the pod: cover, keypad sheet, button plate, switches, control board, headers and XIAO.](images/complete-remote-v0.26-section.png)
+![El mando de la V0.33 visto desde el lado del manillar: la cara trasera con el agujero del bloqueo, la ranura de cola de milano interrumpida y la abertura del USB-C.](images/complete-remote-v0.33-back.png)
 
-Las imágenes de abajo son de la V0.25 y anteriores; detrás de la cara superior, la V0.26 cambia como se ha descrito.
+![Sección de la cola de milano de la V0.33 por el raíl inferior: el raíl a 45 grados de la base (derecha) dentro de la ranura de la pared trasera del mando (izquierda), y las tiras antivibración (negras) a cada lado, dibujadas con su grosor sin comprimir.](images/complete-remote-v0.33-dovetail.png)
 
-![V0.25 battery cap, exploded from below: the housing with its bottom opening and the cap gasket land, the pouch envelope (red), the cap gasket and the cap with its three countersunk screw holes. The vent hole is in front of the opening.](images/complete-remote-v0.25-battery-cap.png)
+![Interior de la V0.33 sin la pared axial superior: la placa de control detrás de la cara superior con la XIAO en sus conectores, la batería (roja) detrás de ellas, la placa USB-C arriba, la placa del joystick en la cara inferior y los cables.](images/complete-remote-v0.33-interior.png)
 
-![V0.25 section through the middle of the pod and the base: the 50 mm pouch behind the XIAO, and the cap at the rear of the bottom end with the front screw boss.](images/complete-remote-v0.25-section.png)
+![Sección de la V0.33 por el centro del cuerpo y de la base: tapa, lámina del teclado, placa de botones, pulsadores, placa de control, XIAO y batería.](images/complete-remote-v0.33-section.png)
 
-![V0.25 interior with the upper axial wall removed: the pouch envelope (red) behind the XIAO, from the cap up to Y = 17.5 mm.](images/complete-remote-v0.25-interior.png)
+![Sección de la V0.33 por los tornillos superiores de la tapa (Y = 24 mm), con el eje del manillar hacia arriba: tapa (izquierda), lámina suelta del teclado (negra), tira de espuma (azul) en el borde de la carcasa, placa de botones (ocre), los dos tornillos (rojos) en sus resaltes y la placa de control (verde).](images/complete-remote-v0.33-seal-section.png)
 
-![V0.25 remote seen from the bar side. The bottom band (left) is 26 mm wide for the cap gasket.](images/complete-remote-v0.25-back.png)
+![La carcasa de la V0.33 vista desde el lado de la tapa: la tira de espuma (negra) recorre el borde por las dos paredes laterales y por el pliegue, con los resaltes de los tornillos de la tapa justo por dentro.](images/complete-remote-v0.33-foam.png)
 
-Los renders de abajo son de la V0.24; salvo el extremo inferior, el mando y la base no han cambiado.
+![La tapa de la batería de la V0.33, despiezada desde abajo: la carcasa con su abertura inferior, el volumen de la batería (rojo), la junta de espuma troquelada y la tapa con sus tres agujeros avellanados.](images/complete-remote-v0.33-battery-cap.png)
 
-![V0.24 on its base, from the control side.](images/complete-remote-v0.24-iso.png)
+![La tapa de la batería de la V0.33 por dentro: la junta de espuma troquelada (negra) dentro del labio de 0,5 mm de la tapa, y la etiqueta de ventilación en la abertura.](images/complete-remote-v0.33-cap-seal.png)
 
-![V0.24 on its base, from behind the bar: the base platform under the remote's rear face, and the lock knob below the clamp ring.](images/complete-remote-v0.24-rear.png)
+![Sección de la V0.33 por el eje del joystick, dibujada con el pomo abajo: pomo, tapa, lámina del teclado, placa del joystick con el asiento de la bola, bola y disco en cruz, pulsadores y la placa del joystick sobre sus separadores.](images/complete-remote-v0.33-joy-section.png)
 
-![V0.24 entry position: the remote held off the platform, 9 mm below its working position, with the lock knob pulled. The groove's wide openings line up with the two rail segments.](images/complete-remote-v0.24-entry.png)
+![La tapa de la V0.33 en su orientación de impresión, sobre su cara axial.](images/complete-remote-v0.33-print-cover.png)
 
-![V0.24 fitting and removal, animated. Left: pull the knob, press the remote onto the platform 9 mm low, slide it up to the stop, release the knob; then pull the knob, slide down and lift off. Right: the same, cut at mid-width and seen along the bar, with the rails in the groove and the lock head (orange) in its hole.](images/complete-remote-v0.24-fit.gif)
+![La lámina del teclado de la V0.33 desplegada en plano en su orientación de impresión, vista desde el lado de las teclas.](images/complete-remote-v0.33-gasket-flat.png)
 
-![V0.24 base on the bar: the clamp ring, the platform with two dovetail rail segments, the two black TPU anti-rattle strips, and the lock screw head below the rails.](images/complete-remote-v0.24-base.png)
+![Las piezas del joystick de la V0.33 en sus orientaciones de impresión: la placa sobre su lado de la lámina con los dos separadores de la PCB hacia arriba, la bola y el disco sobre el disco, el pomo sobre su cara superior, y el pasador de acero de Ø3 × 12 mm (comprado).](images/complete-remote-v0.33-print-joy.png)
 
-![V0.24 remote seen from the bar side: the rear face with the lock hole (left), the interrupted dovetail groove (centre) and the USB-C opening (right).](images/complete-remote-v0.24-back.png)
+![La placa del joystick de la V0.33 en su orientación de impresión: los dos separadores de la PCB en la mitad inferior, debajo del agujero del asiento.](images/complete-remote-v0.33-print-joy-plate.png)
 
-![V0.24 dovetail section through the lower rail: the 45-degree rail on the base (right) inside the groove in the remote's rear wall (left), and the TPU strips either side, drawn at their uncompressed thickness.](images/complete-remote-v0.24-dovetail.png)
+![Las mitades del casquillo de la V0.33 en su orientación de impresión, sobre una cara del extremo. Cada una se queda 0,5 mm antes del corte.](images/complete-remote-v0.33-print-sleeve.png)
 
-![V0.24 section through the middle of the pod and the base.](images/complete-remote-v0.24-section.png)
-
-![V0.24 interior with the upper axial wall removed: the LiPo pouch envelope (red) in the lower rear of the cavity, below the XIAO; the USB-C receptacle on its charging PCB (green), resting on its rib at the top of the rear wall.](images/complete-remote-v0.24-interior.png)
-
-El extremo de controles no ha cambiado desde la V0.23. Estos renders de la V0.23 todavía lo muestran:
-
-![V0.23 joystick knob on the lower facet, between the four lower cover screws. The engraved cross shows the four directions.](images/complete-remote-v0.23-joy.png)
-
-![V0.23 seen along the bar: the upper facet with buttons A, B, C and the lower facet with the joystick, turned 20 degrees toward the bar.](images/complete-remote-v0.23-side.png)
-
-![V0.23 control cover seen from the rider's side.](images/complete-remote-v0.23-front.png)
-
-![V0.23 section through the joystick axis, drawn with the cover at the bottom: knob, cover, sheet gasket gripping the stick, joystick plate with the ball seat, ball and cross disc, switches, PCB on its standoffs, and the rear component zone behind it.](images/complete-remote-v0.23-joy-section.png)
-
-![V0.23 cover in its print orientation, on its axial face.](images/complete-remote-v0.23-print-cover.png)
-
-![V0.23 joystick parts in their print orientations: the plate on its sheet side with the two PCB standoffs up, the ball and disc on the disc, the knob on its top face, and the Ø3 × 12 mm steel pin (bought).](images/complete-remote-v0.23-print-joy.png)
-
-![V0.23 gasket unfolded flat: wall land on the upper facet, a full sheet with the stick hole on the lower facet.](images/complete-remote-v0.23-gasket-flat.png)
-
-Las dos imágenes de la V0.33 son renders del CAD hechos con Blender (mira [Renders fotográficos](#photo-renders)). Las demás son renders directos de OpenSCAD del fichero de la V0.25, la V0.24 o la V0.23. Las imágenes de la placa están en la [página de la placa del joystick](../electronics/joystick-pcb/README.md).
+Las dos imágenes fotográficas son renders del CAD hechos con Blender (mira [Renders fotográficos](#photo-renders)). Las demás son renders directos de OpenSCAD del fichero de la V0.33. Las imágenes de versiones anteriores siguen en `docs/images/`. Las imágenes de la placa están en la [página de la placa del joystick](../electronics/joystick-pcb-rev-c/README.md).
 
 <a id="changes-from-v032"></a>
 ## Cambios desde la V0.32
@@ -176,7 +156,7 @@ El diseño mantenía los insertos roscados por calor con la esperanza de que el 
 | Pomo del joystick | Inserto M2 radial para el prisionero | Una tuerca cuadrada M2 (DIN 562, 4 × 1,2 mm) en una ranura abierta hacia la tapa (`knob_nut`), a 0,65 mm del agujero del pasador. La cruz grabada empieza a 4,9 mm del centro para no tocar la ranura |
 | Pomo del cierre | Inserto M3 desde dentro de la copa | Una tuerca M3 en un alojamiento hexagonal en la cara exterior del pomo (`lock_nut`). La tensión del tornillo tira de la tuerca contra el fondo del alojamiento, y la contratuerca se bloquea contra ella. V0.32: sin contratuerca; el epoxi en la rosca fija la tuerca |
 
-![V0.29 joystick knob from below, with the square-nut slot beside the pin bore, and the lock knob with its M3 nut pocket.](images/complete-remote-v0.29-print-knobs.png)
+![El pomo del joystick de la V0.33 desde abajo, con la ranura de la tuerca cuadrada junto al agujero del pasador, y el pomo de bloqueo con el alojamiento de su tuerca M3.](images/complete-remote-v0.33-print-knobs.png)
 
 La cruz grabada del pomo del joystick se reduce a cuatro marcas de 0,6 mm en el borde. El coste: las roscas impresas en PETG se desgastan con cada apertura. La tapa y la abrazadera se abren poco; los tornillos de la tapa de la batería ya funcionaban así. Las medidas de los pilotos son estimaciones iniciales y hay que comprobarlas en la primera impresión.
 
