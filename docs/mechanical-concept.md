@@ -82,7 +82,7 @@ The remote mounts on the left side of the bar only, never the right. The turn-si
 
 ![V0.33 sleeve halves in their print orientation, on an end face. Each stops 0.5 mm short of the split.](images/complete-remote-v0.33-print-sleeve.png)
 
-The two photo images are Blender renders of the CAD (see [Photo renders](#photo-renders)). The others are direct OpenSCAD renders of the V0.33 file. Images of earlier versions stay in `docs/images/`. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb-rev-c/README.md).
+The two photo images are Blender renders of the CAD (see [Photo renders](#photo-renders)). The others are direct OpenSCAD renders of the V0.33 file (see [Doc images](#doc-images)). Images of earlier versions stay in `docs/images/`. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb-rev-c/README.md).
 
 ## Changes from V0.32
 
@@ -619,6 +619,17 @@ python3 mechanical/cad/tools/photo_render.py
 ```
 
 The images go to `mechanical/cad/build/photo/`; copy them to `docs/images/` by hand.
+
+## Doc images
+
+The other images on this page are OpenSCAD renders of the V0.33 file. `mechanical/cad/tools/doc_images.py` draws them: the still views and the fitting GIF. The views that the CAD file has no `part_to_render` for, such as the seal section and the exploded battery cap, are in `mechanical/cad/doc-views-v0.33.scad`. The cameras are in the tool. From the repository root (ImageMagick for the GIF; under a minute):
+
+```sh
+python3 mechanical/cad/tools/doc_images.py            # everything
+python3 mechanical/cad/tools/doc_images.py foam fit   # some images
+```
+
+The images go to `mechanical/cad/build/doc-images/`; copy them to `docs/images/` by hand.
 
 ## Hardware
 

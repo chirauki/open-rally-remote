@@ -82,7 +82,7 @@ El mando se monta solo en el lado izquierdo del manillar, nunca en el derecho. E
 
 ![Las mitades del casquillo de la V0.33 en su orientación de impresión, sobre una cara del extremo. Cada una se queda 0,5 mm antes del corte.](images/complete-remote-v0.33-print-sleeve.png)
 
-Las dos imágenes fotográficas son renders del CAD hechos con Blender (mira [Renders fotográficos](#photo-renders)). Las demás son renders directos de OpenSCAD del fichero de la V0.33. Las imágenes de versiones anteriores siguen en `docs/images/`. Las imágenes de la placa están en la [página de la placa del joystick](../electronics/joystick-pcb-rev-c/README.md).
+Las dos imágenes fotográficas son renders del CAD hechos con Blender (mira [Renders fotográficos](#photo-renders)). Las demás son renders directos de OpenSCAD del fichero de la V0.33 (mira [Imágenes del documento](#doc-images)). Las imágenes de versiones anteriores siguen en `docs/images/`. Las imágenes de la placa están en la [página de la placa del joystick](../electronics/joystick-pcb-rev-c/README.md).
 
 <a id="changes-from-v032"></a>
 ## Cambios desde la V0.32
@@ -636,6 +636,18 @@ python3 mechanical/cad/tools/photo_render.py
 ```
 
 Las imágenes salen en `mechanical/cad/build/photo/`; cópialas a mano a `docs/images/`.
+
+<a id="doc-images"></a>
+## Imágenes del documento
+
+Las demás imágenes de esta página son renders de OpenSCAD del fichero de la V0.33. `mechanical/cad/tools/doc_images.py` las dibuja: las vistas fijas y el GIF de colocación. Las vistas que el fichero del CAD no tiene en `part_to_render`, como la sección del sellado y la tapa de la batería despiezada, están en `mechanical/cad/doc-views-v0.33.scad`. Las cámaras están en la herramienta. Desde la raíz del repositorio (ImageMagick para el GIF; menos de un minuto):
+
+```sh
+python3 mechanical/cad/tools/doc_images.py            # todo
+python3 mechanical/cad/tools/doc_images.py foam fit   # algunas imágenes
+```
+
+Las imágenes salen en `mechanical/cad/build/doc-images/`; cópialas a mano a `docs/images/`.
 
 <a id="hardware"></a>
 ## Tornillería y piezas
