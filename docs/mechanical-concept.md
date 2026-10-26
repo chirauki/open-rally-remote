@@ -1,8 +1,10 @@
-# Complete Mechanical CAD — V0.33 No-Solder Remote
+# Complete Mechanical CAD — V0.34 No-Solder Remote
 
 > Spanish version: [mechanical-concept.es.md](mechanical-concept.es.md).
 
-V0.33 thickens the remote's 1 mm walls to 2 mm: the axial walls of the narrow part and the two end walls. They grow outward, so the remote is 25 mm wide along the bar instead of 23 mm and 2 mm taller, and the cavity and everything in it stay as in V0.32. The base is 25 mm wide too. The thicker walls follow the [materials study](materials-study.md): falls are common on tracks, and 1 mm walls with two FDM perimeters can leak. The print material is not chosen yet. See [Changes from V0.32](#changes-from-v032).
+V0.34 follows the first real parts. On the first soldered USB-C board the receptacle sits 0.3 mm off its design position relative to the M2 holes, and its gasket allows only 0.09 mm, so the board now slides on its rib: the two screws pass through slots into square nuts in the rib, and the gasket sets where the board stops. The board also goes in upside down, under its rib, so a driver reaches its screws through the battery cap opening; in V0.33 no tool could turn them. The foam seals take two layers of the 1.15 mm sheet that was bought, not one. See [Changes from V0.33](#changes-from-v033).
+
+V0.33 thickens the remote's 1 mm walls to 2 mm: the axial walls of the narrow part and the two end walls. They grow outward, so the remote is 25 mm wide along the bar instead of 23 mm and 2 mm taller, and the cavity and everything in it stay as in V0.32. The base is 25 mm wide too. The thicker walls follow the [materials study](materials-study.md): falls are common on tracks, and 1 mm walls with two FDM perimeters can leak. The print material is not chosen yet. See [V0.33 changes from V0.32](#v033-changes-from-v032-still-current).
 
 V0.32 cuts the number of different parts to buy. The lock takes a standard M3 × 20 screw fixed with epoxy instead of an M3 × 22 and a lock nut. The anti-rattle strips, and optionally the clamp liner, are cut from a bike inner tube, and the foam pads come from the seal foam. The joystick knob keeps its square nut: a hex nut does not fit. See [V0.32 changes from V0.31](#v032-changes-from-v031-still-current).
 
@@ -30,61 +32,103 @@ The remote's printed parts are slices of one outer solid: the pod outline cut fl
 
 The remote mounts on the left side of the bar only, never the right. The turn-signal switch that the folded front clears is on the left switchgear.
 
-**Current parametric concept:** [complete-remote-v0.33.scad](../mechanical/cad/complete-remote-v0.33.scad)
+**Current parametric concept:** [complete-remote-v0.34.scad](../mechanical/cad/complete-remote-v0.34.scad)
 
 ![V0.33 on its base, from the rider's side: a Blender render of the CAD with the remote in dyed black nylon and the base in grey nylon. The material is not chosen yet.](images/complete-remote-v0.33-photo-front.png)
 
 ![V0.33 seen along the bar: the folded control face, the 2 mm walls and the base with its lock knob.](images/complete-remote-v0.33-photo-side.png)
 
-![V0.33 on its base, from the rider's side: the three TPU keys stand 3 mm out of the cover through Ø13 mm holes, and the joystick sits on the lower facet.](images/complete-remote-v0.33-assembly.png)
+![V0.34 on its base, from the rider's side: the three TPU keys stand 3 mm out of the cover through Ø13 mm holes, and the joystick sits on the lower facet.](images/complete-remote-v0.34-assembly.png)
 
-![V0.33 control cover seen straight from the rider's side.](images/complete-remote-v0.33-front.png)
+![V0.34 control cover seen straight from the rider's side.](images/complete-remote-v0.34-front.png)
 
-![V0.33 seen along the bar: the upper facet with keys A, B, C and the lower facet with the joystick, turned 20 degrees toward the bar.](images/complete-remote-v0.33-side.png)
+![V0.34 seen along the bar: the upper facet with keys A, B, C and the lower facet with the joystick, turned 20 degrees toward the bar.](images/complete-remote-v0.34-side.png)
 
-![V0.33 joystick knob on the lower facet, between the four lower cover screws.](images/complete-remote-v0.33-joy.png)
+![V0.34 joystick knob on the lower facet, between the four lower cover screws.](images/complete-remote-v0.34-joy.png)
 
-![V0.33 on its base, from behind the bar: the base platform under the remote's rear face, and the lock knob below the clamp ring.](images/complete-remote-v0.33-rear.png)
+![V0.34 on its base, from behind the bar: the base platform under the remote's rear face, and the lock knob below the clamp ring.](images/complete-remote-v0.34-rear.png)
 
-![V0.33 entry position: the remote held off the platform, 9 mm below its working position, with the lock knob pulled.](images/complete-remote-v0.33-entry.png)
+![V0.34 entry position: the remote held off the platform, 9 mm below its working position, with the lock knob pulled.](images/complete-remote-v0.34-entry.png)
 
-![V0.33 fitting and removal, animated. Left: pull the knob, press the remote onto the platform 9 mm low, slide it up to the stop, release the knob; then pull the knob, slide down and lift off. Right: the same, cut at mid-width and seen along the bar, with the rails in the groove and the lock head (orange) in its hole.](images/complete-remote-v0.33-fit.gif)
+![V0.34 fitting and removal, animated. Left: pull the knob, press the remote onto the platform 9 mm low, slide it up to the stop, release the knob; then pull the knob, slide down and lift off. Right: the same, cut at mid-width and seen along the bar, with the rails in the groove and the lock head (orange) in its hole.](images/complete-remote-v0.34-fit.gif)
 
-![V0.33 base on the bar: the clamp ring, the platform with two dovetail rail segments, the two black anti-rattle strips, and the lock knob.](images/complete-remote-v0.33-base.png)
+![V0.34 base on the bar: the clamp ring, the platform with two dovetail rail segments, the two black anti-rattle strips, and the lock knob.](images/complete-remote-v0.34-base.png)
 
-![V0.33 base on a 22.2 mm bar, without the bar: the liner and the printed sleeve inside the one 25.4 mm bore.](images/complete-remote-v0.33-base-sleeve.png)
+![V0.34 base on a 22.2 mm bar, without the bar: the liner and the printed sleeve inside the one 25.4 mm bore.](images/complete-remote-v0.34-base-sleeve.png)
 
-![V0.33 remote seen from the bar side: the rear face with the lock hole, the interrupted dovetail groove and the USB-C opening.](images/complete-remote-v0.33-back.png)
+![V0.34 remote seen from the bar side: the rear face with the lock hole, the interrupted dovetail groove and the USB-C opening.](images/complete-remote-v0.34-back.png)
 
-![V0.33 dovetail section through the lower rail: the 45-degree rail on the base (right) inside the groove in the remote's rear wall (left), and the anti-rattle strips (black) either side, drawn at their uncompressed thickness.](images/complete-remote-v0.33-dovetail.png)
+![V0.34 dovetail section through the lower rail: the 45-degree rail on the base (right) inside the groove in the remote's rear wall (left), and the anti-rattle strips (black) either side, drawn at their uncompressed thickness.](images/complete-remote-v0.34-dovetail.png)
 
-![V0.33 interior with the upper axial wall removed: the control board behind the upper facet with the XIAO on its headers, the pouch (red) behind them, the USB-C board at the top, the joystick board on the lower facet, and the cables.](images/complete-remote-v0.33-interior.png)
+![V0.34 interior with the upper axial wall removed: the control board behind the upper facet with the XIAO on its headers, the pouch (red) behind them, the USB-C board at the top, the joystick board on the lower facet, and the cables.](images/complete-remote-v0.34-interior.png)
 
-![V0.33 section through the middle of the pod and the base: cover, keypad sheet, button plate, switches, control board, XIAO and pouch.](images/complete-remote-v0.33-section.png)
+![V0.34 section through the middle of the pod and the base: cover, keypad sheet, button plate, switches, control board, XIAO and pouch.](images/complete-remote-v0.34-section.png)
 
-![V0.33 section through the upper cover screws (Y = 24 mm), the axis of the bar up the page: cover (left), loose keypad sheet (black), foam strip (blue) on the housing rim, button plate (ochre), the two screws (red) in their bosses, and the control board (green).](images/complete-remote-v0.33-seal-section.png)
+![V0.34 section through the upper cover screws (Y = 24 mm), the axis of the bar up the page: cover (left), loose keypad sheet (black), foam strip (blue) on the housing rim, button plate (ochre), the two screws (red) in their bosses, and the control board (green).](images/complete-remote-v0.34-seal-section.png)
 
-![V0.33 housing seen from the cover side: the foam strip (black) runs on the rim along both side walls and through the fold, with the cover screw bosses just inside it.](images/complete-remote-v0.33-foam.png)
+![V0.34 housing seen from the cover side: the foam strip (black) runs on the rim along both side walls and through the fold, with the cover screw bosses just inside it.](images/complete-remote-v0.34-foam.png)
 
-![V0.33 battery cap, exploded from below: the housing with its bottom opening, the pouch envelope (red), the die-cut foam cap gasket and the cap with its three countersunk screw holes.](images/complete-remote-v0.33-battery-cap.png)
+![V0.34 battery cap, exploded from below: the housing with its bottom opening, the pouch envelope (red), the die-cut foam cap gasket and the cap with its three countersunk screw holes.](images/complete-remote-v0.34-battery-cap.png)
 
-![V0.33 battery cap from inside: the die-cut foam gasket (black) inside the cap's 0.5 mm lip, and the vent label in the opening.](images/complete-remote-v0.33-cap-seal.png)
+![V0.34 battery cap from inside: the die-cut foam gasket (black) inside the cap's 0.5 mm lip, and the vent label in the opening.](images/complete-remote-v0.34-cap-seal.png)
 
-![V0.33 section through the joystick axis, drawn with the knob at the bottom: knob, cover, keypad sheet, joystick plate with the ball seat, ball and cross disc, switches, and the joystick board on its standoffs.](images/complete-remote-v0.33-joy-section.png)
+![V0.34 section through the joystick axis, drawn with the knob at the bottom: knob, cover, keypad sheet, joystick plate with the ball seat, ball and cross disc, switches, and the joystick board on its standoffs.](images/complete-remote-v0.34-joy-section.png)
 
-![V0.33 cover in its print orientation, on its axial face.](images/complete-remote-v0.33-print-cover.png)
+![V0.34 cover in its print orientation, on its axial face.](images/complete-remote-v0.34-print-cover.png)
 
-![V0.33 keypad sheet unfolded flat in its print orientation, seen from the key side.](images/complete-remote-v0.33-gasket-flat.png)
+![V0.34 keypad sheet unfolded flat in its print orientation, seen from the key side.](images/complete-remote-v0.34-gasket-flat.png)
 
-![V0.33 joystick parts in their print orientations: the plate on its sheet side with the two PCB standoffs up, the ball and disc on the disc, the knob on its top face, and the Ø3 × 12 mm steel pin (bought).](images/complete-remote-v0.33-print-joy.png)
+![V0.34 joystick parts in their print orientations: the plate on its sheet side with the two PCB standoffs up, the ball and disc on the disc, the knob on its top face, and the Ø3 × 12 mm steel pin (bought).](images/complete-remote-v0.34-print-joy.png)
 
-![V0.33 joystick plate in its print orientation: both PCB standoffs in the lower half, below the seat hole.](images/complete-remote-v0.33-print-joy-plate.png)
+![V0.34 joystick plate in its print orientation: both PCB standoffs in the lower half, below the seat hole.](images/complete-remote-v0.34-print-joy-plate.png)
 
-![V0.33 sleeve halves in their print orientation, on an end face. Each stops 0.5 mm short of the split.](images/complete-remote-v0.33-print-sleeve.png)
+![V0.34 sleeve halves in their print orientation, on an end face. Each stops 0.5 mm short of the split.](images/complete-remote-v0.34-print-sleeve.png)
 
-The two photo images are Blender renders of the CAD (see [Photo renders](#photo-renders)). The others are direct OpenSCAD renders of the V0.33 file (see [Doc images](#doc-images)). Images of earlier versions stay in `docs/images/`. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb-rev-c/README.md).
+The two photo images are Blender renders of the V0.33 CAD (see [Photo renders](#photo-renders)); V0.34 changes nothing they show. The others are direct OpenSCAD renders of the V0.34 file (see [Doc images](#doc-images)). Images of earlier versions stay in `docs/images/`. The PCB images are on the [joystick PCB page](../electronics/joystick-pcb-rev-c/README.md).
 
-## Changes from V0.32
+## Changes from V0.33
+
+### Sliding USB-C board
+
+The receptacle squeezes its USBTJ-06 gasket against the pocket floor. GCT asks for 0.315–0.405 mm of squeeze, a 0.09 mm window. In V0.33 two M2 screws in fixed pilots set that distance from the board's holes.
+
+On the first soldered board (2026-10-26), the receptacle body's front face sits about 11.40 mm from the M2 hole centres, against 11.10 mm in the design (±0.2 mm: measured with a caliper to the hole edges). The nose stands 1.6–1.7 mm past the board edge, as designed, so the offset lies between the milled outline and the drilled holes. With fixed pilots the gasket would be squeezed by about 0.67 mm, 74 %. No fixed position can hold a 0.09 mm window against that and the print tolerance.
+
+V0.34:
+- **Rib.** The two pilots become slots through the rib's 1.0 mm skin next to the board (`usbc_skin`), 1.0 mm each way (`usbc_slide`). Under each slot, a channel holds a DIN 562 M2 square nut (`usbc_nut`). The channel opens at the rib's front end, which now reaches 2.5 mm further forward (`usbc_rib_ext`). It is 0.2 mm wider than the nut, so the nut cannot turn.
+- **Screws.** The same M2 × 4 button-head screws, now into the nuts. Their 2.8 mm of thread past the board passes through the skin and the 1.2 mm nut; the tip stays 0.3 mm inside the rib.
+- **Fitting.** Push the board toward the wall until the gasket resists, then tighten. The gasket sets the squeeze, not the holes. The finger pressure is not measured; the leak test checks the seal.
+- **PCB edge.** It moves with the receptacle, so it keeps the designed 0.43 mm to the panel. The recess planned for V0.34 is not needed.
+- **Parts.** Two more DIN 562 nuts, from the pack of 20 already in the [BOM](bom.md#hardware).
+
+### USB-C board upside down
+
+In V0.26 to V0.33 the screw heads face the top end wall, 16 mm away, so no straight driver fits. The only way in is the cover opening, 27 mm away. A modelled 1.3 mm L-key, its short arm in the head and its long arm out through that opening, can swing only about 40° between the side walls (−5° to 35° on one screw, −35° to 5° on the other). A hex needs at least 60° per stroke, or the key drops back into the same position, so the screws could not be turned.
+
+V0.34 turns the board over (`usbc_flip`): the receptacle is below the board and the rib above it, with the nuts in its channels. The screw heads face the battery cap opening:
+- **Driver.** A straight driver passes up through the cap opening to each head, about 68 mm from the cap face. Tilted so its lower end sits at X = −28 mm (about 2°), a Ø1.5 mm hex tip and a Ø4 mm shank clear the housing (`usbc_driver`). Straight up, the shank hits the opening's front edge, 0.8 mm from the screw axis. It turns freely, all the way round.
+- **Tool.** A 1.3 mm hex tip, for the ISO 7380 heads, with about 75 mm of reach: for example a 4 mm precision bit on an extension. A 1.3 mm L-key is too short: about 44 mm overall. The screws are not received yet, so their drive is not checked.
+- **Path.** The board slides straight along the rib's underside from the cavity opening. Its edges now pass above the upper cover-screw bosses at Y = 24, which they hit in V0.26 to V0.33; the detour 1.5 mm above the rib is gone.
+- **LED and J2.** The charge LED window moves to the other side of the receptacle, with the LED; J2 faces down, and the cable leaves it below the board.
+- **Boards.** The holes sit at ±7 mm, symmetric, so the USB-C boards already made fit either way up.
+
+[`usbc-mount-v0.34.mp4`](videos/usbc-mount-v0.34.mp4) shows the fitting step by step, with a cut through one screw and two sections: the gasket, with its thickness, and the screw, its nut and the driver. A copy with Spanish captions is [`usbc-mount-v0.34.es.mp4`](videos/usbc-mount-v0.34.es.mp4). The tool is `mechanical/cad/tools/usbc_mount_video.py`, with the timeline in `mechanical/cad/usbc-mount-v0.34.scad`.
+
+![V0.34 USB-C board fitted upside down, the last frame of the fitting video. Left: cut through the +Z screw, from the top end down to the battery cap opening, with the rib above the board. Right, top: section on the receptacle axis, the gasket (black) squeezed to 0.53 mm between the body and the pocket floor. Right, bottom: the screw from below through the board and the rib's skin into its nut (orange).](images/complete-remote-v0.34-usbc-mount.png)
+
+### Two-layer foam
+
+The foam sheet bought measures about 1.15 mm, not the 1.5 mm in its listing. One layer compressed to 1.0 mm leaves 0.15 mm of squeeze (13 %), less than the print tolerance. V0.34 stacks two layers (`foam_t` = 2.3 mm), compressed to 1.5 mm (`foam_comp`, 35 %). With ±0.3 mm on the printed parts, the squeeze stays between 22 and 48 %.
+- **Rim.** It drops 0.5 mm with `foam_comp`. The plates, the bosses and the cover screws' thread do not move.
+- **Battery cap.** Its lip rises 0.5 mm with `cap_gap`, so the cap is 2.5 mm thick under the foam instead of 3.0 mm. The M2 × 8 screws keep 4.0 mm of thread.
+- **Strip width.** It stays 2.0 mm (`foam_w`). At 2.5 or 3.0 mm the side rims run into the button and joystick plates, which fill the cavity's width. Whether a 2.0 mm wide, 2.3 mm tall stack rolls over when the cover closes is checked at assembly.
+- **Layers.** The second layer must bond along the whole first one, or water passes between them.
+
+### Lock spring
+
+The bought spring is measured: 10 mm free, 5 mm outside diameter, 7 coils, 3.6 mm solid, which is under the 4.0 mm of `lock_spring_solid`. The CAD comment gives these values; the geometry does not change.
+
+## V0.33 changes from V0.32, still current
 
 ### 2 mm walls
 
@@ -151,7 +195,7 @@ The design kept heat-set inserts in the hope that the print service would fit th
 | Joystick knob | Radial M2 insert for the grub screw | An M2 square nut (DIN 562, 4 × 1.2 mm) in a slot open toward the cover (`knob_nut`), 0.65 mm from the pin bore. The engraved cross starts 4.9 mm from the centre so it clears the slot |
 | Lock knob | M3 insert from inside the cup | An M3 nut in a hex pocket on the knob's outer face (`lock_nut`). Screw tension pulls the nut onto the pocket floor, and the lock nut jams against it. V0.32: no lock nut; epoxy on the thread fixes the nut |
 
-![V0.33 joystick knob from below, with the square-nut slot beside the pin bore, and the lock knob with its M3 nut pocket.](images/complete-remote-v0.33-print-knobs.png)
+![V0.34 joystick knob from below, with the square-nut slot beside the pin bore, and the lock knob with its M3 nut pocket.](images/complete-remote-v0.34-print-knobs.png)
 
 The engraved cross on the joystick knob shrinks to four 0.6 mm ticks at the rim. Cost: printed threads in PETG wear with each opening. The cover and the clamp are rarely undone; the battery cap screws were already like this. The pilot sizes are first estimates and need a check on the first print.
 
@@ -409,6 +453,25 @@ V0.30 (cover seal; `mechanical/cad/tools/test_seal.py` runs the first six rows):
 | Stop pads vs foam and key web holes; sheet holes vs a Ø1.35 mm probe | No overlap |
 | Assembly path check, both orders | No collision; the pads' pinch on the sheet (2.98 mm³) is a contact by design |
 
+V0.34 (`mechanical/cad/tools/test_v034.py` runs the first thirteen rows):
+
+| Check | Result |
+|---|---|
+| Square nuts in their channels, with the board 1 mm back, in place and 1 mm forward | No overlap with the housing |
+| Screw shanks over the same travel | No overlap; 1.6 mm forward, the shank hits the rib |
+| Nut path, from in front of the rib to the far end of its travel | No overlap |
+| Nut in its channel | It cannot turn: the channel is 4.2 mm wide, the nut 5.66 mm across its corners |
+| Screw through the nut | 2.8 mm of thread for the 1.0 mm skin and the 1.2 mm nut |
+| PCB edge to the panel | 0.43 mm, as V0.33 |
+| Board upside down | The rib is above the board; the screw heads face the battery cap opening |
+| Driver from the cap opening to each head, tilted to X = −28 mm | No overlap with the housing |
+| The same driver straight up | Its shank hits the opening's front edge |
+| Foam compression | 2.3 to 1.5 mm, 35 % |
+| Foam strip on the rim; rim and foam vs plates; foam vs boards | At least 98 % of its area on housing material; no overlap |
+| Boards, XIAO, plates, USB-C board, nuts, pouch envelope vs housing and battery cap | No overlap |
+| Battery cap screw thread; cover screw thread | 4.0 mm; 5.1 mm, as V0.33 |
+| Assembly path check, both orders | No collision ([report](assembly-video-v0.34-checks.md)); the nuts ride with the housing |
+
 V0.33 (`mechanical/cad/tools/test_v033.py` runs the first six rows):
 
 | Check | Result |
@@ -520,9 +583,9 @@ V0.24 aims for rain and spray resistance, not an IP rating. It has not been test
 1. **Buttons.** APEM ISR3SAD200, IP67 front-panel sealing (IEC 60529) with the flat seal under the bezel. The Ø17.5 mm bezel and its seal sit on the flat upper facet, 0.75 mm from the fold and from the top corner radius.
 2. **Joystick.** The cover hole is open to the outside. The sheet gasket is the seal there: it is clamped all round the hole and grips the stick. A printed TPU sheet that flexes with every stick movement may tear or creep; a cast silicone sheet would last longer.
 3. **Cover joint.** V0.30: a closed-cell foam strip on the housing rim under the loose keypad sheet's edge, round both facets; the sheet grips each cover screw's shank. (Before V0.30 the sheet itself was squeezed over the whole facet, which M2 screws cannot do; see [V0.30 changes from V0.29](#v030-changes-from-v029-still-current).)
-4. **USB-C.** The GCT USB4736 is rated IP67 with its USBTJ-06 gasket compressed on the thinned land; GCT says the gasket is fitted after the receptacle is soldered. Pot the back of the receptacle and its PCB with epoxy as a second barrier. The charge LED window beside it is a Ø1.6 mm hole filled flush with clear two-part epoxy. On the bike the platform covers both. The groove and the lock hole are blind and do not open into the cavity.
+4. **USB-C.** The GCT USB4736 is rated IP67 with its USBTJ-06 gasket compressed on the thinned land; GCT says the gasket is fitted after the receptacle is soldered. V0.34: the board slides on its rib, so the gasket, not the screw holes, sets the squeeze. Pot the back of the receptacle and its PCB with epoxy as a second barrier. The charge LED window beside it is a Ø1.6 mm hole filled flush with clear two-part epoxy. On the bike the platform covers both. The groove and the lock hole are blind and do not open into the cavity.
 5. **Vent.** An adhesive ePTFE vent label over the Ø3 mm hole in the battery cap, inside (V0.28; before, in the bottom end wall). Without it, temperature cycles pump humid air into a sealed box, and the water condenses inside. Mount the base so the vent faces down or sideways, not into spray.
-6. **Battery cap.** V0.31: a die-cut closed-cell foam gasket on the lands (3.8 mm front and rear, 2.5 mm at the sides), compressed to 1.0 mm by a rigid lip on the cap; the screws pass through the foam. A 3.8 mm strip of housing separates it from the cover seal. The cap faces down and gets spray from the wheel; this joint is untested.
+6. **Battery cap.** V0.31: a die-cut closed-cell foam gasket on the lands (3.8 mm front and rear, 2.5 mm at the sides), compressed to 1.5 mm by a rigid lip on the cap (V0.34: two layers of the sheet; 1.0 mm in V0.31–V0.33); the screws pass through the foam. A 3.8 mm strip of housing separates it from the cover seal. The cap faces down and gets spray from the wheel; this joint is untested.
 7. **Electronics.** Coat the XIAO, the joystick PCB and all solder joints with conformal coating (acrylic or silicone). Keep it off the USB-C socket, the switch actuators, the pouch, and the vent membrane.
 8. **Printed walls.** V0.33: every wall of the housing is at least 2 mm, four perimeters with a 0.4 mm nozzle (V0.32 and earlier: 1 mm in the narrow part and at the ends, two perimeters). In FDM, ask for 100 % infill or at least five perimeters, so the walls are solid. MJF nylon is sold as watertight without treatment; this is not checked for these walls. The leak test decides.
 
@@ -549,7 +612,7 @@ V0.24 aims for rain and spray resistance, not an IP rating. It has not been test
 The materials are not chosen yet. The [materials study](materials-study.md) compares them for each group: the remote's rigid parts (PA11 by MJF or ASA by FDM), the base's rigid parts (PA12 by MJF) and the keypad (TPU near 85A). It also lists the print quotes found so far.
 
 No part needs supports.
-- **Housing:** the walls are vertical, the lower facet is an open edge in the air, the lower screw bosses lean 20°, and the cavity's rear wall and the battery cap's front block bridge 21 mm. The groove is at the top: its lips narrow upward at 45°, and the lock hole and the USB-C slot open upward; the gasket land is a shallow recess in the bridged rear wall. It stands on its thin front rim, so use a brim.
+- **Housing:** the walls are vertical, the lower facet is an open edge in the air, the lower screw bosses lean 20°, and the cavity's rear wall and the battery cap's front block bridge 21 mm. The groove is at the top: its lips narrow upward at 45°, and the lock hole and the USB-C slot open upward; the gasket land is a shallow recess in the bridged rear wall. The USB-C rib's two nut channels (V0.34) run along X, 4.2 mm wide under a 1.0 mm skin, and bridge. It stands on its thin front rim, so use a brim.
 - **Base front:** the rail flanks are at 45° to the bed. The lock pocket and the bolt holes run horizontally and are small enough to bridge.
 - **Cover:** the Ø5 mm stick hole is small enough to bridge. It stands on a 2.5 mm edge, so use a brim.
 - **Ball and disc:** the ball above the disc narrows upward. Test the press fit of the pin in the Ø2.95 mm bore (`pin_bore`) before assembly.
@@ -560,17 +623,17 @@ No part needs supports.
 
 ## Assembly
 
-Remote (V0.33, the same as V0.31 and V0.32; nothing to solder, no hot tool):
+Remote (V0.34; nothing to solder, no hot tool):
 1. Clear the ten Ø1.6 mm pilot holes in the housing screw bosses with a 1.6 mm drill held by hand; printed holes come out undersize.
-2. Fit the USB-C board rev B: fit the receptacle's gasket, carry the board in 1.5 mm above its rib past the upper cover bosses, lower it onto the rib 8 mm short of the rear wall, and slide it along the rib until the nose enters the slot and the gasket sits in its pocket. Fix it with two M2 × 4 button-head screws, which cut their own thread in the Ø1.6 mm pilots. Pot the back of the receptacle with epoxy, keeping it out of the opening and the socket. Fill the LED window from outside with the same clear epoxy. Plug the 3-pin cable into its socket.
+2. Fit the USB-C board rev B ([video](videos/usbc-mount-v0.34.mp4)): slide an M2 square nut into each channel at the front of the USB-C rib, and fit the receptacle's gasket. Hold the board upside down, receptacle below, against the rib's underside, and slide it toward the rear wall until the nose enters the slot. Start the two M2 × 4 button-head screws by hand from below, through the board into the nuts, and leave them loose. Push the board toward the wall until the gasket resists and hold it there. Tighten both screws with a 1.3 mm hex driver (about 75 mm of reach) passed up through the battery cap opening, tilted slightly toward the rear. Pot the back of the receptacle with epoxy, keeping it out of the opening and the socket. Fill the LED window from outside with the same clear epoxy. Plug the 3-pin cable into its socket.
 3. Joystick: push the stick through the joystick plate from the back, so the ball sits in its seat. Screw the joystick board rev C onto the plate standoffs with two M2 × 8 button-head screws; the disc rests on the switches. Plug the 5-pin cable into its socket.
 4. Screw the control board onto the button plate standoffs with two M2 × 4 button-head screws, switches toward the plate. Plug the XIAO into its headers, components away from the board, USB-C toward the joystick end.
 5. Lay the cover face down and the keypad on it, keys through the cover holes, folded at the fold line. Push the stick through the sheet hole and the cover hole, and lay the joystick plate on the lower-facet sheet. Lay the button plate with the control board on the upper-facet sheet.
 6. Plug the joystick cable into J4 and the USB-C cable (from the housing) into J3 on the control board. Stick a pad of six layers of the seal foam on the XIAO's components.
-7. Stick the foam strip on the housing rim round both facets, with butt joints at the end corners, and one layer of the same foam on the rear wall where the pouch lies.
+7. Stick the foam strip, two layers of the sheet (V0.34), on the housing rim round both facets, with butt joints at the end corners, and one layer of the same foam on the rear wall where the pouch lies.
 8. Lower the housing onto the stack, guiding the cables; its walls locate the plates. Turn it over and fit the ten M2 × 10 screws; they cut their own thread, so drive them slowly the first time. Tighten evenly in a cross pattern.
 9. Slide the pouch up through the bottom opening, protection board and lead first. With the cover off, plug its lead into J5 on the control board, then close the cover as in step 8. Check the polarity before connecting the charger.
-10. Stick the vent label on the inside of the battery cap, over its vent hole, and a pad of four layers of the seal foam with a hole round the label. Stick the foam cap gasket inside the cap's lip, then fit the cap with three M2 × 8 countersunk screws; the lip meets the housing when they are tight.
+10. Stick the vent label on the inside of the battery cap, over its vent hole, and a pad of four layers of the seal foam with a hole round the label. Stick the foam cap gasket, two layers, inside the cap's lip, then fit the cap with three M2 × 8 countersunk screws; the lip meets the housing when they are tight.
 11. Drop the M2 square nut into the slot under the knob and start the M2 × 4 grub screw in it from the rim. Slide the knob onto the pin with a 0.9 mm shim between the hub and the cover, and tighten the M2 × 4 grub screw.
 
 The order of steps 8 and 9 is open: the pouch can go in before the cover is closed if its lead is long enough to reach J5 with the stack beside the housing.
@@ -587,13 +650,13 @@ To program over USB, remove the remote from the base and its cover. Take the kno
 
 ## Assembly video
 
-[`complete-remote-v0.33-assembly.mp4`](videos/complete-remote-v0.33-assembly.mp4) shows the remote steps 1–11 above, one chapter per step (56 s; QuickTime and VLC list the chapters). It is for design review, not a builder's guide. Parts that collide on their path show in red. Cables are not animated: each appears in place once both its ends are fitted. The video shows the documented order of steps 8 and 9.
+[`complete-remote-v0.34-assembly.mp4`](videos/complete-remote-v0.34-assembly.mp4) shows the remote steps 1–11 above, one chapter per step (56 s; QuickTime and VLC list the chapters). It is for design review, not a builder's guide. Parts that collide on their path show in red. Cables are not animated: each appears in place once both its ends are fitted. The video shows the documented order of steps 8 and 9.
 
-[`assembly-video-v0.33-checks.md`](assembly-video-v0.33-checks.md) is the path check behind it. In V0.33 it finds no collision, as in [V0.31](assembly-video-v0.31-checks.md). Each move is checked at five poses against the parts in place, and every pair of parts in the final pose. Both orders of steps 8 and 9 are checked. Findings:
+[`assembly-video-v0.34-checks.md`](assembly-video-v0.34-checks.md) is the path check behind it. In V0.34 it finds no collision, as in [V0.33](assembly-video-v0.33-checks.md) and [V0.31](assembly-video-v0.31-checks.md). Each move is checked at five poses against the parts in place, and every pair of parts in the final pose. Both orders of steps 8 and 9 are checked. Findings:
 
 - The housing closes onto the stack along X (since V0.27; in [V0.26](assembly-video-v0.26-checks.md) it hit the joystick board).
 - The vent label, on the battery cap since V0.28, clears everything ([V0.27](assembly-video-v0.27-checks.md): it ran into the lower-facet stack).
-- The USB-C board reaches its rib by a path above the upper bosses (assembly step 2).
+- The USB-C board reaches its rib straight along the rib's underside, upside down since V0.34 (in V0.26 to V0.33 by a path above the upper bosses). Its square nuts are drawn with the housing, already in their channels; the [fitting video](videos/usbc-mount-v0.34.mp4) shows step 2 in detail.
 
 The [V0.26](videos/complete-remote-v0.26-assembly.mp4), [V0.27](videos/complete-remote-v0.27-assembly.mp4) and [V0.28](videos/complete-remote-v0.28-assembly.mp4) videos stay as the record of their collisions.
 
@@ -608,7 +671,7 @@ python3 -m unittest mechanical/cad/tools/test_assembly_video.py
 
 V0.32 changed no remote part and has no video of its own.
 
-The timeline, the staging offsets and the cameras are in `mechanical/cad/assembly-video-v0.33.scad`. The tool uses the newest version; `ORR_VERSION=0.26` to `0.31` selects an older file, but its captions need that version's assembly list, which is now in the git history. The step captions come from the assembly steps above, so rerun `video` after editing them.
+The timeline, the staging offsets and the cameras are in `mechanical/cad/assembly-video-v0.34.scad`. The tool uses the newest version; `ORR_VERSION=0.26` to `0.33` selects an older file, but its captions need that version's assembly list, which is now in the git history. The step captions come from the assembly steps above, so rerun `video` after editing them.
 
 ## Photo renders
 
@@ -622,7 +685,7 @@ The images go to `mechanical/cad/build/photo/`; copy them to `docs/images/` by h
 
 ## Doc images
 
-The other images on this page are OpenSCAD renders of the V0.33 file. `mechanical/cad/tools/doc_images.py` draws them: the still views and the fitting GIF. The views that the CAD file has no `part_to_render` for, such as the seal section and the exploded battery cap, are in `mechanical/cad/doc-views-v0.33.scad`. The cameras are in the tool. From the repository root (ImageMagick for the GIF; under a minute):
+The other images on this page are OpenSCAD renders of the V0.34 file. `mechanical/cad/tools/doc_images.py` draws them: the still views and the fitting GIF. The views that the CAD file has no `part_to_render` for, such as the seal section and the exploded battery cap, are in `mechanical/cad/doc-views-v0.34.scad`. The USB-C fitting image is the last frame of the fitting video. The cameras are in the tool. From the repository root (ImageMagick for the GIF; under a minute):
 
 ```sh
 python3 mechanical/cad/tools/doc_images.py            # everything
@@ -656,9 +719,9 @@ V0.8 follows those functional and packaging cues while keeping original geometry
 | Remote rear face | Flat at X = −17.4 mm | 0.2 mm clear of the platform |
 | Dovetail | Rails 10 mm wide at the platform, 15 mm at the top, 2.5 mm high, 45° flanks; two 8 mm segments with a 9 mm gap; 7 mm lips; 0.2 mm clearance; 9 mm slide | Prints without supports on both parts; clearance to tune on the first print |
 | Lock | M3 × 20 ISO 4762 (V0.32) head (Ø5.5 × 3 mm) 2 mm proud, in a Ø6 mm pocket at Y = −32 mm; Ø5.8 mm hole in the remote; 0.5 × 5 × 10 mm spring; Ø16 × 8 mm quarter-turn knob on a Ø9 × 3.5 mm boss, two Ø1.5 × 4 mm pins | ISO 4762 head size; spring force estimated |
-| USB-C receptacle | GCT USB4736-GF-A; shell axis at Y = 29.5 mm in the rear face, long side along the bar; 1.80 mm panel, 9.14 × 3.36 mm slot, 11.00 × 5.90 × 0.60 mm gasket pocket; USBTJ-06 gasket 10.64 × 4.86 × 0.90 mm; body 9.99 wide, 4.61 mm above its PCB, 8.60 mm long | GCT drawing USB4736 rev. A (9 April 2025) |
+| USB-C receptacle | GCT USB4736-GF-A; shell axis at Y = 29.5 mm in the rear face, long side along the bar; 1.80 mm panel, 9.14 × 3.36 mm slot, 11.00 × 5.90 × 0.60 mm gasket pocket; USBTJ-06 gasket 10.64 × 4.86 × 0.90 mm; body 9.99 wide, 4.61 mm above its PCB, 8.60 mm long; board on two M2 × 4 screws into DIN 562 nuts, sliding 1.0 mm each way (V0.34) | GCT drawing USB4736 rev. A (9 April 2025); body face to M2 hole centres measured about 11.40 mm on the first soldered board (design 11.10) |
 | LiPo pouch | 6.1 × 19.7 × 46.8 mm with 0.5 mm clearance, X = −29.1 to −22, Y = −33.5 to 14.3 mm (V0.31) | Measured on a 602045 cell, 600 mAh on its label (2026-10-15): the protection board end is 5.6 mm long and 4.1 mm thick; the 43.5 mm lead leaves one corner of that end. Cells up to 6 × 20 × 54 mm fit |
-| Battery cap | Pod below Y = −37.7 mm from X = −35 mm back, 3.0 mm thick (V0.33); opening X = −31 to −21.2 mm, 21 mm wide; three M2 × 8 countersunk screws, 4.0 mm of thread; 1.0 mm foam gasket (V0.31) | Assembly study (V0.25); 2.8 mm below the lock hole |
+| Battery cap | Pod below Y = −37.7 mm from X = −35 mm back, 2.5 mm thick (V0.34); opening X = −31 to −21.2 mm, 21 mm wide; three M2 × 8 countersunk screws, 4.0 mm of thread; foam gasket of two layers compressed to 1.5 mm (V0.34) | Assembly study (V0.25); 2.8 mm below the lock hole |
 | Pod front corners | 3 mm radius | Leaves a flat cover face for the M2 screws |
 | Folded front | Upper facet normal to the pod axis; lower facet turned 20° toward the bar, fold 12.5 mm below the bar axis | Clears the thumb's path to the turn-signal switch; the angle is a parameter |
 | Pod cavity corners | 2 mm front, 6 mm rear | Inset from the outer corners by the wall, 2 mm since V0.33 |
@@ -698,13 +761,13 @@ These are the only items that block a confident first print. Each is a parameter
 - **Leak test:** test the first assembled remote for water tightness before fitting the electronics, for example under water at a few centimetres for 30 minutes with a dry paper towel inside. It checks the keypad gasket, the cap gasket, the USB-C receptacle and the vent together.
 - **Handlebar, sleeve and liner:** the bar diameter measured with a caliper at the clamp, in two directions, which sets the sleeve bore; the 0.8 mm clamping gap tuned to the printed TPU liner; and whether the clamp holds a hard gloved press without turning (estimate 3.3 N·m against 0.7 N·m).
 - **Dovetail:** the 0.2 mm clearance (`dt_c`) against the printer, and the inner tube's thickness for the strips (V0.32; measure it and set `strip_t`), and whether the clear epoxy holds the butyl rubber in the printed pockets (rubber glues poorly; roughen it first). Whether the 0.48 mm the remote can move toward the platform feels loose on the buttons.
-- **Lock:** whether the epoxy on the M3 thread (V0.32) holds the setting with the knob turned at each fitting; the pull force, and whether 1 mm of head in the pocket is enough. The 0.5 × 5 × 10 mm spring in the [BOM](bom.md) fits: its 5 mm outside diameter in the Ø6 mm pocket and its 4 mm inside diameter over the Ø3 mm shank. Still open: its solid length, which must be under the 4.0 mm of `lock_spring_solid` (at most about 7 coils of 0.5 mm wire), or the head cannot go fully in and the lock cannot release; count the coils of the bought spring.
+- **Lock:** whether the epoxy on the M3 thread (V0.32) holds the setting with the knob turned at each fitting; the pull force, and whether 1 mm of head in the pocket is enough. The 0.5 × 5 × 10 mm spring in the [BOM](bom.md) fits: its 5 mm outside diameter in the Ø6 mm pocket and its 4 mm inside diameter over the Ø3 mm shank. The bought spring is 3.6 mm solid (7 coils, measured), under the 4.0 mm of `lock_spring_solid`.
 - **Pouch:** the measured 602045 cell fits (6.1 × 19.7 × 46.8 mm, see "Sourced dimensions"). Still open: its real capacity, its maximum charge current against the control board's 100 mA (R1 on the MCP73831), and the polarity. Its plug, looked at from the mating end with the latch up, has red on the right; SparkFun documents that convention as pin 1 = +, which matches J5 (pin 1 BAT, pin 2 GND), but this is not checked against JST's drawing. Check with a meter before plugging it in; Q1 protects the board if it is reversed.
 - **Battery cap:** whether the foam gasket (V0.31) seals on the 2.5 mm side lands and recovers after battery changes, whether M2 screws hold with 4.0 mm of thread in Ø1.6 mm pilots after a few battery changes (V0.33), and whether the 26 mm bottom band clears the switchgear on the bike.
-- **USB-C PCB:** the hand-drawn USB4736 footprint now matches GCT's recommended layout ([check](../electronics/usbc-pcb-rev-b/README.md#receptacle-footprint); the signal pads moved 0.10 mm). The receptacle is soldered by hand in every ordering option (JLCPCB could not source it), so JLCPCB's footprint for the part does not matter. Check the Ø1.6 mm screw pilots against the chosen screws; in V0.26 the holes are at ±7 mm. How the board gets onto its rib was not solved in V0.24 and V0.25. For V0.26 the assembly path check found a clear path: carried 1.5 mm above the rib past the upper cover bosses at Y = 24, lowered onto the rib 8 mm short of the rear wall, then slid in. The margin is small (1 mm above the rib still overlaps 0.2 mm³), so check it on the first print ([assembly path check](assembly-video-v0.28-checks.md)).
-- **USB-C gasket squeeze:** the USBTJ-06 gasket is squeezed between the pocket floor and the receptacle body's front face (GCT drawing, sheet 2), and the two M2 screws fix that distance. GCT asks for 0.315–0.405 mm (35–45 % of 0.90 mm), a 0.09 mm window. Against it stand about ±0.3 mm of print tolerance (see the [materials study](materials-study.md#tolerances)) and the receptacle's own tolerances (3.10 ± 0.15 mm from the nose to the shell tabs, ±0.25 mm general). Fixed pilots cannot guarantee the window. Rigid shims under the gasket do not help: each adds a rigid-to-rigid joint that does not seal. Options: silicone sheet rings as compliant shims, a board that slides on the rib and is clamped with nuts, or a neutral-cure silicone (RTV) bead outside the gasket with a leak test. Not decided: measure the soldered board first (body face to the centre of the M2 holes, with a Ø2 mm pin in each hole; design 11.10 mm).
-- **USB-C PCB edge (V0.33):** the edge sits 0.43 mm behind the panel's inside face. On the first JLCPCB boards the same receptacle stood 1.5–1.9 mm past the edge (design 1.70), so the milled outline varies by about ±0.2 mm. In the CAD the board touches the wall once it is 0.43–0.45 mm forward of its design position. A recess in front of the edge would take the board tolerance and the print tolerance; it waits for the gasket decision.
-- **Foam thickness (V0.33):** the foam seals assume a 1.5 mm sheet compressed to 1.0 mm (`foam_comp`, 33 %). The sheet listed in the [BOM](bom.md#hardware) measures about 1.15 mm, which leaves 0.15 mm of squeeze (13 %), less than the print tolerance. Planned for V0.34, together with the USB-C gasket change: two layers of the sheet (about 2.3 mm) compressed to `foam_comp` about 1.5 mm (35 %). With ±0.3 mm on the printed parts (see the [materials study](materials-study.md#tolerances)), two layers stay at 22–48 % compression; one layer at 0.77 mm would range from 7 to 59 %. To check in the V0.34 CAD: a strip 2 mm wide and 2.3 mm high may roll over when squeezed, so widen `foam_w` to about 3 mm if the rim allows it; the battery cap lip rises to match. The second layer's adhesive must bond all along the first, or water passes between the layers. How firm the foam is was not measured; check the cover and the battery cap in the submersion test.
+- **USB-C PCB:** the hand-drawn USB4736 footprint now matches GCT's recommended layout ([check](../electronics/usbc-pcb-rev-b/README.md#receptacle-footprint); the signal pads moved 0.10 mm). The receptacle is soldered by hand in every ordering option (JLCPCB could not source it), so JLCPCB's footprint for the part does not matter. Since V0.34 the screws go into square nuts in the rib, not into pilots; the holes are at ±7 mm (since V0.26). How the board gets onto its rib was not solved in V0.24 and V0.25. For V0.26 to V0.33 the assembly path check found a clear path: carried 1.5 mm above the rib past the upper cover bosses at Y = 24, lowered onto the rib 8 mm short of the rear wall, then slid in. That margin was small (1 mm above the rib still overlapped 0.2 mm³; [check](assembly-video-v0.28-checks.md)). Since V0.34 the board is upside down and slides straight along the rib's underside; it still clears the housing 2 mm lower ([assembly path check](assembly-video-v0.34-checks.md)).
+- **USB-C gasket squeeze (V0.34):** the board slides on its rib and the gasket sets the squeeze (see [Sliding USB-C board](#sliding-usb-c-board)). Open: how hard to push. Too little leaves the gasket under 35 %; too hard crushes it past 45 %, which silicone tolerates better than too little. The leak test decides. If it leaks, a neutral-cure silicone (RTV) bead outside the gasket is the fallback; it is not in the BOM.
+- **USB-C screw driver (V0.34):** a 1.3 mm hex driver with about 75 mm of reach, through the battery cap opening. Check the drive of the bought M2 × 4 screws when they arrive (ISO 7380 assumed), and whether a hex tip turns them at the 2° tilt; a ball-end tip allows more.
+- **Foam stack (V0.34):** two layers of the about 1.15 mm sheet, compressed from 2.3 to 1.5 mm (35 %; 22–48 % with the print tolerance). Open: whether the 2.0 mm wide, 2.3 mm tall strip rolls over when the cover closes, whether the second layer's adhesive bonds along the whole first one, and how firm the foam is. Check the cover and the battery cap in the leak test.
 - **USB-C board thickness:** the 1.2 mm board keeps the USB-C board out of the EU board services checked on 2026-10-22: Eurocircuits makes 1.2 mm only outside its pooled service (about €543 net for one board), and Aisler lists 2-layer boards at 1.6 mm only. GCT's drawing gives 1.20 ± 0.10 mm as the *recommended* thickness; it matches the 1.20 ± 0.15 mm the shell tabs reach below the body, and the receptacle is a top-mount SMT part. On a 1.6 mm board the tabs end 0.25–0.55 mm inside their plated slots, so they still solder but hold less against the 5–20 N mating force. Plan for the next USB-C board revision: a 1.6 mm board, with the rib lowered 0.4 mm so the nose stays at the same height. Not confirmed with GCT. Other sealed receptacles checked (GCT USB4715 mid-mount, GCT USB4750 vertical, threaded panel-mount USB-C) need a larger redesign or do not fit the 25 mm width. This does not change the gasket squeeze problem above.
 - **Joystick board support (V0.27):** both PCB screws are now in the lower half. A hand estimate gives 0.011 mm of bending under the up switch at 2 N, against the 0.05 mm rest gap; check on the first print that the up direction trips like the others and that the board does not rock.
 - **Charge LED:** whether the LED shows well enough through the filled Ø1.6 mm window (`usbc_led_hole_d`), and whether the printed hole needs drilling out to size.

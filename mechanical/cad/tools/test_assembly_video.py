@@ -38,6 +38,8 @@ class Task1(unittest.TestCase):
     def test_final_pose_matches_model(self):
         video = "pose_view(skip=[\"vent_label\"]);"
         model = "remote_parts(); controls_and_board();"
+        if av.VERSION >= "0.34":
+            model += " usbc_nuts();"   # V0.34: the video draws the USB-C board's nuts with the housing
         for a, b, tag in ((video, model, "video_minus_model"), (model, video, "model_minus_video")):
             out = av.BUILD / "test" / (tag + ".stl")
             av.run_scad({"mode": "none", "step": 11, "u": 1},

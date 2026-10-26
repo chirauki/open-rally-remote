@@ -104,12 +104,12 @@ Estimated cost: about €170 for the first remote with bare boards, including sh
 | 10 | M2 × 10 countersunk screw, ISO 10642 | Retail | Cover, through the button plate (upper facet) and the joystick plate (lower facet). They cut their own thread in Ø1.6 mm pilots in the bosses. |
 | 3 | M2 × 8 countersunk screw, ISO 10642 | Retail | Battery cap, into Ø1.6 mm pilots in the housing. |
 | 2 | M2 × 8 button-head screw, head at most Ø3.5 × 1.1 mm (ISO 7380 style) | Retail | Joystick board to the joystick plate standoffs. |
-| 4 | M2 × 4 button-head screw, head at most Ø3.5 × 1.1 mm (ISO 7380 style) | Retail | Two hold the control board to the button plate standoffs (2.4 mm of thread in a 3.7 mm pilot; M2 × 6 would stand 0.7 mm out of the plate's front). Two hold the USB-C board to its rib. |
+| 4 | M2 × 4 button-head screw, head at most Ø3.5 × 1.1 mm (ISO 7380 style) | Retail | Two hold the control board to the button plate standoffs (2.4 mm of thread in a 3.7 mm pilot; M2 × 6 would stand 0.7 mm out of the plate's front). Two hold the USB-C board to its rib, into square nuts (V0.34). |
 | 1 | Ø3 × 12 mm steel dowel pin, ISO 8734 | Retail | Joystick stick. |
 | 1 | M2 × 4 grub screw | Retail | Joystick knob. |
-| 1 | M2 square nut, DIN 562 (4 × 1.2 mm) | Retail | Joystick knob, in the slot under it, for the grub screw. |
+| 3 | M2 square nut, DIN 562 (4 × 1.2 mm) | Retail | One in the joystick knob, in the slot under it, for the grub screw. Two in the USB-C board's rib, for its screws (V0.34). |
 | 1 | Adhesive ePTFE vent label, Ø7.6–8 mm, breathable area at least Ø3 mm, for a Ø3 mm hole | Retail | Inside the battery cap (V0.28). Ø8 mm also clears the cap gasket and the housing (CAD check, 2026-10-20), with 0.9 mm to the opening's edges. |
-| 1 | Closed-cell foam sheet, EPDM or neoprene, self-adhesive, 1.5 mm thick, about 150 × 150 mm | Retail (sheet or wide roll) | Both seals and the three pads (V0.32), from one piece: the cover strip, cut 2 mm wide and about 25 cm long in all, on the housing rim (V0.30), and the battery cap gasket (V0.31), cut round a paper template printed at 100 % from `mechanical/cad/tools/cap-gasket-template.scad` (its 40 mm bar checks the scale). Soft grade; firm foam needs more screw force. The pads are layers of the same sheet: four on the battery cap, one on the rear wall, and six between the XIAO and the pouch, which hold the XIAO in its headers. |
+| 1 | Closed-cell foam sheet, EPDM or neoprene, self-adhesive, 1.5 mm thick, about 150 × 150 mm | Retail (sheet or wide roll) | Both seals and the three pads (V0.32), from one piece: the cover strip, cut 2 mm wide and about 25 cm long in all, on the housing rim (V0.30), and the battery cap gasket (V0.31), each two layers thick since V0.34, cut round a paper template printed at 100 % from `mechanical/cad/tools/cap-gasket-template.scad` (its 40 mm bar checks the scale). Soft grade; firm foam needs more screw force. The pads are layers of the same sheet: four on the battery cap, one on the rear wall, and six between the XIAO and the pouch, which hold the XIAO in its headers. |
 
 Estimated cost: about €75.
 

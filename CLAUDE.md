@@ -9,7 +9,7 @@ Guidance for AI assistants working in this repository. The project state lives i
   - `battery-study.md`, `materials-study.md`, `bom.md`, `electronics-assembly.md`, `firmware-spec.md`, `control-mapping.md`, `breadboard-assembly.md`, `prototype-plan.md`, `project-brief.md`, `development-environment.md`.
   - `images/`: renders and photos named `<part>-v<version>-<view>.png`.
 - `mechanical/cad/`: OpenSCAD models. `complete-remote-v0.N.scad` is the whole remote. Other files, such as `battery-assembly-v0.25.scad`, include it.
-- `electronics/`: KiCad boards generated from Python (`design.py`, `gen_pcb.py`, `gen_sch.py`). V0.27 to V0.33 use `control-pcb/`, `joystick-pcb-rev-c/` and `usbc-pcb-rev-b/`, which share one generator and route with Freerouting; `panel-ctrl-joy/` panels the control and joystick boards for one order (KiKit, see its README); `joystick-pcb-rev-b/` is the V0.26 board, and `joystick-pcb/` and `usbc-pcb/` are the V0.23–V0.25 boards. Each README has a "Regenerating" section.
+- `electronics/`: KiCad boards generated from Python (`design.py`, `gen_pcb.py`, `gen_sch.py`). V0.27 to V0.34 use `control-pcb/`, `joystick-pcb-rev-c/` and `usbc-pcb-rev-b/`, which share one generator and route with Freerouting; `panel-ctrl-joy/` panels the control and joystick boards for one order (KiKit, see its README); `joystick-pcb-rev-b/` is the V0.26 board, and `joystick-pcb/` and `usbc-pcb/` are the V0.23–V0.25 boards. Each README has a "Regenerating" section.
 - `electronics/tools/assembly_images.py` draws the step images for `docs/electronics-assembly.md` (run with KiCad's Python).
 - `firmware/xiao-nrf52840/`: the Arduino diagnostic sketch for the Seeed XIAO nRF52840. Its README covers the build, the upload and the bench test results.
 - `firmware/key-probe/`: a bench sketch that sends candidate keys one at a time, to find which keys an app reacts to.
@@ -40,14 +40,14 @@ Guidance for AI assistants working in this repository. The project state lives i
 OpenSCAD renders and checks (OpenSCAD 2026.x with the manifold backend):
 
 ```sh
-openscad -o out.png --imgsize=1200,900 -D 'part_to_render="assembly"' mechanical/cad/complete-remote-v0.33.scad
-openscad -o out.stl -D 'part_to_render="print_housing"' mechanical/cad/complete-remote-v0.33.scad
+openscad -o out.png --imgsize=1200,900 -D 'part_to_render="assembly"' mechanical/cad/complete-remote-v0.34.scad
+openscad -o out.stl -D 'part_to_render="print_housing"' mechanical/cad/complete-remote-v0.34.scad
 ```
 
 `part_to_render` lists every view and print part at the top of the file. For interference, render `intersection() { A(); B(); }` to STL and measure its volume; 0 mm³ means no overlap. Hulls give false collisions for non-convex parts moving along a path; check discrete poses instead. Animations use `--animate N`; `-D '$t=...'` is ignored.
 
 KiCad: see "Regenerating" in each PCB README. Use KiCad's bundled Python and `kicad-cli` for ERC, DRC and exports. The V0.26 and V0.27 boards need Freerouting 1.9.0 (Java 17); 2.x needs Java 25.
 
-Assembly video and path check (newest version; `ORR_VERSION=0.26` for V0.26): `python3 mechanical/cad/tools/assembly_video.py check|frames|video`, tests in `mechanical/cad/tools/test_assembly_video.py` and, for the V0.30 cover and V0.31 cap seals, `test_seal.py`, for the V0.32 part changes, `test_v032.py`, and for the V0.33 2 mm walls, `test_v033.py`; see "Assembly video" in `docs/mechanical-concept.md`. Photo-like renders with Blender: `python3 mechanical/cad/tools/photo_render.py`; see "Photo renders". Images for `mechanical-concept.md`: `python3 mechanical/cad/tools/doc_images.py [name ...]`; see "Doc images". Output goes to the git-ignored `mechanical/cad/build/`.
+Assembly video and path check (newest version; `ORR_VERSION=0.26` for V0.26): `python3 mechanical/cad/tools/assembly_video.py check|frames|video`, tests in `mechanical/cad/tools/test_assembly_video.py` and, for the V0.30 cover and V0.31 cap seals, `test_seal.py`, for the V0.32 part changes, `test_v032.py`, for the V0.33 2 mm walls, `test_v033.py`, and for the V0.34 sliding USB-C board and two-layer foam, `test_v034.py`; see "Assembly video" in `docs/mechanical-concept.md`. Photo-like renders with Blender: `python3 mechanical/cad/tools/photo_render.py`; see "Photo renders". Images for `mechanical-concept.md`: `python3 mechanical/cad/tools/doc_images.py [name ...]`; see "Doc images". The V0.34 USB-C board fitting video: `python3 mechanical/cad/tools/usbc_mount_video.py`. Output goes to the git-ignored `mechanical/cad/build/`.
 
 Firmware: see `firmware/xiao-nrf52840/README.md`. Host tests of the sketch, no board needed: `make -C firmware/xiao-nrf52840/test` (both `BOARD_V026` builds); run them after every firmware change. On Apple Silicon without Rosetta, the Seeed package's GCC and `adafruit-nrfutil` binaries do not run. Use Arm GNU Toolchain 13.3 and `pip install adafruit-nrfutil`, set in a `platform.local.txt`.

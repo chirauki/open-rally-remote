@@ -19,7 +19,7 @@ from pathlib import Path
 
 CAD = Path(__file__).resolve().parent.parent
 REPO = CAD.parent.parent
-VERSION = os.environ.get("ORR_VERSION", "0.33")
+VERSION = os.environ.get("ORR_VERSION", "0.34")
 SCAD = CAD / ("assembly-video-v%s.scad" % VERSION)
 BUILD = CAD / "build"
 OPENSCAD = os.environ.get("OPENSCAD", "openscad")
@@ -164,7 +164,17 @@ _USBC = ("**USB-C board path (step 2).** Slid straight along its rib from the ca
          "above the rib past the bosses, lowered onto the rib 8 mm short of the rear wall, and "
          "slid in, it clears. The margin is small: 1 mm above the rib still overlaps 0.2 mm³. "
          "The video uses this path.")
-FINDINGS = {"0.33": [
+FINDINGS = {"0.34": [
+    "**Sliding USB-C board (V0.34).** The board is upside down, under its rib. The two DIN 562 "
+    "square nuts sit in the rib's channels from the start of step 2 and are drawn with the "
+    "housing. The fitting in detail is in docs/videos/usbc-mount-v0.34.mp4.",
+    "**Two-layer foam (V0.34).** The rim drops 0.5 mm and the battery cap's lip rises 0.5 mm "
+    "(foam_comp 1.0 to 1.5 mm).",
+    "**Housing onto the stack (step 8), and the cover off (step 9).** Clear along X, as since V0.27.",
+    "**USB-C board path (step 2).** Upside down since V0.34, the board slides straight along "
+    "the underside of its rib from the cavity opening: its edges pass above the upper "
+    "cover-screw bosses at Y = 24, which they hit in V0.26 to V0.33. The video uses this path."],
+    "0.33": [
     "**2 mm walls (V0.33).** The narrow part's axial walls and the two end walls grow from 1 to "
     "2 mm, outward: the remote is 25 mm wide and 2 mm taller, and the cavity is as in V0.32.",
     "**Housing onto the stack (step 8), and the cover off (step 9).** Clear along X, as since V0.27.",

@@ -1,8 +1,10 @@
-# CAD mecánico completo — Mando V0.33 sin soldadura
+# CAD mecánico completo — Mando V0.34 sin soldadura
 
 > Traducción al castellano de [mechanical-concept.md](mechanical-concept.md). La versión en inglés es la de referencia; si las dos difieren, vale la inglesa. Los textos alternativos de las imágenes siguen la versión inglesa.
 
-La V0.33 engorda las paredes de 1 mm del mando a 2 mm: las paredes axiales de la parte estrecha y las dos paredes de los extremos. Crecen hacia fuera, así que el mando mide 25 mm a lo largo del manillar en vez de 23 mm y 2 mm más de alto, y la cavidad y todo lo que va dentro quedan como en la V0.32. La base también mide 25 mm. Las paredes más gruesas salen del [estudio de materiales](materials-study.es.md): las caídas son frecuentes en pistas, y las paredes de 1 mm con dos perímetros FDM pueden filtrar. El material de impresión aún no está elegido. Mira [Cambios desde la V0.32](#changes-from-v032).
+La V0.34 sigue a las primeras piezas reales. En la primera placa USB-C soldada, el receptáculo queda 0,3 mm fuera de su posición de diseño respecto a los agujeros M2, y su junta solo admite 0,09 mm, así que la placa ahora desliza sobre su nervio: los dos tornillos pasan por ranuras hasta tuercas cuadradas en el nervio, y es la junta la que fija dónde se para la placa. Además, la placa va boca abajo, bajo su nervio, para que un destornillador llegue a sus tornillos por la abertura de la tapa de la batería; en la V0.33 ninguna herramienta podía girarlos. Las juntas de espuma llevan dos capas de la lámina de 1,15 mm que se compró, no una. Mira [Cambios desde la V0.33](#changes-from-v033).
+
+La V0.33 engorda las paredes de 1 mm del mando a 2 mm: las paredes axiales de la parte estrecha y las dos paredes de los extremos. Crecen hacia fuera, así que el mando mide 25 mm a lo largo del manillar en vez de 23 mm y 2 mm más de alto, y la cavidad y todo lo que va dentro quedan como en la V0.32. La base también mide 25 mm. Las paredes más gruesas salen del [estudio de materiales](materials-study.es.md): las caídas son frecuentes en pistas, y las paredes de 1 mm con dos perímetros FDM pueden filtrar. El material de impresión aún no está elegido. Mira [Cambios de la V0.33 desde la V0.32](#v033-changes-from-v032-still-current).
 
 La V0.32 reduce el número de piezas distintas que hay que comprar. El cierre lleva un tornillo M3 × 20 estándar fijado con epoxi, en vez de un M3 × 22 con contratuerca. Las tiras antivibración, y opcionalmente el forro de la abrazadera, se cortan de una cámara de bicicleta, y las almohadillas salen de la espuma del sellado. El pomo del joystick conserva su tuerca cuadrada: una tuerca hexagonal no cabe. Mira [Cambios de la V0.32 respecto a la V0.31](#v032-changes-from-v031-still-current).
 
@@ -30,62 +32,109 @@ Las piezas impresas del mando son rebanadas de un solo sólido exterior: el cont
 
 El mando se monta solo en el lado izquierdo del manillar, nunca en el derecho. El mando de intermitentes, que el frente plegado esquiva, está en la piña izquierda.
 
-**Concepto paramétrico actual:** [complete-remote-v0.33.scad](../mechanical/cad/complete-remote-v0.33.scad)
+**Concepto paramétrico actual:** [complete-remote-v0.34.scad](../mechanical/cad/complete-remote-v0.34.scad)
 
 ![La V0.33 sobre su base, desde el lado del piloto: un render del CAD hecho con Blender, con el mando en nylon teñido de negro y la base en nylon gris. El material aún no está elegido.](images/complete-remote-v0.33-photo-front.png)
 
 ![La V0.33 vista a lo largo del manillar: la cara de controles plegada, las paredes de 2 mm y la base con su pomo de bloqueo.](images/complete-remote-v0.33-photo-side.png)
 
-![La V0.33 sobre su base, desde el lado del piloto: las tres teclas de TPU sobresalen 3 mm de la tapa por agujeros de Ø13 mm, y el joystick está en la cara inferior.](images/complete-remote-v0.33-assembly.png)
+![La V0.34 sobre su base, desde el lado del piloto: las tres teclas de TPU sobresalen 3 mm de la tapa por agujeros de Ø13 mm, y el joystick está en la cara inferior.](images/complete-remote-v0.34-assembly.png)
 
-![La tapa de controles de la V0.33, vista de frente desde el lado del piloto.](images/complete-remote-v0.33-front.png)
+![La tapa de controles de la V0.34, vista de frente desde el lado del piloto.](images/complete-remote-v0.34-front.png)
 
-![La V0.33 vista a lo largo del manillar: la cara superior con las teclas A, B, C y la cara inferior con el joystick, girada 20 grados hacia el manillar.](images/complete-remote-v0.33-side.png)
+![La V0.34 vista a lo largo del manillar: la cara superior con las teclas A, B, C y la cara inferior con el joystick, girada 20 grados hacia el manillar.](images/complete-remote-v0.34-side.png)
 
-![El pomo del joystick de la V0.33 en la cara inferior, entre los cuatro tornillos inferiores de la tapa.](images/complete-remote-v0.33-joy.png)
+![El pomo del joystick de la V0.34 en la cara inferior, entre los cuatro tornillos inferiores de la tapa.](images/complete-remote-v0.34-joy.png)
 
-![La V0.33 sobre su base, desde detrás del manillar: la plataforma de la base bajo la cara trasera del mando, y el pomo de bloqueo debajo del anillo de la abrazadera.](images/complete-remote-v0.33-rear.png)
+![La V0.34 sobre su base, desde detrás del manillar: la plataforma de la base bajo la cara trasera del mando, y el pomo de bloqueo debajo del anillo de la abrazadera.](images/complete-remote-v0.34-rear.png)
 
-![Posición de entrada de la V0.33: el mando separado de la plataforma, 9 mm por debajo de su posición de trabajo, con el pomo de bloqueo tirado.](images/complete-remote-v0.33-entry.png)
+![Posición de entrada de la V0.34: el mando separado de la plataforma, 9 mm por debajo de su posición de trabajo, con el pomo de bloqueo tirado.](images/complete-remote-v0.34-entry.png)
 
-![Colocación y retirada de la V0.33, animadas. Izquierda: tira del pomo, apoya el mando en la plataforma 9 mm más abajo, deslízalo hasta el tope y suelta el pomo; después tira del pomo, desliza hacia abajo y levanta. Derecha: lo mismo, cortado a media anchura y visto a lo largo del manillar, con los raíles en la ranura y la cabeza del bloqueo (naranja) en su agujero.](images/complete-remote-v0.33-fit.gif)
+![Colocación y retirada de la V0.34, animadas. Izquierda: tira del pomo, apoya el mando en la plataforma 9 mm más abajo, deslízalo hasta el tope y suelta el pomo; después tira del pomo, desliza hacia abajo y levanta. Derecha: lo mismo, cortado a media anchura y visto a lo largo del manillar, con los raíles en la ranura y la cabeza del bloqueo (naranja) en su agujero.](images/complete-remote-v0.34-fit.gif)
 
-![La base de la V0.33 en el manillar: el anillo de la abrazadera, la plataforma con dos tramos de raíl de cola de milano, las dos tiras antivibración negras y el pomo de bloqueo.](images/complete-remote-v0.33-base.png)
+![La base de la V0.34 en el manillar: el anillo de la abrazadera, la plataforma con dos tramos de raíl de cola de milano, las dos tiras antivibración negras y el pomo de bloqueo.](images/complete-remote-v0.34-base.png)
 
-![La base de la V0.33 para un manillar de 22,2 mm, sin el manillar: el forro y el casquillo impreso dentro del único agujero de 25,4 mm.](images/complete-remote-v0.33-base-sleeve.png)
+![La base de la V0.34 para un manillar de 22,2 mm, sin el manillar: el forro y el casquillo impreso dentro del único agujero de 25,4 mm.](images/complete-remote-v0.34-base-sleeve.png)
 
-![El mando de la V0.33 visto desde el lado del manillar: la cara trasera con el agujero del bloqueo, la ranura de cola de milano interrumpida y la abertura del USB-C.](images/complete-remote-v0.33-back.png)
+![El mando de la V0.34 visto desde el lado del manillar: la cara trasera con el agujero del bloqueo, la ranura de cola de milano interrumpida y la abertura del USB-C.](images/complete-remote-v0.34-back.png)
 
-![Sección de la cola de milano de la V0.33 por el raíl inferior: el raíl a 45 grados de la base (derecha) dentro de la ranura de la pared trasera del mando (izquierda), y las tiras antivibración (negras) a cada lado, dibujadas con su grosor sin comprimir.](images/complete-remote-v0.33-dovetail.png)
+![Sección de la cola de milano de la V0.34 por el raíl inferior: el raíl a 45 grados de la base (derecha) dentro de la ranura de la pared trasera del mando (izquierda), y las tiras antivibración (negras) a cada lado, dibujadas con su grosor sin comprimir.](images/complete-remote-v0.34-dovetail.png)
 
-![Interior de la V0.33 sin la pared axial superior: la placa de control detrás de la cara superior con la XIAO en sus conectores, la batería (roja) detrás de ellas, la placa USB-C arriba, la placa del joystick en la cara inferior y los cables.](images/complete-remote-v0.33-interior.png)
+![Interior de la V0.34 sin la pared axial superior: la placa de control detrás de la cara superior con la XIAO en sus conectores, la batería (roja) detrás de ellas, la placa USB-C arriba, la placa del joystick en la cara inferior y los cables.](images/complete-remote-v0.34-interior.png)
 
-![Sección de la V0.33 por el centro del cuerpo y de la base: tapa, lámina del teclado, placa de botones, pulsadores, placa de control, XIAO y batería.](images/complete-remote-v0.33-section.png)
+![Sección de la V0.34 por el centro del cuerpo y de la base: tapa, lámina del teclado, placa de botones, pulsadores, placa de control, XIAO y batería.](images/complete-remote-v0.34-section.png)
 
-![Sección de la V0.33 por los tornillos superiores de la tapa (Y = 24 mm), con el eje del manillar hacia arriba: tapa (izquierda), lámina suelta del teclado (negra), tira de espuma (azul) en el borde de la carcasa, placa de botones (ocre), los dos tornillos (rojos) en sus resaltes y la placa de control (verde).](images/complete-remote-v0.33-seal-section.png)
+![Sección de la V0.34 por los tornillos superiores de la tapa (Y = 24 mm), con el eje del manillar hacia arriba: tapa (izquierda), lámina suelta del teclado (negra), tira de espuma (azul) en el borde de la carcasa, placa de botones (ocre), los dos tornillos (rojos) en sus resaltes y la placa de control (verde).](images/complete-remote-v0.34-seal-section.png)
 
-![La carcasa de la V0.33 vista desde el lado de la tapa: la tira de espuma (negra) recorre el borde por las dos paredes laterales y por el pliegue, con los resaltes de los tornillos de la tapa justo por dentro.](images/complete-remote-v0.33-foam.png)
+![La carcasa de la V0.34 vista desde el lado de la tapa: la tira de espuma (negra) recorre el borde por las dos paredes laterales y por el pliegue, con los resaltes de los tornillos de la tapa justo por dentro.](images/complete-remote-v0.34-foam.png)
 
-![La tapa de la batería de la V0.33, despiezada desde abajo: la carcasa con su abertura inferior, el volumen de la batería (rojo), la junta de espuma troquelada y la tapa con sus tres agujeros avellanados.](images/complete-remote-v0.33-battery-cap.png)
+![La tapa de la batería de la V0.34, despiezada desde abajo: la carcasa con su abertura inferior, el volumen de la batería (rojo), la junta de espuma troquelada y la tapa con sus tres agujeros avellanados.](images/complete-remote-v0.34-battery-cap.png)
 
-![La tapa de la batería de la V0.33 por dentro: la junta de espuma troquelada (negra) dentro del labio de 0,5 mm de la tapa, y la etiqueta de ventilación en la abertura.](images/complete-remote-v0.33-cap-seal.png)
+![La tapa de la batería de la V0.34 por dentro: la junta de espuma troquelada (negra) dentro del labio de 0,5 mm de la tapa, y la etiqueta de ventilación en la abertura.](images/complete-remote-v0.34-cap-seal.png)
 
-![Sección de la V0.33 por el eje del joystick, dibujada con el pomo abajo: pomo, tapa, lámina del teclado, placa del joystick con el asiento de la bola, bola y disco en cruz, pulsadores y la placa del joystick sobre sus separadores.](images/complete-remote-v0.33-joy-section.png)
+![Sección de la V0.34 por el eje del joystick, dibujada con el pomo abajo: pomo, tapa, lámina del teclado, placa del joystick con el asiento de la bola, bola y disco en cruz, pulsadores y la placa del joystick sobre sus separadores.](images/complete-remote-v0.34-joy-section.png)
 
-![La tapa de la V0.33 en su orientación de impresión, sobre su cara axial.](images/complete-remote-v0.33-print-cover.png)
+![La tapa de la V0.34 en su orientación de impresión, sobre su cara axial.](images/complete-remote-v0.34-print-cover.png)
 
-![La lámina del teclado de la V0.33 desplegada en plano en su orientación de impresión, vista desde el lado de las teclas.](images/complete-remote-v0.33-gasket-flat.png)
+![La lámina del teclado de la V0.34 desplegada en plano en su orientación de impresión, vista desde el lado de las teclas.](images/complete-remote-v0.34-gasket-flat.png)
 
-![Las piezas del joystick de la V0.33 en sus orientaciones de impresión: la placa sobre su lado de la lámina con los dos separadores de la PCB hacia arriba, la bola y el disco sobre el disco, el pomo sobre su cara superior, y el pasador de acero de Ø3 × 12 mm (comprado).](images/complete-remote-v0.33-print-joy.png)
+![Las piezas del joystick de la V0.34 en sus orientaciones de impresión: la placa sobre su lado de la lámina con los dos separadores de la PCB hacia arriba, la bola y el disco sobre el disco, el pomo sobre su cara superior, y el pasador de acero de Ø3 × 12 mm (comprado).](images/complete-remote-v0.34-print-joy.png)
 
-![La placa del joystick de la V0.33 en su orientación de impresión: los dos separadores de la PCB en la mitad inferior, debajo del agujero del asiento.](images/complete-remote-v0.33-print-joy-plate.png)
+![La placa del joystick de la V0.34 en su orientación de impresión: los dos separadores de la PCB en la mitad inferior, debajo del agujero del asiento.](images/complete-remote-v0.34-print-joy-plate.png)
 
-![Las mitades del casquillo de la V0.33 en su orientación de impresión, sobre una cara del extremo. Cada una se queda 0,5 mm antes del corte.](images/complete-remote-v0.33-print-sleeve.png)
+![Las mitades del casquillo de la V0.34 en su orientación de impresión, sobre una cara del extremo. Cada una se queda 0,5 mm antes del corte.](images/complete-remote-v0.34-print-sleeve.png)
 
-Las dos imágenes fotográficas son renders del CAD hechos con Blender (mira [Renders fotográficos](#photo-renders)). Las demás son renders directos de OpenSCAD del fichero de la V0.33 (mira [Imágenes del documento](#doc-images)). Las imágenes de versiones anteriores siguen en `docs/images/`. Las imágenes de la placa están en la [página de la placa del joystick](../electronics/joystick-pcb-rev-c/README.md).
+Las dos imágenes fotográficas son renders del CAD de la V0.33 hechos con Blender (mira [Renders fotográficos](#photo-renders)); la V0.34 no cambia nada de lo que muestran. Las demás son renders directos de OpenSCAD del fichero de la V0.34 (mira [Imágenes del documento](#doc-images)). Las imágenes de versiones anteriores siguen en `docs/images/`. Las imágenes de la placa están en la [página de la placa del joystick](../electronics/joystick-pcb-rev-c/README.md).
 
-<a id="changes-from-v032"></a>
-## Cambios desde la V0.32
+<a id="changes-from-v033"></a>
+## Cambios desde la V0.33
+
+<a id="sliding-usb-c-board"></a>
+### Placa USB-C deslizante
+
+El receptáculo comprime su junta USBTJ-06 contra el fondo del alojamiento. GCT pide 0,315–0,405 mm de compresión, una ventana de 0,09 mm. En la V0.33, dos tornillos M2 en pilotos fijos marcaban esa distancia desde los agujeros de la placa.
+
+En la primera placa soldada (26-10-2026), la cara frontal del cuerpo del receptáculo queda a unos 11,40 mm del centro de los agujeros M2, frente a 11,10 mm en el diseño (±0,2 mm: medido con calibre hasta el borde de los agujeros). La boca sobresale 1,6–1,7 mm del borde de la placa, como en el diseño, así que el desvío está entre el contorno fresado y los agujeros taladrados. Con pilotos fijos, la junta se comprimiría unos 0,67 mm, un 74 %. Ninguna posición fija puede mantener una ventana de 0,09 mm con ese desvío y la tolerancia de impresión.
+
+V0.34:
+- **Nervio.** Los dos pilotos pasan a ser ranuras en la piel del nervio junto a la placa, de 1,0 mm (`usbc_skin`), de 1,0 mm hacia cada lado (`usbc_slide`). Bajo cada ranura, un canal aloja una tuerca cuadrada M2 DIN 562 (`usbc_nut`). El canal se abre en el extremo delantero del nervio, que ahora llega 2,5 mm más adelante (`usbc_rib_ext`). Es 0,2 mm más ancho que la tuerca, así que la tuerca no puede girar.
+- **Tornillos.** Los mismos tornillos de cabeza abombada M2 × 4, ahora a las tuercas. Sus 2,8 mm de rosca más allá de la placa atraviesan la piel y la tuerca de 1,2 mm; la punta queda 0,3 mm dentro del nervio.
+- **Colocación.** Empuja la placa hacia la pared hasta que la junta resista, y luego aprieta. La junta fija la compresión, no los agujeros. La presión del dedo no se mide; la prueba de estanqueidad comprueba el sellado.
+- **Borde de la placa.** Se mueve con el receptáculo, así que mantiene los 0,43 mm de diseño hasta el panel. El rebaje previsto para la V0.34 no hace falta.
+- **Piezas.** Dos tuercas DIN 562 más, del paquete de 20 que ya está en la [lista de materiales](bom.es.md#hardware).
+
+<a id="usb-c-board-upside-down"></a>
+### Placa USB-C boca abajo
+
+De la V0.26 a la V0.33, las cabezas de los tornillos miran a la pared del extremo superior, a 16 mm, así que no cabe ningún destornillador recto. La única entrada es la abertura de la tapa, a 27 mm. Una llave en L de 1,3 mm modelada, con el brazo corto en la cabeza y el largo saliendo por esa abertura, solo puede girar unos 40° entre las paredes laterales (de −5° a 35° en un tornillo, de −35° a 5° en el otro). Un hexágono necesita al menos 60° por golpe, o la llave vuelve a caer en la misma posición, así que los tornillos no se podían girar.
+
+La V0.34 da la vuelta a la placa (`usbc_flip`): el receptáculo queda debajo de la placa y el nervio encima, con las tuercas en sus canales. Las cabezas de los tornillos miran a la abertura de la tapa de la batería:
+- **Destornillador.** Un destornillador recto sube por la abertura de la tapa hasta cada cabeza, a unos 68 mm de la cara de la tapa. Inclinado de forma que su extremo inferior quede en X = −28 mm (unos 2°), una punta hexagonal de Ø1,5 mm y una caña de Ø4 mm no tocan la carcasa (`usbc_driver`). Recto del todo, la caña choca con el borde delantero de la abertura, a 0,8 mm del eje del tornillo. Gira libre, la vuelta entera.
+- **Herramienta.** Una punta hexagonal de 1,3 mm, para las cabezas ISO 7380, con unos 75 mm de alcance: por ejemplo una punta de precisión de 4 mm en un alargador. Una llave en L de 1,3 mm es demasiado corta: mide unos 44 mm en total. Los tornillos aún no han llegado, así que no se ha comprobado su cabeza.
+- **Recorrido.** La placa desliza recta por la cara inferior del nervio desde la abertura de la cavidad. Sus bordes pasan ahora por encima de los resaltes superiores de la tapa en Y = 24, con los que chocaban de la V0.26 a la V0.33; ya no hace falta el rodeo 1,5 mm por encima del nervio.
+- **LED y J2.** La ventana del LED de carga pasa al otro lado del receptáculo, con el LED; J2 mira hacia abajo y el cable sale de él por debajo de la placa.
+- **Placas.** Los agujeros están a ±7 mm, simétricos, así que las placas USB-C ya fabricadas sirven en cualquiera de los dos sentidos.
+
+[`usbc-mount-v0.34.es.mp4`](videos/usbc-mount-v0.34.es.mp4) muestra la colocación paso a paso, con un corte por un tornillo y dos secciones: la junta, con su grosor, y el tornillo, su tuerca y el destornillador. La versión con rótulos en inglés es [`usbc-mount-v0.34.mp4`](videos/usbc-mount-v0.34.mp4). La herramienta es `mechanical/cad/tools/usbc_mount_video.py`, con la secuencia en `mechanical/cad/usbc-mount-v0.34.scad`.
+
+![V0.34 USB-C board fitted upside down, the last frame of the fitting video. Left: cut through the +Z screw, from the top end down to the battery cap opening, with the rib above the board. Right, top: section on the receptacle axis, the gasket (black) squeezed to 0.53 mm between the body and the pocket floor. Right, bottom: the screw from below through the board and the rib's skin into its nut (orange).](images/complete-remote-v0.34-usbc-mount.png)
+
+<a id="two-layer-foam"></a>
+### Espuma de dos capas
+
+La lámina de espuma comprada mide unos 1,15 mm, no los 1,5 mm del anuncio. Una capa comprimida a 1,0 mm deja 0,15 mm de compresión (13 %), menos que la tolerancia de impresión. La V0.34 apila dos capas (`foam_t` = 2,3 mm), comprimidas a 1,5 mm (`foam_comp`, 35 %). Con ±0,3 mm en las piezas impresas, la compresión queda entre el 22 y el 48 %.
+- **Borde.** Baja 0,5 mm con `foam_comp`. Las placas, los resaltes y la rosca de los tornillos de la tapa no se mueven.
+- **Tapa de la batería.** Su labio sube 0,5 mm con `cap_gap`, así que la tapa mide 2,5 mm bajo la espuma en vez de 3,0 mm. Los tornillos M2 × 8 mantienen 4,0 mm de rosca.
+- **Ancho de la tira.** Se queda en 2,0 mm (`foam_w`). Con 2,5 o 3,0 mm, los bordes laterales chocan con las placas de botones y del joystick, que llenan el ancho de la cavidad. Si una pila de 2,0 mm de ancho y 2,3 mm de alto se vuelca al cerrar la tapa se comprueba al montar.
+- **Capas.** La segunda capa tiene que pegar en toda la primera, o el agua pasa entre ellas.
+
+<a id="lock-spring"></a>
+### Muelle del cierre
+
+El muelle comprado está medido: 10 mm libre, 5 mm de diámetro exterior, 7 espiras y 3,6 mm comprimido del todo, menos que los 4,0 mm de `lock_spring_solid`. El comentario del CAD da estos valores; la geometría no cambia.
+
+<a id="v033-changes-from-v032-still-current"></a>
+## Cambios de la V0.33 desde la V0.32, aún vigentes
 
 ### Paredes de 2 mm
 
@@ -156,7 +205,7 @@ El diseño mantenía los insertos roscados por calor con la esperanza de que el 
 | Pomo del joystick | Inserto M2 radial para el prisionero | Una tuerca cuadrada M2 (DIN 562, 4 × 1,2 mm) en una ranura abierta hacia la tapa (`knob_nut`), a 0,65 mm del agujero del pasador. La cruz grabada empieza a 4,9 mm del centro para no tocar la ranura |
 | Pomo del cierre | Inserto M3 desde dentro de la copa | Una tuerca M3 en un alojamiento hexagonal en la cara exterior del pomo (`lock_nut`). La tensión del tornillo tira de la tuerca contra el fondo del alojamiento, y la contratuerca se bloquea contra ella. V0.32: sin contratuerca; el epoxi en la rosca fija la tuerca |
 
-![El pomo del joystick de la V0.33 desde abajo, con la ranura de la tuerca cuadrada junto al agujero del pasador, y el pomo de bloqueo con el alojamiento de su tuerca M3.](images/complete-remote-v0.33-print-knobs.png)
+![El pomo del joystick de la V0.34 desde abajo, con la ranura de la tuerca cuadrada junto al agujero del pasador, y el pomo de bloqueo con el alojamiento de su tuerca M3.](images/complete-remote-v0.34-print-knobs.png)
 
 La cruz grabada del pomo del joystick se reduce a cuatro marcas de 0,6 mm en el borde. El coste: las roscas impresas en PETG se desgastan con cada apertura. La tapa y la abrazadera se abren poco; los tornillos de la tapa de la batería ya funcionaban así. Las medidas de los pilotos son estimaciones iniciales y hay que comprobarlas en la primera impresión.
 
@@ -421,6 +470,25 @@ V0.30 (sellado de la tapa de controles; `mechanical/cad/tools/test_seal.py` ejec
 | Topes frente a la espuma y a los agujeros del alma de las teclas; agujeros de la lámina frente a una sonda de Ø1,35 mm | Sin solape |
 | Comprobación de recorrido de montaje, en los dos órdenes | Sin colisiones; el pellizco de los topes sobre la lámina (2,98 mm³) es un contacto a propósito |
 
+V0.34 (`mechanical/cad/tools/test_v034.py` hace las trece primeras filas):
+
+| Comprobación | Resultado |
+|---|---|
+| Tuercas cuadradas en sus canales, con la placa 1 mm atrás, en su sitio y 1 mm adelante | Sin solape con la carcasa |
+| Cañas de los tornillos en el mismo recorrido | Sin solape; 1,6 mm adelante, la caña choca con el nervio |
+| Recorrido de la tuerca, desde delante del nervio hasta el final de su recorrido | Sin solape |
+| Tuerca en su canal | No puede girar: el canal mide 4,2 mm de ancho y la tuerca 5,66 mm entre esquinas |
+| Tornillo a través de la tuerca | 2,8 mm de rosca para la piel de 1,0 mm y la tuerca de 1,2 mm |
+| Borde de la placa USB-C hasta el panel | 0,43 mm, como la V0.33 |
+| Placa boca abajo | El nervio queda encima de la placa; las cabezas de los tornillos miran a la abertura de la tapa de la batería |
+| Destornillador desde la abertura de la tapa hasta cada cabeza, inclinado hasta X = −28 mm | Sin solape con la carcasa |
+| El mismo destornillador recto | Su caña choca con el borde delantero de la abertura |
+| Compresión de la espuma | De 2,3 a 1,5 mm, 35 % |
+| Tira de espuma sobre el borde; borde y espuma frente a las placas; espuma frente a las placas electrónicas | Al menos el 98 % de su área sobre material de la carcasa; sin solape |
+| Placas, XIAO, placas impresas, placa USB-C, tuercas y envolvente de la batería frente a la carcasa y la tapa de la batería | Sin solape |
+| Rosca de los tornillos de la tapa de la batería; rosca de los tornillos de la tapa | 4,0 mm; 5,1 mm, como la V0.33 |
+| Comprobación de recorrido de montaje, en los dos órdenes | Sin colisiones ([informe](assembly-video-v0.34-checks.md)); las tuercas van con la carcasa |
+
 V0.33 (`mechanical/cad/tools/test_v033.py` hace las seis primeras filas):
 
 | Comprobación | Resultado |
@@ -533,9 +601,9 @@ La V0.24 busca resistir la lluvia y las salpicaduras, no un grado IP. No se ha p
 1. **Botones.** APEM ISR3SAD200, sellado de panel frontal IP67 (IEC 60529) con la junta plana bajo el embellecedor. El embellecedor de Ø17,5 mm y su junta van sobre la cara superior plana, a 0,75 mm del pliegue y del radio de la esquina superior.
 2. **Joystick.** El agujero de la tapa está abierto al exterior. Ahí sella la junta de lámina: está apretada alrededor de todo el agujero y abraza la palanca. Una lámina de TPU impresa que flexa con cada movimiento de la palanca puede romperse o fluir; una lámina de silicona colada duraría más.
 3. **Unión de la tapa de controles.** V0.30: una tira de espuma de célula cerrada sobre el borde de la carcasa, bajo el borde de la lámina suelta del teclado, alrededor de las dos caras; la lámina abraza la caña de cada tornillo de la tapa. (Antes de la V0.30 se apretaba toda la lámina sobre toda la cara, cosa que los tornillos M2 no pueden hacer; mira [Cambios de la V0.30 respecto a la V0.29](#v030-changes-from-v029-still-current).)
-4. **USB-C.** El GCT USB4736 tiene grado IP67 con su junta USBTJ-06 comprimida sobre el apoyo adelgazado; GCT dice que la junta se pone después de soldar el receptáculo. Rellena con epoxi la parte de atrás del receptáculo y su placa como segunda barrera. La ventana del LED de carga a su lado es un agujero de Ø1,6 mm rellenado a ras con epoxi transparente de dos componentes. En la moto la plataforma tapa los dos. La ranura y el agujero del cierre son ciegos y no se abren a la cavidad.
+4. **USB-C.** El GCT USB4736 tiene grado IP67 con su junta USBTJ-06 comprimida sobre el apoyo adelgazado; GCT dice que la junta se pone después de soldar el receptáculo. V0.34: la placa desliza sobre su nervio, así que la junta, y no los agujeros de los tornillos, fija la compresión. Rellena con epoxi la parte de atrás del receptáculo y su placa como segunda barrera. La ventana del LED de carga a su lado es un agujero de Ø1,6 mm rellenado a ras con epoxi transparente de dos componentes. En la moto la plataforma tapa los dos. La ranura y el agujero del cierre son ciegos y no se abren a la cavidad.
 5. **Ventilación.** Una etiqueta de ventilación adhesiva de ePTFE sobre el agujero de Ø3 mm de la tapa de la batería, por dentro (V0.28; antes, en la pared del extremo inferior). Sin ella, los ciclos de temperatura bombean aire húmedo dentro de una caja sellada, y el agua se condensa dentro. Monta la base para que la ventilación mire hacia abajo o de lado, no hacia las salpicaduras.
-6. **Tapa de la batería.** V0.31: una junta troquelada de espuma de célula cerrada sobre los apoyos (3,8 mm delante y detrás, 2,5 mm a los lados), comprimida a 1,0 mm por un labio rígido de la tapa; los tornillos atraviesan la espuma. Una franja de carcasa de 3,8 mm la separa del sellado de la tapa de controles. La tapa mira hacia abajo y le llegan las salpicaduras de la rueda; esta unión no se ha probado.
+6. **Tapa de la batería.** V0.31: una junta troquelada de espuma de célula cerrada sobre los apoyos (3,8 mm delante y detrás, 2,5 mm a los lados), comprimida a 1,5 mm por un labio rígido de la tapa (V0.34: dos capas de la lámina; 1,0 mm en la V0.31–V0.33); los tornillos atraviesan la espuma. Una franja de carcasa de 3,8 mm la separa del sellado de la tapa de controles. La tapa mira hacia abajo y le llegan las salpicaduras de la rueda; esta unión no se ha probado.
 7. **Electrónica.** Cubre la XIAO, la placa del joystick y todas las soldaduras con barniz de protección (acrílico o de silicona). Mantenlo fuera del conector USB-C, de los pulsadores de los interruptores, de la batería y de la membrana de ventilación.
 8. **Paredes impresas.** V0.33: todas las paredes de la carcasa miden al menos 2 mm, cuatro perímetros con una boquilla de 0,4 mm (en la V0.32 y antes: 1 mm en la parte estrecha y en los extremos, dos perímetros). En FDM, pide un relleno del 100 % o al menos cinco perímetros, para que las paredes sean macizas. El nylon MJF se vende como estanco sin tratamiento; no está comprobado para estas paredes. La prueba de estanqueidad decide.
 
@@ -563,7 +631,7 @@ La V0.24 busca resistir la lluvia y las salpicaduras, no un grado IP. No se ha p
 Los materiales aún no están elegidos. El [estudio de materiales](materials-study.es.md) los compara para cada grupo: las piezas rígidas del mando (PA11 por MJF o ASA por FDM), las de la base (PA12 por MJF) y el teclado (TPU cerca de 85A). También recoge los presupuestos de impresión conseguidos hasta ahora.
 
 Ninguna pieza necesita soportes.
-- **Carcasa:** las paredes son verticales, la cara inferior es un borde abierto al aire, los resaltes inferiores de los tornillos se inclinan 20°, y la pared trasera de la cavidad y el bloque delantero de la tapa de la batería hacen un puente de 21 mm. La ranura queda arriba: sus labios se estrechan hacia arriba a 45°, y el agujero del cierre y la ranura del USB-C se abren hacia arriba; el apoyo de la junta es un rebaje poco profundo en la pared trasera del puente. Se apoya en su fino borde delantero, así que usa un brim.
+- **Carcasa:** las paredes son verticales, la cara inferior es un borde abierto al aire, los resaltes inferiores de los tornillos se inclinan 20°, y la pared trasera de la cavidad y el bloque delantero de la tapa de la batería hacen un puente de 21 mm. La ranura queda arriba: sus labios se estrechan hacia arriba a 45°, y el agujero del cierre y la ranura del USB-C se abren hacia arriba; el apoyo de la junta es un rebaje poco profundo en la pared trasera del puente. Los dos canales de las tuercas del nervio USB-C (V0.34) van a lo largo de X, de 4,2 mm de ancho bajo una piel de 1,0 mm, y hacen puente. Se apoya en su fino borde delantero, así que usa un brim.
 - **Parte delantera de la base:** los flancos de los raíles están a 45° de la cama. El alojamiento del cierre y los agujeros de los tornillos van en horizontal y son lo bastante pequeños para hacer puente.
 - **Tapa de controles:** el agujero de Ø5 mm de la palanca es lo bastante pequeño para hacer puente. Se apoya en un borde de 2,5 mm, así que usa un brim.
 - **Bola y disco:** la bola sobre el disco se estrecha hacia arriba. Prueba el ajuste a presión del pasador en el taladro de Ø2,95 mm (`pin_bore`) antes de montar.
@@ -575,17 +643,17 @@ Ninguna pieza necesita soportes.
 <a id="assembly"></a>
 ## Montaje
 
-Mando (V0.33, igual que la V0.31 y la V0.32; nada que soldar, ninguna herramienta caliente):
+Mando (V0.34; nada que soldar, ninguna herramienta caliente):
 1. Repasa los diez agujeros piloto de Ø1,6 mm de los resaltes de la carcasa con una broca de 1,6 mm sujeta a mano; los agujeros impresos salen más estrechos.
-2. Coloca la placa USB-C rev B: pon la junta del receptáculo, mete la placa 1,5 mm por encima de su nervio pasando los resaltes superiores de la tapa, bájala sobre el nervio 8 mm antes de la pared trasera y deslízala por el nervio hasta que la boca entre en la ranura y la junta asiente en su alojamiento. Fíjala con dos tornillos de cabeza abombada M2 × 4, que se hacen su propia rosca en los pilotos de Ø1,6 mm. Rellena con epoxi la parte de atrás del receptáculo, sin meterlo en la abertura ni en el conector. Rellena desde fuera la ventana del LED con el mismo epoxi transparente. Conecta el cable de 3 pines a su conector.
+2. Coloca la placa USB-C rev B ([vídeo](videos/usbc-mount-v0.34.es.mp4)): mete una tuerca cuadrada M2 en cada canal, por delante del nervio USB-C, y pon la junta del receptáculo. Sujeta la placa boca abajo, con el receptáculo debajo, contra la cara inferior del nervio, y deslízala hacia la pared trasera hasta que la boca entre en la ranura. Pon a mano, desde abajo, los dos tornillos de cabeza abombada M2 × 4, a través de la placa hasta las tuercas, y déjalos flojos. Empuja la placa hacia la pared hasta que la junta resista y mantenla ahí. Aprieta los dos tornillos con un destornillador hexagonal de 1,3 mm (unos 75 mm de alcance) metido por la abertura de la tapa de la batería, un poco inclinado hacia atrás. Rellena con epoxi la parte de atrás del receptáculo, sin meterlo en la abertura ni en el conector. Rellena desde fuera la ventana del LED con el mismo epoxi transparente. Conecta el cable de 3 pines a su conector.
 3. Joystick: mete la palanca por detrás a través de la placa del joystick, para que la bola asiente en su sitio. Atornilla la placa del joystick rev C a los separadores de la placa con dos tornillos de cabeza abombada M2 × 8; el disco apoya en los interruptores. Conecta el cable de 5 pines a su conector.
 4. Atornilla la placa de control a los separadores de la placa de botones con dos tornillos de cabeza abombada M2 × 4, con los interruptores hacia la placa. Pincha la XIAO en sus zócalos, con los componentes hacia fuera de la placa y el USB-C hacia el extremo del joystick.
 5. Pon la tapa boca abajo y el teclado encima, con las teclas en los agujeros de la tapa y doblado por la línea de pliegue. Pasa la palanca por el agujero de la lámina y el de la tapa, y apoya la placa del joystick sobre la lámina de la cara inferior. Apoya la placa de botones con la placa de control sobre la lámina de la cara superior.
 6. Conecta el cable del joystick a J4 y el cable del USB-C (que viene de la carcasa) a J3 de la placa de control. Pega una almohadilla de seis capas de la espuma del sellado sobre los componentes de la XIAO.
-7. Pega la tira de espuma sobre el borde de la carcasa alrededor de las dos caras, con uniones a tope en las esquinas de los extremos, y una capa de la misma espuma en la pared trasera, donde apoya la batería.
+7. Pega la tira de espuma, dos capas de la lámina (V0.34), sobre el borde de la carcasa alrededor de las dos caras, con uniones a tope en las esquinas de los extremos, y una capa de la misma espuma en la pared trasera, donde apoya la batería.
 8. Baja la carcasa sobre el apilado, guiando los cables; sus paredes colocan las placas. Dale la vuelta y pon los diez tornillos M2 × 10; se hacen su propia rosca, así que atorníllalos despacio la primera vez. Aprieta por igual, en cruz.
 9. Mete la batería hacia arriba por la abertura inferior, primero la placa de protección y el cable. Con la tapa de controles quitada, conecta su cable a J5 de la placa de control, y cierra la tapa como en el paso 8. Comprueba la polaridad antes de conectar el cargador.
-10. Pega la etiqueta de ventilación en la cara interior de la tapa de la batería, sobre su agujero, y una almohadilla de cuatro capas de la espuma del sellado con un agujero alrededor de la etiqueta. Pega la junta de espuma de la tapa por dentro del labio, y pon la tapa con tres tornillos avellanados M2 × 8; el labio toca la carcasa cuando están apretados.
+10. Pega la etiqueta de ventilación en la cara interior de la tapa de la batería, sobre su agujero, y una almohadilla de cuatro capas de la espuma del sellado con un agujero alrededor de la etiqueta. Pega la junta de espuma de la tapa, de dos capas, por dentro del labio, y pon la tapa con tres tornillos avellanados M2 × 8; el labio toca la carcasa cuando están apretados.
 11. Mete la tuerca cuadrada M2 en la ranura bajo el pomo y empieza a roscar en ella el prisionero M2 × 4 desde el borde. Mete el pomo en el pasador con un suplemento de 0,9 mm entre el cubo y la tapa, y aprieta el prisionero M2 × 4.
 
 El orden de los pasos 8 y 9 está abierto: la batería puede entrar antes de cerrar la tapa si su cable es lo bastante largo para llegar a J5 con el apilado junto a la carcasa.
@@ -603,13 +671,13 @@ Para programarlo por USB, saca el mando de la base y quítale la tapa de control
 <a id="assembly-video"></a>
 ## Vídeo de montaje
 
-[`complete-remote-v0.33-assembly.mp4`](videos/complete-remote-v0.33-assembly.mp4) muestra los pasos 1 a 11 del mando de arriba, un capítulo por paso (56 s; QuickTime y VLC muestran los capítulos). Es para revisar el diseño, no una guía de montaje. Las piezas que chocan en su recorrido se ven en rojo. Los cables no están animados: cada uno aparece en su sitio cuando sus dos extremos están colocados. El vídeo sigue el orden documentado de los pasos 8 y 9.
+[`complete-remote-v0.34-assembly.mp4`](videos/complete-remote-v0.34-assembly.mp4) muestra los pasos 1 a 11 del mando de arriba, un capítulo por paso (56 s; QuickTime y VLC muestran los capítulos). Es para revisar el diseño, no una guía de montaje. Las piezas que chocan en su recorrido se ven en rojo. Los cables no están animados: cada uno aparece en su sitio cuando sus dos extremos están colocados. El vídeo sigue el orden documentado de los pasos 8 y 9.
 
-[`assembly-video-v0.33-checks.md`](assembly-video-v0.33-checks.md) es la comprobación de recorrido que hay detrás. En la V0.33 no encuentra ninguna colisión, como en la [V0.31](assembly-video-v0.31-checks.md). Cada movimiento se comprueba en cinco posiciones contra las piezas ya colocadas, y también cada pareja de piezas en la posición final. Se comprueban los dos órdenes de los pasos 8 y 9. Resultados:
+[`assembly-video-v0.34-checks.md`](assembly-video-v0.34-checks.md) es la comprobación de recorrido que hay detrás. En la V0.34 no encuentra ninguna colisión, como en la [V0.33](assembly-video-v0.33-checks.md) y la [V0.31](assembly-video-v0.31-checks.md). Cada movimiento se comprueba en cinco posiciones contra las piezas ya colocadas, y también cada pareja de piezas en la posición final. Se comprueban los dos órdenes de los pasos 8 y 9. Resultados:
 
 - La carcasa cierra sobre el apilado a lo largo de X (desde la V0.27; en la [V0.26](assembly-video-v0.26-checks.md) chocaba con la placa del joystick).
 - La etiqueta de ventilación, en la tapa de la batería desde la V0.28, no toca nada ([V0.27](assembly-video-v0.27-checks.md): chocaba con el apilado de la cara inferior).
-- La placa USB-C llega a su nervio por un camino por encima de los resaltes superiores (paso 2 del montaje).
+- La placa USB-C llega a su nervio recta por la cara inferior del nervio, boca abajo desde la V0.34 (de la V0.26 a la V0.33, por un camino por encima de los resaltes superiores). Sus tuercas cuadradas se dibujan con la carcasa, ya en sus canales; el [vídeo de colocación](videos/usbc-mount-v0.34.es.mp4) muestra el paso 2 en detalle.
 
 Los vídeos de la [V0.26](videos/complete-remote-v0.26-assembly.mp4), la [V0.27](videos/complete-remote-v0.27-assembly.mp4) y la [V0.28](videos/complete-remote-v0.28-assembly.mp4) se conservan como registro de sus colisiones.
 
@@ -624,7 +692,7 @@ python3 -m unittest mechanical/cad/tools/test_assembly_video.py
 
 La V0.32 no cambió ninguna pieza del mando y no tiene vídeo propio.
 
-La secuencia, los desplazamientos de cada etapa y las cámaras están en `mechanical/cad/assembly-video-v0.33.scad`. La herramienta usa la versión más reciente; `ORR_VERSION=0.26` a `0.31` elige un fichero anterior, pero sus rótulos necesitan la lista de montaje de esa versión, que ahora está en el historial de git. Los rótulos de los pasos salen de los pasos de montaje de la versión en inglés de este documento, así que vuelve a ejecutar `video` después de editarlos.
+La secuencia, los desplazamientos de cada etapa y las cámaras están en `mechanical/cad/assembly-video-v0.34.scad`. La herramienta usa la versión más reciente; `ORR_VERSION=0.26` a `0.33` elige un fichero anterior, pero sus rótulos necesitan la lista de montaje de esa versión, que ahora está en el historial de git. Los rótulos de los pasos salen de los pasos de montaje de la versión en inglés de este documento, así que vuelve a ejecutar `video` después de editarlos.
 
 <a id="photo-renders"></a>
 ## Renders fotográficos
@@ -640,7 +708,7 @@ Las imágenes salen en `mechanical/cad/build/photo/`; cópialas a mano a `docs/i
 <a id="doc-images"></a>
 ## Imágenes del documento
 
-Las demás imágenes de esta página son renders de OpenSCAD del fichero de la V0.33. `mechanical/cad/tools/doc_images.py` las dibuja: las vistas fijas y el GIF de colocación. Las vistas que el fichero del CAD no tiene en `part_to_render`, como la sección del sellado y la tapa de la batería despiezada, están en `mechanical/cad/doc-views-v0.33.scad`. Las cámaras están en la herramienta. Desde la raíz del repositorio (ImageMagick para el GIF; menos de un minuto):
+Las demás imágenes de esta página son renders de OpenSCAD del fichero de la V0.34. `mechanical/cad/tools/doc_images.py` las dibuja: las vistas fijas y el GIF de colocación. Las vistas que el fichero del CAD no tiene en `part_to_render`, como la sección del sellado y la tapa de la batería despiezada, están en `mechanical/cad/doc-views-v0.34.scad`. La imagen de la colocación de la placa USB-C es el último fotograma del vídeo de colocación. Las cámaras están en la herramienta. Desde la raíz del repositorio (ImageMagick para el GIF; menos de un minuto):
 
 ```sh
 python3 mechanical/cad/tools/doc_images.py            # todo
@@ -677,9 +745,9 @@ La V0.8 sigue esas pautas de función y de tamaño con una geometría propia. El
 | Cara trasera del mando | Plana en X = −17,4 mm | A 0,2 mm de la plataforma |
 | Cola de milano | Raíles de 10 mm de ancho en la plataforma, 15 mm arriba, 2,5 mm de alto, flancos a 45°; dos tramos de 8 mm con un hueco de 9 mm; labios de 7 mm; holgura de 0,2 mm; deslizamiento de 9 mm | Las dos piezas se imprimen sin soportes; holgura a ajustar en la primera impresión |
 | Cierre | Cabeza de un M3 × 20 ISO 4762 (V0.32) (Ø5,5 × 3 mm) que sobresale 2 mm, en un alojamiento de Ø6 mm en Y = −32 mm; agujero de Ø5,8 mm en el mando; muelle de 0,5 × 5 × 10 mm; pomo de cuarto de vuelta de Ø16 × 8 mm sobre un resalte de Ø9 × 3,5 mm, dos pasadores de Ø1,5 × 4 mm | Medida de la cabeza ISO 4762; fuerza del muelle estimada |
-| Receptáculo USB-C | GCT USB4736-GF-A; eje de la carcasa en Y = 29,5 mm en la cara trasera, lado largo a lo largo del manillar; panel de 1,80 mm, ranura de 9,14 × 3,36 mm, alojamiento de la junta de 11,00 × 5,90 × 0,60 mm; junta USBTJ-06 de 10,64 × 4,86 × 0,90 mm; cuerpo de 9,99 de ancho, 4,61 mm sobre su placa, 8,60 mm de largo | Plano de GCT USB4736 rev. A (9 de abril de 2025) |
+| Receptáculo USB-C | GCT USB4736-GF-A; eje de la carcasa en Y = 29,5 mm en la cara trasera, lado largo a lo largo del manillar; panel de 1,80 mm, ranura de 9,14 × 3,36 mm, alojamiento de la junta de 11,00 × 5,90 × 0,60 mm; junta USBTJ-06 de 10,64 × 4,86 × 0,90 mm; cuerpo de 9,99 de ancho, 4,61 mm sobre su placa, 8,60 mm de largo; placa con dos tornillos M2 × 4 a tuercas DIN 562, que desliza 1,0 mm a cada lado (V0.34) | Plano de GCT USB4736 rev. A (9 de abril de 2025); de la cara del cuerpo al centro de los agujeros M2, unos 11,40 mm medidos en la primera placa soldada (11,10 en el diseño) |
 | Batería LiPo | 6,1 × 19,7 × 46,8 mm con 0,5 mm de holgura, X = −29,1 a −22, Y = −33,5 a 14,3 mm (V0.31) | Medida en una celda 602045, 600 mAh según su etiqueta (15-10-2026): el extremo de la placa de protección mide 5,6 mm de largo y 4,1 mm de grosor; el cable de 43,5 mm sale por una esquina de ese extremo. Caben celdas de hasta 6 × 20 × 54 mm |
-| Tapa de la batería | El cuerpo por debajo de Y = −37,7 mm desde X = −35 mm hacia atrás, 3,0 mm de grosor (V0.33); abertura de X = −31 a −21,2 mm, 21 mm de ancho; tres tornillos avellanados M2 × 8, 4,0 mm de rosca; junta de espuma de 1,0 mm (V0.31) | Estudio de montaje (V0.25); 2,8 mm por debajo del agujero del cierre |
+| Tapa de la batería | El cuerpo por debajo de Y = −37,7 mm desde X = −35 mm hacia atrás, 2,5 mm de grosor (V0.34); abertura de X = −31 a −21,2 mm, 21 mm de ancho; tres tornillos avellanados M2 × 8, 4,0 mm de rosca; junta de espuma de dos capas comprimida a 1,5 mm (V0.34) | Estudio de montaje (V0.25); 2,8 mm por debajo del agujero del cierre |
 | Esquinas delanteras del cuerpo | Radio de 3 mm | Deja una cara de tapa plana para los tornillos M2 |
 | Frente plegado | Cara superior perpendicular al eje del cuerpo; cara inferior girada 20° hacia el manillar, pliegue 12,5 mm por debajo del eje del manillar | Despeja el camino del pulgar al mando de intermitentes; el ángulo es un parámetro |
 | Esquinas de la cavidad del cuerpo | 2 mm delante, 6 mm detrás | Hacia dentro de las esquinas exteriores lo que mide la pared, 2 mm desde la V0.33 |
@@ -720,13 +788,13 @@ Estos son los únicos puntos que impiden una primera impresión con confianza. C
 - **Prueba de estanqueidad:** prueba la estanqueidad del primer mando montado antes de meter la electrónica, por ejemplo bajo unos centímetros de agua durante 30 minutos con papel de cocina seco dentro. Comprueba a la vez la junta del teclado, la junta de la tapa de la batería, el receptáculo USB-C y la ventilación.
 - **Manillar, casquillo y forro:** el diámetro del manillar medido con calibre en la zona de la abrazadera, en dos direcciones, que fija el agujero del casquillo; la holgura de apriete de 0,8 mm ajustada al forro de TPU impreso; y si la abrazadera aguanta una pulsación fuerte con guantes sin girar (estimación de 3,3 N·m frente a 0,7 N·m).
 - **Cola de milano:** la holgura de 0,2 mm (`dt_c`) frente a la impresora, el grosor de la cámara para las tiras (V0.32; mídelo y ajusta `strip_t`), y si el epoxi transparente sujeta la goma butílica en los alojamientos impresos (la goma se pega mal; líjala antes). Si los 0,48 mm que el mando puede moverse hacia la plataforma dan sensación de holgura en los botones.
-- **Cierre:** si el epoxi en la rosca del M3 (V0.32) mantiene el ajuste al girar el pomo en cada colocación; la fuerza del tirón, y si basta con 1 mm de cabeza en el alojamiento. El muelle de 0,5 × 5 × 10 mm de la [lista de materiales](bom.md) encaja: su diámetro exterior de 5 mm en el alojamiento de Ø6 mm, y su diámetro interior de 4 mm sobre la caña de Ø3 mm. Sigue abierto: su longitud comprimido del todo, que tiene que ser menor que los 4,0 mm de `lock_spring_solid` (como mucho unas 7 espiras de alambre de 0,5 mm), o la cabeza no entra del todo y el cierre no suelta; cuenta las espiras del muelle comprado.
+- **Cierre:** si el epoxi en la rosca del M3 (V0.32) mantiene el ajuste al girar el pomo en cada colocación; la fuerza del tirón, y si basta con 1 mm de cabeza en el alojamiento. El muelle de 0,5 × 5 × 10 mm de la [lista de materiales](bom.md) encaja: su diámetro exterior de 5 mm en el alojamiento de Ø6 mm, y su diámetro interior de 4 mm sobre la caña de Ø3 mm. El muelle comprado mide 3,6 mm comprimido del todo (7 espiras, medido), menos que los 4,0 mm de `lock_spring_solid`.
 - **Batería:** la celda 602045 medida cabe (6,1 × 19,7 × 46,8 mm, mira "Medidas de fuentes"). Sigue abierto: su capacidad real, su corriente de carga máxima frente a los 100 mA de la placa de control (R1 del MCP73831), y la polaridad. Su clavija, mirada desde el lado que encaja con la pestaña hacia arriba, tiene el rojo a la derecha; SparkFun documenta esa convención como pin 1 = +, que coincide con J5 (pin 1 BAT, pin 2 GND), pero no se ha comprobado con el plano de JST. Compruébalo con un multímetro antes de enchufarla; Q1 protege la placa si va al revés.
 - **Tapa de la batería:** si la junta de espuma (V0.31) sella sobre los apoyos laterales de 2,5 mm y se recupera tras cambiar la batería, si los tornillos M2 aguantan con 4,0 mm de rosca en pilotos de Ø1,6 mm tras unos cuantos cambios de batería (V0.33), y si la franja inferior de 26 mm esquiva la piña en la moto.
-- **Placa USB-C:** la huella del USB4736 dibujada a mano coincide ahora con la disposición recomendada por GCT ([comprobación](../electronics/usbc-pcb-rev-b/README.md#receptacle-footprint); los pads de señal se movieron 0,10 mm). El receptáculo se suelda a mano en todas las opciones de pedido (JLCPCB no pudo conseguirlo), así que la huella que usa JLCPCB para la pieza no importa. Comprueba los pilotos de Ø1,6 mm de los tornillos con los tornillos elegidos; en la V0.26 los agujeros están a ±7 mm. Cómo llega la placa a su nervio no se resolvió en la V0.24 ni en la V0.25. Para la V0.26 la comprobación de recorrido de montaje encontró un camino libre: llevada 1,5 mm por encima del nervio pasando los resaltes superiores de la tapa en Y = 24, bajada sobre el nervio 8 mm antes de la pared trasera y deslizada hasta dentro. El margen es pequeño (1 mm por encima del nervio aún da 0,2 mm³ de solape), así que compruébalo en la primera impresión ([comprobación de recorrido de montaje](assembly-video-v0.28-checks.md)).
-- **Compresión de la junta del USB-C:** la junta USBTJ-06 se comprime entre el fondo del alojamiento y la cara frontal del cuerpo del receptáculo (plano de GCT, hoja 2), y los dos tornillos M2 fijan esa distancia. GCT pide 0,315–0,405 mm (35–45 % de 0,90 mm), una ventana de 0,09 mm. En contra están unos ±0,3 mm de tolerancia de impresión (mira el [estudio de materiales](materials-study.es.md#tolerances)) y las tolerancias del propio receptáculo (3,10 ± 0,15 mm de la boca a las patas de la carcasa, ±0,25 mm en general). Unos pilotos fijos no pueden garantizar la ventana. Los suplementos rígidos bajo la junta no sirven: cada uno añade una unión rígida contra rígida que no sella. Opciones: anillos de lámina de silicona como suplementos blandos, una placa que desliza sobre el nervio y se aprieta con tuercas, o un cordón de silicona neutra (RTV) por fuera de la junta con una prueba de estanqueidad. Sin decidir: primero se mide la placa soldada (de la cara del cuerpo al centro de los agujeros M2, con un pasador de Ø2 mm en cada agujero; 11,10 mm en el diseño).
-- **Borde de la placa USB-C (V0.33):** el borde queda 0,43 mm detrás de la cara interior del panel. En las primeras placas de JLCPCB el mismo receptáculo sobresalía 1,5–1,9 mm del borde (1,70 en el diseño), así que el contorno fresado varía unos ±0,2 mm. En el CAD la placa toca la pared cuando está 0,43–0,45 mm por delante de su posición de diseño. Un rebaje frente al borde absorbería la tolerancia de la placa y la de impresión; espera a la decisión sobre la junta.
-- **Grosor de la espuma (V0.33):** las juntas de espuma cuentan con una lámina de 1,5 mm comprimida a 1,0 mm (`foam_comp`, 33 %). La lámina de la [lista de materiales](bom.es.md#hardware) mide unos 1,15 mm, lo que deja 0,15 mm de compresión (13 %), menos que la tolerancia de impresión. Previsto para V0.34, junto con el cambio de la junta USB-C: dos capas de la lámina (unos 2,3 mm) comprimidas a un `foam_comp` de unos 1,5 mm (35 %). Con ±0,3 mm en las piezas impresas (mira el [estudio de materiales](materials-study.es.md#tolerances)), dos capas quedan entre el 22 y el 48 % de compresión; una capa a 0,77 mm iría del 7 al 59 %. A comprobar en el CAD de V0.34: una tira de 2 mm de ancho y 2,3 mm de alto puede volcarse al apretarla, así que ensancha `foam_w` a unos 3 mm si el borde lo permite; el labio de la tapa de la batería sube a juego. El adhesivo de la segunda capa debe pegar en toda la primera, o el agua pasa entre las capas. No se ha medido lo firme que es la espuma; comprueba la tapa y la tapa de la batería en la prueba de inmersión.
+- **Placa USB-C:** la huella del USB4736 dibujada a mano coincide ahora con la disposición recomendada por GCT ([comprobación](../electronics/usbc-pcb-rev-b/README.md#receptacle-footprint); los pads de señal se movieron 0,10 mm). El receptáculo se suelda a mano en todas las opciones de pedido (JLCPCB no pudo conseguirlo), así que la huella que usa JLCPCB para la pieza no importa. Desde la V0.34 los tornillos van a tuercas cuadradas en el nervio, no a pilotos; los agujeros están a ±7 mm (desde la V0.26). Cómo llega la placa a su nervio no se resolvió en la V0.24 ni en la V0.25. De la V0.26 a la V0.33 la comprobación de recorrido de montaje encontró un camino libre: llevada 1,5 mm por encima del nervio pasando los resaltes superiores de la tapa en Y = 24, bajada sobre el nervio 8 mm antes de la pared trasera y deslizada hasta dentro. Ese margen era pequeño (1 mm por encima del nervio aún daba 0,2 mm³ de solape; [comprobación](assembly-video-v0.28-checks.md)). Desde la V0.34 la placa va boca abajo y desliza recta por la cara inferior del nervio; sigue sin tocar la carcasa 2 mm más abajo ([comprobación de recorrido de montaje](assembly-video-v0.34-checks.md)).
+- **Compresión de la junta del USB-C (V0.34):** la placa desliza sobre su nervio y la junta fija la compresión (mira [Placa USB-C deslizante](#sliding-usb-c-board)). Abierto: con cuánta fuerza empujar. Poca deja la junta por debajo del 35 %; demasiada la aplasta por encima del 45 %, algo que la silicona aguanta mejor que quedarse corta. Decide la prueba de estanqueidad. Si gotea, la alternativa es un cordón de silicona neutra (RTV) por fuera de la junta; no está en la lista de materiales.
+- **Destornillador de la placa USB-C (V0.34):** hexagonal de 1,3 mm con unos 75 mm de alcance, por la abertura de la tapa de la batería. Comprueba la cabeza de los tornillos M2 × 4 comprados cuando lleguen (se supone ISO 7380), y si una punta hexagonal los gira con 2° de inclinación; una punta de bola admite más.
+- **Pila de espuma (V0.34):** dos capas de la lámina de unos 1,15 mm, comprimidas de 2,3 a 1,5 mm (35 %; 22–48 % con la tolerancia de impresión). Abierto: si la tira de 2,0 mm de ancho y 2,3 mm de alto se vuelca al cerrar la tapa, si el adhesivo de la segunda capa pega en toda la primera, y lo firme que es la espuma. Comprueba la tapa y la tapa de la batería en la prueba de estanqueidad.
 - **Grosor de la placa USB-C:** la placa de 1,2 mm deja la placa USB-C fuera de los servicios de placas de la UE revisados el 22-10-2026: Eurocircuits solo hace 1,2 mm fuera de su servicio agrupado (unos 543 € netos por una placa), y Aisler solo ofrece placas de 2 capas de 1,6 mm. El plano de GCT da 1,20 ± 0,10 mm como grosor *recomendado*; coincide con los 1,20 ± 0,15 mm que bajan las patas de la carcasa por debajo del cuerpo, y el receptáculo es de montaje superior (SMT). En una placa de 1,6 mm las patas terminan 0,25–0,55 mm dentro de sus ranuras metalizadas, así que se sueldan, pero sujetan menos frente a los 5–20 N de la inserción. Plan para la próxima revisión de la placa USB-C: placa de 1,6 mm, con el nervio 0,4 mm más bajo para que la boca quede a la misma altura. Sin confirmar con GCT. Otros receptáculos estancos revisados (GCT USB4715 de montaje medio, GCT USB4750 vertical, USB-C de panel con rosca) piden un rediseño mayor o no caben en los 25 mm de ancho. Esto no cambia el problema de compresión de la junta de arriba.
 - **Sujeción de la placa del joystick (V0.27):** ahora los dos tornillos de la placa están en la mitad inferior. Una estimación a mano da 0,011 mm de flexión bajo el interruptor de arriba con 2 N, frente a la holgura en reposo de 0,05 mm; comprueba en la primera impresión que la dirección de arriba se activa como las demás y que la placa no cabecea.
 - **LED de carga:** si el LED se ve lo bastante a través de la ventana de Ø1,6 mm rellena (`usbc_led_hole_d`), y si hay que repasar el agujero impreso a su medida.
