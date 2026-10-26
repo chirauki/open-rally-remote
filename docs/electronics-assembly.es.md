@@ -376,9 +376,11 @@ Barniza las tres placas y la XIAO cuando todas las pruebas estén bien.
    - El receptáculo USB-C: la boca y el morro.
    - La parte de arriba (el pulsador) de los siete interruptores.
    - En la XIAO: sus pines, su USB-C, su botón de reset y su LED RGB.
-4. **Pulveriza.** Da capas finas de barniz acrílico por las dos caras de cada placa, a la distancia que indique el bote. Dos capas finas chorrean menos que una gruesa.
-5. **Deja curar.** Deja secar cada capa el tiempo que diga el bote. Quita la cinta antes de que la última capa endurezca del todo.
-6. **Revisa.** Busca zonas sin barniz mirando de lado bajo una lámpara. Si el bote dice que el barniz lleva trazador UV, una linterna UV las muestra mejor.
+4. **Pulveriza.** Da capas finas de barniz acrílico por las dos caras de cada placa, a la distancia que indique el bote: de 20 a 30 cm para el Plastik 70. Dos capas finas chorrean menos que una gruesa.
+5. **Deja curar.** Deja secar cada capa el tiempo que diga el bote. El Plastik 70 está seco al tacto en unos 20 minutos a 20 °C; su ficha da las propiedades de la película tras 24 horas a temperatura ambiente. Quita la cinta antes de que la última capa endurezca del todo. Al terminar, pon el bote boca abajo y pulsa hasta que solo salga gas, para limpiar la válvula.
+6. **Revisa.** Busca zonas sin barniz mirando de lado bajo una lámpara. Si el bote dice que el barniz lleva trazador UV, una linterna UV las muestra mejor. La ficha del Plastik 70 normal no menciona trazador UV; solo el Plastik 70 Super se vende con él. Una zona mate y escarchada indica que la superficie estaba húmeda: quita esa capa con acetona, seca la placa y vuelve a pulverizar.
+
+Los datos del Plastik 70 son de la [ficha técnica](https://asset.conrad.com/media10/add/160267/c1/-/en/000884197DS00/tehnicni-podatki-884197-kontakt-chemie-plastik-70-74309-ah-izolirni-in-zascitni-lak-200-ml.pdf) de CRC Kontakt Chemie. No da fecha de caducidad. Para una reparación se puede soldar a través del barniz, o quitarlo con acetona.
 
 El barniz no va en la batería ni en la membrana de ventilación, que no están en las placas. El montaje mecánico empieza luego con la placa USB-C en la carcasa ([paso 2](mechanical-concept.es.md#assembly)).
 

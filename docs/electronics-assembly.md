@@ -363,9 +363,11 @@ Coat the three boards and the XIAO once every test passes.
    - The USB-C receptacle: opening and nose.
    - The tops (actuators) of the seven switches.
    - On the XIAO: its pins, its USB-C, its reset button and its RGB LED.
-4. **Spray.** Spray thin coats of the acrylic coating on both sides of each board, at the distance the can gives. Two thin coats run less than one thick one.
-5. **Cure.** Let each coat dry for as long as the can says. Remove the tape before the last coat cures hard.
-6. **Inspect.** Look for gaps at a low angle under a lamp. If the can says the coating has a UV tracer, a UV torch shows the gaps better.
+4. **Spray.** Spray thin coats of the acrylic coating on both sides of each board, at the distance the can gives: 20 to 30 cm for Plastik 70. Two thin coats run less than one thick one.
+5. **Cure.** Let each coat dry for as long as the can says. Plastik 70 is dry to touch in about 20 minutes at 20 °C; its datasheet gives the film properties after 24 hours at room temperature. Remove the tape before the last coat cures hard. After use, turn the can upside down and spray until only propellant comes out, to clear the valve.
+6. **Inspect.** Look for gaps at a low angle under a lamp. If the can says the coating has a UV tracer, a UV torch shows the gaps better. The plain Plastik 70 datasheet names no UV tracer; only Plastik 70 Super is sold with one. A frosted, matt patch means the surface was damp: remove that coat with acetone, dry the board and spray again.
+
+Plastik 70 figures are from the CRC Kontakt Chemie [technical data sheet](https://asset.conrad.com/media10/add/160267/c1/-/en/000884197DS00/tehnicni-podatki-884197-kontakt-chemie-plastik-70-74309-ah-izolirni-in-zascitni-lak-200-ml.pdf). It gives no shelf life. You can solder through the coating for a repair, or remove it with acetone.
 
 The coating stays off the pouch and the vent; they are not on the boards. The mechanical assembly then starts with the USB-C board in the housing ([step 2](mechanical-concept.md#assembly)).
 
