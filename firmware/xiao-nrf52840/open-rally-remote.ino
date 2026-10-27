@@ -10,13 +10,15 @@
  * Board package: Seeed nRF52 Boards
  * Board: Seeed XIAO nRF52840
  * BLE HID API: Adafruit Bluefruit nRF52 library bundled with the Seeed package
- * BLE OTA: BLEDfu service; see README.md, "BLE OTA update"
+ * BLE OTA: the legacy DFU service, only from a bonded phone with USB power,
+ * and new bonds only in the first PAIRING_WINDOW_MS; see README.md, "BLE OTA update"
  */
 
 #include <Adafruit_TinyUSB.h>
 #include <bluefruit.h>
 #include <Adafruit_LittleFS.h>
 #include <InternalFileSystem.h>
+#include "orr_dfu.h"
 
 using namespace Adafruit_LittleFS_Namespace;
 
@@ -151,6 +153,7 @@ constexpr uint32_t PROFILE_BLINK_MS = 100;
 // With false, the board stays awake while a charger or computer is connected.
 constexpr bool SLEEP_ON_USB = false;
 
+constexpr uint32_t PAIRING_WINDOW_MS = 120000;     // new bonds accepted after a start
 constexpr uint32_t POWER_OFF_HOLD_MS = 3000;          // A + B + C held
 constexpr uint32_t AUTO_OFF_MS = 6UL * 60 * 60 * 1000; // no input, no charger
 constexpr uint32_t BATTERY_READ_PERIOD_MS = 60000;
@@ -175,7 +178,7 @@ constexpr uint8_t PIN_CHARGE_LED = D8; // charge LED on the V0.24/V0.25 USB-C PC
 constexpr uint8_t PIN_CHG_SENSE = D8;
 constexpr uint8_t PIN_VBUS_SENSE = D9;   // VBUS through a divider
 
-const char *const FIRMWARE_VERSION = "0.11.1";
+const char *const FIRMWARE_VERSION = "0.12.0";
 
 enum GestureType : uint8_t {
   GESTURE_SHORT = 0,
@@ -183,7 +186,7 @@ enum GestureType : uint8_t {
   GESTURE_DOUBLE = 2
 };
 
-BLEDfu bleDfu;
+OrrDfu bleDfu;
 BLEDis deviceInfo;
 BLEHidAdafruit bleHid;
 BLEBas batteryService;
@@ -925,6 +928,26 @@ void updateProfileSelection(uint32_t now) {
   }
 }
 
+// An update needs a bonded phone on an encrypted link and USB power: the
+// charging port is under the base, so the remote is off the bike.
+bool dfuAllowed(uint16_t connHandle) {
+  auto *conn = Bluefruit.Connection(connHandle);
+  const bool allowed = conn != nullptr && conn->secured() && conn->bonded() && usbPowered();
+  Serial.printf("BLE update %s\n", allowed ? "allowed" : "refused: needs a bonded phone and USB power");
+  return allowed;
+}
+
+// A new bond is kept only in the first PAIRING_WINDOW_MS after a start, so a
+// stranger cannot pair later. Reconnections of bonded phones do not come here.
+void onPairComplete(uint16_t connHandle, uint8_t authStatus) {
+  if (authStatus != BLE_GAP_SEC_STATUS_SUCCESS || millis() < PAIRING_WINDOW_MS) return;
+  auto *conn = Bluefruit.Connection(connHandle);
+  if (conn == nullptr) return;
+  Serial.println("New pairing refused: pair within 2 min of waking the remote");
+  conn->removeBondKey();
+  conn->disconnect();
+}
+
 void beginBleKeyboard() {
   Bluefruit.begin();
   Bluefruit.setTxPower(4);
@@ -932,8 +955,11 @@ void beginBleKeyboard() {
   Bluefruit.setName("Open Rally Remote");
 
   // Legacy DFU service: a phone app writes to it and the board restarts
-  // into the bootloader's BLE OTA mode. It needs no pairing; bench only.
+  // into the bootloader's BLE OTA mode, if dfuAllowed agrees. The bootloader
+  // itself accepts any image once it runs.
+  bleDfu.setAllowCallback(dfuAllowed);
   bleDfu.begin();
+  Bluefruit.Security.setPairCompleteCallback(onPairComplete);
 
   deviceInfo.setManufacturer("Open Rally Remote Project");
   deviceInfo.setModel("XIAO nRF52840 Bench Prototype");

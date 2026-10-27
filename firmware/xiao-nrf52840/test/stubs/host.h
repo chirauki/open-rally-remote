@@ -31,6 +31,13 @@ struct HostState {
   std::vector<HidEvent> events;
   std::map<std::string, std::vector<uint8_t>> files;
   std::string log;
+  // BLE security of the one simulated connection, and what the sketch did.
+  bool peerSecured = false;
+  bool peerBonded = false;
+  bool bondRemoved = false;
+  bool peerDisconnected = false;
+  bool (*dfuAllowCb)(uint16_t conn_hdl) = nullptr;
+  void (*pairCompleteCb)(uint16_t conn_hdl, uint8_t auth_status) = nullptr;
   HostState() {
     for (int &p : pinLevel) p = 1;     // pull-ups: released reads HIGH
     for (int &p : pinWritten) p = -1;
@@ -116,8 +123,13 @@ constexpr uint16_t HID_USAGE_CONSUMER_VOLUME_DECREMENT = 0xEA;
 constexpr int BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE = 0;
 constexpr int BLE_APPEARANCE_HID_KEYBOARD = 0;
 
+constexpr uint8_t BLE_GAP_SEC_STATUS_SUCCESS = 0;
+
 struct BLEService { void begin() {} };
-struct BLEDfu : BLEService {};
+// orr_dfu.h: the DFU service with the sketch's check.
+struct OrrDfu : BLEService {
+  void setAllowCallback(bool (*fp)(uint16_t)) { host.dfuAllowCb = fp; }
+};
 struct BLEDis : BLEService {
   void setManufacturer(const char *) {}
   void setModel(const char *) {}
@@ -150,8 +162,19 @@ struct HostAdvertising {
   void setFastTimeout(int) {}
   void start(int) {}
 };
+struct HostConnection {
+  bool secured() const { return host.peerSecured; }
+  bool bonded() const { return host.peerBonded; }
+  bool removeBondKey() { host.bondRemoved = true; return true; }
+  bool disconnect() { host.peerDisconnected = true; return true; }
+};
+struct HostSecurity {
+  void setPairCompleteCallback(void (*fp)(uint16_t, uint8_t)) { host.pairCompleteCb = fp; }
+};
 struct HostBluefruit {
   HostAdvertising Advertising, ScanResponse;
+  HostSecurity Security;
+  HostConnection *Connection(uint16_t) { static HostConnection c; return &c; }
   void begin() {}
   void setTxPower(int) {}
   void autoConnLed(bool) {}

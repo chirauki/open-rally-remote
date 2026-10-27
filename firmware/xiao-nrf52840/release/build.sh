@@ -33,6 +33,7 @@ for variant in board-v026:true breadboard:false; do
     mkdir -p "$src"
     sed "s/^constexpr bool BOARD_V026 = false;/constexpr bool BOARD_V026 = $flag;/" "$sketch" > "$src/open-rally-remote.ino"
     grep -q "^constexpr bool BOARD_V026 = $flag;" "$src/open-rally-remote.ino"
+    cp "$here"/*.cpp "$here"/*.h "$src"/
     "${cli[@]}" compile -b "$fqbn" --warnings default --output-dir "$work/$name/build" "$src"
     base="$out/open-rally-remote-fw-$version-$name"
     cp "$work/$name/build/open-rally-remote.ino.hex" "$base.hex"

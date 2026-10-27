@@ -1,6 +1,6 @@
 Open Rally Remote firmware {{VERSION}} for the Seeed XIAO nRF52840.
 
-**Bench firmware.** It is not suitable for use while riding. Its BLE update service needs no pairing: anyone in range can reprogram the board.
+**Bench firmware.** It is not suitable for use while riding. A BLE update needs the paired phone and the remote on USB power; once in the bootloader, the board accepts unsigned images.
 
 ## Which file
 

@@ -1,4 +1,4 @@
-# Manual de usuario — firmware 0.11.1
+# Manual de usuario — firmware 0.12.0
 
 > Traducción al castellano de [user-manual.md](user-manual.md). La versión en inglés es la de referencia; si las dos difieren, vale la inglesa.
 
@@ -60,7 +60,7 @@ El mando envía su nivel de batería por Bluetooth. Algunos teléfonos lo muestr
 ## Emparejar
 
 1. Despierta el mando: pulsa cualquier botón.
-2. En el teléfono, abre los ajustes de Bluetooth y empareja **Open Rally Remote**. Se empareja como un teclado.
+2. En menos de 2 minutos, abre los ajustes de Bluetooth del teléfono y empareja **Open Rally Remote**. Se empareja como un teclado. Pasados 2 minutos el mando rechaza teléfonos nuevos; despiértalo otra vez para emparejar.
 3. Abre la app. Cada perfil sirve para una app; ver [Perfiles](#profiles).
 
 Después, el teléfono se reconecta solo, alrededor de 1 s después de que el mando despierte.
@@ -126,7 +126,7 @@ Las teclas detrás de cada acción están en el [mapa de controles](control-mapp
 <a id="firmware-updates"></a>
 ## Actualizar el firmware
 
-Las actualizaciones se hacen por Bluetooth desde un teléfono Android con nRF Connect for Mobile. No hace falta abrir el mando. Los pasos están en el [README del firmware](../firmware/xiao-nrf52840/README.es.md#actualizacion-ble). Las versiones nuevas se publicarán como [releases de GitHub](../firmware/xiao-nrf52840/README.es.md#releases); todavía no hay ninguna.
+Las actualizaciones se hacen por Bluetooth desde un teléfono Android con nRF Connect for Mobile. No hace falta abrir el mando. Usa el teléfono emparejado con el mando y enchufa antes el mando a un cargador USB: sin las dos cosas, el mando rechaza la actualización. Los pasos están en el [README del firmware](../firmware/xiao-nrf52840/README.es.md#actualizacion-ble). Las versiones nuevas se publicarán como [releases de GitHub](../firmware/xiao-nrf52840/README.es.md#releases); todavía no hay ninguna.
 
 <a id="care"></a>
 ## Cuidados
@@ -148,6 +148,8 @@ Las actualizaciones se hacen por Bluetooth desde un teléfono Android con nRF Co
 | El teléfono no conecta | Pulsa un botón para despertar el mando. Si sigue sin conectar, borra **Open Rally Remote** de los dispositivos Bluetooth del teléfono y empareja otra vez. |
 | Una pulsación no hace nada | Revisa el perfil: elígelo otra vez (ver [Perfiles](#profiles)). Revisa los ajustes de teclas de la app. |
 | El mando no despierta | Cárgalo. |
+| Un teléfono nuevo no se empareja, o se desconecta tras emparejar | Empareja en menos de 2 minutos después de despertar el mando. |
+| nRF Connect no puede iniciar una actualización | Enchufa el mando a un cargador USB y usa el teléfono emparejado con él. |
 | Tras una actualización cancelada el mando no reconecta | Fuerza la detención de nRF Connect en el teléfono y despierta el mando. |
 | El LED rojo sigue encendido muchas horas | Puede que el cargador no termine la carga (un punto abierto del diseño). Desenchufa el cargador. |
 
@@ -155,5 +157,5 @@ Las actualizaciones se hacen por Bluetooth desde un teléfono Android con nRF Co
 ## Límites conocidos
 
 - **Sin luz de estado durante el uso.** La única luz de estado del mando está dentro de la caja. La batería baja y el apagado no se ven. Mira el nivel de batería en el teléfono. Se propone una luz de estado en el LED de carga para una revisión futura de las placas; necesita placas nuevas.
-- **Actualizaciones sin contraseña.** Cualquiera al alcance del Bluetooth puede actualizar el firmware. Solo es aceptable en el banco.
+- **Actualizaciones sin firma.** Solo el teléfono emparejado, con el mando alimentado por USB, puede iniciar una actualización. Una vez iniciada, el mando acepta cualquier archivo de firmware.
 - **Firmware de banco**, sin probar conduciendo.

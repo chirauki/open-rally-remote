@@ -40,7 +40,7 @@ All connected pins use `INPUT_PULLUP`: open/released reads HIGH, pressed reads L
 ## First test
 
 1. Upload the sketch and open the Serial Monitor at 115200 baud.
-2. Pair **Open Rally Remote** from the phone's Bluetooth settings.
+2. Within 2 min of the start, pair **Open Rally Remote** from the phone's Bluetooth settings (since 0.12.0 later pairings are refused).
 3. Switch to the gestures profile (white LED), open a keyboard tester or a harmless text field, then press each control. The keys identify the gestures; joystick directions send held arrow-key reports.
 4. On the joystick, confirm that a straight push gives one center `C` and no arrow key, and that tilts and diagonals give no center press.
 
@@ -181,6 +181,10 @@ Run on 2026-10-20 on the breadboard build, in the gestures profile, with OsmAnd 
 
 Profile selection replaces the cycling profile switch. The host tests cover it (37 tests per board, all pass), and both builds compiled with no warnings from the sketch. On 2026-10-20, on the breadboard build with an Android phone: choosing B and then A restarted into the keyboard (blue LED) and TerraPirata (green) profiles and the phone reconnected; choosing the current profile, letting selection time out, and moving the joystick during selection changed nothing and sent no key.
 
+### Firmware 0.12.0
+
+The BLE update needs a bonded phone, an encrypted link and USB power, and new bonds are kept only in the first 2 min after a start (see [BLE OTA update](#ble-ota-update)). The host tests cover both checks (45 tests per board, all pass), and both builds compiled with no warnings from the sketch on 2026-10-27. Not tested on a board yet: an update from nRF Connect on a bonded Android phone, a refusal without USB, and a pairing after the window. Whether Android encrypts the nRF Connect link by itself after the "insufficient encryption" answer is the main open point.
+
 ### Firmware 0.11.1
 
 The separate center switch on D7 (`CENTER_FROM_CHORD = false`) is removed: no joystick in the design has one, and the breadboard makes the center as a chord too. The host tests pass on both boards, unchanged.
@@ -191,7 +195,13 @@ The advertised name was cut to `Open Rally Remo`: the advertising packet holds 1
 
 ## BLE OTA update
 
-The sketch includes the Bluefruit `BLEDfu` service. A phone app writes to it, and the board restarts into the bootloader's legacy BLE OTA mode, where it advertises as `AdaDFU`. The bootloader is not changed.
+The sketch includes the legacy DFU service of the Adafruit bootloader. A phone app writes to it, and the board restarts into the bootloader's legacy BLE OTA mode, where it advertises as `AdaDFU`. The bootloader is not changed.
+
+Since firmware 0.12.0 the service is `OrrDfu` (`orr_dfu.cpp`), a copy of Bluefruit's `BLEDfu` with the same UUIDs and characteristics, because `BLEDfu` has no hook to refuse an update. The board restarts into the bootloader only when:
+- the phone is bonded and the link is encrypted (the control characteristic needs encryption, so a bonded phone encrypts with its stored keys), and
+- USB power is present: the charging port is under the base, so the remote is off the bike.
+
+Otherwise the write fails with "insufficient authorization" and the serial log says why. New bonds are kept only in the first 2 min after the board starts (`PAIRING_WINDOW_MS`): a pairing after that is removed and the phone disconnected. Phones already bonded reconnect at any time. To pair a new phone, wake the remote and pair it within 2 min.
 
 The factory bootloader of the board used was read from flash on 2026-10-14:
 
@@ -200,6 +210,7 @@ The factory bootloader of the board used was read from flash on 2026-10-14:
 
 The package is the `.zip` that `arduino-cli compile` writes next to the `.hex`. To update from an Android phone with nRF Connect for Mobile:
 
+0. Plug the remote into a USB charger; the phone must be the one paired with it.
 1. In **Settings > DFU options**, turn on **Disable MTU Request**, **Packet receipt notification** with 8 packets, and **Scan for bootloader in Legacy DFU**.
 2. Disconnect the remote in the phone's Bluetooth settings, then connect to it from nRF Connect.
 3. Tap **DFU**, choose "Distribution packet (ZIP)" and select the package.
@@ -213,6 +224,6 @@ Known failure modes, all seen in this test:
 - **Failed transfer.** The update is single bank: the bootloader erases the application first. After a failed transfer the board starts in the bootloader with no application. It then shows on USB as "XIAO nRF52840 Sense", and a USB upload restores it.
 - **App still running.** After a cancelled update, nRF Connect's DFU service kept running on the phone. When the board was powered again, the phone sent it back into the bootloader, and the board did not advertise as `Open Rally Remote`. Force-stop the app after a cancelled update.
 - **GATT cache.** Android caches the attribute table of a bonded device. After a build adds or moves a service, the phone reads the wrong handles. In nRF Connect, use **Refresh services**. A HID host with a stale cache may also fail; pair again if it does. Keep the attribute table the same between releases.
-- **No authentication.** `BLEDfu` needs no pairing, and the bootloader accepts unsigned images. Anyone in range can reprogram the board. This is acceptable on the bench only.
+- **Unsigned images.** Until 0.11.1, `BLEDfu` needed no pairing, so anyone in range could reprogram the board. Since 0.12.0 only a bonded phone with the remote on USB power can start an update (above). Once in the bootloader, the board still accepts any unsigned image; signed images need a different bootloader, flashed over SWD.
 
 The [OTAFIX fork of the bootloader](https://github.com/oltaco/Adafruit_nRF52_Bootloader_OTAFIX) also reports that older bootloaders do not start the new application after an OTA update while USB is connected to a computer. This did not happen with the 0.6.1 bootloader in the test above.

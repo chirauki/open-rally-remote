@@ -40,7 +40,7 @@ Todos los pines conectados usan `INPUT_PULLUP`: abierto o suelto se lee HIGH, pu
 ## Primera prueba
 
 1. Carga el sketch y abre el Monitor Serie a 115200 baudios.
-2. Empareja **Open Rally Remote** desde los ajustes de Bluetooth del teléfono.
+2. En los 2 minutos siguientes al arranque, empareja **Open Rally Remote** desde los ajustes de Bluetooth del teléfono (desde la 0.12.0 se rechazan los emparejamientos posteriores).
 3. Cambia al perfil de gestos (LED blanco), abre un comprobador de teclado o un campo de texto inofensivo y pulsa cada control. Las teclas identifican los gestos; las direcciones del joystick envían flechas mantenidas.
 4. En el joystick, comprueba que un empuje recto da una sola `C` central y ninguna flecha, y que las inclinaciones y diagonales no dan pulsación central.
 
@@ -184,6 +184,10 @@ Hecho el 20-10-2026 con la versión de protoboard, en el perfil de gestos, con O
 
 La selección de perfil sustituye al cambio de perfil en ciclo. La cubren las pruebas en el ordenador (37 pruebas por placa, todas pasan), y las dos versiones compilaron sin avisos del sketch. El 20-10-2026, con la versión de protoboard y un teléfono Android: elegir B y luego A reinició en los perfiles de teclado (LED azul) y TerraPirata (verde), y el teléfono se reconectó; elegir el perfil actual, dejar que caducara la selección y mover el joystick durante ella no cambiaron nada ni enviaron ninguna tecla.
 
+### Firmware 0.12.0
+
+La actualización por BLE necesita un teléfono emparejado, un enlace cifrado y alimentación USB, y los emparejamientos nuevos solo se guardan en los 2 primeros minutos tras un arranque (ver [Actualización por BLE](#actualizacion-ble)). Los tests de host cubren las dos comprobaciones (45 tests por placa, pasan todos), y las dos versiones compilaron sin avisos del sketch el 27-10-2026. Sin probar todavía en una placa: una actualización desde nRF Connect con un Android emparejado, un rechazo sin USB y un emparejamiento fuera de la ventana. El principal punto abierto es si Android cifra solo el enlace de nRF Connect tras la respuesta "insufficient encryption".
+
 ### Firmware 0.11.1
 
 Se quita el interruptor central aparte en D7 (`CENTER_FROM_CHORD = false`): ningún joystick del diseño lo tiene, y en la protoboard el centro también se hace con el acorde. Las pruebas en el ordenador pasan en las dos placas, sin cambios.
@@ -195,7 +199,13 @@ El nombre anunciado salía cortado como `Open Rally Remo`: el paquete de anuncio
 <a id="actualizacion-ble"></a>
 ## Actualización por BLE
 
-El sketch incluye el servicio `BLEDfu` de Bluefruit. Una app del teléfono escribe en él y la placa se reinicia en el modo BLE OTA antiguo del bootloader, en el que se anuncia como `AdaDFU`. El bootloader no se cambia.
+El sketch incluye el servicio DFU antiguo del bootloader de Adafruit. Una app del teléfono escribe en él y la placa se reinicia en el modo BLE OTA antiguo del bootloader, en el que se anuncia como `AdaDFU`. El bootloader no se cambia.
+
+Desde el firmware 0.12.0 el servicio es `OrrDfu` (`orr_dfu.cpp`), una copia de `BLEDfu` de Bluefruit con los mismos UUID y características, porque `BLEDfu` no permite rechazar una actualización. La placa solo se reinicia en el bootloader si:
+- el teléfono está emparejado y el enlace va cifrado (la característica de control exige cifrado, así que un teléfono emparejado cifra con sus claves guardadas), y
+- hay alimentación USB: el puerto de carga queda bajo la base, así que el mando está fuera de la moto.
+
+Si no, la escritura falla con "insufficient authorization" y el registro serie dice por qué. Los emparejamientos nuevos solo se guardan en los 2 primeros minutos tras arrancar la placa (`PAIRING_WINDOW_MS`): uno posterior se borra y el teléfono se desconecta. Los teléfonos ya emparejados se reconectan en cualquier momento. Para emparejar un teléfono nuevo, despierta el mando y empareja en menos de 2 minutos.
 
 El bootloader de fábrica de la placa usada se leyó de la flash el 14-10-2026:
 
@@ -204,6 +214,7 @@ El bootloader de fábrica de la placa usada se leyó de la flash el 14-10-2026:
 
 El paquete es el `.zip` que `arduino-cli compile` escribe junto al `.hex`. Para actualizar desde un teléfono Android con nRF Connect for Mobile:
 
+0. Enchufa el mando a un cargador USB; el teléfono tiene que ser el emparejado con él.
 1. En **Settings > DFU options**, activa **Disable MTU Request**, **Packet receipt notification** con 8 paquetes y **Scan for bootloader in Legacy DFU**.
 2. Desconecta el mando en los ajustes de Bluetooth del teléfono y conéctate a él desde nRF Connect.
 3. Pulsa **DFU**, elige "Distribution packet (ZIP)" y selecciona el paquete.
@@ -217,6 +228,6 @@ Fallos conocidos, todos vistos en esta prueba:
 - **Transferencia fallida.** La actualización es de un solo banco: el bootloader borra primero la aplicación. Tras una transferencia fallida, la placa arranca en el bootloader sin aplicación. Entonces aparece por USB como "XIAO nRF52840 Sense", y una carga por USB la recupera.
 - **App aún en marcha.** Tras cancelar una actualización, el servicio DFU de nRF Connect seguía funcionando en el teléfono. Al volver a alimentar la placa, el teléfono la mandó otra vez al bootloader, y la placa no se anunciaba como `Open Rally Remote`. Fuerza el cierre de la app tras una actualización cancelada.
 - **Caché GATT.** Android guarda en caché la tabla de atributos de un dispositivo vinculado. Si una versión añade o mueve un servicio, el teléfono lee identificadores equivocados. En nRF Connect, usa **Refresh services**. Un host HID con la caché desfasada también puede fallar; si pasa, vuelve a emparejar. Mantén la tabla de atributos igual entre versiones.
-- **Sin autenticación.** `BLEDfu` no necesita emparejamiento, y el bootloader acepta imágenes sin firmar. Cualquiera a su alcance puede reprogramar la placa. Solo es aceptable en el banco.
+- **Imágenes sin firmar.** Hasta la 0.11.1, `BLEDfu` no necesitaba emparejamiento, así que cualquiera a su alcance podía reprogramar la placa. Desde la 0.12.0 solo un teléfono emparejado, con el mando alimentado por USB, puede iniciar una actualización (arriba). Una vez en el bootloader, la placa sigue aceptando cualquier imagen sin firmar; las imágenes firmadas necesitan otro bootloader, grabado por SWD.
 
 El [fork OTAFIX del bootloader](https://github.com/oltaco/Adafruit_nRF52_Bootloader_OTAFIX) también indica que los bootloaders antiguos no arrancan la nueva aplicación tras una actualización OTA si el USB está conectado a un ordenador. No pasó con el bootloader 0.6.1 en la prueba de arriba.

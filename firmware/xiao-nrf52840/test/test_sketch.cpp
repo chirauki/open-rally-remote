@@ -615,6 +615,76 @@ TEST(startup_log_describes_the_terrapirata_profile) {
   EXPECT(host.log.find("A/B/C to choose") != std::string::npos);
 }
 
+// ---------- BLE update and pairing ----------
+
+void setUsb(bool present) {
+  host.usbPresent = present;
+  host.pinLevel[PIN_VBUS_SENSE] = present ? HIGH : LOW;
+}
+
+void setPeer(bool secured, bool bonded) {
+  host.peerSecured = secured;
+  host.peerBonded = bonded;
+}
+
+TEST(setup_registers_the_update_and_pairing_checks) {
+  start(PROFILE_TERRAPIRATA);
+  EXPECT(host.dfuAllowCb != nullptr);
+  EXPECT(host.pairCompleteCb != nullptr);
+}
+
+TEST(update_allowed_from_a_bonded_phone_on_usb) {
+  start(PROFILE_TERRAPIRATA);
+  setUsb(true);
+  setPeer(true, true);
+  EXPECT(host.dfuAllowCb(0));
+}
+
+TEST(update_refused_without_usb) {
+  start(PROFILE_TERRAPIRATA);
+  setUsb(false);
+  setPeer(true, true);
+  EXPECT(!host.dfuAllowCb(0));
+}
+
+TEST(update_refused_from_an_unbonded_phone) {
+  start(PROFILE_TERRAPIRATA);
+  setUsb(true);
+  setPeer(true, false);
+  EXPECT(!host.dfuAllowCb(0));
+}
+
+TEST(update_refused_on_an_unencrypted_link) {
+  start(PROFILE_TERRAPIRATA);
+  setUsb(true);
+  setPeer(false, true);
+  EXPECT(!host.dfuAllowCb(0));
+}
+
+TEST(new_bond_kept_inside_the_pairing_window) {
+  start(PROFILE_TERRAPIRATA);
+  run(PAIRING_WINDOW_MS - 1000);
+  host.pairCompleteCb(0, BLE_GAP_SEC_STATUS_SUCCESS);
+  EXPECT(!host.bondRemoved);
+  EXPECT(!host.peerDisconnected);
+}
+
+TEST(new_bond_removed_after_the_pairing_window) {
+  start(PROFILE_TERRAPIRATA);
+  run(PAIRING_WINDOW_MS + 1000);
+  host.pairCompleteCb(0, BLE_GAP_SEC_STATUS_SUCCESS);
+  EXPECT(host.bondRemoved);
+  EXPECT(host.peerDisconnected);
+}
+
+TEST(failed_pairing_after_the_window_is_left_alone) {
+  start(PROFILE_TERRAPIRATA);
+  run(PAIRING_WINDOW_MS + 1000);
+  host.pairCompleteCb(0, 0x85);  // pairing failed: no bond to remove
+  EXPECT(!host.bondRemoved);
+  EXPECT(!host.peerDisconnected);
+}
+
 // ---------- Runner ----------
 
 int main(int argc, char **argv) {

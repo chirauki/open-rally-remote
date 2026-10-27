@@ -1,4 +1,4 @@
-# User Manual — firmware 0.11.1
+# User Manual — firmware 0.12.0
 
 > Spanish version: [user-manual.es.md](user-manual.es.md).
 
@@ -56,7 +56,7 @@ The remote reports its battery level over Bluetooth. Some phones show it in the 
 ## Pairing
 
 1. Wake the remote: press any button.
-2. On the phone, open the Bluetooth settings and pair **Open Rally Remote**. It pairs as a keyboard.
+2. Within 2 minutes, open the phone's Bluetooth settings and pair **Open Rally Remote**. It pairs as a keyboard. After 2 minutes the remote refuses new phones; wake it again to pair.
 3. Open the app. Each profile suits one app; see [Profiles](#profiles).
 
 After that, the phone reconnects by itself, about 1 s after the remote wakes.
@@ -117,7 +117,7 @@ The keys behind each action are in the [control mapping](control-mapping.md).
 
 ## Firmware updates
 
-Updates go over Bluetooth from an Android phone with nRF Connect for Mobile. The remote does not need to be opened. The steps are in the [firmware README](../firmware/xiao-nrf52840/README.md#ble-ota-update). New versions will be published as [GitHub releases](../firmware/xiao-nrf52840/README.md#releases); none is published yet.
+Updates go over Bluetooth from an Android phone with nRF Connect for Mobile. The remote does not need to be opened. Use the phone paired with the remote, and plug the remote into a USB charger first: without both, the remote refuses the update. The steps are in the [firmware README](../firmware/xiao-nrf52840/README.md#ble-ota-update). New versions will be published as [GitHub releases](../firmware/xiao-nrf52840/README.md#releases); none is published yet.
 
 ## Care
 
@@ -137,11 +137,13 @@ Updates go over Bluetooth from an Android phone with nRF Connect for Mobile. The
 | The phone does not connect | Press a button to wake the remote. If it still does not connect, remove **Open Rally Remote** from the phone's Bluetooth devices and pair again. |
 | A press does nothing | Check the profile: choose it again (see [Profiles](#profiles)). Check the app's key settings. |
 | The remote does not wake | Charge it. |
+| A new phone does not pair, or disconnects after pairing | Pair within 2 minutes of waking the remote. |
+| nRF Connect cannot start an update | Plug the remote into a USB charger, and use the phone paired with it. |
 | After a cancelled update the remote does not reconnect | Force-stop nRF Connect on the phone, then wake the remote. |
 | The red LED stays on for many hours | The charger may not end the charge (an open point of the design). Unplug the charger. |
 
 ## Known limits
 
 - **No status light in use.** The remote's only status light is inside the case. Low battery and power off cannot be seen. Check the battery level on the phone. A status light on the charging LED is proposed for a later board revision; it needs new boards.
-- **No password on updates.** Anyone in Bluetooth range can update the firmware. This is acceptable on the bench only.
+- **Updates are not signed.** Only the paired phone, with the remote on USB power, can start an update. Once the update has started, the remote accepts any firmware file.
 - **Bench firmware**, not tested while riding.
