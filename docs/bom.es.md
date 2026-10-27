@@ -1,10 +1,10 @@
-# Lista de materiales — V0.33
+# Lista de materiales — V0.34
 
 > Traducción al castellano de [bom.md](bom.md). La versión en inglés es la de referencia; si las dos difieren, vale la inglesa.
 
-Esta es la única lista de piezas del proyecto: el prototipo de banco y el mando extraíble con batería de la V0.33, con su base. La V0.33 es la V0.26 con la placa del joystick rev C, una sola base para los dos diámetros de manillar, la ventilación en la tapa de la batería, sin insertos roscados por calor, juntas de espuma en la tapa de controles y en la tapa de la batería, menos piezas distintas que comprar (V0.32) y paredes de 2 mm, que hacen que el mando y la base midan 25 mm de ancho (V0.33). Las tres placas de circuito se unen con cables comprados ([diseño](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Se pueden pedir montadas, y entonces el montaje no necesita soldar, o desnudas, para que quien lo monte las suelde a mano por mucho menos dinero: mira [Pedido de las placas](#ordering-the-boards). Los detalles del diseño están en los documentos enlazados; esta página dice qué comprar.
+Esta es la única lista de piezas del proyecto: el prototipo de banco y el mando extraíble con batería de la V0.34, con su base. La V0.34 es la V0.26 con la placa del joystick rev C, una sola base para los dos diámetros de manillar, la ventilación en la tapa de la batería, sin insertos roscados por calor, juntas de espuma en la tapa de controles y en la tapa de la batería, menos piezas distintas que comprar (V0.32) paredes de 2 mm, que hacen que el mando y la base midan 25 mm de ancho (V0.33), y una placa USB-C que desliza sobre dos tuercas cuadradas, con juntas de espuma de dos capas (V0.34). Las tres placas de circuito se unen con cables comprados ([diseño](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Se pueden pedir montadas, y entonces el montaje no necesita soldar, o desnudas, para que quien lo monte las suelde a mano por mucho menos dinero: mira [Pedido de las placas](#ordering-the-boards). Los detalles del diseño están en los documentos enlazados; esta página dice qué comprar.
 
-**Estado:** nada de la lista de la V0.33 se ha construido ni probado. El material de impresión aún no está elegido ([estudio de materiales](materials-study.es.md)). La lista de la V0.25 está en el historial de git.
+**Estado:** nada de la lista de la V0.34 se ha construido ni probado. El material de impresión aún no está elegido ([estudio de materiales](materials-study.es.md)). La lista de la V0.25 está en el historial de git.
 
 Preferencia de compra: primero las piezas que se pueden comprar en tiendas generalistas (por ejemplo Amazon). Las piezas que solo venden los distribuidores se usan solo donde ninguna pieza de tienda cumple el requisito, y se explica por qué.
 
@@ -74,6 +74,8 @@ Mira las [notas mecánicas](mechanical-concept.es.md) para saber dónde va cada 
 | 1 | GCT USB4736-GF-A-KIT: el receptáculo USB-C sellado con su junta USBTJ-06 | [TME](https://www.tme.com/in/en/details/usb4736-gf-a-kit/usb-ieee1394-connectors/gct/) o [DigiKey](https://www.digikey.sg/en/products/detail/gct/USB4736-GF-A-KIT/26795952), unos 1,7–1,8 USD | Se suelda a mano en la placa USB-C; la junta se pone después de soldar. La pieza C9900206672 de JLCPCB es el USB4736-GF-A **sin** la junta, y JLCPCB no pudo conseguirla el 15-10-2026. |
 | 1 | Cable tipo JST SH, 5 pines, hembra-hembra, paso de 1 mm, recto (pin 1 a pin 1), 10 cm | [Pololu](https://www.pololu.com/category/350/5-pin-jst-sh-style-cables), o [AliExpress](https://es.aliexpress.com/item/1005011797428966.html) | De la placa del joystick a la placa de control. En AliExpress elige `same direction` (`reverse direction` seguramente une el pin 1 con el último; `single head` lleva cables pelados en un extremo), 100 mm. |
 | 1 | Cable tipo JST SH, 3 pines, hembra-hembra, paso de 1 mm, recto, 10 cm | Pololu, o AliExpress como arriba | De la placa USB-C a la placa de control. |
+
+La [guía de construcción](build-guide.es.md) da el orden del trabajo, desde estos pedidos hasta el mando terminado.
 
 Las piezas de las placas, con sus números de LCSC, están en el README de cada placa y en `fab/*-bom.csv`. Los interruptores KSC221JLFS (LCSC C221726) son piezas de distribuidor: no se encontró ningún interruptor sellado de tienda con esta huella.
 

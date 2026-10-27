@@ -5,6 +5,7 @@ Guidance for AI assistants working in this repository. The project state lives i
 ## Repository map
 
 - `docs/`: the design record.
+  - `build-guide.md`: the builder's path from orders to a finished remote, in order, with the catches; it links to the detailed docs.
   - `mechanical-concept.md`: the current CAD version, its changes, the checks table, assembly steps and open unknowns.
   - `battery-study.md`, `materials-study.md`, `bom.md`, `electronics-assembly.md`, `firmware-spec.md`, `control-mapping.md`, `breadboard-assembly.md`, `prototype-plan.md`, `project-brief.md`, `development-environment.md`.
   - `images/`: renders and photos named `<part>-v<version>-<view>.png`.

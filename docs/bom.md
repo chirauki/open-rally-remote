@@ -1,10 +1,10 @@
-# Bill of Materials — V0.33
+# Bill of Materials — V0.34
 
 > Spanish version: [bom.es.md](bom.es.md).
 
-This is the single parts list for the project: the bench prototype and the V0.33 removable, battery-powered remote with its base. V0.33 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap, no heat-set inserts, foam seals on the cover and the battery cap, fewer different parts to buy (V0.32), and 2 mm walls, which make the remote and the base 25 mm wide (V0.33). The three circuit boards are joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). They can be ordered assembled, so the build needs no soldering, or bare, for the builder to solder by hand at a much lower cost: see [Ordering the boards](#ordering-the-boards). Design details stay in the linked documents; this page lists what to buy.
+This is the single parts list for the project: the bench prototype and the V0.34 removable, battery-powered remote with its base. V0.34 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap, no heat-set inserts, foam seals on the cover and the battery cap, fewer different parts to buy (V0.32), 2 mm walls, which make the remote and the base 25 mm wide (V0.33), and a sliding USB-C board on two square nuts with two-layer foam seals (V0.34). The three circuit boards are joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). They can be ordered assembled, so the build needs no soldering, or bare, for the builder to solder by hand at a much lower cost: see [Ordering the boards](#ordering-the-boards). Design details stay in the linked documents; this page lists what to buy.
 
-**Status:** nothing in the V0.33 list has been built or tested. The print material is not chosen yet ([materials study](materials-study.md)). The V0.25 list is in the git history.
+**Status:** nothing in the V0.34 list has been built or tested. The print material is not chosen yet ([materials study](materials-study.md)). The V0.25 list is in the git history.
 
 Sourcing preference: parts that builders can buy from mainstream retailers (for example Amazon) come first. Distributor-only parts are used only where no retail part meets the requirement, and the reason is given.
 
@@ -69,6 +69,8 @@ See the [mechanical notes](mechanical-concept.md) for where each part goes and t
 | 1 | GCT USB4736-GF-A-KIT: the sealed USB-C receptacle with its USBTJ-06 gasket | [TME](https://www.tme.com/in/en/details/usb4736-gf-a-kit/usb-ieee1394-connectors/gct/) or [DigiKey](https://www.digikey.sg/en/products/detail/gct/USB4736-GF-A-KIT/26795952), about USD 1.7–1.8 | Soldered by hand on the USB-C board; the gasket goes on after soldering. JLCPCB's part C9900206672 is the USB4736-GF-A **without** the gasket, and JLCPCB could not source it on 2026-10-15. |
 | 1 | JST SH-style cable, 5-pin, female–female, 1 mm pitch, straight (pin 1 to pin 1), 10 cm | [Pololu](https://www.pololu.com/category/350/5-pin-jst-sh-style-cables), or [AliExpress](https://es.aliexpress.com/item/1005011797428966.html) | Joystick board to control board. On AliExpress choose `same direction` (`reverse direction` likely joins pin 1 to the last pin; `single head` has bare wires at one end), 100 mm. |
 | 1 | JST SH-style cable, 3-pin, female–female, 1 mm pitch, straight, 10 cm | Pololu, or AliExpress as above | USB-C board to control board. |
+
+The [build guide](build-guide.md) gives the order of the work from these orders to a finished remote.
 
 The board parts with their LCSC numbers are in each board's README and `fab/*-bom.csv`. The KSC221JLFS switches (LCSC C221726) are distributor parts: no retail sealed switch with this footprint was found.
 
