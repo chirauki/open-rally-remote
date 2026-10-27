@@ -143,6 +143,8 @@ Para poner el mando, tira del pomo del cierre, apoya el mando en la plataforma 9
 <a id="first-use"></a>
 ## Primer uso
 
+El [manual de usuario](user-manual.es.md) cubre todo el uso del mando. Los primeros pasos:
+
 1. Carga el mando con cualquier cargador USB-C. El LED rojo junto al puerto de carga se enciende mientras la batería carga.
 2. Empareja **Open Rally Remote** desde los ajustes de Bluetooth del teléfono.
 3. Elige un perfil: mantén pulsado el centro del joystick 5 s, suéltalo y pulsa A (TerraPirata), B (teclado, para DMD2) o C (gestos, para OsmAnd) ([perfiles](../firmware/xiao-nrf52840/README.es.md#perfiles)). La placa guarda el perfil al apagarse.

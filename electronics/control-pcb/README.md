@@ -48,6 +48,10 @@ The board position depends on the pre-soldered XIAO's header: the plastic spacer
 - **Battery voltage.** A0 reads the cell through a 1 MΩ / 1 MΩ divider with 100 nF to ground: 2.1 V at 4.2 V, about 2 µA drawn from the cell.
 - **Different socket sizes.** The joystick socket has 5 pins, the USB-C one 3 and the battery one is a 2-pin PH: no cable fits the wrong socket.
 
+## Next revision
+
+The next revision should add an N-MOSFET from the charging LED's cathode to GND, driven by D7, and a 4-pin J3 that also carries 3V3 to the USB-C board, so the firmware can pulse the LED as a status light without a charger. STAT keeps lighting it while charging. See the open unknowns in the [mechanical notes](../../docs/mechanical-concept.md#open-unknowns-before-printing).
+
 ## Review
 
 An independent review on 2026-10-15 (a fresh Claude session reading the files and the TI SBVS186H, Microchip DS20001984H and AOS AO3401A datasheets) found no critical defect. It changed R3/R5 to 150k, C3/C4 to 4.7 µF (the TPS709 needs 1.5 µF effective at its output) and D1 to the low-leakage SMBJ5.0A, and raised the open points listed under Checks. Not verified by it: the XIAO regulator's reverse leakage and its 3V3-rail capacitance, the System OFF current, the KSC2 internal contact pairs, and the LED's cathode pad against the Lite-On drawing.

@@ -18,6 +18,10 @@ The receptacle is in the JLCPCB library only through global sourcing (C990020667
 
 ![USB-C board rev B, top](fab/render-top.png)
 
+## Next revision
+
+The next revision is planned at 1.6 mm, with the rib lowered 0.4 mm. It should also power the LED from 3V3, so the firmware can use it as a status light without a charger, through a 4-pin J2. See the open unknowns in the [mechanical notes](../../docs/mechanical-concept.md#open-unknowns-before-printing).
+
 ## Receptacle footprint
 
 `orr:GCT_USB4736` was drawn by hand from GCT's drawing USB4736, revision A, 9 April 2025, sheet 1, "Recommended PCB Layout". Checked against that drawing on 2026-10-14:

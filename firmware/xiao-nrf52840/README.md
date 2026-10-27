@@ -83,7 +83,8 @@ These follow the [battery study](../../docs/battery-study.md#firmware). The cons
 
 - **Battery level:** read every 60 s from P0.31 (AIN7) with P0.14 low, averaged over 8 samples. The divider is 1 MΩ over 510 kΩ (`VBAT_DIVIDER`, from Seeed's schematic); calibrate the reading with a multimeter. The level goes to the phone over the BLE Battery Service, added after the HID service so the existing attribute handles do not move. Below 3.5 V the profile blink turns red; below 3.3 V without USB, the board goes to System OFF.
 - **P0.14:** kept low from the first line of `setup()`. The Seeed core drives it high at start, and Seeed warns that P0.31 can then reach its 3.6 V limit while charging.
-- **Charging:** about 50 mA by default; `HIGH_CHARGE_CURRENT` selects about 100 mA. D8 drives the charge LED while USB is present and `CHG` (P0.17) is low.
+- **Charging, breadboard build:** the XIAO's own charger, about 50 mA by default; `HIGH_CHARGE_CURRENT` selects about 100 mA. D8 drives the charge LED of the V0.24/V0.25 USB-C board while USB is present and `CHG` (P0.17) is low.
+- **Charging, V0.26 board (`BOARD_V026`):** the control board's MCP73831 charges, and its STAT drives the charge LED on the USB-C board; the firmware only reads STAT on D8. The LED has no supply without a charger, so the firmware cannot use it as a status light (see the [control board](../../electronics/control-pcb/README.md#next-revision)).
 - **Power off:** hold A, B and C together for 3 s. The LED turns steady red; the board sleeps when all three are released. While two or more are held, the buttons send nothing, but in the keyboard profile the first button's key is already sent. In the TerraPirata profile nothing is sent: A and B act only after 2 s, and C on release.
 - **Auto-off:** after 6 h without input (`AUTO_OFF_MS`).
 - **Wake:** any released switch, through GPIO sense, or a charger connection. The wake press is not sent.

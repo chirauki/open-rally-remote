@@ -135,6 +135,8 @@ To fit the remote, pull the lock knob, press the remote onto the platform 9 mm b
 
 ## First use
 
+The [user manual](user-manual.md) covers the use of the remote in full. The first steps:
+
 1. Charge the remote with any USB-C charger. The red LED beside the charging port lights while the cell charges.
 2. Pair **Open Rally Remote** from the phone's Bluetooth settings.
 3. Choose a profile: hold the joystick center for 5 s, release it, then press A (TerraPirata), B (keyboard, for DMD2) or C (gestures, for OsmAnd) ([profiles](../firmware/xiao-nrf52840/README.md#profiles)). The board keeps the profile after power off.
