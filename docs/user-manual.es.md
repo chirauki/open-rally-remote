@@ -126,7 +126,7 @@ Las teclas detrás de cada acción están en el [mapa de controles](control-mapp
 <a id="firmware-updates"></a>
 ## Actualizar el firmware
 
-Las actualizaciones se hacen por Bluetooth desde un teléfono Android con nRF Connect for Mobile. No hace falta abrir el mando. Los pasos están en el [README del firmware](../firmware/xiao-nrf52840/README.es.md#actualizacion-ble). Todavía no hay un archivo de firmware publicado.
+Las actualizaciones se hacen por Bluetooth desde un teléfono Android con nRF Connect for Mobile. No hace falta abrir el mando. Los pasos están en el [README del firmware](../firmware/xiao-nrf52840/README.es.md#actualizacion-ble). Las versiones nuevas se publicarán como [releases de GitHub](../firmware/xiao-nrf52840/README.es.md#releases); todavía no hay ninguna.
 
 <a id="care"></a>
 ## Cuidados

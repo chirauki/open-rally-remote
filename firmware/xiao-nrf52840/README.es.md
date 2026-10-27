@@ -91,6 +91,21 @@ Siguen el [estudio de la batería](../../docs/battery-study.md#firmware). Las co
 - **Despertar:** cualquier interruptor que se suelta, por GPIO sense, o al conectar un cargador. La pulsación que la despierta no se envía.
 - **USB:** mientras hay alimentación USB, la placa no se duerme (ni por apagado, ni automático, ni por batería baja). Para las pruebas de banco, `SLEEP_ON_USB = true` permite dormirla con USB.
 
+<a id="releases"></a>
+## Versiones publicadas
+
+El workflow `firmware` (`.github/workflows/firmware.yml`) compila el sketch y ejecuta los tests de host en cada push a main y en cada pull request que toque esta carpeta. Guarda los archivos como artefacto del workflow.
+
+Para publicar una versión:
+1. Pon `FIRMWARE_VERSION` en el sketch y llévalo a main.
+2. Sube una etiqueta `fw-v<versión>` en ese commit, por ejemplo `git tag -s fw-v0.11.1 && git push origin fw-v0.11.1`.
+3. El workflow comprueba que la etiqueta coincide con `FIRMWARE_VERSION` y está en main, compila y crea una release en **borrador** con los archivos y las notas de `release/notes.md`.
+4. Revisa el borrador en GitHub y publícalo.
+
+Se usa un borrador creado desde una etiqueta, y no una release que dispare la compilación: los archivos y las comprobaciones llegan antes de que nadie vea la release, y una compilación fallida no publica nada.
+
+Cada release tiene, para la placa V0.26 y para la protoboard, un `.uf2` (se copia a la unidad USB del XIAO tras pulsar reset dos veces), un `.zip` DFU (BLE o `adafruit-nrfutil`) y un `.hex`, más `SHA256SUMS`. `release/build.sh <carpeta>` genera los mismos archivos en local; en Apple Silicon, pon en `ARDUINO_CONFIG` una configuración cuyo core use Arm GNU 13.3 (ver [Comprobación de compilación](#comprobación-de-compilación)). La dirección de inicio del `.uf2` (0x27000, tras el SoftDevice S140) se comprobó el 27-10-2026; la carga por UF2 aún no se ha probado. Todavía no hay ninguna versión publicada.
+
 ## Comprobación de compilación
 
 El sketch se compiló el 10-10-2026 con `arduino-cli` y Seeed nRF52 Boards 1.1.13 para `Seeeduino:nrf52:xiaonRF52840`, en los dos modos de pulsación central, sin avisos del sketch. El GCC 9 que trae el paquete es un binario Intel y no funcionaba en el Mac Apple Silicon sin Rosetta, así que la comprobación usó Arm GNU Toolchain 13.3. El Arduino IDE en una máquina que sí ejecute las herramientas del paquete puede mostrar otra cosa.

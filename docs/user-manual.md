@@ -117,7 +117,7 @@ The keys behind each action are in the [control mapping](control-mapping.md).
 
 ## Firmware updates
 
-Updates go over Bluetooth from an Android phone with nRF Connect for Mobile. The remote does not need to be opened. The steps are in the [firmware README](../firmware/xiao-nrf52840/README.md#ble-ota-update). There is no published firmware file yet.
+Updates go over Bluetooth from an Android phone with nRF Connect for Mobile. The remote does not need to be opened. The steps are in the [firmware README](../firmware/xiao-nrf52840/README.md#ble-ota-update). New versions will be published as [GitHub releases](../firmware/xiao-nrf52840/README.md#releases); none is published yet.
 
 ## Care
 

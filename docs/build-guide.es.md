@@ -29,7 +29,7 @@ El primer mando con su base cuesta unos 470–510 €, sin las piezas del protot
 
 - **Soldar**, si se piden las placas sin montar: componentes 0603, encapsulados SOT-23 y conectores de 1,0 mm de paso. La [guía de electrónica](electronics-assembly.es.md#antes-de-empezar) da las herramientas.
 - **OpenSCAD 2026.x**, para poner tus medidas y exportar los archivos de impresión. Todavía no hay un paquete de impresión preparado.
-- **Arduino IDE 2**, para cargar el firmware ([entorno de desarrollo](development-environment.md)). No se publica un firmware compilado.
+- **Arduino IDE 2**, para cargar el firmware ([entorno de desarrollo](development-environment.md)). El firmware compilado se publicará como [releases de GitHub](../firmware/xiao-nrf52840/README.es.md#releases); todavía no hay ninguna.
 - **Herramientas de mano:**
   - un polímetro;
   - un calibre;

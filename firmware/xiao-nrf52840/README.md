@@ -90,6 +90,20 @@ These follow the [battery study](../../docs/battery-study.md#firmware). The cons
 - **Wake:** any released switch, through GPIO sense, or a charger connection. The wake press is not sent.
 - **USB:** while USB power is present, the board does not sleep (power off, auto-off or low battery). For bench tests, `SLEEP_ON_USB = true` lets it sleep on USB.
 
+## Releases
+
+The `firmware` workflow (`.github/workflows/firmware.yml`) builds the sketch and runs the host tests on every push to main and every pull request that touches this folder. It keeps the files as a workflow artifact.
+
+To release a version:
+1. Set `FIRMWARE_VERSION` in the sketch and merge to main.
+2. Push a tag `fw-v<version>` on that commit, for example `git tag -s fw-v0.11.1 && git push origin fw-v0.11.1`.
+3. The workflow checks that the tag matches `FIRMWARE_VERSION` and is on main, builds, and makes a **draft** release with the files and the notes from `release/notes.md`.
+4. Check the draft on GitHub, then publish it.
+
+A draft from a tag, not a release that triggers the build: the files and the checks come before anyone can see the release, and a failed build publishes nothing.
+
+Each release has, for the V0.26 board and for the breadboard, a `.uf2` (copied to the XIAO's USB drive after a double press of reset), a DFU `.zip` (BLE or `adafruit-nrfutil`) and a `.hex`, plus `SHA256SUMS`. `release/build.sh <out dir>` builds the same files locally; on Apple Silicon set `ARDUINO_CONFIG` to a config whose core uses Arm GNU 13.3 (see [Build check](#build-check)). The `.uf2` start address (0x27000, after the S140 SoftDevice) was checked on 2026-10-27; the upload by UF2 is not tested yet. No release is published yet.
+
 ## Build check
 
 The sketch was compiled on 2026-10-10 with `arduino-cli` and Seeed nRF52 Boards 1.1.13 for `Seeeduino:nrf52:xiaonRF52840`, in both center modes, with no warnings from the sketch. The package's own GCC 9 toolchain is an Intel binary and did not run on the Apple Silicon build machine without Rosetta, so the check used Arm GNU Toolchain 13.3. The Arduino IDE on a machine that runs the package toolchain may still report something different.

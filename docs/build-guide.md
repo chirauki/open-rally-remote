@@ -28,7 +28,7 @@ The first remote and base cost about €470–510, without the bench prototype p
 
 - **Soldering**, if you order bare boards: 0603 parts, SOT-23 packages and 1.0 mm pitch sockets. The [electronics guide](electronics-assembly.md#tools) lists the tools.
 - **OpenSCAD 2026.x**, to set your measurements and export the print files. There is no ready-made print package yet.
-- **Arduino IDE 2**, to upload the firmware ([development environment](development-environment.md)). No compiled firmware file is published.
+- **Arduino IDE 2**, to upload the firmware ([development environment](development-environment.md)). Compiled firmware will be published as [GitHub releases](../firmware/xiao-nrf52840/README.md#releases); none is published yet.
 - **Hand tools:**
   - a multimeter;
   - a caliper;
