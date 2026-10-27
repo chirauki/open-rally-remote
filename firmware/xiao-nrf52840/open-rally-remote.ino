@@ -111,8 +111,6 @@ const uint8_t PROFILE_LEDS[PROFILE_COUNT] = { LED_G, LED_B, LED_R | LED_G | LED_
 // press the focused on-screen control.
 const uint16_t HOLD_KEYS[3] = { HID_KEY_A, HID_KEY_B, HID_KEY_C };
 
-bool buttonsHold(Profile value) { return value == PROFILE_KEYBOARD; }
-
 // Button gestures, one tap per gesture. Rows: Button A, B, C. Columns:
 // short, long, double.
 // TerraPirata (keys found with firmware/key-probe, 2026-10-20): A long `r`
@@ -261,6 +259,10 @@ constexpr uint8_t DIR_HORIZONTAL = 0xC;
 const uint8_t DIRECTION_KEYS[4] = {
   HID_KEY_ARROW_UP, HID_KEY_ARROW_DOWN, HID_KEY_ARROW_LEFT, HID_KEY_ARROW_RIGHT
 };
+
+// The first function definition: the Arduino builder puts its generated
+// prototypes here, so every type they use must be declared above.
+bool buttonsHold(Profile value) { return value == PROFILE_KEYBOARD; }
 
 // A physical input on its pin; the center has none (it is the chord).
 bool controlIsInstalled(uint8_t control) {
