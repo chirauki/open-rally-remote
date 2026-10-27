@@ -193,7 +193,7 @@ La actualización por BLE necesita un teléfono emparejado, un enlace cifrado y 
 
 ### Firmware 0.13.0
 
-Tras la ventana de emparejamiento, el mando solo se anuncia para sus teléfonos emparejados (`orr_whitelist.cpp`), así que un teléfono rechazado no puede reintentar. Los tests de host cubren el cambio (52 tests por placa, pasan todos), y las dos versiones compilaron sin avisos del sketch el 27-10-2026. Con la versión de protoboard ese mismo día y un teléfono Android: al cerrarse la ventana, el registro dijo "BLE advertising to bonded phones only"; el teléfono emparejado, que usa una dirección privada, se reconectó solo y sus teclas llegaron al teléfono; un Mac no mostró el mando.
+Tras la ventana de emparejamiento, el mando solo se anuncia para sus teléfonos emparejados (`orr_whitelist.cpp`), así que un teléfono rechazado no puede reintentar. Los tests de host cubren el cambio (52 tests por placa, pasan todos), y las dos versiones compilaron sin avisos del sketch el 27-10-2026. Con la versión de protoboard ese mismo día y una tablet Android: al cerrarse la ventana, el registro dijo "BLE advertising to bonded phones only"; la tablet emparejada, que usa una dirección privada, se reconectó sola y sus teclas funcionaron; un Mac no mostró el mando. Una actualización desde nRF Connect fuera de la ventana, por la lista blanca, terminó bien; después la tablet volvió a conectar como teclado al conectarla otra vez a mano (ver el paso 4 más abajo).
 
 La primera versión falló con `BLE_ERROR_GAP_DISCOVERABLE_WITH_WHITELIST` (0x3201): el SoftDevice no admite una lista blanca con un anuncio descubrible. Por eso el anuncio para emparejados pone los flags en "no descubrible", y los teléfonos nuevos ya no ven el mando. El sketch volvió entonces al anuncio abierto, como estaba previsto, y registró la llamada que falló.
 
@@ -231,7 +231,7 @@ El paquete es el `.zip` que `arduino-cli compile` escribe junto al `.hex`. Para 
 1. En **Settings > DFU options**, activa **Disable MTU Request**, **Packet receipt notification** con 8 paquetes y **Scan for bootloader in Legacy DFU**.
 2. Desconecta el mando en los ajustes de Bluetooth del teléfono y conéctate a él desde nRF Connect.
 3. Pulsa **DFU**, elige "Distribution packet (ZIP)" y selecciona el paquete.
-4. Tras la actualización, refresca los servicios y lee Software Revision en Device Information.
+4. Tras la actualización, refresca los servicios y lee Software Revision en Device Information. Después conecta otra vez el mando en los ajustes de Bluetooth del teléfono: tras desconectarlo a mano allí, Android no lo reconecta solo.
 
 El 14-10-2026 esto actualizó la aplicación de `0.3.0-diagnostic` a una versión de prueba, `0.3.0-ota-test`, con la placa en un cargador USB y sin ordenador. El teléfono se reconectó después como teclado sin volver a emparejar. Una segunda actualización, de vuelta a `0.3.0-diagnostic`, se hizo con la placa conectada por USB a un ordenador. La imagen de 115460 bytes tardó 35,8 s, unos 3,2 kB/s; la validación pasó y la placa arrancó la nueva aplicación sin reinicio manual. iOS no se ha probado.
 

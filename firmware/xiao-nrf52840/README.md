@@ -190,7 +190,7 @@ The BLE update needs a bonded phone, an encrypted link and USB power, and new bo
 
 ### Firmware 0.13.0
 
-After the pairing window, the remote advertises for its bonded phones only (`orr_whitelist.cpp`), so a refused phone cannot retry. The host tests cover the switch (52 tests per board, all pass), and both builds compiled with no warnings from the sketch on 2026-10-27. On the breadboard build the same day, with an Android phone: when the window closed, the log said "BLE advertising to bonded phones only"; the bonded phone, which uses a private address, reconnected by itself and its keys reached the phone; a Mac did not list the remote.
+After the pairing window, the remote advertises for its bonded phones only (`orr_whitelist.cpp`), so a refused phone cannot retry. The host tests cover the switch (52 tests per board, all pass), and both builds compiled with no warnings from the sketch on 2026-10-27. On the breadboard build the same day, with an Android tablet: when the window closed, the log said "BLE advertising to bonded phones only"; the bonded tablet, which uses a private address, reconnected by itself and its keys worked; a Mac did not list the remote. An update from nRF Connect after the window, through the whitelist, completed; the tablet then reconnected as a keyboard once connected again by hand (see step 4 below).
 
 The first build failed with `BLE_ERROR_GAP_DISCOVERABLE_WITH_WHITELIST` (0x3201): the SoftDevice refuses a whitelist with discoverable advertising. The bonded-only advertising therefore sets the flags to "not discoverable", and new phones no longer list the remote. The sketch then fell back to open advertising, as designed, and logged the failed call.
 
@@ -227,7 +227,7 @@ The package is the `.zip` that `arduino-cli compile` writes next to the `.hex`. 
 1. In **Settings > DFU options**, turn on **Disable MTU Request**, **Packet receipt notification** with 8 packets, and **Scan for bootloader in Legacy DFU**.
 2. Disconnect the remote in the phone's Bluetooth settings, then connect to it from nRF Connect.
 3. Tap **DFU**, choose "Distribution packet (ZIP)" and select the package.
-4. After the update, refresh the services and read Software Revision in Device Information.
+4. After the update, refresh the services and read Software Revision in Device Information. Then connect the remote again in the phone's Bluetooth settings: after a disconnect by hand there, Android does not reconnect it by itself.
 
 On 2026-10-14 this updated the application from `0.3.0-diagnostic` to a test build, `0.3.0-ota-test`, with the board on a USB charger and no computer. The phone then reconnected as a keyboard without pairing again. A second update, back to `0.3.0-diagnostic`, was made with the board connected to a computer over USB. The 115460-byte image took 35.8 s, about 3.2 kB/s; validation passed and the board started the new application without a manual reset. iOS has not been tested.
 
