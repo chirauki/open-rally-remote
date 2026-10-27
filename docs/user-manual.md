@@ -1,4 +1,4 @@
-# User Manual — firmware 0.12.0
+# User Manual — firmware 0.13.0
 
 > Spanish version: [user-manual.es.md](user-manual.es.md).
 
@@ -56,7 +56,7 @@ The remote reports its battery level over Bluetooth. Some phones show it in the 
 ## Pairing
 
 1. Wake the remote: press any button.
-2. Within 2 minutes, open the phone's Bluetooth settings and pair **Open Rally Remote**. It pairs as a keyboard. After 2 minutes the remote refuses new phones; wake it again to pair.
+2. Within 2 minutes, open the phone's Bluetooth settings and pair **Open Rally Remote**. It pairs as a keyboard. After 2 minutes new phones no longer see the remote; switch it off and on again to pair.
 3. Open the app. Each profile suits one app; see [Profiles](#profiles).
 
 After that, the phone reconnects by itself, about 1 s after the remote wakes.
@@ -134,10 +134,10 @@ Updates go over Bluetooth from an Android phone with nRF Connect for Mobile. The
 
 | Problem | Try |
 |---|---|
-| The phone does not connect | Press a button to wake the remote. If it still does not connect, remove **Open Rally Remote** from the phone's Bluetooth devices and pair again. |
+| The phone does not connect | Press a button to wake the remote. If it still does not connect, remove **Open Rally Remote** from the phone's Bluetooth devices, switch the remote off and on, and pair again within 2 minutes. |
 | A press does nothing | Check the profile: choose it again (see [Profiles](#profiles)). Check the app's key settings. |
 | The remote does not wake | Charge it. |
-| A new phone does not pair, or disconnects after pairing | Pair within 2 minutes of waking the remote. |
+| A new phone does not list the remote, or disconnects after pairing | Switch the remote off and on, and pair within 2 minutes. |
 | nRF Connect cannot start an update | Plug the remote into a USB charger, and use the phone paired with it. |
 | After a cancelled update the remote does not reconnect | Force-stop nRF Connect on the phone, then wake the remote. |
 | The red LED stays on for many hours | The charger may not end the charge (an open point of the design). Unplug the charger. |

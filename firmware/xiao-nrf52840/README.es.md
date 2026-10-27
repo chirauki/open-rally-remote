@@ -40,7 +40,7 @@ Todos los pines conectados usan `INPUT_PULLUP`: abierto o suelto se lee HIGH, pu
 ## Primera prueba
 
 1. Carga el sketch y abre el Monitor Serie a 115200 baudios.
-2. En los 2 minutos siguientes al arranque, empareja **Open Rally Remote** desde los ajustes de Bluetooth del teléfono (desde la 0.12.0 se rechazan los emparejamientos posteriores).
+2. En los 2 minutos siguientes al arranque, empareja **Open Rally Remote** desde los ajustes de Bluetooth del teléfono (desde la 0.13.0 los teléfonos nuevos ya no ven el mando después).
 3. Cambia al perfil de gestos (LED blanco), abre un comprobador de teclado o un campo de texto inofensivo y pulsa cada control. Las teclas identifican los gestos; las direcciones del joystick envían flechas mantenidas.
 4. En el joystick, comprueba que un empuje recto da una sola `C` central y ninguna flecha, y que las inclinaciones y diagonales no dan pulsación central.
 
@@ -186,7 +186,16 @@ La selección de perfil sustituye al cambio de perfil en ciclo. La cubren las pr
 
 ### Firmware 0.12.0
 
-La actualización por BLE necesita un teléfono emparejado, un enlace cifrado y alimentación USB, y los emparejamientos nuevos solo se guardan en los 2 primeros minutos tras un arranque (ver [Actualización por BLE](#actualizacion-ble)). Los tests de host cubren las dos comprobaciones (45 tests por placa, pasan todos), y las dos versiones compilaron sin avisos del sketch el 27-10-2026. Sin probar todavía en una placa: una actualización desde nRF Connect con un Android emparejado, un rechazo sin USB y un emparejamiento fuera de la ventana. El principal punto abierto es si Android cifra solo el enlace de nRF Connect tras la respuesta "insufficient encryption".
+La actualización por BLE necesita un teléfono emparejado, un enlace cifrado y alimentación USB, y los emparejamientos nuevos solo se guardan en los 2 primeros minutos tras un arranque (ver [Actualización por BLE](#actualizacion-ble)). Los tests de host cubren las dos comprobaciones (45 tests por placa, pasan todos), y las dos versiones compilaron sin avisos del sketch el 27-10-2026. Con la versión de protoboard ese mismo día y un teléfono Android:
+- Una actualización desde nRF Connect, con el teléfono emparejado y la placa en USB, terminó bien. Android cifró el enlace por sí solo, el bootloader validó la imagen y la placa la arrancó sin reset. La línea de registro "BLE update allowed" nunca llega al ordenador: la placa salta antes al bootloader. Tras la actualización, el puerto serie USB siguió mudo hasta volver a enchufar la placa.
+- Un emparejamiento fuera de la ventana se borró y el teléfono se desconectó. Pero para el teléfono el emparejamiento había salido bien, así que guardó sus claves, se reconectó, emparejó otra vez y se rechazó otra vez, en bucle. La 0.13.0 lo corrige.
+- El rechazo sin USB aún no se ha probado (necesita una celda).
+
+### Firmware 0.13.0
+
+Tras la ventana de emparejamiento, el mando solo se anuncia para sus teléfonos emparejados (`orr_whitelist.cpp`), así que un teléfono rechazado no puede reintentar. Los tests de host cubren el cambio (52 tests por placa, pasan todos), y las dos versiones compilaron sin avisos del sketch el 27-10-2026. Con la versión de protoboard ese mismo día y un teléfono Android: al cerrarse la ventana, el registro dijo "BLE advertising to bonded phones only"; el teléfono emparejado, que usa una dirección privada, se reconectó solo y sus teclas llegaron al teléfono; un Mac no mostró el mando.
+
+La primera versión falló con `BLE_ERROR_GAP_DISCOVERABLE_WITH_WHITELIST` (0x3201): el SoftDevice no admite una lista blanca con un anuncio descubrible. Por eso el anuncio para emparejados pone los flags en "no descubrible", y los teléfonos nuevos ya no ven el mando. El sketch volvió entonces al anuncio abierto, como estaba previsto, y registró la llamada que falló.
 
 ### Firmware 0.11.1
 
@@ -205,7 +214,11 @@ Desde el firmware 0.12.0 el servicio es `OrrDfu` (`orr_dfu.cpp`), una copia de `
 - el teléfono está emparejado y el enlace va cifrado (la característica de control exige cifrado, así que un teléfono emparejado cifra con sus claves guardadas), y
 - hay alimentación USB: el puerto de carga queda bajo la base, así que el mando está fuera de la moto.
 
-Si no, la escritura falla con "insufficient authorization" y el registro serie dice por qué. Los emparejamientos nuevos solo se guardan en los 2 primeros minutos tras arrancar la placa (`PAIRING_WINDOW_MS`): uno posterior se borra y el teléfono se desconecta. Los teléfonos ya emparejados se reconectan en cualquier momento. Para emparejar un teléfono nuevo, despierta el mando y empareja en menos de 2 minutos.
+Si no, la escritura falla con "insufficient authorization" y el registro serie dice por qué.
+
+Los emparejamientos nuevos solo se hacen en los 2 primeros minutos tras arrancar la placa (`PAIRING_WINDOW_MS`). Desde la 0.13.0, al cerrarse la ventana, el sketch para el anuncio de la librería y arranca el suyo (`orr_whitelist.cpp`). Carga los emparejamientos de la flash (hasta 8) y pasa al SoftDevice sus direcciones de identidad y sus IRK como lista blanca e identidades de dispositivo. El anuncio no es descubrible, y solo un teléfono de la lista blanca puede conectar; el SoftDevice resuelve su dirección privada con la IRK. Una conexión abierta al cerrarse la ventana sigue; el cambio espera a que termine. Sin ningún emparejamiento, el mando deja de anunciarse. Si falla una llamada del SoftDevice, el registro la nombra y el mando vuelve al anuncio abierto.
+
+Un emparejamiento fuera de la ventana que no llega por la lista blanca (anuncio abierto tras un fallo, o una conexión hecha dentro de la ventana) se borra y el teléfono se desconecta. Un teléfono emparejado que empareja otra vez por la lista blanca conserva su emparejamiento. Los teléfonos ya emparejados se reconectan en cualquier momento. Para emparejar un teléfono nuevo, apaga y enciende el mando y empareja en menos de 2 minutos.
 
 El bootloader de fábrica de la placa usada se leyó de la flash el 14-10-2026:
 

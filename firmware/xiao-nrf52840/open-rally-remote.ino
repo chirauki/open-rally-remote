@@ -11,7 +11,8 @@
  * Board: Seeed XIAO nRF52840
  * BLE HID API: Adafruit Bluefruit nRF52 library bundled with the Seeed package
  * BLE OTA: the legacy DFU service, only from a bonded phone with USB power,
- * and new bonds only in the first PAIRING_WINDOW_MS; see README.md, "BLE OTA update"
+ * and new bonds only in the first PAIRING_WINDOW_MS, after which only bonded
+ * phones can connect; see README.md, "BLE OTA update"
  */
 
 #include <Adafruit_TinyUSB.h>
@@ -19,6 +20,7 @@
 #include <Adafruit_LittleFS.h>
 #include <InternalFileSystem.h>
 #include "orr_dfu.h"
+#include "orr_whitelist.h"
 
 using namespace Adafruit_LittleFS_Namespace;
 
@@ -154,6 +156,8 @@ constexpr uint32_t PROFILE_BLINK_MS = 100;
 constexpr bool SLEEP_ON_USB = false;
 
 constexpr uint32_t PAIRING_WINDOW_MS = 120000;     // new bonds accepted after a start
+constexpr uint16_t ADV_FAST_INTERVAL = 32;  // 20 ms, in 0.625 ms units, the first 30 s
+constexpr uint16_t ADV_SLOW_INTERVAL = 244; // 152.5 ms
 constexpr uint32_t POWER_OFF_HOLD_MS = 3000;          // A + B + C held
 constexpr uint32_t AUTO_OFF_MS = 6UL * 60 * 60 * 1000; // no input, no charger
 constexpr uint32_t BATTERY_READ_PERIOD_MS = 60000;
@@ -178,7 +182,7 @@ constexpr uint8_t PIN_CHARGE_LED = D8; // charge LED on the V0.24/V0.25 USB-C PC
 constexpr uint8_t PIN_CHG_SENSE = D8;
 constexpr uint8_t PIN_VBUS_SENSE = D9;   // VBUS through a divider
 
-const char *const FIRMWARE_VERSION = "0.12.0";
+const char *const FIRMWARE_VERSION = "0.13.0";
 
 enum GestureType : uint8_t {
   GESTURE_SHORT = 0,
@@ -241,6 +245,17 @@ bool powerOffArmed = false;   // sleep once all three are released
 uint16_t batteryMv = 0;
 uint32_t batteryReadAt = 0;
 bool batteryLow = false;
+
+// BLE advertising. Open in the pairing window; after it, only bonded phones
+// can connect (orr_whitelist.h), so a refused stranger cannot retry.
+enum AdvertisingMode : uint8_t {
+  ADV_OPEN,         // the library's advertising: anyone can connect
+  ADV_BONDED_ONLY,  // whitelist of the bonded phones
+  ADV_OFF           // window closed with no bonded phone
+};
+AdvertisingMode advertisingMode = ADV_OPEN;
+bool pairingWindowClosed = false;
+bool bondedAdvertisingDue = false;  // the window closed during a connection
 
 // Joystick direction handling (see docs/firmware-spec.md, section 5).
 enum JoystickMode : uint8_t {
@@ -939,8 +954,11 @@ bool dfuAllowed(uint16_t connHandle) {
 
 // A new bond is kept only in the first PAIRING_WINDOW_MS after a start, so a
 // stranger cannot pair later. Reconnections of bonded phones do not come here.
+// After the window, a phone that came in through the whitelist is already
+// bonded (it pairs again after forgetting the remote), so its bond is kept.
 void onPairComplete(uint16_t connHandle, uint8_t authStatus) {
   if (authStatus != BLE_GAP_SEC_STATUS_SUCCESS || millis() < PAIRING_WINDOW_MS) return;
+  if (advertisingMode == ADV_BONDED_ONLY) return;
   auto *conn = Bluefruit.Connection(connHandle);
   if (conn == nullptr) return;
   Serial.println("New pairing refused: pair within 2 min of waking the remote");
@@ -980,9 +998,53 @@ void beginBleKeyboard() {
   // response carries the full name.
   Bluefruit.ScanResponse.addName();
   Bluefruit.Advertising.restartOnDisconnect(true);
-  Bluefruit.Advertising.setInterval(32, 244);
+  Bluefruit.Advertising.setInterval(ADV_FAST_INTERVAL, ADV_SLOW_INTERVAL);
   Bluefruit.Advertising.setFastTimeout(30);
   Bluefruit.Advertising.start(0);
+}
+
+void startBondedAdvertising() {
+  switch (orrStartWhitelistAdvertising(ADV_SLOW_INTERVAL)) {
+    case ORR_WHITELIST_STARTED:
+      advertisingMode = ADV_BONDED_ONLY;
+      if (SERIAL_DEBUG) Serial.println("BLE advertising to bonded phones only");
+      break;
+    case ORR_WHITELIST_NO_BONDS:
+      advertisingMode = ADV_OFF;
+      if (SERIAL_DEBUG) Serial.println("No bonded phone: advertising stopped; restart the remote to pair");
+      break;
+    case ORR_WHITELIST_FAILED:
+      // Open again; onPairComplete still refuses new bonds.
+      advertisingMode = ADV_OPEN;
+      Bluefruit.Advertising.restartOnDisconnect(true);
+      Bluefruit.Advertising.start(0);
+      if (SERIAL_DEBUG) {
+        Serial.printf("Bonded-only advertising failed (%s): advertising open, new pairings refused\n",
+                      orrWhitelistFailure());
+      }
+      break;
+  }
+}
+
+// Closes the pairing window: from then on only bonded phones can connect. A
+// connection open at that moment keeps going; the switch waits for its end.
+void updateAdvertising(uint32_t now, bool connected, bool disconnected) {
+  if (!pairingWindowClosed) {
+    if (now < PAIRING_WINDOW_MS) return;
+    pairingWindowClosed = true;
+    Bluefruit.Advertising.restartOnDisconnect(false);
+    if (connected) {
+      bondedAdvertisingDue = true;
+    } else {
+      Bluefruit.Advertising.stop();
+      startBondedAdvertising();
+    }
+    return;
+  }
+  if (disconnected && (bondedAdvertisingDue || advertisingMode == ADV_BONDED_ONLY)) {
+    bondedAdvertisingDue = false;
+    startBondedAdvertising();
+  }
 }
 
 void setup() {
@@ -1039,6 +1101,7 @@ void setup() {
 void loop() {
   const uint32_t now = millis();
   const bool connected = Bluefruit.connected();
+  const bool disconnected = previousBleConnected && !connected;
 
   if (connected != previousBleConnected) {
     previousBleConnected = connected;
@@ -1054,6 +1117,7 @@ void loop() {
       Serial.println("BLE HID host disconnected");
     }
   }
+  updateAdvertising(now, connected, disconnected);
 
   scanInputs(now);
   updateJoystick(now);

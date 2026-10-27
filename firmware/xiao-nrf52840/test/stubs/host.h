@@ -38,6 +38,13 @@ struct HostState {
   bool peerDisconnected = false;
   bool (*dfuAllowCb)(uint16_t conn_hdl) = nullptr;
   void (*pairCompleteCb)(uint16_t conn_hdl, uint8_t auth_status) = nullptr;
+  // Advertising: the library's open advertising and orr_whitelist's.
+  int openAdvStarts = 0;
+  int advStops = 0;
+  bool restartOnDisconnect = false;
+  uint8_t bondedPeers = 0;     // bonds orr_whitelist finds in the flash
+  bool whitelistFails = false; // the SoftDevice refuses the lists
+  int whitelistStarts = 0;     // calls of orrStartWhitelistAdvertising
   HostState() {
     for (int &p : pinLevel) p = 1;     // pull-ups: released reads HIGH
     for (int &p : pinWritten) p = -1;
@@ -157,11 +164,20 @@ struct HostAdvertising {
   void addAppearance(int) {}
   void addService(BLEService &) {}
   void addName() {}
-  void restartOnDisconnect(bool) {}
+  void restartOnDisconnect(bool enable) { host.restartOnDisconnect = enable; }
   void setInterval(int, int) {}
   void setFastTimeout(int) {}
-  void start(int) {}
+  void start(int) { ++host.openAdvStarts; }
+  void stop() { ++host.advStops; }
 };
+// orr_whitelist.h: advertising that only bonded phones can connect to.
+enum OrrWhitelistResult : uint8_t { ORR_WHITELIST_STARTED, ORR_WHITELIST_NO_BONDS, ORR_WHITELIST_FAILED };
+inline OrrWhitelistResult orrStartWhitelistAdvertising(uint16_t) {
+  ++host.whitelistStarts;
+  if (host.bondedPeers == 0) return ORR_WHITELIST_NO_BONDS;
+  return host.whitelistFails ? ORR_WHITELIST_FAILED : ORR_WHITELIST_STARTED;
+}
+inline const char *orrWhitelistFailure() { return "whitelist_set 0x0010"; }
 struct HostConnection {
   bool secured() const { return host.peerSecured; }
   bool bonded() const { return host.peerBonded; }

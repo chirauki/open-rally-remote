@@ -40,7 +40,7 @@ All connected pins use `INPUT_PULLUP`: open/released reads HIGH, pressed reads L
 ## First test
 
 1. Upload the sketch and open the Serial Monitor at 115200 baud.
-2. Within 2 min of the start, pair **Open Rally Remote** from the phone's Bluetooth settings (since 0.12.0 later pairings are refused).
+2. Within 2 min of the start, pair **Open Rally Remote** from the phone's Bluetooth settings (since 0.13.0 new phones no longer see the remote after that).
 3. Switch to the gestures profile (white LED), open a keyboard tester or a harmless text field, then press each control. The keys identify the gestures; joystick directions send held arrow-key reports.
 4. On the joystick, confirm that a straight push gives one center `C` and no arrow key, and that tilts and diagonals give no center press.
 
@@ -183,7 +183,16 @@ Profile selection replaces the cycling profile switch. The host tests cover it (
 
 ### Firmware 0.12.0
 
-The BLE update needs a bonded phone, an encrypted link and USB power, and new bonds are kept only in the first 2 min after a start (see [BLE OTA update](#ble-ota-update)). The host tests cover both checks (45 tests per board, all pass), and both builds compiled with no warnings from the sketch on 2026-10-27. Not tested on a board yet: an update from nRF Connect on a bonded Android phone, a refusal without USB, and a pairing after the window. Whether Android encrypts the nRF Connect link by itself after the "insufficient encryption" answer is the main open point.
+The BLE update needs a bonded phone, an encrypted link and USB power, and new bonds are kept only in the first 2 min after a start (see [BLE OTA update](#ble-ota-update)). The host tests cover both checks (45 tests per board, all pass), and both builds compiled with no warnings from the sketch on 2026-10-27. On the breadboard build the same day, with an Android phone:
+- An update from nRF Connect, from the bonded phone with the board on USB, completed. Android encrypted the link by itself, the bootloader validated the image, and the board started it without a reset. The "BLE update allowed" log line never reaches the computer: the board jumps to the bootloader first. After the update the USB serial port stayed silent until the board was plugged in again.
+- A pairing after the window was removed and the phone disconnected. But for the phone the pairing had succeeded, so it kept its keys, reconnected, paired again and was refused again, in a loop. 0.13.0 fixes this.
+- A refusal without USB is not tested yet (it needs a cell).
+
+### Firmware 0.13.0
+
+After the pairing window, the remote advertises for its bonded phones only (`orr_whitelist.cpp`), so a refused phone cannot retry. The host tests cover the switch (52 tests per board, all pass), and both builds compiled with no warnings from the sketch on 2026-10-27. On the breadboard build the same day, with an Android phone: when the window closed, the log said "BLE advertising to bonded phones only"; the bonded phone, which uses a private address, reconnected by itself and its keys reached the phone; a Mac did not list the remote.
+
+The first build failed with `BLE_ERROR_GAP_DISCOVERABLE_WITH_WHITELIST` (0x3201): the SoftDevice refuses a whitelist with discoverable advertising. The bonded-only advertising therefore sets the flags to "not discoverable", and new phones no longer list the remote. The sketch then fell back to open advertising, as designed, and logged the failed call.
 
 ### Firmware 0.11.1
 
@@ -201,7 +210,11 @@ Since firmware 0.12.0 the service is `OrrDfu` (`orr_dfu.cpp`), a copy of Bluefru
 - the phone is bonded and the link is encrypted (the control characteristic needs encryption, so a bonded phone encrypts with its stored keys), and
 - USB power is present: the charging port is under the base, so the remote is off the bike.
 
-Otherwise the write fails with "insufficient authorization" and the serial log says why. New bonds are kept only in the first 2 min after the board starts (`PAIRING_WINDOW_MS`): a pairing after that is removed and the phone disconnected. Phones already bonded reconnect at any time. To pair a new phone, wake the remote and pair it within 2 min.
+Otherwise the write fails with "insufficient authorization" and the serial log says why.
+
+New bonds are made only in the first 2 min after the board starts (`PAIRING_WINDOW_MS`). Since 0.13.0, when the window closes, the sketch stops the library's advertising and starts its own (`orr_whitelist.cpp`). It loads the bonds from the flash (up to 8) and gives their identity addresses and IRKs to the SoftDevice as the whitelist and the device identities. The advertising is not discoverable, and only a whitelisted phone can connect; the SoftDevice resolves its private address with the IRK. A connection open when the window closes keeps going; the switch waits for its end. With no bond the remote stops advertising. If a SoftDevice call fails, the log names it and the remote advertises openly again.
+
+A pairing after the window that does not come through the whitelist (open advertising after a failure, or a connection made inside the window) is removed and the phone disconnected. A bonded phone that pairs again through the whitelist keeps its bond. Phones already bonded reconnect at any time. To pair a new phone, switch the remote off and on and pair it within 2 min.
 
 The factory bootloader of the board used was read from flash on 2026-10-14:
 

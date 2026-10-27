@@ -1,4 +1,4 @@
-# Manual de usuario — firmware 0.12.0
+# Manual de usuario — firmware 0.13.0
 
 > Traducción al castellano de [user-manual.md](user-manual.md). La versión en inglés es la de referencia; si las dos difieren, vale la inglesa.
 
@@ -60,7 +60,7 @@ El mando envía su nivel de batería por Bluetooth. Algunos teléfonos lo muestr
 ## Emparejar
 
 1. Despierta el mando: pulsa cualquier botón.
-2. En menos de 2 minutos, abre los ajustes de Bluetooth del teléfono y empareja **Open Rally Remote**. Se empareja como un teclado. Pasados 2 minutos el mando rechaza teléfonos nuevos; despiértalo otra vez para emparejar.
+2. En menos de 2 minutos, abre los ajustes de Bluetooth del teléfono y empareja **Open Rally Remote**. Se empareja como un teclado. Pasados 2 minutos los teléfonos nuevos ya no ven el mando; apágalo y enciéndelo otra vez para emparejar.
 3. Abre la app. Cada perfil sirve para una app; ver [Perfiles](#profiles).
 
 Después, el teléfono se reconecta solo, alrededor de 1 s después de que el mando despierte.
@@ -145,10 +145,10 @@ Las actualizaciones se hacen por Bluetooth desde un teléfono Android con nRF Co
 
 | Problema | Prueba |
 |---|---|
-| El teléfono no conecta | Pulsa un botón para despertar el mando. Si sigue sin conectar, borra **Open Rally Remote** de los dispositivos Bluetooth del teléfono y empareja otra vez. |
+| El teléfono no conecta | Pulsa un botón para despertar el mando. Si sigue sin conectar, borra **Open Rally Remote** de los dispositivos Bluetooth del teléfono, apaga y enciende el mando, y empareja otra vez en menos de 2 minutos. |
 | Una pulsación no hace nada | Revisa el perfil: elígelo otra vez (ver [Perfiles](#profiles)). Revisa los ajustes de teclas de la app. |
 | El mando no despierta | Cárgalo. |
-| Un teléfono nuevo no se empareja, o se desconecta tras emparejar | Empareja en menos de 2 minutos después de despertar el mando. |
+| Un teléfono nuevo no ve el mando, o se desconecta tras emparejar | Apaga y enciende el mando, y empareja en menos de 2 minutos. |
 | nRF Connect no puede iniciar una actualización | Enchufa el mando a un cargador USB y usa el teléfono emparejado con él. |
 | Tras una actualización cancelada el mando no reconecta | Fuerza la detención de nRF Connect en el teléfono y despierta el mando. |
 | El LED rojo sigue encendido muchas horas | Puede que el cargador no termine la carga (un punto abierto del diseño). Desenchufa el cargador. |

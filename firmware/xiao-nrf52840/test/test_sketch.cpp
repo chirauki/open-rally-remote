@@ -685,6 +685,86 @@ TEST(failed_pairing_after_the_window_is_left_alone) {
   EXPECT(!host.peerDisconnected);
 }
 
+// ---------- Advertising after the pairing window ----------
+
+// Boots the sketch with no phone connected.
+void startIdle(uint8_t bondedPeers) {
+  host.bondedPeers = bondedPeers;
+  host.files["/profile"] = { (uint8_t)PROFILE_TERRAPIRATA };
+  setBatteryMv(3900);
+  setup();
+  run(100);
+  host.log.clear();
+}
+
+TEST(open_advertising_inside_the_pairing_window) {
+  start(PROFILE_TERRAPIRATA);
+  host.connected = false;
+  run(PAIRING_WINDOW_MS - 1000);
+  EXPECT(host.whitelistStarts == 0);
+  EXPECT(host.restartOnDisconnect);
+}
+
+TEST(bonded_only_advertising_once_the_window_closes) {
+  startIdle(1);
+  run(PAIRING_WINDOW_MS);
+  EXPECT(host.advStops == 1);
+  EXPECT(host.whitelistStarts == 1);
+  EXPECT(!host.restartOnDisconnect);
+}
+
+TEST(window_closing_during_a_connection_waits_for_the_disconnect) {
+  start(PROFILE_TERRAPIRATA);
+  run(PAIRING_WINDOW_MS);
+  EXPECT(host.whitelistStarts == 0);
+  EXPECT(!host.restartOnDisconnect);
+  host.connected = false;
+  run(10);
+  EXPECT(host.whitelistStarts == 1);
+}
+
+TEST(bonded_only_advertising_restarts_after_each_disconnect) {
+  startIdle(1);
+  run(PAIRING_WINDOW_MS);
+  host.connected = true;
+  run(1000);
+  host.connected = false;
+  run(10);
+  EXPECT(host.whitelistStarts == 2);
+}
+
+TEST(no_bonded_phone_stops_advertising) {
+  startIdle(0);
+  const int openStarts = host.openAdvStarts;
+  run(PAIRING_WINDOW_MS);
+  EXPECT(host.advStops == 1);
+  EXPECT(host.openAdvStarts == openStarts);
+  EXPECT(host.log.find("No bonded phone") != std::string::npos);
+}
+
+TEST(whitelist_failure_falls_back_to_open_advertising) {
+  host.whitelistFails = true;
+  startIdle(1);
+  const int openStarts = host.openAdvStarts;
+  run(PAIRING_WINDOW_MS);
+  EXPECT(host.openAdvStarts == openStarts + 1);
+  EXPECT(host.restartOnDisconnect);
+  host.connected = true;
+  run(1000);
+  host.pairCompleteCb(0, BLE_GAP_SEC_STATUS_SUCCESS);
+  EXPECT(host.bondRemoved);
+}
+
+TEST(bonded_phone_pairing_again_after_the_window_keeps_its_bond) {
+  startIdle(1);
+  run(PAIRING_WINDOW_MS);
+  host.connected = true;  // only a bonded phone gets through the whitelist
+  run(1000);
+  host.pairCompleteCb(0, BLE_GAP_SEC_STATUS_SUCCESS);
+  EXPECT(!host.bondRemoved);
+  EXPECT(!host.peerDisconnected);
+}
+
 // ---------- Runner ----------
 
 int main(int argc, char **argv) {
