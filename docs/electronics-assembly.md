@@ -260,7 +260,8 @@ J2 is the 3-pin socket, as in [step C6](#step-c6-sockets-back).
   - Use plenty of flux and a fine tip.
   - The gaps between pads are only about 0.3 mm. Check for bridges under magnification and clear them with braid.
 - **Then the four shell tabs** in their plated slots, from either side. They sit on the ground pour and need heat: use the hottest or biggest tip, and give each one a few seconds.
-- **Leave the gasket off.** The USBTJ-06 gasket, the potting and the LED window come in the [mechanical assembly](mechanical-concept.md#assembly), step 2.
+- **Leave the gasket off.** The USBTJ-06 gasket and the LED window come in the [mechanical assembly](mechanical-concept.md#assembly), step 2. The receptacle is potted only if the leak test fails.
+- **Water drop check.** Once the board is clean, hold it with the receptacle's opening up and fill the opening with a drop of water. After 30 minutes, look at the back of the receptacle under magnification. Damp there means the receptacle lets water through, and it will need potting. This is not as hard a test as being under water: the leak test still decides.
 
 ### Step U4: charge LED
 

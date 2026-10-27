@@ -132,7 +132,7 @@ def step_info(step, variant):
 TOL = 0.01          # mm^3; a larger overlap is a collision
 POSES = (0, 0.25, 0.5, 0.75, 1)
 CABLES = {"cable_joy", "cable_usb", "cable_bat"}
-VARIANTS = ("documented", "battery_first")
+VARIANTS = ("documented", "cover_off") if VERSION >= "0.34" else ("documented", "battery_first")
 NSTEPS = 11
 
 # Pairs that overlap in the final assembly by design, with the reason. Their final
@@ -170,7 +170,9 @@ FINDINGS = {"0.34": [
     "housing. The fitting in detail is in docs/videos/usbc-mount-v0.34.mp4.",
     "**Two-layer foam (V0.34).** The rim drops 0.5 mm and the battery cap's lip rises 0.5 mm "
     "(foam_comp 1.0 to 1.5 mm).",
-    "**Housing onto the stack (step 8), and the cover off (step 9).** Clear along X, as since V0.27.",
+    "**Battery before closing (steps 8 and 9).** The pouch goes into the housing and is plugged "
+    "into J5 while the housing is beside the stack, then the housing closes onto the stack along "
+    "X. The V0.33 order, with the cover off again for J5, is checked as the cover_off variant.",
     "**USB-C board path (step 2).** Upside down since V0.34, the board slides straight along "
     "the underside of its rib from the cavity opening: its edges pass above the upper "
     "cover-screw bosses at Y = 24, which they hit in V0.26 to V0.33. The video uses this path."],

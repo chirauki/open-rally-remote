@@ -48,7 +48,7 @@ class Task1(unittest.TestCase):
             self.assertLessEqual(av.stl_volume(out), TOL, tag)
 
 
-VARIANTS = ("documented", "battery_first")
+VARIANTS = av.VARIANTS
 
 
 class Seal(unittest.TestCase):

@@ -109,7 +109,7 @@ Estimated cost: about €170 for the first remote with bare boards, including sh
 | 1 | M2 × 4 grub screw | Retail | Joystick knob. |
 | 3 | M2 square nut, DIN 562 (4 × 1.2 mm) | Retail | One in the joystick knob, in the slot under it, for the grub screw. Two in the USB-C board's rib, for its screws (V0.34). |
 | 1 | Adhesive ePTFE vent label, Ø7.6–8 mm, breathable area at least Ø3 mm, for a Ø3 mm hole | Retail | Inside the battery cap (V0.28). Ø8 mm also clears the cap gasket and the housing (CAD check, 2026-10-20), with 0.9 mm to the opening's edges. |
-| 1 | Closed-cell foam sheet, EPDM or neoprene, self-adhesive, 1.5 mm thick, about 150 × 150 mm | Retail (sheet or wide roll) | Both seals and the three pads (V0.32), from one piece: the cover strip, cut 2 mm wide and about 25 cm long in all, on the housing rim (V0.30), and the battery cap gasket (V0.31), each two layers thick since V0.34, cut round a paper template printed at 100 % from `mechanical/cad/tools/cap-gasket-template.scad` (its 40 mm bar checks the scale). Soft grade; firm foam needs more screw force. The pads are layers of the same sheet: four on the battery cap, one on the rear wall, and six between the XIAO and the pouch, which hold the XIAO in its headers. |
+| 1 | Closed-cell foam sheet, EPDM or neoprene, self-adhesive, 1.5 mm thick, about 150 × 150 mm | Retail (sheet or wide roll) | Both seals and the three pads (V0.32), from one piece: the cover strip, cut 2 mm wide and about 25 cm long in all, on the housing rim (V0.30), and the battery cap gasket (V0.31), each two layers thick since V0.34, cut round the paper templates printed at 100 % from `mechanical/cad/tools/foam-templates-v0.34.scad`, which has every foam piece (its 40 mm bar checks the scale). Soft grade; firm foam needs more screw force. The pads are layers of the same sheet: four on the battery cap, one on the rear wall, and six between the XIAO and the pouch, which hold the XIAO in its headers. |
 
 Estimated cost: about €75.
 
@@ -179,7 +179,7 @@ Estimated cost: €6.49 for the spring.
 | Part | Use |
 |---|---|
 | Conformal coating, acrylic or silicone | The three boards and the XIAO. Keep it off the USB-C sockets, the JST sockets and headers, the switch actuators, the pouch and the vent. |
-| Clear two-part epoxy | Potting the back of the charging USB-C receptacle, filling the charge LED window, fixing the lock knob's nut on its screw and gluing the anti-rattle strips. One clear epoxy does all four. |
+| Clear two-part epoxy | Filling the charge LED window, potting the back of the charging USB-C receptacle if the leak test fails, fixing the lock knob's nut on its screw and gluing the anti-rattle strips. One clear epoxy does all four. |
 | No-clean flux (syringe), 0.5–0.8 mm flux-cored solder, 2 mm desoldering braid, isopropyl alcohol | Bare boards only: hand soldering, and cleaning the flux off before the conformal coating. |
 
 Estimated cost: about €31, plus €15–30 for the soldering supplies (not checked). Both last for many builds.

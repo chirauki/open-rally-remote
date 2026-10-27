@@ -116,7 +116,7 @@ Coste estimado: unos 170 € para el primer mando con placas desnudas, con enví
 | 1 | Prisionero M2 × 4 | Tienda | Pomo del joystick. |
 | 3 | Tuerca cuadrada M2, DIN 562 (4 × 1,2 mm) | Tienda | Una en el pomo del joystick, en la ranura de debajo, para el prisionero. Dos en el nervio de la placa USB-C, para sus tornillos (V0.34). |
 | 1 | Etiqueta de ventilación adhesiva de ePTFE, Ø7,6–8 mm, zona transpirable de al menos Ø3 mm, para un agujero de Ø3 mm | Tienda | Dentro de la tapa de la batería (V0.28). La de Ø8 mm también esquiva la junta de la tapa y la carcasa (comprobación en el CAD, 20-10-2026), con 0,9 mm hasta los bordes de la abertura. |
-| 1 | Lámina de espuma de célula cerrada, EPDM o neopreno, adhesiva, de 1,5 mm de grosor, unos 150 × 150 mm | Tienda (lámina o rollo ancho) | Las dos juntas y las tres almohadillas (V0.32), de una sola pieza: la tira de la tapa, cortada de 2 mm de ancho y unos 25 cm de largo en total, sobre el borde de la carcasa (V0.30), y la junta de la tapa de la batería (V0.31), cada una de dos capas desde la V0.34, cortada alrededor de una plantilla de papel impresa al 100 % desde `mechanical/cad/tools/cap-gasket-template.scad` (su barra de 40 mm comprueba la escala). De grado blando; la espuma dura necesita más fuerza de los tornillos. Las almohadillas son capas de la misma lámina: cuatro en la tapa de la batería, una en la pared trasera y seis entre la XIAO y la batería, que sujetan la XIAO en sus zócalos. |
+| 1 | Lámina de espuma de célula cerrada, EPDM o neopreno, adhesiva, de 1,5 mm de grosor, unos 150 × 150 mm | Tienda (lámina o rollo ancho) | Las dos juntas y las tres almohadillas (V0.32), de una sola pieza: la tira de la tapa, cortada de 2 mm de ancho y unos 25 cm de largo en total, sobre el borde de la carcasa (V0.30), y la junta de la tapa de la batería (V0.31), cada una de dos capas desde la V0.34, cortadas alrededor de las plantillas de papel impresas al 100 % desde `mechanical/cad/tools/foam-templates-v0.34.scad`, que tiene todas las piezas de espuma (su barra de 40 mm comprueba la escala). De grado blando; la espuma dura necesita más fuerza de los tornillos. Las almohadillas son capas de la misma lámina: cuatro en la tapa de la batería, una en la pared trasera y seis entre la XIAO y la batería, que sujetan la XIAO en sus zócalos. |
 
 Coste estimado: unos 75 €.
 
@@ -189,7 +189,7 @@ Coste estimado: 6,49 € por el muelle.
 | Pieza | Uso |
 |---|---|
 | Barniz de protección, acrílico o de silicona | Las tres placas y la XIAO. Que no llegue a los conectores USB-C, a los conectores JST y los zócalos, a los actuadores de los interruptores, a la batería ni a la ventilación. |
-| Epoxi transparente de dos componentes | Rellenar la parte trasera del receptáculo USB-C de carga, rellenar la ventana del LED de carga, fijar la tuerca del pomo del cierre en su tornillo y pegar las tiras antivibración. Un solo epoxi transparente sirve para las cuatro cosas. |
+| Epoxi transparente de dos componentes | Rellenar la ventana del LED de carga, rellenar la parte trasera del receptáculo USB-C de carga si falla la prueba de estanqueidad, fijar la tuerca del pomo del cierre en su tornillo y pegar las tiras antivibración. Un solo epoxi transparente sirve para las cuatro cosas. |
 | Flux sin limpieza (jeringa), estaño con flux de 0,5–0,8 mm, malla desoldadora de 2 mm, alcohol isopropílico | Solo para placas desnudas: soldar a mano y limpiar el flux antes del barniz. |
 
 Coste estimado: unos 31 €, más 15–30 € del material de soldadura (sin comprobar). Los dos duran muchos montajes.

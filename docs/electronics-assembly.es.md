@@ -269,7 +269,8 @@ J2 es el conector de 3 pines; se suelda como en el paso C6.
   - Usa mucho flux y una punta fina.
   - Entre pads solo hay unos 0,3 mm. Busca puentes con aumento y quítalos con la malla.
 - **Después las cuatro patas de la carcasa**, en sus ranuras metalizadas, desde cualquier cara. Están sobre el plano de masa y necesitan calor: usa la punta más caliente o más grande y dale unos segundos a cada una.
-- **No pongas la junta todavía.** La junta USBTJ-06, el relleno de epoxi y la ventana del LED van en el [montaje mecánico](mechanical-concept.es.md#assembly), paso 2.
+- **No pongas la junta todavía.** La junta USBTJ-06 y la ventana del LED van en el [montaje mecánico](mechanical-concept.es.md#assembly), paso 2. El receptáculo solo se rellena de epoxi si falla la prueba de estanqueidad.
+- **Prueba de la gota de agua.** Con la placa limpia, sujétala con la boca del receptáculo hacia arriba y llena la boca con una gota de agua. Pasados 30 minutos, mira la parte de atrás del receptáculo con aumento. Si ahí hay humedad, el receptáculo deja pasar agua y habrá que rellenarlo. No es una prueba tan dura como estar bajo el agua: la prueba de estanqueidad sigue siendo la que decide.
 
 ### Paso U4: LED de carga
 

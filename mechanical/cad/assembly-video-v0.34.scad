@@ -5,7 +5,7 @@
 //
 //   step     1..11, the assembly step
 //   u        0..1 within the step
-//   variant  "documented" or "battery_first" (the open order of steps 8 and 9)
+//   variant  "documented" or "cover_off" (V0.34; up to V0.33 "battery_first": the other order of steps 8 and 9)
 //   red      part names drawn in red (collisions)
 //   mode     "pose" (everything), "only" (target alone), "others" (all placed but target),
 //            "info" (echo the step data), "none" (draw nothing; for wrapper files)
@@ -91,25 +91,27 @@ CAM_STACK = cam([-30, 5, zc], 300, 22, 270);
 CAM_BOTTOM = cam([-26, -50, zc], 145, 20, 190);   // V0.28: sees the cap's inner face and the vent label
 CAM_KNOB = cam([joy_p[0], joy_p[1], zc], 250, -40, 200);
 
-step8 = variant == "battery_first" ? [5, CAM_STACK, [
-        ["move", ["pouch"], H+PO, H, 0.05, 0.35],
-        ["move", concat(HG, ["pouch"]), H, O, 0.4, 0.75],
-        ["show", ["cable_usb", "cable_bat"], 0.8],
-        ["mark", "cover_screws", "cover", 0.8, 1]], ["housing"]]
-    : [5, CAM_STACK, [
+// V0.34: the documented order puts the pouch in, and plugs it into J5, while the housing is
+// still beside the stack (step 8), then closes the housing (step 9). "cover_off" is the V0.33
+// order: housing on and screwed first, then the pouch, with the cover off again for J5.
+step8 = variant == "cover_off" ? [5, CAM_STACK, [
         ["move", HG, H, O, 0.05, 0.6],
         ["show", ["cable_usb"], 0.65],
-        ["mark", "cover_screws", "cover", 0.7, 1]], ["housing"]];
+        ["mark", "cover_screws", "cover", 0.7, 1]], ["housing"]]
+    : [5, CAM_STACK, [
+        ["move", ["pouch"], H+PO, H, 0.05, 0.45]], ["housing"]];
 
-step9 = variant == "battery_first" ? [1.5, CAM_STACK, [], ["housing"]]
-    : [7, CAM_STACK, [
-        // documented: the pouch goes in with the cover on, then the cover comes off for J5
+step9 = variant == "cover_off" ? [7, CAM_STACK, [
         ["move", ["pouch"], PO, O, 0.05, 0.35],
         ["hide", ["cable_usb"], 0.38],
         ["move", concat(HG, ["pouch"]), O, H, 0.4, 0.6],
         ["move", concat(HG, ["pouch"]), H, O, 0.65, 0.85],
         ["show", ["cable_usb", "cable_bat"], 0.88],
-        ["mark", "cover_screws", "cover", 0.88, 1]], ["housing"]];
+        ["mark", "cover_screws", "cover", 0.88, 1]], ["housing"]]
+    : [5, CAM_STACK, [
+        ["move", concat(HG, ["pouch"]), H, O, 0.05, 0.6],
+        ["show", ["cable_usb", "cable_bat"], 0.65],
+        ["mark", "cover_screws", "cover", 0.7, 1]], ["housing"]];
 
 timeline = [
     // 1 clear the screw pilots in the housing bosses (V0.29: no inserts)
@@ -184,7 +186,8 @@ function part_state(n, s, uu) = fold_state(part_events(n, min(s+1, len(timeline)
 
 module mark_shape(m) {
     if (m == "inserts") at_cover_screws() translate([0, 0, 2.5]) cylinder(d=3.6, h=4, $fn=16);
-    else if (m == "epoxy") at_usbc() translate([-5, -3, usbc_panel_t+0.5]) cube([10, 6, 4]);
+    // V0.34: at the receptacle's back end, where its contacts meet the board (V0.33 drew it at the front)
+    else if (m == "epoxy") at_usbc() translate([-usbc_body[0]/2-0.5, -usbc_axis_h, usbc_panel_t-usbc_pocket_depth+usbc_gasket_t-usbc_squeeze+usbc_body[2]-usbc_nose[2]-1.0]) cube([usbc_body[0]+1, usbc_body[1]+0.5, 2.5]);
     else if (m == "rear_foam") translate([pouch_x1, pouch_y0, axial_width/2-8]) cube([0.8, pouch_l, 16]);
     else if (m == "cover_screws") at_cover_screws() translate([0, 0, -2]) cylinder(d=3.8, h=2, $fn=16);
     else if (m == "cap_screws") for (s=cap_screws) translate([s[0], cap_y-2.5, s[1]]) rotate([-90, 0, 0]) cylinder(d=3.8, h=2, $fn=16);
