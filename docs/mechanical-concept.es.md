@@ -675,6 +675,8 @@ Para programarlo por USB, saca el mando de la base y quítale la tapa de control
 
 [`complete-remote-v0.34-assembly.mp4`](videos/complete-remote-v0.34-assembly.mp4) muestra los pasos 1 a 11 del mando de arriba, un capítulo por paso (56 s; QuickTime y VLC muestran los capítulos). Es para revisar el diseño, no una guía de montaje. Las piezas que chocan en su recorrido se ven en rojo. Los cables no están animados: cada uno aparece en su sitio cuando sus dos extremos están colocados. El vídeo sigue el orden documentado de los pasos 8 y 9. Es anterior al orden de los pasos 2 y 5 del 28-10-2026: conecta J2 y J4 con las placas montadas y pone la tira de espuma sobre el borde de la carcasa.
 
+El vídeo para quien monta es [`guide-v0.34.es.mp4`](videos/guide-v0.34.es.mp4) ([inglés](videos/guide-v0.34.mp4)): todos los pasos del mando y de la base y la colocación, acción por acción, con la tornillería, las herramientas y un texto, en el orden del 28-10-2026 (unos 4,5 minutos). Lo genera `mechanical/cad/tools/guide_video.py` a partir de `guide-video-v0.34.scad`. No se regenera con cada cambio de diseño, así que compruébalo con los pasos de arriba.
+
 [`assembly-video-v0.34-checks.md`](assembly-video-v0.34-checks.md) es la comprobación de recorrido que hay detrás. En la V0.34 no encuentra ninguna colisión, como en la [V0.33](assembly-video-v0.33-checks.md) y la [V0.31](assembly-video-v0.31-checks.md). Cada movimiento se comprueba en cinco posiciones contra las piezas ya colocadas, y también cada pareja de piezas en la posición final. Se comprueban los dos órdenes de los pasos 8 y 9. Resultados:
 
 - La carcasa cierra sobre el apilado a lo largo de X (desde la V0.27; en la [V0.26](assembly-video-v0.26-checks.md) chocaba con la placa del joystick).

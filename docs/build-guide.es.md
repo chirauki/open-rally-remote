@@ -129,7 +129,7 @@ Carga el firmware desde Arduino IDE 2 ([README del firmware](../firmware/xiao-nr
 <a id="remote-assembly"></a>
 ## Montaje del mando
 
-Sigue el [Montaje](mechanical-concept.es.md#assembly), pasos 1 a 11. El [vídeo de montaje](videos/complete-remote-v0.34-assembly.mp4) enseña el orden. El [vídeo de la placa USB-C](videos/usbc-mount-v0.34.es.mp4) enseña el paso 2 en detalle. Avisos:
+Sigue el [Montaje](mechanical-concept.es.md#assembly), pasos 1 a 11. El [vídeo guía](videos/guide-v0.34.es.mp4) enseña cada paso, acción por acción, con la tornillería y las herramientas, y también la base y la colocación. El [vídeo de la placa USB-C](videos/usbc-mount-v0.34.es.mp4) enseña el paso 2 en detalle. Avisos:
 - **Placa USB-C (paso 2).** Empuja la placa hacia la pared hasta que su junta haga resistencia, y luego aprieta los dos tornillos. La junta fija su propia compresión. La fuerza con que hay que empujar no está medida.
 - **Epoxi en el conector.** Encapsula la parte de atrás del conector solo si la prueba de estanqueidad muestra agua entrando por él. Hazlo sobre la mesa, antes de meter la placa (paso 2). El encapsulado hace que la placa no se pueda reparar.
 - **Batería (paso 8).** Enchufa la bolsa en J5 antes de cerrar la carcasa. El cable debería llegar con la carcasa a unos 14 mm de su sitio; es una estimación. Comprueba antes la polaridad.

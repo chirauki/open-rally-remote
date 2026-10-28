@@ -654,6 +654,8 @@ To program over USB, remove the remote from the base and its cover. Take the kno
 
 [`complete-remote-v0.34-assembly.mp4`](videos/complete-remote-v0.34-assembly.mp4) shows the remote steps 1–11 above, one chapter per step (56 s; QuickTime and VLC list the chapters). It is for design review, not a builder's guide. Parts that collide on their path show in red. Cables are not animated: each appears in place once both its ends are fitted. The video shows the documented order of steps 8 and 9. It predates the 2026-10-28 order of steps 2 and 5: it plugs J2 and J4 with the boards in place and puts the foam strip on the housing rim.
 
+The builder's video is [`guide-v0.34.mp4`](videos/guide-v0.34.mp4) ([Spanish](videos/guide-v0.34.es.mp4)): every remote and base step and the fitting, action by action, with the hardware, the tools and a caption, in the 2026-10-28 order (about 4.5 minutes). `mechanical/cad/tools/guide_video.py` makes it from `guide-video-v0.34.scad`. It is not regenerated with every design change, so check it against the steps above.
+
 [`assembly-video-v0.34-checks.md`](assembly-video-v0.34-checks.md) is the path check behind it. In V0.34 it finds no collision, as in [V0.33](assembly-video-v0.33-checks.md) and [V0.31](assembly-video-v0.31-checks.md). Each move is checked at five poses against the parts in place, and every pair of parts in the final pose. Both orders of steps 8 and 9 are checked. Findings:
 
 - The housing closes onto the stack along X (since V0.27; in [V0.26](assembly-video-v0.26-checks.md) it hit the joystick board).

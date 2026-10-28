@@ -123,7 +123,7 @@ Upload the firmware from Arduino IDE 2 ([firmware README](../firmware/xiao-nrf52
 
 ## Remote assembly
 
-Follow [Assembly](mechanical-concept.md#assembly), steps 1 to 11. The [assembly video](videos/complete-remote-v0.34-assembly.mp4) shows the order. The [USB-C fitting video](videos/usbc-mount-v0.34.mp4) shows step 2 in detail. Catches:
+Follow [Assembly](mechanical-concept.md#assembly), steps 1 to 11. The [guide video](videos/guide-v0.34.mp4) shows every step, action by action, with the hardware and the tools, and the base and the fitting too. The [USB-C fitting video](videos/usbc-mount-v0.34.mp4) shows step 2 in detail. Catches:
 - **USB-C board (step 2).** Push the board toward the wall until its gasket resists, then tighten the two screws. The gasket sets its own squeeze. How hard to push is not measured.
 - **Epoxy on the receptacle.** Pot the back of the receptacle only if the leak test shows water coming through it. Do it on the bench, before the board goes in (step 2). Potting makes the board unrepairable.
 - **Battery (step 8).** Plug the pouch into J5 before you close the housing. The lead should reach with the housing about 14 mm off its seat; this is an estimate. Check the polarity first.
