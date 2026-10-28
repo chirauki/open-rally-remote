@@ -66,6 +66,7 @@ Haz todos los pedidos a la vez. Algunos vienen de fuera de la UE y tardan semana
 | Parche de ventilación | ePTFE adhesivo, Ø7.6–8 mm, zona transpirable de al menos Ø3 mm | AliExpress, 100 por 15,89 € más unos 3 € de cargos de importación | No se encontraron sueltos. La protección IP67 es lo que dice el vendedor. |
 | Muelle del cierre | 0,5 × 5 × 10 mm, inoxidable | Amazon.es, 5 por 6,49 € | Uno de 6 mm de diámetro exterior no cabe. |
 | Consumibles | Barniz de protección, epoxi transparente de dos componentes; para placas sin montar, flux, estaño de 0,5 mm, malla desoldadora y alcohol isopropílico | Plastik 70 22,27 €, epoxi fischer 8,86 € (Amazon.es) | |
+| Fijatornillos, opcional | Fuerza media (azul), por ejemplo Loctite 243 | RS, 5 ml, unos 9,38 € con IVA (sin confirmar) | Para la rosca del cierre; el epoxi también sirve, pero no se puede deshacer. |
 | Cámara de bici | Butilo, unos 0,8–1,2 mm de pared | Una vieja | Para las tiras antivibración de la base y, si se quiere, su forro de la abrazadera. |
 
 **Placas montadas.** JLCPCB monta un mínimo de 2 de cada placa ([pedir las placas](bom.es.md#ordering-the-boards)). Presupuestos del 15-10-2026, sin envío ni cargos de importación:
@@ -130,7 +131,7 @@ Carga el firmware desde Arduino IDE 2 ([README del firmware](../firmware/xiao-nr
 
 Sigue el [Montaje](mechanical-concept.es.md#assembly), pasos 1 a 11. El [vídeo de montaje](videos/complete-remote-v0.34-assembly.mp4) enseña el orden. El [vídeo de la placa USB-C](videos/usbc-mount-v0.34.es.mp4) enseña el paso 2 en detalle. Avisos:
 - **Placa USB-C (paso 2).** Empuja la placa hacia la pared hasta que su junta haga resistencia, y luego aprieta los dos tornillos. La junta fija su propia compresión. La fuerza con que hay que empujar no está medida.
-- **Epoxi en el conector.** Encapsula la parte de atrás del conector solo si la prueba de estanqueidad muestra agua entrando por él. El encapsulado hace que la placa no se pueda reparar.
+- **Epoxi en el conector.** Encapsula la parte de atrás del conector solo si la prueba de estanqueidad muestra agua entrando por él. Hazlo sobre la mesa, antes de meter la placa (paso 2). El encapsulado hace que la placa no se pueda reparar.
 - **Batería (paso 8).** Enchufa la bolsa en J5 antes de cerrar la carcasa. El cable debería llegar con la carcasa a unos 14 mm de su sitio; es una estimación. Comprueba antes la polaridad.
 - **Tornillos de la tapa (paso 9).** Se hacen su propia rosca. Atorníllalos despacio la primera vez y apriétalos en cruz.
 - **Holgura del pomo (paso 11).** La holgura entre el cubo del pomo y la tapa fija los dos topes del pomo, y solo vale de 0,70 a 1,08 mm. Por debajo de 0,70 mm, el pomo para el empuje antes de que disparen todos los interruptores del centro. Por encima de 1,08 mm, el disco del joystick toca su placa antes de que el borde del pomo toque la tapa, así que una inclinación fuerte carga el disco y el pasador, y el prisionero agarra menos pasador. Mide la tarjeta y el papel con el calibre: de 0,80 a 1,0 mm. La tarjeta sola, de 0,76 mm, deja poco margen.
@@ -138,7 +139,7 @@ Sigue el [Montaje](mechanical-concept.es.md#assembly), pasos 1 a 11. El [vídeo 
 <a id="base-on-the-bike"></a>
 ## Base en la moto
 
-Sigue los pasos de la base en el [Montaje](mechanical-concept.es.md#assembly). La tuerca del pomo del cierre se fija con epoxi: comprueba el tirón y la suelta antes de pegarla. En un manillar de 22,2 mm, pon primero las dos mitades del casquillo alrededor del manillar.
+Sigue los pasos de la base en el [Montaje](mechanical-concept.es.md#assembly). La rosca del cierre se fija con fijatornillos de fuerza media, o con el epoxi transparente si no tienes: comprueba antes el tirón y la suelta. El fijatornillos se suelta con herramientas de mano; el epoxi no. En un manillar de 22,2 mm, pon primero las dos mitades del casquillo alrededor del manillar.
 
 Para poner el mando, tira del pomo del cierre, apoya el mando en la plataforma 9 mm por debajo de su posición de uso y deslízalo hacia arriba hasta que el cierre haga clic.
 

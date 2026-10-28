@@ -161,7 +161,7 @@ The full list is in the [materials study](materials-study.md#quotes). Orders fro
 | 1 | M3 × 20 socket-head screw, ISO 4762 | Retail | Its head is the lock pin. V0.31 asked for M3 × 22, which is not a standard length. |
 | 1 | Compression spring 0.5 × 5 × 10 mm, stainless (wire × outside diameter × free length) | Retail (spring assortments; cut a longer one to length if needed) | Lock. About 4–4.7 N locked and 6–7 N pulled, estimated from the spring measured below. |
 | 2 | Ø1.5 × 4 mm steel dowel pin, ISO 8734 | Retail | Quarter-turn lock knob. |
-| 1 | M3 nut, ISO 4032 | Retail | Lock knob, in its hex pocket; fixed on the thread with the clear epoxy (V0.32: no lock nut). |
+| 1 | M3 nut, ISO 4032 | Retail | Lock knob, in its hex pocket; fixed on the thread with medium-strength threadlocker, or with the clear epoxy (V0.32: no lock nut). |
 | 1 | Bike inner tube, butyl, about 0.8–1.2 mm wall; an old one will do | Retail or a used tube | Two anti-rattle strips, 4 × 50 mm, glued into the platform pockets with the clear epoxy. Optionally the two liner halves, 25 × 43 mm (V0.33), instead of the printed TPU. Measure the wall and set `strip_t` (and `liner_radial`) before printing the base front. |
 | 1 | Base front | Base, rigid; `print_base_front` | One part for both bar sizes (V0.28). 25 mm wide since V0.33. |
 | 1 | Base cap | Base, rigid; `print_base_cap` | |
@@ -181,13 +181,15 @@ Estimated cost: €6.49 for the spring.
 | Part | Use |
 |---|---|
 | Conformal coating, acrylic or silicone | The three boards and the XIAO. Keep it off the USB-C sockets, the JST sockets and headers, the switch actuators, the pouch and the vent. |
-| Clear two-part epoxy | Filling the charge LED window, potting the back of the charging USB-C receptacle if the leak test fails, fixing the lock knob's nut on its screw and gluing the anti-rattle strips. One clear epoxy does all four. |
+| Clear two-part epoxy | Filling the charge LED window, potting the back of the charging USB-C receptacle if the leak test fails, fixing the lock knob's nut on its screw if there is no threadlocker, and gluing the anti-rattle strips. One clear epoxy does all four. |
+| Medium-strength threadlocker (blue), optional | Fixing the lock knob's nut on its screw, so the setting can be undone. Keep it off the printed knob: Henkel's Loctite 243 data sheet (2008 edition) does not recommend it on plastics, because it can stress-crack thermoplastics. |
 | No-clean flux (syringe), 0.5–0.8 mm flux-cored solder, 2 mm desoldering braid, isopropyl alcohol | Bare boards only: hand soldering, and cleaning the flux off before the conformal coating. |
 
-Estimated cost: about €31, plus €15–30 for the soldering supplies (not checked). Both last for many builds.
+Estimated cost: about €31, plus €15–30 for the soldering supplies (not checked) and €9.38 for the optional threadlocker. They last for many builds.
 
 - Acrylic conformal coating: Kontakt Chemie Plastik 70, 400 ml aerosol, €22.27 on [Amazon.es](https://www.amazon.es/dp/B00VATOHMC) on 2026-10-20; or 200 ml, €21.11 with VAT at [RS Netherlands](https://nl.rs-online.com/web/p/conformal-coatings/0714462).
 - Clear two-part epoxy: fischer, 25 ml, €8.86 on [Amazon.es](https://www.amazon.es/dp/B07TS8NX5K) on 2026-10-20.
+- Threadlocker: Loctite 243, 5 ml, €9.38 with VAT at [RS Benelux](https://befr.rs-online.com/web/p/thread-lock/4423413), from a search listing on 2026-10-28; the page itself was not opened. Bike shops and hardware stores sell it too.
 
 ## Ordering notes
 

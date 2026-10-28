@@ -64,6 +64,7 @@ Place all the orders at once. Some come from outside the EU and take weeks. Orde
 | Vent label | Adhesive ePTFE, Ø7.6–8 mm, breathable area at least Ø3 mm | AliExpress, 100 for €15.89 plus about €3 import charges | No single labels found. The IP67 rating is the seller's claim. |
 | Lock spring | 0.5 × 5 × 10 mm, stainless | Amazon.es, 5 for €6.49 | A 6 mm outside diameter does not fit. |
 | Consumables | Conformal coating, clear two-part epoxy; for bare boards, flux, 0.5 mm solder, braid and isopropyl alcohol | Plastik 70 €22.27, fischer epoxy €8.86 (Amazon.es) | |
+| Threadlocker, optional | Medium strength (blue), for example Loctite 243 | RS, 5 ml, about €9.38 with VAT (not confirmed) | For the lock's thread; the epoxy also works, but cannot be undone. |
 | Bike inner tube | Butyl, about 0.8–1.2 mm wall | An old one | For the base's anti-rattle strips and, optionally, its bar liner. |
 
 **Assembled boards instead.** JLCPCB assembles at least 2 of each board ([ordering the boards](bom.md#ordering-the-boards)). Quotes of 2026-10-15, before shipping and import charges:
@@ -124,14 +125,14 @@ Upload the firmware from Arduino IDE 2 ([firmware README](../firmware/xiao-nrf52
 
 Follow [Assembly](mechanical-concept.md#assembly), steps 1 to 11. The [assembly video](videos/complete-remote-v0.34-assembly.mp4) shows the order. The [USB-C fitting video](videos/usbc-mount-v0.34.mp4) shows step 2 in detail. Catches:
 - **USB-C board (step 2).** Push the board toward the wall until its gasket resists, then tighten the two screws. The gasket sets its own squeeze. How hard to push is not measured.
-- **Epoxy on the receptacle.** Pot the back of the receptacle only if the leak test shows water coming through it. Potting makes the board unrepairable.
+- **Epoxy on the receptacle.** Pot the back of the receptacle only if the leak test shows water coming through it. Do it on the bench, before the board goes in (step 2). Potting makes the board unrepairable.
 - **Battery (step 8).** Plug the pouch into J5 before you close the housing. The lead should reach with the housing about 14 mm off its seat; this is an estimate. Check the polarity first.
 - **Cover screws (step 9).** They cut their own thread. Drive them slowly the first time and tighten in a cross pattern.
 - **Knob gap (step 11).** The gap between the knob's hub and the cover sets both knob stops, and only 0.70–1.08 mm works. Under 0.70 mm the knob stops the push before every centre switch has tripped. Over 1.08 mm the joystick disc meets its plate before the knob rim meets the cover, so a hard tilt loads the disc and the pin, and the grub screw holds less of the pin. Measure the card and paper with the caliper: 0.80–1.0 mm. The card alone, 0.76 mm, leaves too little margin.
 
 ## Base on the bike
 
-Follow the base steps in [Assembly](mechanical-concept.md#assembly). The lock knob's nut is fixed with epoxy: check the pull and the release before you glue it. On a 22.2 mm bar, fit the sleeve halves round the bar first.
+Follow the base steps in [Assembly](mechanical-concept.md#assembly). The lock's thread is fixed with medium-strength threadlocker, or with the clear epoxy if you have none: check the pull and the release first. Threadlocker can be undone with hand tools; epoxy cannot. On a 22.2 mm bar, fit the sleeve halves round the bar first.
 
 To fit the remote, pull the lock knob, press the remote onto the platform 9 mm below its working position, and slide it up until the lock clicks in.
 

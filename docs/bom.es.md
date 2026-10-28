@@ -170,7 +170,7 @@ La lista completa está en el [estudio de materiales](materials-study.es.md#quot
 | 1 | Tornillo de cabeza cilíndrica M3 × 20, ISO 4762 | Tienda | Su cabeza es el pestillo del cierre. La V0.31 pedía M3 × 22, que no es un largo estándar. |
 | 1 | Muelle de compresión 0,5 × 5 × 10 mm, inoxidable (hilo × diámetro exterior × largo libre) | Tienda (surtidos de muelles; corta uno más largo si hace falta) | Cierre. Unos 4–4,7 N cerrado y 6–7 N al tirar, estimados con el muelle medido más abajo. |
 | 2 | Pasador de acero de Ø1,5 × 4 mm, ISO 8734 | Tienda | Pomo del cierre de cuarto de vuelta. |
-| 1 | Tuerca M3, ISO 4032 | Tienda | Pomo del cierre, en su alojamiento hexagonal; fijada en la rosca con el epoxi transparente (V0.32: sin contratuerca). |
+| 1 | Tuerca M3, ISO 4032 | Tienda | Pomo del cierre, en su alojamiento hexagonal; fijada en la rosca con fijatornillos de fuerza media, o con el epoxi transparente (V0.32: sin contratuerca). |
 | 1 | Cámara de bicicleta, butilo, pared de unos 0,8–1,2 mm; sirve una vieja | Tienda o una cámara usada | Dos tiras antivibración de 4 × 50 mm, pegadas en los alojamientos de la plataforma con el epoxi transparente. Opcionalmente las dos mitades del forro, de 25 × 43 mm (V0.33), en vez del TPU impreso. Mide la pared y ajusta `strip_t` (y `liner_radial`) antes de imprimir la parte delantera de la base. |
 | 1 | Parte delantera de la base | Base, rígido; `print_base_front` | Una sola pieza para los dos diámetros de manillar (V0.28). 25 mm de ancho desde la V0.33. |
 | 1 | Tapa de la base | Base, rígido; `print_base_cap` | |
@@ -191,13 +191,15 @@ Coste estimado: 6,49 € por el muelle.
 | Pieza | Uso |
 |---|---|
 | Barniz de protección, acrílico o de silicona | Las tres placas y la XIAO. Que no llegue a los conectores USB-C, a los conectores JST y los zócalos, a los actuadores de los interruptores, a la batería ni a la ventilación. |
-| Epoxi transparente de dos componentes | Rellenar la ventana del LED de carga, rellenar la parte trasera del receptáculo USB-C de carga si falla la prueba de estanqueidad, fijar la tuerca del pomo del cierre en su tornillo y pegar las tiras antivibración. Un solo epoxi transparente sirve para las cuatro cosas. |
+| Epoxi transparente de dos componentes | Rellenar la ventana del LED de carga, rellenar la parte trasera del receptáculo USB-C de carga si falla la prueba de estanqueidad, fijar la tuerca del pomo del cierre en su tornillo si no hay fijatornillos, y pegar las tiras antivibración. Un solo epoxi transparente sirve para las cuatro cosas. |
+| Fijatornillos de fuerza media (azul), opcional | Fijar la tuerca del pomo del cierre en su tornillo, de forma que el ajuste se pueda deshacer. Que no toque el pomo impreso: la hoja de datos del Loctite 243 de Henkel (edición de 2008) no lo recomienda sobre plásticos, porque puede agrietar los termoplásticos. |
 | Flux sin limpieza (jeringa), estaño con flux de 0,5–0,8 mm, malla desoldadora de 2 mm, alcohol isopropílico | Solo para placas desnudas: soldar a mano y limpiar el flux antes del barniz. |
 
-Coste estimado: unos 31 €, más 15–30 € del material de soldadura (sin comprobar). Los dos duran muchos montajes.
+Coste estimado: unos 31 €, más 15–30 € del material de soldadura (sin comprobar) y 9,38 € del fijatornillos opcional. Todos duran muchos montajes.
 
 - Barniz acrílico: Kontakt Chemie Plastik 70, aerosol de 400 ml, 22,27 € en [Amazon.es](https://www.amazon.es/dp/B00VATOHMC) el 20-10-2026; o 200 ml, 21,11 € con IVA en [RS Países Bajos](https://nl.rs-online.com/web/p/conformal-coatings/0714462).
 - Epoxi transparente de dos componentes: fischer, 25 ml, 8,86 € en [Amazon.es](https://www.amazon.es/dp/B07TS8NX5K) el 20-10-2026.
+- Fijatornillos: Loctite 243, 5 ml, 9,38 € con IVA en [RS Benelux](https://befr.rs-online.com/web/p/thread-lock/4423413), según un resultado de búsqueda del 28-10-2026; la página no se abrió. También lo venden tiendas de bicis y ferreterías.
 
 <a id="ordering-notes"></a>
 ## Notas de pedido
