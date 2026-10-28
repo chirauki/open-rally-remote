@@ -25,7 +25,8 @@ Guidance for AI assistants working in this repository. The project state lives i
   - `mechanical-concept.md`: the version title, "Changes from V0.N", the checks table, the assembly steps and the open unknowns;
   - `README.md` status lines;
   - `bom.md` parts and cost estimates;
-  - new renders in `docs/images/`.
+  - new renders in `docs/images/`;
+  - the guide video's captions, steps and tools card (`mechanical/cad/tools/guide_video.py` and its `guide-video-v0.N.scad`) when an assembly step, its order, a part or a tool changes. Check with `--preview`. Re-render the MP4s in `docs/videos/` only when asked or at the end of a build, after review.
 - **Prefer retail parts** that individual makers can buy (for example on Amazon) over distributor-only parts. Printed parts are ordered from a print service. Do not plan around test prints.
 - **No personal build status in the repo.** Do not record which parts a contributor has bought or received.
 
