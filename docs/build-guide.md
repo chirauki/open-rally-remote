@@ -35,7 +35,8 @@ The first remote and base cost about €470–510, without the bench prototype p
   - a sharp knife and a steel ruler, for the foam;
   - 1.6 mm and 3.4 mm drills, turned by hand;
   - a straight 1.3 mm hex driver with about 75 mm of reach, for the USB-C board screws;
-  - a 0.9 mm hex key, for the knob's grub screw.
+  - a 0.9 mm hex key, for the knob's grub screw;
+  - a 0.9 mm gauge to set the knob: a bank card (0.76 mm) and one sheet of 80 g/m² paper, with a slot cut in both for the pin.
 
   The two hex sizes follow from the screw standards (ISO 7380 M2 and DIN 913 M2). They are not checked on the bought screws yet.
 
@@ -126,6 +127,7 @@ Follow [Assembly](mechanical-concept.md#assembly), steps 1 to 11. The [assembly 
 - **Epoxy on the receptacle.** Pot the back of the receptacle only if the leak test shows water coming through it. Potting makes the board unrepairable.
 - **Battery (step 8).** Plug the pouch into J5 before you close the housing. The lead should reach with the housing about 14 mm off its seat; this is an estimate. Check the polarity first.
 - **Cover screws (step 9).** They cut their own thread. Drive them slowly the first time and tighten in a cross pattern.
+- **Knob gap (step 11).** The gap between the knob's hub and the cover sets both knob stops, and only 0.70–1.08 mm works. Under 0.70 mm the knob stops the push before every centre switch has tripped. Over 1.08 mm the joystick disc meets its plate before the knob rim meets the cover, so a hard tilt loads the disc and the pin, and the grub screw holds less of the pin. Measure the card and paper with the caliper: 0.80–1.0 mm. The card alone, 0.76 mm, leaves too little margin.
 
 ## Base on the bike
 

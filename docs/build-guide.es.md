@@ -36,7 +36,8 @@ El primer mando con su base cuesta unos 470–510 €, sin las piezas del protot
   - un cúter afilado y una regla metálica, para la espuma;
   - brocas de 1,6 mm y 3,4 mm, giradas a mano;
   - un destornillador hexagonal recto de 1,3 mm con unos 75 mm de alcance, para los tornillos de la placa USB-C;
-  - una llave hexagonal de 0,9 mm, para el prisionero del pomo.
+  - una llave hexagonal de 0,9 mm, para el prisionero del pomo;
+  - una galga de 0,9 mm para colocar el pomo: una tarjeta bancaria (0,76 mm) y una hoja de papel de 80 g/m², con una ranura cortada en las dos para el pasador.
 
   Las dos medidas de hexágono salen de las normas de los tornillos (ISO 7380 M2 y DIN 913 M2). Todavía no se han comprobado en los tornillos comprados.
 
@@ -132,6 +133,7 @@ Sigue el [Montaje](mechanical-concept.es.md#assembly), pasos 1 a 11. El [vídeo 
 - **Epoxi en el conector.** Encapsula la parte de atrás del conector solo si la prueba de estanqueidad muestra agua entrando por él. El encapsulado hace que la placa no se pueda reparar.
 - **Batería (paso 8).** Enchufa la bolsa en J5 antes de cerrar la carcasa. El cable debería llegar con la carcasa a unos 14 mm de su sitio; es una estimación. Comprueba antes la polaridad.
 - **Tornillos de la tapa (paso 9).** Se hacen su propia rosca. Atorníllalos despacio la primera vez y apriétalos en cruz.
+- **Holgura del pomo (paso 11).** La holgura entre el cubo del pomo y la tapa fija los dos topes del pomo, y solo vale de 0,70 a 1,08 mm. Por debajo de 0,70 mm, el pomo para el empuje antes de que disparen todos los interruptores del centro. Por encima de 1,08 mm, el disco del joystick toca su placa antes de que el borde del pomo toque la tapa, así que una inclinación fuerte carga el disco y el pasador, y el prisionero agarra menos pasador. Mide la tarjeta y el papel con el calibre: de 0,80 a 1,0 mm. La tarjeta sola, de 0,76 mm, deja poco margen.
 
 <a id="base-on-the-bike"></a>
 ## Base en la moto
