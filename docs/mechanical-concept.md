@@ -353,7 +353,7 @@ The LCSC land pattern for the KSC222JLFS (C221728) puts its pads 0.95 mm outside
 - **Standoffs.** They move from (∓5.6, ±5.4) to (∓6.0, ±6.4) mm in the joystick frame, 0.55 mm clear of the switch pads.
 - **PCB outline.** A 20.6 × 22.4 mm rectangle with a 3.3 mm radius notch around each lower cover-screw boss. The boss ends reach 0.25 mm past the PCB front face, so the board must clear them. The CAD and the KiCad board use the same numbers.
 - **Rear zone.** 1.0 mm behind the whole board for solder joints, vias and screw heads, and 3.0 mm in the upper half and in the two side strips for the TVS diode (2.45 mm maximum), the PTC fuse and the soldered wires. The lower middle stays at 1.0 mm because a USB-C plug in the XIAO passes close behind it when the cover is off.
-- **PCB screws.** M2 × 8 button heads, at most Ø3.5 × 1.1 mm. A pan head (1.6 mm) would touch the 12 mm wide USB-C overmold envelope with the cover off.
+- **PCB screws.** M2 × 8 button heads, at most Ø3.5 × 1.5 mm. The bought heads measure about Ø3.5 × 1.3–1.4 mm, taller than the 1.1 mm in the model; on 2026-11-03 the joystick, control and USB-C board heads at 1.5 mm overlapped nothing more than at 1.1 mm. A pan head (1.6 mm) would touch the 12 mm wide USB-C overmold envelope with the cover off.
 - **Power input.** The 5 V input goes to the joystick PCB, through a PTC fuse and a TVS diode, and the PCB feeds the XIAO's 5V pin. In V0.24 that input comes from the charging USB-C receptacle instead of the bike cable.
 - **Firmware.** The specification now describes the four-switch chord as the centre press; D7 is unused. The diagnostic sketch implements the chord. (A separate centre switch on D7 stayed as a breadboard build option until firmware 0.11.1.)
 

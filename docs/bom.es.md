@@ -112,8 +112,8 @@ Coste estimado: unos 170 € para el primer mando con placas desnudas, con enví
 |---:|---|---|---|
 | 10 | Tornillo avellanado M2 × 10, ISO 10642 | Tienda | Tapa de controles, a través de la placa de botones (cara superior) y de la placa del joystick (cara inferior). Se hacen su propia rosca en pilotos de Ø1,6 mm en los tetones. |
 | 3 | Tornillo avellanado M2 × 8, ISO 10642 | Tienda | Tapa de la batería, en pilotos de Ø1,6 mm en la carcasa. |
-| 2 | Tornillo de cabeza abombada M2 × 8, cabeza de como mucho Ø3,5 × 1,1 mm (estilo ISO 7380) | Tienda | Placa del joystick a los separadores de la placa impresa del joystick. |
-| 4 | Tornillo de cabeza abombada M2 × 4, cabeza de como mucho Ø3,5 × 1,1 mm (estilo ISO 7380) | Tienda | Dos sujetan la placa de control a los separadores de la placa de botones (2,4 mm de rosca en un piloto de 3,7 mm; un M2 × 6 sobresaldría 0,7 mm por delante de la placa). Dos sujetan la placa USB-C a su nervio, en tuercas cuadradas (V0.34). |
+| 2 | Tornillo de cabeza abombada M2 × 8, cabeza de como mucho Ø3,5 × 1,5 mm (estilo ISO 7380) | Tienda | Placa del joystick a los separadores de la placa impresa del joystick. |
+| 4 | Tornillo de cabeza abombada M2 × 4, cabeza de como mucho Ø3,5 × 1,5 mm (estilo ISO 7380) | Tienda | Dos sujetan la placa de control a los separadores de la placa de botones (2,4 mm de rosca en un piloto de 3,7 mm; un M2 × 6 sobresaldría 0,7 mm por delante de la placa). Dos sujetan la placa USB-C a su nervio, en tuercas cuadradas (V0.34). |
 | 1 | Pasador de acero de Ø3 × 12 mm, ISO 8734 | Tienda | Palanca del joystick. |
 | 1 | Prisionero M2 × 4 | Tienda | Pomo del joystick. |
 | 3 | Tuerca cuadrada M2, DIN 562 (4 × 1,2 mm) | Tienda | Una en el pomo del joystick, en la ranura de debajo, para el prisionero. Dos en el nervio de la placa USB-C, para sus tornillos (V0.34). |
