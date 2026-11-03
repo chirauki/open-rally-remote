@@ -37,12 +37,12 @@ The LCSC numbers are in the CSV and in each board's `fab/*-bom.csv`. Small parts
 
 | Tool | Notes |
 |---|---|
-| Soldering iron with temperature control | Fine conical or 1–1.5 mm chisel tip. About 330 °C for leaded solder and 360 °C for lead-free. The ground pours and the USB-C shell slots need a hotter tip or a bigger one. |
+| Soldering iron with temperature control | Fine conical or 1–1.5 mm chisel tip. About 330 °C for leaded solder and 360 °C for lead-free. The ground pours and the USB-C shell slots need a hotter tip or a bigger one. The charge LED has a lower limit: see [step U4](#step-u4-charge-led). |
 | No-clean flux (syringe), 0.5 mm flux-cored solder, 2 mm desoldering braid | 0.8 mm solder is too thick for 0603 parts and the 1 mm pitch sockets. |
 | Fine tweezers, non-magnetic | **Needed.** Without them, 0603 parts cannot be placed. |
 | Magnifier, loupe or a phone camera with macro | To inspect every joint. |
 | Isopropyl alcohol and an old toothbrush | To clean off the flux. |
-| Multimeter | Continuity, resistance and DC volts. |
+| Multimeter | Continuity, resistance, DC volts and diode test. |
 | A male Dupont jumper (from the bench set) | Pushed into a header socket, it gives the meter probe a contact. |
 | A sewing needle | To probe the JST SH cable contacts through the housing. |
 | Masking tape, Blu-Tack or a PCB holder | To hold a board while you solder. |
@@ -269,14 +269,44 @@ J2 is the 3-pin socket, as in [step C6](#step-c6-sockets-back).
 
 D1 is the LTST-S270KRKT, a 1.65 × 1.15 mm side-view LED. Its lens shines sideways, out of the board edge toward the rear wall, as the arrow shows.
 
-**Check the polarity before soldering.**
-1. Set the meter to diode test.
-2. Touch the LED's two ends: with the red probe on the anode, it glows faintly and reads about 1.6–2 V.
-3. The other end, the cathode, goes on pad 1 (red dot, next to the silkscreen bar).
+D1 is optional. Without it the remote works, but with the housing closed nothing shows that it is charging. Solder it last on this board.
 
-The cathode mark on the part itself has not been checked against Lite-On's drawing. The meter test is the check that counts.
+**Suspected defect of rev B.** The footprint appears mirrored: with the lens toward the edge and the part's top face up, the cathode lands on pad 2, not on pad 1. This comes from Lite-On's tape drawing and the LCSC footprint; it has not been tested on a part. So on rev B, D1 goes **upside down**: the lens still faces the edge, and the cathode lands on pad 1 (red dot, next to the silkscreen bar). This is a workaround for boards already made, not the design's intent.
 
-Solder it like a 0603, with little solder: the pads are small, and solder that climbs onto the lens dims it.
+**Check that the iron reaches.** With the iron cold and a spare LED on the pads, which you then set aside, bring the tip to pad 1. Pad 1 shows only about 0.7 mm of copper, in a 1.2 mm slot between the LED and the receptacle's shell tab. If the tip cannot touch it without touching the tab or the LED, leave D1 off.
+
+**Turn the LED over without losing track of it.** Its faces and cathode mark are hard to see even under magnification, so keep it in the order the tape gives. Use the magnifier for steps 1 and 4.
+1. Hold the tape with the sprocket holes away from you and the cover up. The lens should be on the right. If it is on the left, stop.
+2. Peel the cover off one pocket only.
+3. Lay a flat card over the pocket. Turn the tape and the card over together, tap, and lift the tape. Do not use adhesive tape: it leaves residue on the terminals.
+4. Turn the card, not the LED, until the lens is on your left.
+5. Turn the board so the receptacle's edge is on your left. Pad 1 is now the far pad.
+6. Leave the LED on the card until step 3 of "Solder it".
+
+**Solder it.** Lite-On allows 300 °C for 3 s, one time.
+1. Set the iron to 300 °C. An iron without temperature control cannot meet this and the LED may die: solder soon after the iron starts to melt solder, before it reaches full heat.
+2. Add flux. Tin pad 2 with the LED off the board. Use very little solder: wipe the tip after loading it. Solder that climbs onto the lens dims it.
+3. Pick the LED up by its two metal ends, move it straight across to the pads without turning it, and reflow pad 2 while the tweezers hold it. Lift the tip as soon as the solder wets, in about 1 s and never more than 2 s.
+4. Let it cool, and check that the lens faces the edge.
+5. Check the polarity while pad 1 is still free. Set the meter to diode test, with red on pad 2 and black on the LED's free end. It should read about 1.4–2 V or glow faintly. If it reads only with the probes swapped, see the table below before you solder pad 1.
+6. Solder pad 1 with the smallest possible amount.
+7. Look at the gap between pad 1 and the shell tab under magnification.
+
+**Test it.**
+1. Clean with isopropyl alcohol: burnt flux can give false readings.
+2. Run the [USB-C board checks](#usb-c-board-checks).
+3. Set the meter to diode test, with red on pad 2 and black on pad 1, on the copper that shows past the LED.
+
+| Reading | Meaning | Next |
+|---|---|---|
+| About 1.4–2 V, or a faint glow | Right | Done |
+| A reading only with the probes swapped | Reversed | Check that the lens faces the edge. If it does not, remove the LED and repeat the steps with a new one. If it does, remove the LED and place a new one straight from the tape, top face up, lens toward the edge, turned in the tweezers. If this one reads right, the suspected defect is disproved: record it. If it also reads reversed, one of the two placements was not as intended: stop (see "When to stop") |
+| Near 0 V both ways | A bridge under the LED | Clear it with braid |
+| OL both ways | Open joint, dead LED, or the meter's test voltage is too low | Reflow nothing yet: check the joints under magnification |
+
+The final proof is that the LED lights while the cell charges.
+
+**When to stop.** Leave D1 off, or leave a dead one in place, after two failed LEDs, a lifted pad or a disturbed shell tab. Do not reuse an LED that has been soldered. The LED window must still be filled in the [mechanical assembly](mechanical-concept.md#assembly), step 2. With no LED behind it nothing stops the epoxy, so use a thick, part-cured mix and small amounts: it must not reach the board or the gasket.
 
 ### USB-C board checks
 
@@ -285,7 +315,8 @@ Solder it like a 0603, with little solder: the pads are small, and solder that c
 | J2 pin 1 (VBUS) and J2 pin 2 (GND) | Open |
 | Across R1, then across R2 | About 5.1 kΩ |
 | A CC pad (R1 or R2, receptacle side) to J2 pin 1 | Open (a bridge here would put 5 V on CC) |
-| J2 pin 1 to J2 pin 3, diode test, red on pin 1 | The LED glows faintly, or the meter reads its forward voltage plus R3. The meter may show "OL" if its test voltage is too low for LED and 1 kΩ together. |
+| J2 pin 3 (LED cathode) and J2 pin 2 (GND) | Open. A short here is usually a bridge from D1 pad 1 to the shell tab: it ties the charger's STAT to GND and can damage the charger (U1 on the control board). Clear it before you connect the cable |
+| J2 pin 1 to J2 pin 3, diode test, red on pin 1 | The LED glows faintly, or the meter reads its forward voltage plus R3. "OL" says nothing: the meter's test voltage may be too low for LED and 1 kΩ together, and it is what you get with D1 left off or reversed. |
 
 ## 4. Cables
 
@@ -323,7 +354,7 @@ If F1 gets hot or the reading is 0 V, unplug at once and look for a short at D1,
 5. **Fit the cell.** Plug the cell into J5 and measure again:
    - J2 pin 3: 3.3 V. If the cell is below about 3.6 V, expect a little less: the regulator drops out.
    - J1 pin 1 (VBAT/2): about half the cell voltage. A 10 MΩ meter reads about 5 % low on this 1 MΩ divider.
-6. **Plug the charger in again.** The charge LED lights while the cell charges, and goes out when it is full.
+6. **Plug the charger in again.** If D1 is fitted, the charge LED lights while the cell charges, and goes out when it is full.
 
 Optional: measure the cell's current through a JST PH extension, with the meter in series on the mA range and the charger unplugged. With no XIAO it should read 0.00 mA (a few µA, below the meter's range). Anything over about 1 mA means a fault.
 
@@ -347,7 +378,7 @@ Optional: measure the cell's current through a JST PH extension, with the meter 
    - Join the joystick board to J4 with the 5-pin cable.
    - Press each joystick switch: UP, DOWN, LEFT and RIGHT appear.
    - A reversed cable shows up here: only UP works, because the joystick board's ground then lands on the UP line.
-7. **Battery and charger.** The `Battery:` line shows about the cell voltage, `USB` and `CHG`. Plug the charger into the USB-C board: `USB` and `CHG` change, and the LED lights.
+7. **Battery and charger.** The `Battery:` line shows about the cell voltage, `USB` and `CHG`. Plug the charger into the USB-C board: `USB` and `CHG` change, and the LED lights if D1 is fitted.
 8. **Phone.** Pair the phone and run the [first test](../firmware/xiao-nrf52840/README.md#first-test).
 
 Without a computer, steps 5 to 7 can also be checked from the phone with a keyboard tester.
@@ -379,7 +410,8 @@ Each of these is checked on the first build. Record the result here.
 - **KSC2 by hand.** Whether the KSC221JLFS J-leads can be soldered well with an iron. The pads show about 1 mm past the body. If not, a hot-air station or a hot plate is needed.
 - **USB4736 by hand.** The signal pads' 0.3 mm gaps, and the heat the shell tabs need.
 - **USB4736 position.** Once it is soldered, measure from the body's front face (where the gasket bears) to the centre of each M2 hole, with a Ø2 mm pin in the hole: 11.10 mm in the design. It sets the gasket squeeze; see the open unknowns in the [mechanical concept](mechanical-concept.md#open-unknowns-before-printing).
-- **LED polarity mark.** The LTST-S270KRKT's cathode mark against the footprint: use the meter test above.
+- **LED orientation.** The rev B footprint appears mirrored (see [step U4](#step-u4-charge-led)). Confirm it on a part, and that the LED solders upside down and shows through the window. A machine cannot turn the part over, so D1 on assembled boards is probably reversed: test it. To be fixed in the next board revision, with a larger LED.
+- **LED by hand.** Whether an iron can reach pad 1 and whether the LED survives without temperature control.
 - **Header choice.** Whether the XIAO's 6.1 mm pins seat and hold in the 5.7 mm header. The 8.5 mm header clears in the CAD (checked 2026-10-20), but the assembly path checks were not run again for it.
 - **Cables.** That the AliExpress `reverse direction` cables are straight and latch in the "1.0 WT" sockets.
 - **Readings.** The expected voltages and resistances above come from the circuit and the datasheets, not from a board.

@@ -38,12 +38,12 @@ Los números de LCSC están en el CSV y en el `fab/*-bom.csv` de cada placa. Los
 
 | Herramienta | Notas |
 |---|---|
-| Soldador con control de temperatura | Punta cónica fina o de cincel de 1–1,5 mm. Unos 330 °C con estaño con plomo y 360 °C sin plomo. Los planos de masa y las patas de la carcasa del USB-C necesitan una punta más caliente o más grande. |
+| Soldador con control de temperatura | Punta cónica fina o de cincel de 1–1,5 mm. Unos 330 °C con estaño con plomo y 360 °C sin plomo. Los planos de masa y las patas de la carcasa del USB-C necesitan una punta más caliente o más grande. El LED de carga tiene un límite más bajo: mira el [paso U4](#paso-u4-led-de-carga). |
 | Flux sin limpieza (jeringa), estaño de 0,5 mm con alma de flux, malla desoldadora de 2 mm | El estaño de 0,8 mm es demasiado grueso para los 0603 y los conectores de paso 1 mm. |
 | Pinzas finas, no magnéticas | **Imprescindibles.** Sin ellas no se pueden colocar los 0603. |
 | Lupa o cámara del móvil en modo macro | Para revisar cada soldadura. |
 | Alcohol isopropílico y un cepillo de dientes viejo | Para quitar el flux. |
-| Multímetro | Continuidad, resistencia y voltios en continua. |
+| Multímetro | Continuidad, resistencia, voltios en continua y modo diodo. |
 | Un cable Dupont macho (del kit del banco) | Metido en un zócalo, da a la punta del multímetro algo que tocar. |
 | Una aguja de coser | Para tocar los contactos de los cables JST SH a través de la carcasa. |
 | Cinta de pintor, Blu-Tack o un soporte de PCB | Para sujetar la placa mientras sueldas. |
@@ -278,14 +278,44 @@ J2 es el conector de 3 pines; se suelda como en el paso C6.
 
 D1 es el LTST-S270KRKT, un LED de vista lateral de 1,65 × 1,15 mm. Su lente alumbra de lado, hacia fuera del borde de la placa y hacia la pared trasera, como indica la flecha.
 
-**Comprueba la polaridad antes de soldarlo.**
-1. Pon el multímetro en modo diodo.
-2. Toca los dos extremos del LED. Con la punta roja en el ánodo, se enciende débilmente y marca unos 1,6–2 V.
-3. El otro extremo, el cátodo, va en el pad 1 (punto rojo, junto a la raya de la serigrafía).
+D1 es opcional. Sin él el mando funciona, pero con la carcasa cerrada nada indica que está cargando. Suéldalo el último en esta placa.
 
-No he comprobado la marca de cátodo de la propia pieza con el plano de Lite-On. La prueba con el multímetro es la que vale.
+**Posible defecto de la rev B.** La huella parece invertida: con la lente hacia el borde y la cara de arriba de la pieza hacia arriba, el cátodo cae en el pad 2, no en el pad 1. Sale del plano de la cinta de Lite-On y de la huella de LCSC; no se ha probado con una pieza. Por eso, en la rev B, D1 va **boca abajo**: la lente sigue mirando al borde y el cátodo cae en el pad 1 (punto rojo, junto a la raya de la serigrafía). Es un remedio para las placas ya fabricadas, no lo que pretende el diseño.
 
-Suéldalo como un 0603, con poco estaño: los pads son pequeños, y el estaño que sube a la lente le quita luz.
+**Comprueba que el soldador llega.** Con el soldador frío y un LED de sobra sobre los pads, que luego apartas, acerca la punta al pad 1. El pad 1 solo deja ver unos 0,7 mm de cobre, en un hueco de 1,2 mm entre el LED y la pata de la carcasa del receptáculo. Si la punta no lo toca sin tocar la pata o el LED, no pongas D1.
+
+**Da la vuelta al LED sin perder la orientación.** Sus caras y su marca de cátodo cuestan de ver incluso con aumento, así que aprovecha el orden en que viene en la cinta. Usa la lupa en los pasos 1 y 4.
+1. Sujeta la cinta con los agujeros de arrastre lejos de ti y la cubierta hacia arriba. La lente debería quedar a la derecha. Si queda a la izquierda, para.
+2. Despega la cubierta de un solo hueco.
+3. Pon una tarjeta plana sobre el hueco. Da la vuelta a la cinta y a la tarjeta juntas, da un golpecito y levanta la cinta. No uses cinta adhesiva: deja residuo en los terminales.
+4. Gira la tarjeta, no el LED, hasta que la lente quede a tu izquierda.
+5. Gira la placa para que el borde del receptáculo quede a tu izquierda. El pad 1 es ahora el pad lejano.
+6. Deja el LED en la tarjeta hasta el paso 3 de "Suéldalo".
+
+**Suéldalo.** Lite-On permite 300 °C durante 3 s, una sola vez.
+1. Pon el soldador a 300 °C. Un soldador sin control de temperatura no puede cumplirlo y el LED puede morir: suelda poco después de que empiece a fundir el estaño, antes de que llegue a toda su temperatura.
+2. Añade flux. Estaña el pad 2 sin el LED. Usa muy poco estaño: limpia la punta después de cargarla. El estaño que sube a la lente le quita luz.
+3. Coge el LED por sus dos extremos metálicos, llévalo en línea recta hasta los pads sin girarlo y refunde el pad 2 mientras lo sujetas con las pinzas. Retira la punta en cuanto el estaño moje, en cerca de 1 s y nunca más de 2 s.
+4. Deja que enfríe y comprueba que la lente mira al borde.
+5. Comprueba la polaridad con el pad 1 aún libre. Pon el multímetro en modo diodo, con la roja en el pad 2 y la negra en el extremo libre del LED. Debe marcar unos 1,4–2 V o brillar débilmente. Si solo marca con las puntas cambiadas, mira la tabla de abajo antes de soldar el pad 1.
+6. Suelda el pad 1 con la menor cantidad posible.
+7. Mira con aumento el hueco entre el pad 1 y la pata.
+
+**Pruébalo.**
+1. Limpia con alcohol isopropílico: el flux quemado puede falsear las lecturas.
+2. Pasa las [comprobaciones de la placa USB-C](#comprobaciones-de-la-placa-usb-c).
+3. Pon el multímetro en modo diodo, con la roja en el pad 2 y la negra en el pad 1, sobre el cobre que asoma junto al LED.
+
+| Lectura | Significa | Qué hacer |
+|---|---|---|
+| Unos 1,4–2 V, o un brillo débil | Correcto | Terminado |
+| Solo marca con las puntas cambiadas | Invertido | Comprueba que la lente mira al borde. Si no, quita el LED y repite los pasos con uno nuevo. Si sí, quita el LED y coloca uno nuevo directamente de la cinta, con la cara de arriba hacia arriba y la lente hacia el borde, girándolo con las pinzas. Si este marca bien, el posible defecto queda desmentido: anótalo. Si también marca invertido, alguna de las dos colocaciones no fue la prevista: para (mira "Cuándo parar") |
+| Cerca de 0 V en los dos sentidos | Un puente bajo el LED | Quítalo con malla |
+| OL en los dos sentidos | Soldadura abierta, LED muerto o poca tensión de prueba en el multímetro | No refundas todavía: mira las soldaduras con aumento |
+
+La prueba definitiva es que el LED se encienda mientras carga la batería.
+
+**Cuándo parar.** Deja la placa sin D1, o con el LED muerto en su sitio, tras dos LEDs fallidos, un pad levantado o una pata movida. No reutilices un LED ya soldado. La ventana del LED se rellena igual en el [montaje mecánico](mechanical-concept.es.md#assembly), paso 2. Sin LED detrás nada frena el epoxi, así que usa una mezcla espesa, ya medio curada, y poca cantidad: no debe llegar a la placa ni a la junta.
 
 ### Comprobaciones de la placa USB-C
 
@@ -294,7 +324,8 @@ Suéldalo como un 0603, con poco estaño: los pads son pequeños, y el estaño q
 | J2 pin 1 (VBUS) y J2 pin 2 (GND) | Abierto |
 | Sobre R1, y luego sobre R2 | Unos 5,1 kΩ |
 | Un pad CC (de R1 o R2, del lado del receptáculo) y J2 pin 1 | Abierto (un puente aquí pondría 5 V en CC) |
-| J2 pin 1 a J2 pin 3, en modo diodo, punta roja en el pin 1 | El LED se enciende débilmente, o el multímetro marca su tensión directa más la caída en R3. Puede marcar "OL" si la tensión de prueba del multímetro no da para el LED y 1 kΩ juntos. |
+| J2 pin 3 (cátodo del LED) y J2 pin 2 (GND) | Abierto. Un corto aquí suele ser un puente del pad 1 de D1 a la pata: une la salida STAT del cargador con GND y puede dañar el cargador (U1 de la placa de control). Quítalo antes de conectar el cable |
+| J2 pin 1 a J2 pin 3, en modo diodo, punta roja en el pin 1 | El LED se enciende débilmente, o el multímetro marca su tensión directa más la caída en R3. "OL" no dice nada: la tensión de prueba puede no dar para el LED y 1 kΩ juntos, y es lo que sale con D1 ausente o invertido. |
 
 <a id="cables"></a>
 ## 4. Cables
@@ -334,7 +365,7 @@ Si F1 se calienta o la lectura es 0 V, desconecta enseguida y busca un cortocirc
 5. **Conecta la batería** en J5 y vuelve a medir:
    - J2 pin 3: 3,3 V. Si la batería está por debajo de unos 3,6 V, saldrá algo menos: el regulador ya no tiene margen.
    - J1 pin 1 (VBAT/2): más o menos la mitad de la tensión de la batería. Un multímetro de 10 MΩ marca alrededor de un 5 % menos en este divisor de 1 MΩ.
-6. **Vuelve a conectar el cargador.** El LED de carga se enciende mientras la batería carga y se apaga cuando está llena.
+6. **Vuelve a conectar el cargador.** Si D1 está montado, el LED de carga se enciende mientras la batería carga y se apaga cuando está llena.
 
 Opcional: mide la corriente de la batería con un alargador JST PH, con el multímetro en serie en el rango de mA y el cargador desconectado. Sin la XIAO debe marcar 0,00 mA (son unos pocos µA, por debajo de lo que mide el multímetro). Más de 1 mA indica una avería.
 
@@ -359,7 +390,7 @@ Opcional: mide la corriente de la batería con un alargador JST PH, con el mult�
    - Une la placa del joystick a J4 con el cable de 5 pines.
    - Pulsa cada interruptor del joystick: aparecen UP, DOWN, LEFT y RIGHT.
    - Aquí se nota un cable al revés: solo funciona UP, porque la masa de la placa del joystick acaba en la línea de UP.
-7. **Batería y cargador.** La línea `Battery:` muestra más o menos la tensión de la batería, `USB` y `CHG`. Conecta el cargador a la placa USB-C: `USB` y `CHG` cambian y el LED se enciende.
+7. **Batería y cargador.** La línea `Battery:` muestra más o menos la tensión de la batería, `USB` y `CHG`. Conecta el cargador a la placa USB-C: `USB` y `CHG` cambian y el LED se enciende si D1 está montado.
 8. **Teléfono.** Empareja el teléfono y haz la [primera prueba](../firmware/xiao-nrf52840/README.md#first-test).
 
 Sin ordenador, los pasos 5 a 7 también se pueden comprobar desde el teléfono con un comprobador de teclado.
@@ -393,7 +424,8 @@ Cada uno se comprueba en el primer montaje. Apunta aquí el resultado.
 - **KSC2 a mano.** Si las patas en J del KSC221JLFS se sueldan bien con soldador. De cada pad asoma alrededor de 1 mm. Si no, hace falta una estación de aire caliente o una placa calefactora.
 - **USB4736 a mano.** La separación de 0,3 mm entre sus pads de señal, y el calor que necesitan las patas de la carcasa.
 - **Posición del USB4736.** Una vez soldado, mide desde la cara frontal del cuerpo (donde apoya la junta) hasta el centro de cada agujero M2, con un pasador de Ø2 mm en el agujero: 11,10 mm en el diseño. Fija la compresión de la junta; mira las incógnitas abiertas del [concepto mecánico](mechanical-concept.es.md#open-unknowns-before-printing).
-- **Marca de polaridad del LED.** La marca de cátodo del LTST-S270KRKT frente a la huella: usa la prueba con el multímetro de arriba.
+- **Orientación del LED.** La huella de la rev B parece invertida (mira el [paso U4](#paso-u4-led-de-carga)). Confírmalo con una pieza, y que el LED se suelda boca abajo y se ve por la ventana. Una máquina no puede dar la vuelta a la pieza, así que D1 en las placas montadas probablemente esté invertido: pruébalo. Se corregirá en la próxima revisión de la placa, con un LED más grande.
+- **LED a mano.** Si un soldador llega al pad 1 y si el LED sobrevive sin control de temperatura.
 - **Elección del zócalo.** Si los pines de 6,1 mm de la XIAO entran y sujetan en el zócalo de 5,7 mm. El de 8,5 mm cabe en el CAD (comprobado el 20-10-2026), pero no se ha vuelto a comprobar el recorrido de montaje con él.
 - **Cables.** Que los cables `reverse direction` de AliExpress sean rectos y encajen en los conectores "1.0 WT".
 - **Lecturas.** Las tensiones y resistencias esperadas de arriba salen del circuito y de las hojas de datos, no de una placa real.
