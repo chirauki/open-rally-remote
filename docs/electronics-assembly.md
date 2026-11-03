@@ -295,7 +295,7 @@ Both cables must be straight: pin 1 at one end goes to pin 1 at the other.
 2. **Probe each wire** with the sewing needle on the meter's continuity range: pin 1 to pin 1, and so on.
 3. **No neighbours.** No contact beeps to the next one.
 
-A cable listed as `reverse direction` joins pin 1 to the last pin. Do not use it.
+On AliExpress the straight cable is listed as `reverse direction`: laid flat, its two plugs show opposite faces. A cable listed as `same direction` shows the same face at both ends and joins pin 1 to the last pin. Do not use it: on the 3-pin cable it would put VBUS on the charger's STAT pin.
 
 The cables are checked again once fitted, in the next two sections.
 
@@ -381,7 +381,7 @@ Each of these is checked on the first build. Record the result here.
 - **USB4736 position.** Once it is soldered, measure from the body's front face (where the gasket bears) to the centre of each M2 hole, with a Ø2 mm pin in the hole: 11.10 mm in the design. It sets the gasket squeeze; see the open unknowns in the [mechanical concept](mechanical-concept.md#open-unknowns-before-printing).
 - **LED polarity mark.** The LTST-S270KRKT's cathode mark against the footprint: use the meter test above.
 - **Header choice.** Whether the XIAO's 6.1 mm pins seat and hold in the 5.7 mm header. The 8.5 mm header clears in the CAD (checked 2026-10-20), but the assembly path checks were not run again for it.
-- **Cables.** That the AliExpress `same direction` cables are straight and latch in the "1.0 WT" sockets.
+- **Cables.** That the AliExpress `reverse direction` cables are straight and latch in the "1.0 WT" sockets.
 - **Readings.** The expected voltages and resistances above come from the circuit and the datasheets, not from a board.
 - **No cell.** The charger's behaviour with USB plugged in and no cell (LED and D8 flicker); see the [control board README](../electronics/control-pcb/README.md#checks).
 

@@ -305,7 +305,7 @@ Los dos cables tienen que ser rectos: el pin 1 de un extremo va al pin 1 del otr
 2. **Mide cada hilo** con la aguja, en el rango de continuidad: pin 1 con pin 1, y así con todos.
 3. **Sin vecinos.** Ningún contacto pita con el de al lado.
 
-Un cable vendido como `reverse direction` une el pin 1 con el último. No lo uses.
+En AliExpress el cable recto se vende como `reverse direction`: con el cable estirado, sus dos clavijas enseñan caras opuestas. Un cable vendido como `same direction` enseña la misma cara en los dos extremos y une el pin 1 con el último. No lo uses: en el cable de 3 pines llevaría VBUS a la patilla STAT del cargador.
 
 Los cables se vuelven a comprobar ya conectados, en las dos secciones siguientes.
 
@@ -395,7 +395,7 @@ Cada uno se comprueba en el primer montaje. Apunta aquí el resultado.
 - **Posición del USB4736.** Una vez soldado, mide desde la cara frontal del cuerpo (donde apoya la junta) hasta el centro de cada agujero M2, con un pasador de Ø2 mm en el agujero: 11,10 mm en el diseño. Fija la compresión de la junta; mira las incógnitas abiertas del [concepto mecánico](mechanical-concept.es.md#open-unknowns-before-printing).
 - **Marca de polaridad del LED.** La marca de cátodo del LTST-S270KRKT frente a la huella: usa la prueba con el multímetro de arriba.
 - **Elección del zócalo.** Si los pines de 6,1 mm de la XIAO entran y sujetan en el zócalo de 5,7 mm. El de 8,5 mm cabe en el CAD (comprobado el 20-10-2026), pero no se ha vuelto a comprobar el recorrido de montaje con él.
-- **Cables.** Que los cables `same direction` de AliExpress sean rectos y encajen en los conectores "1.0 WT".
+- **Cables.** Que los cables `reverse direction` de AliExpress sean rectos y encajen en los conectores "1.0 WT".
 - **Lecturas.** Las tensiones y resistencias esperadas de arriba salen del circuito y de las hojas de datos, no de una placa real.
 - **Sin batería.** Cómo se comporta el cargador con el USB conectado y sin batería (el LED y D8 parpadean); mira el [README de la placa de control](../electronics/control-pcb/README.md#checks).
 
