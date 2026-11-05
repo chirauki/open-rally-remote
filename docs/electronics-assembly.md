@@ -4,7 +4,7 @@
 
 This guide takes the three bare boards from the JLCPCB order and the parts from [`electronics/lcsc-parts.csv`](../electronics/lcsc-parts.csv) to three soldered, tested and coated boards. The [mechanical assembly](mechanical-concept.md#assembly) then fits them into the remote.
 
-If the boards came assembled, skip the soldering steps and start at [Cables](#4-cables). Boards with Economic assembly still need the switches and the XIAO headers (steps J1, C5 and C7) and the USB-C receptacle (step U3).
+If the boards came assembled, skip the soldering steps and start at [Cables](#4-cables). Boards with Economic assembly still need the switches and the XIAO headers (steps J1, C7 and C8) and the USB-C receptacle (step U3).
 
 **Status.** This guide comes from the design files, not from a build. Nobody has built these boards yet. The points not yet confirmed on real parts are listed under [Open points](#open-points). Note what differs on the first build and correct this guide.
 
@@ -96,7 +96,7 @@ The bare boards look like this; the printed text tells the sides apart.
 ### Order
 
 1. **Joystick board first.** Its parts are the biggest, and its socket is practice for the 1 mm pitch.
-2. **Control board.** On each side, the low parts go on first, so the board lies flat while you solder the next ones.
+2. **Control board.** The back goes first, broadly from the lowest parts to the tallest, then the switches, and the XIAO headers last. See [its section](#2-control-board) for why.
 3. **USB-C board last.** Its receptacle and LED are the hardest parts.
 4. **Tests.** Then the cables and the tests.
 5. **Coating last.** Coat only once everything works: rework through the coating is harder.
@@ -137,18 +137,26 @@ Probe J1 from its pin side, on the pads. Pin 1 is the red dot, pin 5 is GND.
 
 ![Control board back, all parts](images/control-pcb-v0.32-asm-back-map.png) ![Control board front, all parts](images/control-pcb-v0.32-asm-front-map.png)
 
-### Step C1: U1, U2, Q1 (back)
+**Why this order.** Broadly, the lowest parts go first and the tallest last, so the iron can still reach each pad. A 3D model of the tip, checked with an independent review, gave the order below. It was not tried on a real board.
 
-![Step C1](images/control-pcb-v0.32-asm-c1-ics.png)
+| Part | Height | Why it goes where it does |
+|---|---|---|
+| R1–R7 | About 0.55 mm | U1 and D1 crowd R1; Q1 crowds R2 |
+| C1–C5 | About 0.8 mm | U1, U2 and Q1 crowd the capacitors more than the capacitors crowd them |
+| F1 | 0.85 mm | D1 and J5 crowd it |
+| Q1, U1, U2 | About 1.25 and 1.45 mm | D1 crowds U1 |
+| D1 | 2.6 mm | It goes after the parts round it |
+| J3, J5, J4 | 2.72, 6.6 and 2.72 mm | J3 goes before J5, for tweezer room |
+| SW1–SW3 | 3.5 mm | Fitted after the back parts, so the board lies flat for all of those |
+| J1, J2 | 5.7 mm | Last: they crowd the central block more than any other part |
 
-- **U1 and U2.** U1 is the MCP73831 (marked on the part, often with a short code). U2 is the TPS70933. Both come in SOT-23-5 and look alike, so keep them in their strips.
-- **Q1** is the AO3401A in SOT-23.
-- **Polarity.** These packages fit one way only: the side with three legs goes on the row of three pads. Pin 1 (red dot) matches the silkscreen dot or triangle.
-- **Check:** the legs sit centred on their pads, and no leg bridges to the next.
+The order helps the iron reach the pads. It does not prevent bridges. In the central block, parts on different nets are 0.77–0.85 mm apart, and the legs of U1 and U2 only 0.35 mm.
 
-### Step C2: resistors (back)
+### Step C1: resistors (back)
 
-![Step C2](images/control-pcb-v0.32-asm-c2-resistors.png)
+![Step C1](images/control-pcb-v0.32-asm-c1-resistors.png)
+
+Lay the board flat on the table and fix it with Blu-Tack. It stays that way up to step C6.
 
 - Solder one value at a time, straight from its strip:
   - 10k: R1.
@@ -158,45 +166,96 @@ Probe J1 from its pin side, on the pads. Pin 1 is the red dot, pin 5 is GND.
 - Resistors have no polarity.
 - Mixing up R2/R3 or R4/R5 swaps the halves of a divider. That puts too much voltage on a XIAO pin, so check each value before placing it.
 
-### Step C3: capacitors (back)
+### Step C2: capacitors (back)
 
-![Step C3](images/control-pcb-v0.32-asm-c3-capacitors.png)
+![Step C2](images/control-pcb-v0.32-asm-c2-capacitors.png)
 
 - 4.7 µF: C1–C4.
 - 100 nF: C5.
 - No polarity. Both values look the same, so do one value at a time.
 
-### Step C4: F1 and D1 (back)
+### Step C3: F1 (back)
 
-![Step C4](images/control-pcb-v0.32-asm-c4-fuse-tvs.png)
+![Step C3](images/control-pcb-v0.32-asm-c3-fuse.png)
 
-- **F1, the PTC fuse:** no polarity. It is big, so give each pad time to wet.
-- **D1, the SMBJ5.0A:** **polarised.**
-  - Its body carries a band at one end. The band (cathode) goes at the end marked in red: the left end, seen from the back as in the image.
-  - The wrong way round, D1 shorts the 5 V input, and F1 trips as soon as a charger is plugged in.
+F1 is the PTC fuse. It has no polarity. It is big, so give each pad time to wet.
 
-### Step C5: switches (front)
+### Step C4: Q1, U1, U2 (back)
 
-![Step C5](images/control-pcb-v0.32-asm-c5-switches.png)
+![Step C4](images/control-pcb-v0.32-asm-c4-ics.png)
 
-1. Turn the board over. The back parts are at most about 2.4 mm high (D1), so hold the board level with Blu-Tack or a holder.
-2. Solder SW1–SW3 as in [step J1](#step-j1-switches-front).
-3. SW1 is key A, SW2 key B, SW3 key C.
+- **Identify them.** U1 is the MCP73831 (marked on the part, often with a short code). U2 is the TPS70933. Both come in SOT-23-5 and look alike, so keep them in their strips. Q1 is the AO3401A in SOT-23.
+- **Polarity.** These packages fit one way only: the side with more legs goes on the row with more pads. Pin 1 (red dot) matches the silkscreen dot or triangle.
+- **Hold them from above.** Beside U1 and Q1 there are slots of only about 0.64 mm for the tweezers.
+
+Solder in this order, with the image's view of the board:
+
+1. **Q1.** Tin the lower-left pad (pad 2) and fix Q1 on it. Check all the legs. Then solder the upper-left pad (pad 1) and the single pad.
+2. **U1.** Tin the lower-right pad (pad 4) and fix U1 on it. Do not start on the upper-right pad (pad 5): it is close to R1. Check all the legs. Then solder pad 5 and, last, the side with three legs, from the outside and with very little solder.
+3. **U2.** The same way. Its pad 4 has no connection, so a mistake there costs least.
+
+**Check:** the legs sit centred on their pads, and no leg bridges to the next.
+
+### Step C5: D1 (back)
+
+![Step C5](images/control-pcb-v0.32-asm-c5-tvs.png)
+
+D1, the SMBJ5.0A, is **polarised.**
+- Its body carries a band at one end. The band (cathode) goes at the end marked in red: the left end, seen from the back as in the image.
+- The wrong way round, D1 shorts the 5 V input, and F1 trips as soon as a charger is plugged in.
 
 ### Step C6: sockets (back)
 
 ![Step C6](images/control-pcb-v0.32-asm-c6-sockets.png)
 
-1. Turn the board back over. It now rests on its three switches.
-2. Solder the sockets. Each fits one way only, with its pins on the row of small pads.
-   - J3: 3-pin, USB-C board.
-   - J4: 5-pin, joystick.
-   - J5: JST PH 2-pin top entry, battery.
-3. J5 is bigger, with 2 mm pitch. Its pin 1 is battery `+`, as the silkscreen `+ −` shows.
+Each socket fits one way only, with its pins on the row of small pads. Solder them in this order:
 
-### Step C7: XIAO headers (inserted from the back, soldered on the front)
+1. **J3:** 3-pin, USB-C board. Its tab beside J5 is free only now, so solder both tabs and the pins.
+2. **J5:** JST PH 2-pin top entry, battery. Its pin 1 is battery `+`, as the silkscreen `+ −` shows.
+   1. Tin both large tab pads thinly before placing J5.
+   2. Solder the two pins first. This replaces the "tack a tab first" of the [soldering method](#soldering-method).
+   3. Reheat each tab pad where it shows past the body. Only about 0.2 mm shows, and the tab beside J3 is hard to reach.
+   4. The tabs carry no signal. If one does not take, the circuit still works, but J5 is weaker: do not pull on the battery lead.
+3. **J4:** 5-pin, joystick.
 
-![Step C7](images/control-pcb-v0.32-asm-c7-headers.png)
+### Checks before the switches and headers
+
+Do these now. Once J1 and J2 are in, Q1, U1 and U2 are hard to rework, with the header walls 0.7–0.9 mm away.
+
+Clean and inspect the board first, as in [After each board](#soldering-method). Measure with no XIAO and no battery, on the resistance range unless a row says otherwise. J1 and J2 here mean their empty plated holes, numbered as in the [test points image](#test-points). GND is J2 pin 2. Left and right are as in the images of the back.
+
+| Red probe | Black probe | Expect | If not |
+|---|---|---|---|
+| End of C2 next to Q1 (BAT_SYS) | GND | Not near 0 Ω; climbs as the capacitors charge | Bridge round C1–C4, U1, U2 or Q1 |
+| J2 pin 3 (3V3) | GND | Not near 0 Ω; climbs as C4 charges | Bridge round U2 or C4 |
+| J3 pin 1 (5 V in), diode test | J3 pin 2 (GND), on the pads | OL or a high reading | About 0.6–0.8 V: D1 is the wrong way round. Near 0: a bridge round F1, D1, C1 or U1 |
+| J5 `+` pad | J5 `−` pad | Not near 0 Ω | Bridge round J5, Q1 or F1 |
+| J2 pin 5 (VBUS sense) | GND | About 150 kΩ | R4/R5 swapped, missing or bridged |
+| J2 pin 6 (CHG sense) | GND | About 150 kΩ | R2/R3 swapped, missing or bridged |
+| Right end of F1 (VBUS) | J2 pin 5 | About 100 kΩ | R4 bridged or wrong: VBUS would reach a XIAO pin |
+| J3 pin 3 (STAT), on the pad | J2 pin 6 | About 100 kΩ | R2 bridged or wrong |
+| Left end of R1 (PROG) | GND | About 10 kΩ | R1 wrong, or a bridge round U1 |
+| J1 pin 1 (VBAT sense) | GND | Climbs from about 0.5 MΩ to about 1 MΩ, in up to about 30 s | R7 wrong, or a bridge |
+| End of C2 next to Q1 | J1 pin 1 | Climbs from about 0.5 MΩ to about 1 MΩ, in up to about 30 s | R6 wrong, or a bridge |
+| Right end of F1 | J5 `+` pad | Open, no beep | Bridge from F1 to J5: it would put 5 V on the cell |
+| J1 pins 5, 6, 7 and J2 pin 7 (joystick) | GND, and each other | Open | Bridge round J4 |
+
+The kΩ and MΩ readings are estimates: the meter also sees the other parts on each node. A reading far below them is what signals a fault. If a reading stays fixed where it should climb or be open, clean the board again: burnt flux can leak.
+
+### Step C7: switches (front)
+
+![Step C7](images/control-pcb-v0.32-asm-c7-switches.png)
+
+1. Turn the board over. It no longer lies flat: J5 stands 6.6 mm high, and J3 and J4 2.72 mm. Without a shim it tilts about 6°.
+2. Level and fix it with Blu-Tack or a holder. Keep the Blu-Tack off the J1 and J2 holes and the socket mouths.
+3. Solder SW1–SW3 as in [step J1](#step-j1-switches-front). SW1 is key A, SW2 key B, SW3 key C.
+4. Do not load the board at J3 while you solder SW1: one GND via links SW1 to a J3 joint, which may soften.
+
+**Check:** J1 pins 2, 3 and 4 (buttons) to GND read open, and 0 Ω while SW1, SW2, SW3 is pressed. If not, look at that switch's joints.
+
+### Step C8: XIAO headers (inserted from the back, soldered on the front)
+
+![Step C8](images/control-pcb-v0.32-asm-c8-headers.png)
 
 The two 1 × 7 female headers J1 and J2 go in from the back. Their pins come through to the front, where you solder them. Square pads mark pin 1, at the J4 end.
 
@@ -207,27 +266,20 @@ The two 1 × 7 female headers J1 and J2 go in from the back. Their pins come thr
 **Keep the headers straight: solder them with the XIAO plugged in.**
 1. Plug the XIAO's pins into both headers, so the XIAO holds them parallel at the right spacing.
 2. Push the headers through the board from the back, with the XIAO the right way round (see [the XIAO image](#6-xiao-firmware-and-function-test)): components facing you, USB-C at the J4 end.
-3. Turn the assembly over and rest it on the XIAO.
-4. Solder one pin at each end of each header.
+3. Turn the assembly over and rest it on the XIAO. Hold the free end level with Blu-Tack, off the socket mouths.
+4. Solder one pin at each end of each header. Keep to 2–3 s per pin and pause between pins: the header's plastic takes 220 °C for only 5 s.
 5. Check that the headers sit flat on the board. If one does not, reheat a pin and press the header down.
 6. Solder the other pins.
 7. Unplug the XIAO. The header pins are short, so its components take little heat.
 
-### Control board checks
+### Checks after the headers
 
-Use the [header test points](#test-points). Push the male Dupont jumper into a socket and touch the probe to it. Measure on the meter's resistance range, with no XIAO and no battery fitted.
+Use the [header test points](#test-points). Push the male Dupont jumper into a socket and touch the probe to it. Measure with no XIAO and no battery fitted.
 
 | Between | Expect | If not |
 |---|---|---|
-| J2 pin 3 (3V3) and J2 pin 2 (GND) | Not near 0 Ω; it may climb as C4 charges | Bridge round U2 or C4 |
-| J3 pin 1 (5 V in) and J3 pin 2 (GND), on the J3 pads, diode test with red on pin 1 | No reading (OL) | About 0.6–0.8 V: D1 is the wrong way round. Near 0: a bridge round F1, D1, C1 or U1 |
-| J5 `+` and `−` pads | Not near 0 Ω | Bridge round Q1, C2 or C3 |
-| J2 pin 5 (VBUS sense) to GND | About 150 kΩ | R4/R5 swapped or missing |
-| J2 pin 6 (CHG sense) to GND | About 150 kΩ | R2/R3 swapped or missing |
-| J1 pin 2, 3, 4 (buttons) to GND | Open; 0 Ω while SW1, SW2, SW3 is pressed | Switch joint |
+| J2 pin 3 (3V3) and J2 pin 2 (GND) | Not near 0 Ω; it may climb as C4 charges | Bridge on the front |
 | Each header pin to its neighbours | No beep | Bridge on the front |
-
-The 150 kΩ readings are estimates: the meter also sees the other parts on each node.
 
 <a id="test-points"></a>
 ![Control board header test points](images/control-pcb-v0.32-asm-test-points.png)
@@ -412,6 +464,7 @@ Each of these is checked on the first build. Record the result here.
 - **USB4736 position.** Once it is soldered, measure from the body's front face (where the gasket bears) to the centre of each M2 hole, with a Ø2 mm pin in the hole: 11.10 mm in the design. It sets the gasket squeeze; see the open unknowns in the [mechanical concept](mechanical-concept.md#open-unknowns-before-printing).
 - **LED orientation.** The rev B footprint appears mirrored (see [step U4](#step-u4-charge-led)). Confirm it on a part, and that the LED solders upside down and shows through the window. A machine cannot turn the part over, so D1 on assembled boards is probably reversed: test it. To be fixed in the next board revision, with a larger LED.
 - **LED by hand.** Whether an iron can reach pad 1 and whether the LED survives without temperature control.
+- **Central block by hand.** Whether the parts between the XIAO headers can be soldered without bridges with the tip and solder listed under [Tools](#tools). The order in [section 2](#2-control-board) comes from a model and has not been tried. Practise on a spare board first.
 - **Header choice.** Whether the XIAO's 6.1 mm pins seat and hold in the 5.7 mm header. The 8.5 mm header clears in the CAD (checked 2026-10-20), but the assembly path checks were not run again for it.
 - **Cables.** That the AliExpress `reverse direction` cables are straight and latch in the "1.0 WT" sockets.
 - **Readings.** The expected voltages and resistances above come from the circuit and the datasheets, not from a board.

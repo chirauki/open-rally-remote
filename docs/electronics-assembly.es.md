@@ -4,7 +4,7 @@
 
 Esta guía lleva las tres placas desnudas del pedido de JLCPCB y los componentes de [`electronics/lcsc-parts.csv`](../electronics/lcsc-parts.csv) hasta tener tres placas soldadas, probadas y barnizadas. Después, el [montaje mecánico](mechanical-concept.es.md#assembly) las coloca en el mando.
 
-Si las placas llegaron montadas, sáltate la soldadura y empieza en [Cables](#cables). Con el montaje Economic de JLCPCB aún hay que soldar los interruptores y los zócalos de la XIAO (pasos J1, C5 y C7) y el receptáculo USB-C (paso U3).
+Si las placas llegaron montadas, sáltate la soldadura y empieza en [Cables](#cables). Con el montaje Economic de JLCPCB aún hay que soldar los interruptores y los zócalos de la XIAO (pasos J1, C7 y C8) y el receptáculo USB-C (paso U3).
 
 **Estado.** Esta guía sale de los ficheros de diseño, no de un montaje real. Nadie ha montado todavía estas placas. Lo que aún no se ha comprobado con piezas reales está en [Puntos abiertos](#puntos-abiertos). Apunta lo que salga distinto en el primer montaje y corrige la guía.
 
@@ -97,7 +97,7 @@ Las placas desnudas son así; el texto impreso permite distinguir las caras.
 ### Orden
 
 1. **Primero la placa del joystick.** Sus piezas son las más grandes, y su conector sirve de práctica para el paso de 1 mm.
-2. **Después la placa de control.** En cada cara van primero las piezas bajas, para que la placa quede plana al soldar las siguientes.
+2. **Después la placa de control.** Primero la cara trasera, en general de la pieza más baja a la más alta; luego los interruptores, y al final los zócalos de la XIAO. El motivo está en [su sección](#placa-control).
 3. **La placa USB-C la última.** Su receptáculo y su LED son las piezas más difíciles.
 4. **Pruebas.** Luego los cables y las pruebas.
 5. **El barniz al final.** Barniza solo cuando todo funcione: retocar a través del barniz es más difícil.
@@ -141,18 +141,26 @@ Mide en J1 por el lado de los pines, sobre los pads. El pin 1 es el punto rojo; 
 
 ![Cara trasera de la placa de control, todas las piezas](images/control-pcb-v0.32-asm-back-map.png) ![Cara delantera de la placa de control, todas las piezas](images/control-pcb-v0.32-asm-front-map.png)
 
-### Paso C1: U1, U2, Q1 (cara trasera)
+**Por qué este orden.** En general, las piezas más bajas van primero y las más altas al final, para que el soldador siga llegando a cada pad. Un modelo 3D de la punta, comprobado con una revisión independiente, dio el orden de abajo. No se ha probado en una placa real.
 
-![Paso C1](images/control-pcb-v0.32-asm-c1-ics.png)
+| Pieza | Altura | Por qué va ahí |
+|---|---|---|
+| R1–R7 | Unos 0,55 mm | U1 y D1 estorban a R1; Q1 estorba a R2 |
+| C1–C5 | Unos 0,8 mm | U1, U2 y Q1 estorban a los condensadores más que al revés |
+| F1 | 0,85 mm | D1 y J5 le estorban |
+| Q1, U1, U2 | Unos 1,25 y 1,45 mm | D1 estorba a U1 |
+| D1 | 2,6 mm | Va después de las piezas que tiene alrededor |
+| J3, J5, J4 | 2,72, 6,6 y 2,72 mm | J3 va antes que J5, para tener sitio con las pinzas |
+| SW1–SW3 | 3,5 mm | Van después de las piezas de atrás, para que la placa quede plana mientras sueldas todas esas |
+| J1, J2 | 5,7 mm | Al final: estorban al bloque central más que ninguna otra pieza |
 
-- **U1 y U2.** U1 es el MCP73831 (lleva una marca, a menudo un código corto) y U2 es el TPS70933. Los dos son SOT-23-5 y se parecen: no los saques de su tira hasta colocarlos.
-- **Q1** es el AO3401A, en SOT-23.
-- **Polaridad.** Estos encapsulados solo entran de una forma: el lado con tres patas va sobre la fila de tres pads. El pin 1 (punto rojo) coincide con el punto o triángulo de la serigrafía.
-- **Comprueba** que las patas quedan centradas en sus pads y que ninguna hace puente con la siguiente.
+El orden ayuda a que el soldador llegue a los pads. No evita los puentes. En el bloque central, piezas de redes distintas quedan a 0,77–0,85 mm, y las patas de U1 y U2 a solo 0,35 mm.
 
-### Paso C2: resistencias (cara trasera)
+### Paso C1: resistencias (cara trasera)
 
-![Paso C2](images/control-pcb-v0.32-asm-c2-resistors.png)
+![Paso C1](images/control-pcb-v0.32-asm-c1-resistors.png)
+
+Pon la placa plana sobre la mesa y sujétala con Blu-Tack. Sigue así hasta el paso C6.
 
 - Suelda un valor cada vez, directamente desde su tira:
   - 10k: R1.
@@ -162,45 +170,96 @@ Mide en J1 por el lado de los pines, sobre los pads. El pin 1 es el punto rojo; 
 - Las resistencias no tienen polaridad.
 - Intercambiar R2 con R3, o R4 con R5, invierte un divisor y mete demasiada tensión en un pin de la XIAO. Comprueba el valor antes de colocar cada una.
 
-### Paso C3: condensadores (cara trasera)
+### Paso C2: condensadores (cara trasera)
 
-![Paso C3](images/control-pcb-v0.32-asm-c3-capacitors.png)
+![Paso C2](images/control-pcb-v0.32-asm-c2-capacitors.png)
 
 - 4,7 µF: C1–C4.
 - 100 nF: C5.
 - No tienen polaridad. Los dos valores parecen iguales: haz un valor cada vez.
 
-### Paso C4: F1 y D1 (cara trasera)
+### Paso C3: F1 (cara trasera)
 
-![Paso C4](images/control-pcb-v0.32-asm-c4-fuse-tvs.png)
+![Paso C3](images/control-pcb-v0.32-asm-c3-fuse.png)
 
-- **F1, el fusible PTC:** sin polaridad. Es grande: da tiempo a que el estaño moje cada pad.
-- **D1, el SMBJ5.0A: tiene polaridad.**
-  - Su cuerpo lleva una banda en un extremo. La banda (cátodo) va en el extremo marcado en rojo: el izquierdo, mirando la cara trasera como en la imagen.
-  - Al revés, D1 cortocircuita la entrada de 5 V y F1 salta en cuanto conectas un cargador.
+F1 es el fusible PTC. No tiene polaridad. Es grande: da tiempo a que el estaño moje cada pad.
 
-### Paso C5: interruptores (cara delantera)
+### Paso C4: Q1, U1, U2 (cara trasera)
 
-![Paso C5](images/control-pcb-v0.32-asm-c5-switches.png)
+![Paso C4](images/control-pcb-v0.32-asm-c4-ics.png)
 
-1. Dale la vuelta a la placa. Las piezas de atrás miden como mucho unos 2,4 mm (D1), así que nivela la placa con Blu-Tack o un soporte.
-2. Suelda SW1–SW3 como en el [paso J1](#paso-j1).
-3. SW1 es la tecla A, SW2 la B y SW3 la C.
+- **Identifícalos.** U1 es el MCP73831 (lleva una marca, a menudo un código corto) y U2 es el TPS70933. Los dos son SOT-23-5 y se parecen: no los saques de su tira hasta colocarlos. Q1 es el AO3401A, en SOT-23.
+- **Polaridad.** Estos encapsulados solo entran de una forma: el lado con más patas va sobre la fila con más pads. El pin 1 (punto rojo) coincide con el punto o triángulo de la serigrafía.
+- **Sujétalos desde arriba.** Junto a U1 y Q1 quedan huecos de solo unos 0,64 mm para las pinzas.
+
+Suelda en este orden, con la placa vista como en la imagen:
+
+1. **Q1.** Estaña el pad de abajo a la izquierda (pad 2) y fija Q1 en él. Comprueba todas las patas. Luego suelda el pad de arriba a la izquierda (pad 1) y el pad suelto.
+2. **U1.** Estaña el pad de abajo a la derecha (pad 4) y fija U1 en él. No empieces por el de arriba a la derecha (pad 5): está cerca de R1. Comprueba todas las patas. Luego suelda el pad 5 y, al final, el lado de tres patas, desde fuera y con muy poco estaño.
+3. **U2.** Igual. Su pad 4 no tiene conexión, así que un error ahí es el que menos cuesta.
+
+**Comprueba** que las patas quedan centradas en sus pads y que ninguna hace puente con la siguiente.
+
+### Paso C5: D1 (cara trasera)
+
+![Paso C5](images/control-pcb-v0.32-asm-c5-tvs.png)
+
+D1, el SMBJ5.0A, **tiene polaridad.**
+- Su cuerpo lleva una banda en un extremo. La banda (cátodo) va en el extremo marcado en rojo: el izquierdo, mirando la cara trasera como en la imagen.
+- Al revés, D1 cortocircuita la entrada de 5 V y F1 salta en cuanto conectas un cargador.
 
 ### Paso C6: conectores (cara trasera)
 
 ![Paso C6](images/control-pcb-v0.32-asm-c6-sockets.png)
 
-1. Vuelve a girar la placa: ahora se apoya sobre sus tres interruptores.
-2. Suelda los conectores. Cada uno entra de una sola forma, con los pines sobre la fila de pads pequeños.
-   - J3: 3 pines, placa USB-C.
-   - J4: 5 pines, joystick.
-   - J5: JST PH de 2 pines, entrada por arriba, batería.
-3. J5 es más grande, de paso 2 mm. Su pin 1 es el `+` de la batería, como indica el `+ −` de la serigrafía.
+Cada conector entra de una sola forma, con los pines sobre la fila de pads pequeños. Suéldalos en este orden:
 
-### Paso C7: zócalos de la XIAO (se meten por detrás y se sueldan por delante)
+1. **J3:** 3 pines, placa USB-C. Su pestaña junto a J5 solo está libre ahora, así que suelda las dos pestañas y los pines.
+2. **J5:** JST PH de 2 pines, entrada por arriba, batería. Su pin 1 es el `+` de la batería, como indica el `+ −` de la serigrafía.
+   1. Estaña poco los dos pads grandes de las pestañas antes de colocar J5.
+   2. Suelda primero los dos pines. Esto sustituye al "fija primero una pestaña" del [método de soldadura](#cómo-soldar).
+   3. Recalienta cada pad de pestaña por donde asoma del cuerpo. Solo asoman unos 0,2 mm, y a la pestaña junto a J3 cuesta llegar.
+   4. Las pestañas no llevan señal. Si una no agarra, el circuito funciona igual, pero J5 queda más débil: no tires del cable de la batería.
+3. **J4:** 5 pines, joystick.
 
-![Paso C7](images/control-pcb-v0.32-asm-c7-headers.png)
+### Comprobaciones antes de los interruptores y los zócalos
+
+Hazlas ahora. Con J1 y J2 puestos, retocar Q1, U1 y U2 es difícil, porque las paredes de los zócalos quedan a 0,7–0,9 mm.
+
+Antes limpia y revisa la placa, como en [Después de cada placa](#cómo-soldar). Mide sin la XIAO y sin la batería, en el rango de resistencia salvo que la fila diga otra cosa. Aquí J1 y J2 son sus agujeros metalizados vacíos, numerados como en la [imagen de los puntos de medida](#puntos-de-medida). GND es J2 pin 2. Izquierda y derecha son las de las imágenes de la cara trasera.
+
+| Punta roja | Punta negra | Esperado | Si no |
+|---|---|---|---|
+| Extremo de C2 junto a Q1 (BAT_SYS) | GND | Lejos de 0 Ω; sube mientras cargan los condensadores | Puente junto a C1–C4, U1, U2 o Q1 |
+| J2 pin 3 (3V3) | GND | Lejos de 0 Ω; sube mientras carga C4 | Puente junto a U2 o C4 |
+| J3 pin 1 (entrada de 5 V), en modo diodo | J3 pin 2 (GND), sobre los pads | OL o lectura alta | Unos 0,6–0,8 V: D1 está al revés. Cerca de 0: puente junto a F1, D1, C1 o U1 |
+| Pad `+` de J5 | Pad `−` de J5 | Lejos de 0 Ω | Puente junto a J5, Q1 o F1 |
+| J2 pin 5 (detección de VBUS) | GND | Unos 150 kΩ | R4 y R5 intercambiadas, o falta alguna o tiene un puente |
+| J2 pin 6 (detección de carga) | GND | Unos 150 kΩ | R2 y R3 intercambiadas, o falta alguna o tiene un puente |
+| Extremo derecho de F1 (VBUS) | J2 pin 5 | Unos 100 kΩ | R4 con un puente o equivocada: VBUS llegaría a un pin de la XIAO |
+| J3 pin 3 (STAT), sobre el pad | J2 pin 6 | Unos 100 kΩ | R2 con un puente o equivocada |
+| Extremo izquierdo de R1 (PROG) | GND | Unos 10 kΩ | R1 equivocada, o un puente junto a U1 |
+| J1 pin 1 (detección de VBAT) | GND | Sube de unos 0,5 MΩ a unos 1 MΩ, en hasta unos 30 s | R7 equivocada, o un puente |
+| Extremo de C2 junto a Q1 | J1 pin 1 | Sube de unos 0,5 MΩ a unos 1 MΩ, en hasta unos 30 s | R6 equivocada, o un puente |
+| Extremo derecho de F1 | Pad `+` de J5 | Abierto, no pita | Puente de F1 a J5: pondría 5 V en la batería |
+| J1 pines 5, 6, 7 y J2 pin 7 (joystick) | GND, y entre ellos | Abierto | Puente junto a J4 |
+
+Las lecturas en kΩ y MΩ son estimaciones: el multímetro también ve las demás piezas de cada nudo. Lo que indica fallo es una lectura muy por debajo. Si una lectura se queda fija donde debería subir o dar abierto, limpia otra vez la placa: el flux quemado puede tener fugas.
+
+### Paso C7: interruptores (cara delantera)
+
+![Paso C7](images/control-pcb-v0.32-asm-c7-switches.png)
+
+1. Dale la vuelta a la placa. Ya no queda plana: J5 mide 6,6 mm, y J3 y J4 2,72 mm. Sin calzar queda inclinada unos 6°.
+2. Nivélala y sujétala con Blu-Tack o un soporte. Mantén el Blu-Tack lejos de los agujeros de J1 y J2 y de las bocas de los conectores.
+3. Suelda SW1–SW3 como en el [paso J1](#paso-j1). SW1 es la tecla A, SW2 la B y SW3 la C.
+4. No hagas fuerza sobre J3 mientras sueldas SW1: una vía de GND une SW1 con una soldadura de J3, que puede ablandarse.
+
+**Comprueba:** J1 pines 2, 3 y 4 (botones) a GND dan abierto, y 0 Ω mientras pulsas SW1, SW2 o SW3. Si no, mira las soldaduras de ese interruptor.
+
+### Paso C8: zócalos de la XIAO (se meten por detrás y se sueldan por delante)
+
+![Paso C8](images/control-pcb-v0.32-asm-c8-headers.png)
 
 Los dos zócalos hembra 1 × 7, J1 y J2, se meten por la cara trasera. Sus pines salen por la delantera, donde se sueldan. Los pads cuadrados marcan el pin 1, en el extremo de J4.
 
@@ -215,27 +274,20 @@ Los dos zócalos hembra 1 × 7, J1 y J2, se meten por la cara trasera. Sus pines
 **Para que los zócalos queden rectos, suéldalos con la XIAO puesta.**
 1. Mete los pines de la XIAO en los dos zócalos, para que los mantenga paralelos y a la distancia justa.
 2. Mete los zócalos en la placa por la cara trasera, con la XIAO bien orientada (mira [la imagen de la XIAO](#xiao)): componentes hacia ti y USB-C en el extremo de J4.
-3. Da la vuelta al conjunto y apóyalo sobre la XIAO.
-4. Suelda un pin en cada extremo de cada zócalo.
+3. Da la vuelta al conjunto y apóyalo sobre la XIAO. Nivela el extremo libre con Blu-Tack, lejos de las bocas de los conectores.
+4. Suelda un pin en cada extremo de cada zócalo. No pases de 2–3 s por pin y haz pausas: el plástico del zócalo aguanta 220 °C solo 5 s.
 5. Comprueba que los zócalos quedan planos contra la placa. Si alguno no, recalienta un pin y aprieta el zócalo.
 6. Suelda el resto de pines.
 7. Quita la XIAO. Los pines del zócalo son cortos, así que a sus componentes les llega poco calor.
 
-### Comprobaciones de la placa de control
+### Comprobaciones después de los zócalos
 
-Usa los [puntos de medida de los zócalos](#puntos-de-medida). Mete el cable Dupont macho en un zócalo y toca con la punta del multímetro. Mide en el rango de resistencia, sin la XIAO y sin la batería.
+Usa los [puntos de medida de los zócalos](#puntos-de-medida). Mete el cable Dupont macho en un zócalo y toca con la punta del multímetro. Mide sin la XIAO y sin la batería.
 
 | Entre | Esperado | Si no |
 |---|---|---|
-| J2 pin 3 (3V3) y J2 pin 2 (GND) | Lejos de 0 Ω; puede subir mientras se carga C4 | Puente junto a U2 o C4 |
-| J3 pin 1 (entrada de 5 V) y J3 pin 2 (GND), sobre los pads de J3, en modo diodo con la punta roja en el pin 1 | Sin lectura (OL) | Unos 0,6–0,8 V: D1 está al revés. Cerca de 0: puente junto a F1, D1, C1 o U1 |
-| Pads `+` y `−` de J5 | Lejos de 0 Ω | Puente junto a Q1, C2 o C3 |
-| J2 pin 5 (detección de VBUS) a GND | Unos 150 kΩ | R4 y R5 intercambiadas o falta alguna |
-| J2 pin 6 (detección de carga) a GND | Unos 150 kΩ | R2 y R3 intercambiadas o falta alguna |
-| J1 pines 2, 3 y 4 (botones) a GND | Abierto; 0 Ω mientras pulsas SW1, SW2 o SW3 | Soldadura del interruptor |
+| J2 pin 3 (3V3) y J2 pin 2 (GND) | Lejos de 0 Ω; puede subir mientras se carga C4 | Puente en la cara delantera |
 | Cada pin de los zócalos con sus vecinos | No pita | Puente en la cara delantera |
-
-Los 150 kΩ son una estimación: el multímetro también ve las demás piezas de cada nudo.
 
 <a id="puntos-de-medida"></a>
 ![Puntos de medida de los zócalos de la placa de control](images/control-pcb-v0.32-asm-test-points.png)
@@ -426,6 +478,7 @@ Cada uno se comprueba en el primer montaje. Apunta aquí el resultado.
 - **Posición del USB4736.** Una vez soldado, mide desde la cara frontal del cuerpo (donde apoya la junta) hasta el centro de cada agujero M2, con un pasador de Ø2 mm en el agujero: 11,10 mm en el diseño. Fija la compresión de la junta; mira las incógnitas abiertas del [concepto mecánico](mechanical-concept.es.md#open-unknowns-before-printing).
 - **Orientación del LED.** La huella de la rev B parece invertida (mira el [paso U4](#paso-u4-led-de-carga)). Confírmalo con una pieza, y que el LED se suelda boca abajo y se ve por la ventana. Una máquina no puede dar la vuelta a la pieza, así que D1 en las placas montadas probablemente esté invertido: pruébalo. Se corregirá en la próxima revisión de la placa, con un LED más grande.
 - **LED a mano.** Si un soldador llega al pad 1 y si el LED sobrevive sin control de temperatura.
+- **Bloque central a mano.** Si las piezas entre los zócalos de la XIAO se pueden soldar sin puentes con la punta y el estaño indicados en [Herramientas](#herramientas). El orden de la [sección 2](#placa-control) sale de un modelo y no se ha probado. Practica antes en una placa de sobra.
 - **Elección del zócalo.** Si los pines de 6,1 mm de la XIAO entran y sujetan en el zócalo de 5,7 mm. El de 8,5 mm cabe en el CAD (comprobado el 20-10-2026), pero no se ha vuelto a comprobar el recorrido de montaje con él.
 - **Cables.** Que los cables `reverse direction` de AliExpress sean rectos y encajen en los conectores "1.0 WT".
 - **Lecturas.** Las tensiones y resistencias esperadas de arriba salen del circuito y de las hojas de datos, no de una placa real.
