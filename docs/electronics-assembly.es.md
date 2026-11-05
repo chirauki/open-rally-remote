@@ -97,7 +97,7 @@ Las placas desnudas son así; el texto impreso permite distinguir las caras.
 ### Orden
 
 1. **Primero la placa del joystick.** Sus piezas son las más grandes, y su conector sirve de práctica para el paso de 1 mm.
-2. **Después la placa de control.** Primero la cara trasera, en general de la pieza más baja a la más alta; luego los interruptores, y al final los zócalos de la XIAO. El motivo está en [su sección](#placa-control).
+2. **Después la placa de control.** Primero la cara trasera: las resistencias, luego Q1, U1 y U2, y después las demás piezas, en general de la más baja a la más alta. Luego los interruptores, y al final los zócalos de la XIAO. El motivo está en [su sección](#placa-control).
 3. **La placa USB-C la última.** Su receptáculo y su LED son las piezas más difíciles.
 4. **Pruebas.** Luego los cables y las pruebas.
 5. **El barniz al final.** Barniza solo cuando todo funcione: retocar a través del barniz es más difícil.
@@ -141,20 +141,20 @@ Mide en J1 por el lado de los pines, sobre los pads. El pin 1 es el punto rojo; 
 
 ![Cara trasera de la placa de control, todas las piezas](images/control-pcb-v0.32-asm-back-map.png) ![Cara delantera de la placa de control, todas las piezas](images/control-pcb-v0.32-asm-front-map.png)
 
-**Por qué este orden.** En general, las piezas más bajas van primero y las más altas al final, para que el soldador siga llegando a cada pad. Un modelo 3D de la punta, comprobado con una revisión independiente, dio el orden de abajo. No se ha probado en una placa real.
+**Por qué este orden.** En general, las piezas más bajas van primero y las más altas al final, para que el soldador siga llegando a cada pad. Q1, U1 y U2 son la excepción: van antes que los condensadores, que son más bajos, porque el lado de U1 y U2 con tres patas da a C1–C4. Un modelo 3D de la punta, comprobado con una revisión independiente, dio el orden de abajo. No se ha probado en una placa real.
 
 | Pieza | Altura | Por qué va ahí |
 |---|---|---|
 | R1–R7 | Unos 0,55 mm | U1 y D1 estorban a R1; Q1 estorba a R2 |
-| C1–C5 | Unos 0,8 mm | U1, U2 y Q1 estorban a los condensadores más que al revés |
+| Q1, U1, U2 | Unos 1,25 y 1,45 mm | Sin C1–C4, una punta de 2 mm junto a los pads de tres patas tiene unas 2–7 veces más posiciones libres en el modelo, y una de 1,2 mm unas 1,5 veces. D1 estorba a U1 |
+| C1–C5 | Unos 0,8 mm | Con Q1, U1 y U2 puestos, los pads derechos de C1–C4 pierden sitio: un 16–19 % en un modelo simple, un tercio o más contando las piezas vecinas. Una punta de 2 mm no tiene ahí una posición libre en ninguno de los dos órdenes. Por eso se empieza por el pad izquierdo |
 | F1 | 0,85 mm | D1 y J5 le estorban |
-| Q1, U1, U2 | Unos 1,25 y 1,45 mm | D1 estorba a U1 |
 | D1 | 2,6 mm | Va después de las piezas que tiene alrededor |
 | J3, J5, J4 | 2,72, 6,6 y 2,72 mm | J3 va antes que J5, para tener sitio con las pinzas |
 | SW1–SW3 | 3,5 mm | Van después de las piezas de atrás, para que la placa quede plana mientras sueldas todas esas |
 | J1, J2 | 5,7 mm | Al final: estorban al bloque central más que ninguna otra pieza |
 
-El orden ayuda a que el soldador llegue a los pads. No evita los puentes. En el bloque central, piezas de redes distintas quedan a 0,77–0,85 mm, y las patas de U1 y U2 a solo 0,35 mm.
+El orden ayuda a que el soldador llegue a los pads. No evita los puentes. En el bloque central, piezas de redes distintas quedan a 0,77–0,85 mm, y los pads de U1 y U2 a solo 0,35 mm.
 
 ### Paso C1: resistencias (cara trasera)
 
@@ -170,35 +170,61 @@ Pon la placa plana sobre la mesa y sujétala con Blu-Tack. Sigue así hasta el p
 - Las resistencias no tienen polaridad.
 - Intercambiar R2 con R3, o R4 con R5, invierte un divisor y mete demasiada tensión en un pin de la XIAO. Comprueba el valor antes de colocar cada una.
 
-### Paso C2: condensadores (cara trasera)
+### Paso C2: Q1, U1, U2 (cara trasera)
 
-![Paso C2](images/control-pcb-v0.32-asm-c2-capacitors.png)
-
-- 4,7 µF: C1–C4.
-- 100 nF: C5.
-- No tienen polaridad. Los dos valores parecen iguales: haz un valor cada vez.
-
-### Paso C3: F1 (cara trasera)
-
-![Paso C3](images/control-pcb-v0.32-asm-c3-fuse.png)
-
-F1 es el fusible PTC. No tiene polaridad. Es grande: da tiempo a que el estaño moje cada pad.
-
-### Paso C4: Q1, U1, U2 (cara trasera)
-
-![Paso C4](images/control-pcb-v0.32-asm-c4-ics.png)
+![Paso C2](images/control-pcb-v0.32-asm-c2-ics.png)
 
 - **Identifícalos.** U1 es el MCP73831 (lleva una marca, a menudo un código corto) y U2 es el TPS70933. Los dos son SOT-23-5 y se parecen: no los saques de su tira hasta colocarlos. Q1 es el AO3401A, en SOT-23.
 - **Polaridad.** Estos encapsulados solo entran de una forma: el lado con más patas va sobre la fila con más pads. El pin 1 (punto rojo) coincide con el punto o triángulo de la serigrafía.
-- **Sujétalos desde arriba.** Junto a U1 y Q1 quedan huecos de solo unos 0,64 mm para las pinzas.
+- **Sujétalos desde arriba.** R1 y R2 dejan menos de 1 mm junto a U1 y Q1 para las pinzas.
 
 Suelda en este orden, con la placa vista como en la imagen:
 
 1. **Q1.** Estaña el pad de abajo a la izquierda (pad 2) y fija Q1 en él. Comprueba todas las patas. Luego suelda el pad de arriba a la izquierda (pad 1) y el pad suelto.
-2. **U1.** Estaña el pad de abajo a la derecha (pad 4) y fija U1 en él. No empieces por el de arriba a la derecha (pad 5): está cerca de R1. Comprueba todas las patas. Luego suelda el pad 5 y, al final, el lado de tres patas, desde fuera y con muy poco estaño.
+2. **U1.**
+   1. Antes de colocarlo, estaña los tres pads de su lado izquierdo (pads 1, 2 y 3). Deja una capa fina y plana, no una gota. Aplana una gota con la malla.
+   2. Estaña el pad de abajo a la derecha (pad 4) y fija U1 en él. No empieces por el de arriba a la derecha (pad 5): está cerca de R1.
+   3. Aprieta U1 contra la placa mientras recalientas el pad 4. Comprueba todas las patas.
+   4. Suelda el pad 5.
+   5. Suelda las tres patas de la izquierda como se explica abajo.
 3. **U2.** Igual. Su pad 4 no tiene conexión, así que un error ahí es el que menos cuesta.
 
+**Las tres patas de la izquierda de U1 y U2.** Son las soldaduras más difíciles de la placa, y sus pads están a 0,35 mm.
+
+1. Pon flux en las tres patas.
+2. Entra desde la izquierda, por encima de los pads vacíos de los condensadores, a unos 40° de la placa. Más plana, la punta o su cono tocan Q1, R2 o R3. No apoyes la punta en el encapsulado.
+3. Toca el extremo exterior de los pads con muy poco estaño. El estaño de 0,5 mm ayuda aquí.
+4. Quita cualquier puente con flux y malla, también desde la izquierda.
+
+Una punta de más de unos 1,2 mm también toca el pad de al lado. Incluso con 1,2 mm solo quedan 0,05 mm, y solo si está centrada. Cuenta con que saldrán puentes con cualquier punta, y quítalos con la malla.
+
 **Comprueba** que las patas quedan centradas en sus pads y que ninguna hace puente con la siguiente.
+
+Limpia el flux y mide ahora. Retocar es más fácil antes de poner los condensadores, y las lecturas se estabilizan enseguida. Sin la XIAO y sin la batería. GND es el agujero vacío de J2 pin 2, y la izquierda es la de la imagen.
+
+| Punta roja | Punta negra | Esperado | Fallo |
+|---|---|---|---|
+| Extremo izquierdo de R2 (STAT) | GND | Unos 130–250 kΩ | Cerca de 0: puente de la pata 1 a la 2 de U1. Unos 10 kΩ: puente de la pata 1 de U1 al extremo izquierdo de R1 |
+| Extremo izquierdo de R6 (BAT_SYS) | GND | Unos 0,4–2 MΩ | Cerca de 0: puente de la pata 2 a la 3 de U1, de la pata 2 a la 1 o la 3 de U2, o del pad 1 al 2 de Q1. Unos 220 kΩ: puente del pad 2 de Q1 al extremo izquierdo de R2 |
+| Extremo izquierdo de R1 (PROG) | GND | Unos 10 kΩ | Cerca de 0: puente del pad 5 de U1 al extremo derecho de R1 |
+
+Estas lecturas son estimaciones, porque el multímetro también ve U1 y U2. El resultado depende de la tensión de prueba del multímetro.
+
+### Paso C3: condensadores (cara trasera)
+
+![Paso C3](images/control-pcb-v0.32-asm-c3-capacitors.png)
+
+- 4,7 µF: C1–C4.
+- 100 nF: C5.
+- No tienen polaridad. Los dos valores parecen iguales: haz un valor cada vez.
+- **C1–C4: empieza por el pad izquierdo.** Pon la gota de estaño en el pad izquierdo y luego suelda el pad derecho con muy poco estaño. El pad derecho queda a unos 0,77 mm de las patas de U1 o U2.
+- **Pad izquierdo de C2.** Queda a 0,8 mm del pad suelto de Q1. Revisa ese hueco con aumento. Un puente ahí anula la protección contra la batería invertida.
+
+### Paso C4: F1 (cara trasera)
+
+![Paso C4](images/control-pcb-v0.32-asm-c4-fuse.png)
+
+F1 es el fusible PTC. No tiene polaridad. Es grande: da tiempo a que el estaño moje cada pad.
 
 ### Paso C5: D1 (cara trasera)
 
@@ -234,6 +260,8 @@ Antes limpia y revisa la placa, como en [Después de cada placa](#cómo-soldar).
 | J2 pin 3 (3V3) | GND | Lejos de 0 Ω; sube mientras carga C4 | Puente junto a U2 o C4 |
 | J3 pin 1 (entrada de 5 V), en modo diodo | J3 pin 2 (GND), sobre los pads | OL o lectura alta | Unos 0,6–0,8 V: D1 está al revés. Cerca de 0: puente junto a F1, D1, C1 o U1 |
 | Pad `+` de J5 | Pad `−` de J5 | Lejos de 0 Ω | Puente junto a J5, Q1 o F1 |
+| Pad `+` de J5, en modo diodo. Antes, cortocircuita un momento los dos pads de C2 con las pinzas: la carga que queda en C2 y C3 enciende Q1 y también da cerca de 0 | Extremo de C2 junto a Q1 (BAT_SYS) | Unos 0,4–0,8 V, el diodo interno de Q1 | Cerca de 0: puente del pad suelto de Q1 a C2 o al pad 2 de Q1, que anula la protección contra la batería invertida. OL: la soldadura del pad 2 o del pad suelto de Q1. Esta prueba no comprueba el pad 1: revísalo a la vista |
+| J3 pin 3 (STAT), sobre el pad | GND | Unos 130–250 kΩ | Cerca de 0: puente del pin 3 al 2 de J3, de la pata 1 a la 2 de U1, o de C1 a la pata 1 de U1 |
 | J2 pin 5 (detección de VBUS) | GND | Unos 150 kΩ | R4 y R5 intercambiadas, o falta alguna o tiene un puente |
 | J2 pin 6 (detección de carga) | GND | Unos 150 kΩ | R2 y R3 intercambiadas, o falta alguna o tiene un puente |
 | Extremo derecho de F1 (VBUS) | J2 pin 5 | Unos 100 kΩ | R4 con un puente o equivocada: VBUS llegaría a un pin de la XIAO |

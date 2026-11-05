@@ -96,7 +96,7 @@ The bare boards look like this; the printed text tells the sides apart.
 ### Order
 
 1. **Joystick board first.** Its parts are the biggest, and its socket is practice for the 1 mm pitch.
-2. **Control board.** The back goes first, broadly from the lowest parts to the tallest, then the switches, and the XIAO headers last. See [its section](#2-control-board) for why.
+2. **Control board.** The back goes first: the resistors, then Q1, U1 and U2, then the other parts, broadly from the lowest to the tallest. Then the switches, and the XIAO headers last. See [its section](#2-control-board) for why.
 3. **USB-C board last.** Its receptacle and LED are the hardest parts.
 4. **Tests.** Then the cables and the tests.
 5. **Coating last.** Coat only once everything works: rework through the coating is harder.
@@ -137,20 +137,20 @@ Probe J1 from its pin side, on the pads. Pin 1 is the red dot, pin 5 is GND.
 
 ![Control board back, all parts](images/control-pcb-v0.32-asm-back-map.png) ![Control board front, all parts](images/control-pcb-v0.32-asm-front-map.png)
 
-**Why this order.** Broadly, the lowest parts go first and the tallest last, so the iron can still reach each pad. A 3D model of the tip, checked with an independent review, gave the order below. It was not tried on a real board.
+**Why this order.** Broadly, the lowest parts go first and the tallest last, so the iron can still reach each pad. Q1, U1 and U2 are the exception: they go before the capacitors, which are lower, because the side of U1 and U2 with three legs faces C1–C4. A 3D model of the tip, checked with an independent review, gave the order below. It was not tried on a real board.
 
 | Part | Height | Why it goes where it does |
 |---|---|---|
 | R1–R7 | About 0.55 mm | U1 and D1 crowd R1; Q1 crowds R2 |
-| C1–C5 | About 0.8 mm | U1, U2 and Q1 crowd the capacitors more than the capacitors crowd them |
+| Q1, U1, U2 | About 1.25 and 1.45 mm | Without C1–C4, a 2 mm tip beside the three-leg pads has about 2–7 times more free poses in the model, and a 1.2 mm tip about 1.5 times. D1 crowds U1 |
+| C1–C5 | About 0.8 mm | With Q1, U1 and U2 in, the right pads of C1–C4 lose room: about 16–19 % in a simple model, about a third or more with the neighbouring parts counted. A 2 mm tip has no clear pose there in either order. Hence the left pad first |
 | F1 | 0.85 mm | D1 and J5 crowd it |
-| Q1, U1, U2 | About 1.25 and 1.45 mm | D1 crowds U1 |
 | D1 | 2.6 mm | It goes after the parts round it |
 | J3, J5, J4 | 2.72, 6.6 and 2.72 mm | J3 goes before J5, for tweezer room |
 | SW1–SW3 | 3.5 mm | Fitted after the back parts, so the board lies flat for all of those |
 | J1, J2 | 5.7 mm | Last: they crowd the central block more than any other part |
 
-The order helps the iron reach the pads. It does not prevent bridges. In the central block, parts on different nets are 0.77–0.85 mm apart, and the legs of U1 and U2 only 0.35 mm.
+The order helps the iron reach the pads. It does not prevent bridges. In the central block, parts on different nets are 0.77–0.85 mm apart, and the pads of U1 and U2 only 0.35 mm.
 
 ### Step C1: resistors (back)
 
@@ -166,35 +166,61 @@ Lay the board flat on the table and fix it with Blu-Tack. It stays that way up t
 - Resistors have no polarity.
 - Mixing up R2/R3 or R4/R5 swaps the halves of a divider. That puts too much voltage on a XIAO pin, so check each value before placing it.
 
-### Step C2: capacitors (back)
+### Step C2: Q1, U1, U2 (back)
 
-![Step C2](images/control-pcb-v0.32-asm-c2-capacitors.png)
-
-- 4.7 µF: C1–C4.
-- 100 nF: C5.
-- No polarity. Both values look the same, so do one value at a time.
-
-### Step C3: F1 (back)
-
-![Step C3](images/control-pcb-v0.32-asm-c3-fuse.png)
-
-F1 is the PTC fuse. It has no polarity. It is big, so give each pad time to wet.
-
-### Step C4: Q1, U1, U2 (back)
-
-![Step C4](images/control-pcb-v0.32-asm-c4-ics.png)
+![Step C2](images/control-pcb-v0.32-asm-c2-ics.png)
 
 - **Identify them.** U1 is the MCP73831 (marked on the part, often with a short code). U2 is the TPS70933. Both come in SOT-23-5 and look alike, so keep them in their strips. Q1 is the AO3401A in SOT-23.
 - **Polarity.** These packages fit one way only: the side with more legs goes on the row with more pads. Pin 1 (red dot) matches the silkscreen dot or triangle.
-- **Hold them from above.** Beside U1 and Q1 there are slots of only about 0.64 mm for the tweezers.
+- **Hold them from above.** R1 and R2 leave under 1 mm beside U1 and Q1 for the tweezers.
 
 Solder in this order, with the image's view of the board:
 
 1. **Q1.** Tin the lower-left pad (pad 2) and fix Q1 on it. Check all the legs. Then solder the upper-left pad (pad 1) and the single pad.
-2. **U1.** Tin the lower-right pad (pad 4) and fix U1 on it. Do not start on the upper-right pad (pad 5): it is close to R1. Check all the legs. Then solder pad 5 and, last, the side with three legs, from the outside and with very little solder.
+2. **U1.**
+   1. Before you place it, tin the three pads on its left side (pads 1, 2 and 3). Leave a thin, flat film, not a dome. Flatten a dome with braid.
+   2. Tin the lower-right pad (pad 4) and fix U1 on it. Do not start on the upper-right pad (pad 5): it is close to R1.
+   3. Press U1 flat while you reheat pad 4. Check all the legs.
+   4. Solder pad 5.
+   5. Solder the three legs on the left as described below.
 3. **U2.** The same way. Its pad 4 has no connection, so a mistake there costs least.
 
+**The three legs on the left of U1 and U2.** They are the hardest joints on the board, and their pads are 0.35 mm apart.
+
+1. Flux all three legs.
+2. Come in from the left, across the empty capacitor pads, at about 40° to the board. Flatter, the tip or its taper hits Q1, R2 or R3. Do not rest the tip on the package.
+3. Touch the outer end of the pads with very little solder. The 0.5 mm solder helps here.
+4. Remove any bridge with flux and braid, also from the left.
+
+A tip wider than about 1.2 mm also touches the next pad. Even 1.2 mm clears it by only 0.05 mm, and only when centred. Expect bridges with any tip, and clear them with braid.
+
 **Check:** the legs sit centred on their pads, and no leg bridges to the next.
+
+Clean off the flux and measure now. Rework is easiest before the capacitors go in, and the readings settle at once. Use no XIAO and no battery. GND is the empty J2 pin 2 hole, and left is as in the image.
+
+| Red probe | Black probe | Expect | Fault |
+|---|---|---|---|
+| Left end of R2 (STAT) | GND | About 130–250 kΩ | Near 0: bridge from leg 1 to leg 2 of U1. About 10 kΩ: bridge from leg 1 of U1 to the left end of R1 |
+| Left end of R6 (BAT_SYS) | GND | About 0.4–2 MΩ | Near 0: bridge from leg 2 to leg 3 of U1, from leg 2 to leg 1 or 3 of U2, or from pad 1 to pad 2 of Q1. About 220 kΩ: bridge from pad 2 of Q1 to the left end of R2 |
+| Left end of R1 (PROG) | GND | About 10 kΩ | Near 0: bridge from pad 5 of U1 to the right end of R1 |
+
+These readings are estimates, because the meter also sees U1 and U2. The result depends on the meter's test voltage.
+
+### Step C3: capacitors (back)
+
+![Step C3](images/control-pcb-v0.32-asm-c3-capacitors.png)
+
+- 4.7 µF: C1–C4.
+- 100 nF: C5.
+- No polarity. Both values look the same, so do one value at a time.
+- **C1–C4: start on the left pad.** Put the solder blob on the left pad, then solder the right pad with very little solder. The right pad is about 0.77 mm from the legs of U1 or U2.
+- **Left pad of C2.** It is 0.8 mm from the single pad of Q1. Check that gap under magnification. A bridge there defeats the protection against a reversed battery.
+
+### Step C4: F1 (back)
+
+![Step C4](images/control-pcb-v0.32-asm-c4-fuse.png)
+
+F1 is the PTC fuse. It has no polarity. It is big, so give each pad time to wet.
 
 ### Step C5: D1 (back)
 
@@ -230,6 +256,8 @@ Clean and inspect the board first, as in [After each board](#soldering-method). 
 | J2 pin 3 (3V3) | GND | Not near 0 Ω; climbs as C4 charges | Bridge round U2 or C4 |
 | J3 pin 1 (5 V in), diode test | J3 pin 2 (GND), on the pads | OL or a high reading | About 0.6–0.8 V: D1 is the wrong way round. Near 0: a bridge round F1, D1, C1 or U1 |
 | J5 `+` pad | J5 `−` pad | Not near 0 Ω | Bridge round J5, Q1 or F1 |
+| J5 `+` pad, diode test. First short C2's two pads for a moment with the tweezers: charge left in C2 and C3 turns Q1 on and also reads near 0 | End of C2 next to Q1 (BAT_SYS) | About 0.4–0.8 V, Q1's body diode | Near 0: bridge from Q1's single pad to C2 or to Q1 pad 2, which defeats the reversed-battery protection. OL: the joint of Q1 pad 2 or of its single pad. This test does not check pad 1: inspect it |
+| J3 pin 3 (STAT), on the pad | GND | About 130–250 kΩ | Near 0: bridge from J3 pin 3 to pin 2, from leg 1 to leg 2 of U1, or from C1 to leg 1 of U1 |
 | J2 pin 5 (VBUS sense) | GND | About 150 kΩ | R4/R5 swapped, missing or bridged |
 | J2 pin 6 (CHG sense) | GND | About 150 kΩ | R2/R3 swapped, missing or bridged |
 | Right end of F1 (VBUS) | J2 pin 5 | About 100 kΩ | R4 bridged or wrong: VBUS would reach a XIAO pin |
