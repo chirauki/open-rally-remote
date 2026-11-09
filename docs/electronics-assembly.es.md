@@ -234,6 +234,7 @@ D1, el SMBJ5.0A, **tiene polaridad.**
 - Su cuerpo lleva una banda en un extremo. La banda (cátodo) va en el extremo marcado en rojo: el izquierdo, mirando la cara trasera como en la imagen.
 - Al revés, D1 cortocircuita la entrada de 5 V y F1 salta en cuanto conectas un cargador.
 
+<a id="paso-c6"></a>
 ### Paso C6: conectores (cara trasera)
 
 ![Paso C6](images/control-pcb-v0.32-asm-c6-sockets.png)
@@ -338,7 +339,7 @@ Todas sus piezas van en la cara superior. La placa tiene 1,2 mm de grosor.
 
 ![Paso U2](images/usbc-pcb-rev-b-v0.32-asm-u2-socket.png)
 
-J2 es el conector de 3 pines; se suelda como en el paso C6.
+J2 es el conector de 3 pines; se suelda como en el [paso C6](#paso-c6).
 
 ### Paso U3: receptáculo USB-C
 
