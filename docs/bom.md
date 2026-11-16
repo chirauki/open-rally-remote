@@ -1,10 +1,10 @@
-# Bill of Materials — V0.34
+# Bill of Materials — V0.35
 
 > Spanish version: [bom.es.md](bom.es.md).
 
-This is the single parts list for the project: the bench prototype and the V0.34 removable, battery-powered remote with its base. V0.34 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap, no heat-set inserts, foam seals on the cover and the battery cap, fewer different parts to buy (V0.32), 2 mm walls, which make the remote and the base 25 mm wide (V0.33), and a sliding USB-C board on two square nuts with two-layer foam seals (V0.34). The three circuit boards are joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). They can be ordered assembled, so the build needs no soldering, or bare, for the builder to solder by hand at a much lower cost: see [Ordering the boards](#ordering-the-boards). Design details stay in the linked documents; this page lists what to buy.
+This is the single parts list for the project: the bench prototype and the V0.35 removable, battery-powered remote with its base. V0.35 is V0.26 with the joystick board rev C, one base for both bar sizes, the vent in the battery cap, no heat-set inserts, foam seals on the cover and the battery cap, fewer different parts to buy (V0.32), 2 mm walls, which make the remote and the base 25 mm wide (V0.33), and a sliding USB-C board on two square nuts with two-layer foam seals (V0.34), and thinner key rings in a soft TPU keypad (V0.35). The three circuit boards are joined with bought cables ([design](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). They can be ordered assembled, so the build needs no soldering, or bare, for the builder to solder by hand at a much lower cost: see [Ordering the boards](#ordering-the-boards). Design details stay in the linked documents; this page lists what to buy.
 
-**Status:** nothing in the V0.34 list has been built or tested. The print material is not chosen yet ([materials study](materials-study.md)). The V0.25 list is in the git history.
+**Status:** nothing in the V0.35 list has been built or tested. The print material is not chosen yet ([materials study](materials-study.md)). The V0.25 list is in the git history.
 
 Sourcing preference: parts that builders can buy from mainstream retailers (for example Amazon) come first. Distributor-only parts are used only where no retail part meets the requirement, and the reason is given.
 
@@ -137,19 +137,20 @@ Estimated cost: about €75.
 | 1 | Joystick plate | Remote, rigid | `print_joy_plate` |
 | 1 | Ball and disc | Remote, rigid | `print_ball_disc` |
 | 1 | Joystick knob | Remote, rigid | `print_knob` |
-| 1 | Keypad and gasket, one piece with the three keys | Keypad: soft TPU (85A or softer); it can no longer be cut from sheet, because the keys stand on it | `print_gasket` |
+| 1 | Keypad and gasket, one piece with the three keys | Keypad: soft TPU, Shore A61–A70 (V0.35; 85A is too hard to press); it can no longer be cut from sheet, because the keys stand on it | `print_gasket` |
 | 1 | Button plate | Remote, rigid | `print_button_plate` |
 | 1 | Battery cap | Remote, rigid | `print_battery_cap` |
 
 The base's printed parts are listed under [Base](#base-one-per-bike). Print settings and orientations are in the [mechanical notes](mechanical-concept.md#printing).
 
-The materials are not chosen yet. The [materials study](materials-study.md) recommends PA11 by MJF for the remote's rigid parts (ASA by FDM is the alternative), PA12 by MJF for the base's and TPU near 85A for the keypad. PETG is ruled out: a dark part in the Spanish sun reaches its heat deflection temperature.
+The materials are not chosen yet. The [materials study](materials-study.md) recommends PA11 by MJF for the remote's rigid parts (ASA by FDM is the alternative), PA12 by MJF for the base's and soft TPU, Shore A61–A70, for the keypad (V0.35). PETG is ruled out: a dark part in the Spanish sun reaches its heat deflection temperature.
 
 Estimated cost, from Craftcloud quotes of 2026-10-21 for the V0.33 files, EU workshops only, shipping to Spain included, VAT not checked:
 
 - All 11 rigid parts of the remote and the base from one MJF workshop: €143.84 in dyed black PA12, €161.49 in dyed black PA11 (WAITKUS 360°, Germany). A PA11 remote with a PA12 base in one order should fall between them; not quoted.
 - Remote in black ASA by FDM: €56.99 at 20 % infill (Ľubomír Pavliš, Slovakia), about €74 at 100 %. The base in PA12 apart: €91.97 (Smart Factory, Lithuania).
-- Keypad in FDM TPU, Shore 81–90A: €26.14 (Amber Layer, Lithuania) or €30.19 (Imagination 3D, Romania). Ask for the exact filament; the 0.8 mm sheet is under the 1 mm minimum wall given for FDM TPU.
+- Keypad in FDM TPU, Shore A61–A70 (V0.35): €26.17 with free shipping from a workshop in Lithuania (Craftcloud, 2026-11-16, V0.34 file). Ask for the exact filament, whether it prints the flat 0.6–0.8 mm sheet, and for 0.1 or 0.2 mm layers.
+- Keypad in FDM TPU, Shore 81–90A (V0.34, too hard): €26.14 (Amber Layer, Lithuania) or €30.19 (Imagination 3D, Romania).
 
 The full list is in the [materials study](materials-study.md#quotes). Orders from outside the EU were cheaper (from about €115 for the rigid parts) but pay import duties.
 

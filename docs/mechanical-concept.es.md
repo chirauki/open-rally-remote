@@ -1,8 +1,10 @@
-# CAD mecánico completo — Mando V0.34 sin soldadura
+# CAD mecánico completo — Mando V0.35 sin soldadura
 
 > Traducción al castellano de [mechanical-concept.md](mechanical-concept.md). La versión en inglés es la de referencia; si las dos difieren, vale la inglesa. Los textos alternativos de las imágenes siguen la versión inglesa.
 
-La V0.34 sigue a las primeras piezas reales. En la primera placa USB-C soldada, el receptáculo queda 0,3 mm fuera de su posición de diseño respecto a los agujeros M2, y su junta solo admite 0,09 mm, así que la placa ahora desliza sobre su nervio: los dos tornillos pasan por ranuras hasta tuercas cuadradas en el nervio, y es la junta la que fija dónde se para la placa. Además, la placa va boca abajo, bajo su nervio, para que un destornillador llegue a sus tornillos por la abertura de la tapa de la batería; en la V0.33 ninguna herramienta podía girarlos. Las juntas de espuma llevan dos capas de la lámina de 1,15 mm que se compró, no una. Mira [Cambios desde la V0.33](#changes-from-v033).
+La V0.35 hace que las teclas se pulsen con poca fuerza. Una tecla activa su interruptor doblando el anillo de lámina que hay entre la tecla y el agujero de la placa de botones, de 1,9 mm de ancho. Con 0,8 mm de TPU 85A, ese anillo necesita unos 15–35 N según la estimación, frente a 2–5 N de una tecla normal. La V0.35 adelgaza el anillo a 0,6 mm, y el teclado se imprime en TPU blando, Shore A61–A70: unos 5–6 N, estimados. Mira [Cambios desde la V0.34](#changes-from-v034).
+
+La V0.34 sigue a las primeras piezas reales. En la primera placa USB-C soldada, el receptáculo queda 0,3 mm fuera de su posición de diseño respecto a los agujeros M2, y su junta solo admite 0,09 mm, así que la placa ahora desliza sobre su nervio: los dos tornillos pasan por ranuras hasta tuercas cuadradas en el nervio, y es la junta la que fija dónde se para la placa. Además, la placa va boca abajo, bajo su nervio, para que un destornillador llegue a sus tornillos por la abertura de la tapa de la batería; en la V0.33 ninguna herramienta podía girarlos. Las juntas de espuma llevan dos capas de la lámina de 1,15 mm que se compró, no una. Mira [Cambios de la V0.34 respecto a la V0.33](#v034-changes-from-v033-still-current).
 
 La V0.33 engorda las paredes de 1 mm del mando a 2 mm: las paredes axiales de la parte estrecha y las dos paredes de los extremos. Crecen hacia fuera, así que el mando mide 25 mm a lo largo del manillar en vez de 23 mm y 2 mm más de alto, y la cavidad y todo lo que va dentro quedan como en la V0.32. La base también mide 25 mm. Las paredes más gruesas salen del [estudio de materiales](materials-study.es.md): las caídas son frecuentes en pistas, y las paredes de 1 mm con dos perímetros FDM pueden filtrar. El material de impresión aún no está elegido. Mira [Cambios de la V0.33 desde la V0.32](#v033-changes-from-v032-still-current).
 
@@ -32,62 +34,88 @@ Las piezas impresas del mando son rebanadas de un solo sólido exterior: el cont
 
 El mando se monta solo en el lado izquierdo del manillar, nunca en el derecho. El mando de intermitentes, que el frente plegado esquiva, está en la piña izquierda.
 
-**Concepto paramétrico actual:** [complete-remote-v0.34.scad](../mechanical/cad/complete-remote-v0.34.scad)
+**Concepto paramétrico actual:** [complete-remote-v0.35.scad](../mechanical/cad/complete-remote-v0.35.scad)
 
 ![La V0.33 sobre su base, desde el lado del piloto: un render del CAD hecho con Blender, con el mando en nylon teñido de negro y la base en nylon gris. El material aún no está elegido.](images/complete-remote-v0.33-photo-front.png)
 
 ![La V0.33 vista a lo largo del manillar: la cara de controles plegada, las paredes de 2 mm y la base con su pomo de bloqueo.](images/complete-remote-v0.33-photo-side.png)
 
-![La V0.34 sobre su base, desde el lado del piloto: las tres teclas de TPU sobresalen 3 mm de la tapa por agujeros de Ø13 mm, y el joystick está en la cara inferior.](images/complete-remote-v0.34-assembly.png)
+![La V0.35 sobre su base, desde el lado del piloto: las tres teclas de TPU sobresalen 3 mm de la tapa por agujeros de Ø13 mm, y el joystick está en la cara inferior.](images/complete-remote-v0.35-assembly.png)
 
-![La tapa de controles de la V0.34, vista de frente desde el lado del piloto.](images/complete-remote-v0.34-front.png)
+![La tapa de controles de la V0.35, vista de frente desde el lado del piloto.](images/complete-remote-v0.35-front.png)
 
-![La V0.34 vista a lo largo del manillar: la cara superior con las teclas A, B, C y la cara inferior con el joystick, girada 20 grados hacia el manillar.](images/complete-remote-v0.34-side.png)
+![La V0.35 vista a lo largo del manillar: la cara superior con las teclas A, B, C y la cara inferior con el joystick, girada 20 grados hacia el manillar.](images/complete-remote-v0.35-side.png)
 
-![El pomo del joystick de la V0.34 en la cara inferior, entre los cuatro tornillos inferiores de la tapa.](images/complete-remote-v0.34-joy.png)
+![El pomo del joystick de la V0.35 en la cara inferior, entre los cuatro tornillos inferiores de la tapa.](images/complete-remote-v0.35-joy.png)
 
-![La V0.34 sobre su base, desde detrás del manillar: la plataforma de la base bajo la cara trasera del mando, y el pomo de bloqueo debajo del anillo de la abrazadera.](images/complete-remote-v0.34-rear.png)
+![La V0.35 sobre su base, desde detrás del manillar: la plataforma de la base bajo la cara trasera del mando, y el pomo de bloqueo debajo del anillo de la abrazadera.](images/complete-remote-v0.35-rear.png)
 
-![Posición de entrada de la V0.34: el mando separado de la plataforma, 9 mm por debajo de su posición de trabajo, con el pomo de bloqueo tirado.](images/complete-remote-v0.34-entry.png)
+![Posición de entrada de la V0.35: el mando separado de la plataforma, 9 mm por debajo de su posición de trabajo, con el pomo de bloqueo tirado.](images/complete-remote-v0.35-entry.png)
 
-![Colocación y retirada de la V0.34, animadas. Izquierda: tira del pomo, apoya el mando en la plataforma 9 mm más abajo, deslízalo hasta el tope y suelta el pomo; después tira del pomo, desliza hacia abajo y levanta. Derecha: lo mismo, cortado a media anchura y visto a lo largo del manillar, con los raíles en la ranura y la cabeza del bloqueo (naranja) en su agujero.](images/complete-remote-v0.34-fit.gif)
+![Colocación y retirada de la V0.35, animadas. Izquierda: tira del pomo, apoya el mando en la plataforma 9 mm más abajo, deslízalo hasta el tope y suelta el pomo; después tira del pomo, desliza hacia abajo y levanta. Derecha: lo mismo, cortado a media anchura y visto a lo largo del manillar, con los raíles en la ranura y la cabeza del bloqueo (naranja) en su agujero.](images/complete-remote-v0.35-fit.gif)
 
-![La base de la V0.34 en el manillar: el anillo de la abrazadera, la plataforma con dos tramos de raíl de cola de milano, las dos tiras antivibración negras y el pomo de bloqueo.](images/complete-remote-v0.34-base.png)
+![La base de la V0.35 en el manillar: el anillo de la abrazadera, la plataforma con dos tramos de raíl de cola de milano, las dos tiras antivibración negras y el pomo de bloqueo.](images/complete-remote-v0.35-base.png)
 
-![La base de la V0.34 para un manillar de 22,2 mm, sin el manillar: el forro y el casquillo impreso dentro del único agujero de 25,4 mm.](images/complete-remote-v0.34-base-sleeve.png)
+![La base de la V0.35 para un manillar de 22,2 mm, sin el manillar: el forro y el casquillo impreso dentro del único agujero de 25,4 mm.](images/complete-remote-v0.35-base-sleeve.png)
 
-![El mando de la V0.34 visto desde el lado del manillar: la cara trasera con el agujero del bloqueo, la ranura de cola de milano interrumpida y la abertura del USB-C.](images/complete-remote-v0.34-back.png)
+![El mando de la V0.35 visto desde el lado del manillar: la cara trasera con el agujero del bloqueo, la ranura de cola de milano interrumpida y la abertura del USB-C.](images/complete-remote-v0.35-back.png)
 
-![Sección de la cola de milano de la V0.34 por el raíl inferior: el raíl a 45 grados de la base (derecha) dentro de la ranura de la pared trasera del mando (izquierda), y las tiras antivibración (negras) a cada lado, dibujadas con su grosor sin comprimir.](images/complete-remote-v0.34-dovetail.png)
+![Sección de la cola de milano de la V0.35 por el raíl inferior: el raíl a 45 grados de la base (derecha) dentro de la ranura de la pared trasera del mando (izquierda), y las tiras antivibración (negras) a cada lado, dibujadas con su grosor sin comprimir.](images/complete-remote-v0.35-dovetail.png)
 
-![Interior de la V0.34 sin la pared axial superior: la placa de control detrás de la cara superior con la XIAO en sus conectores, la batería (roja) detrás de ellas, la placa USB-C arriba, la placa del joystick en la cara inferior y los cables.](images/complete-remote-v0.34-interior.png)
+![Interior de la V0.35 sin la pared axial superior: la placa de control detrás de la cara superior con la XIAO en sus conectores, la batería (roja) detrás de ellas, la placa USB-C arriba, la placa del joystick en la cara inferior y los cables.](images/complete-remote-v0.35-interior.png)
 
-![Sección de la V0.34 por el centro del cuerpo y de la base: tapa, lámina del teclado, placa de botones, pulsadores, placa de control, XIAO y batería.](images/complete-remote-v0.34-section.png)
+![Sección de la V0.35 por el centro del cuerpo y de la base: tapa, lámina del teclado, placa de botones, pulsadores, placa de control, XIAO y batería.](images/complete-remote-v0.35-section.png)
 
-![Sección de la V0.34 por los tornillos superiores de la tapa (Y = 24 mm), con el eje del manillar hacia arriba: tapa (izquierda), lámina suelta del teclado (negra), tira de espuma (azul) en el borde de la carcasa, placa de botones (ocre), los dos tornillos (rojos) en sus resaltes y la placa de control (verde).](images/complete-remote-v0.34-seal-section.png)
+![Sección de la V0.35 por los tornillos superiores de la tapa (Y = 24 mm), con el eje del manillar hacia arriba: tapa (izquierda), lámina suelta del teclado (negra), tira de espuma (azul) en el borde de la carcasa, placa de botones (ocre), los dos tornillos (rojos) en sus resaltes y la placa de control (verde).](images/complete-remote-v0.35-seal-section.png)
 
-![La carcasa de la V0.34 vista desde el lado de la tapa: la tira de espuma (negra) recorre el borde por las dos paredes laterales y por el pliegue, con los resaltes de los tornillos de la tapa justo por dentro.](images/complete-remote-v0.34-foam.png)
+![La carcasa de la V0.35 vista desde el lado de la tapa: la tira de espuma (negra) recorre el borde por las dos paredes laterales y por el pliegue, con los resaltes de los tornillos de la tapa justo por dentro.](images/complete-remote-v0.35-foam.png)
 
-![La tapa de la batería de la V0.34, despiezada desde abajo: la carcasa con su abertura inferior, el volumen de la batería (rojo), la junta de espuma troquelada y la tapa con sus tres agujeros avellanados.](images/complete-remote-v0.34-battery-cap.png)
+![La tapa de la batería de la V0.35, despiezada desde abajo: la carcasa con su abertura inferior, el volumen de la batería (rojo), la junta de espuma troquelada y la tapa con sus tres agujeros avellanados.](images/complete-remote-v0.35-battery-cap.png)
 
-![La tapa de la batería de la V0.34 por dentro: la junta de espuma troquelada (negra) dentro del labio de 0,5 mm de la tapa, y la etiqueta de ventilación en la abertura.](images/complete-remote-v0.34-cap-seal.png)
+![La tapa de la batería de la V0.35 por dentro: la junta de espuma troquelada (negra) dentro del labio de 0,5 mm de la tapa, y la etiqueta de ventilación en la abertura.](images/complete-remote-v0.35-cap-seal.png)
 
-![Sección de la V0.34 por el eje del joystick, dibujada con el pomo abajo: pomo, tapa, lámina del teclado, placa del joystick con el asiento de la bola, bola y disco en cruz, pulsadores y la placa del joystick sobre sus separadores.](images/complete-remote-v0.34-joy-section.png)
+![Sección de la V0.35 por el eje del joystick, dibujada con el pomo abajo: pomo, tapa, lámina del teclado, placa del joystick con el asiento de la bola, bola y disco en cruz, pulsadores y la placa del joystick sobre sus separadores.](images/complete-remote-v0.35-joy-section.png)
 
-![La tapa de la V0.34 en su orientación de impresión, sobre su cara axial.](images/complete-remote-v0.34-print-cover.png)
+![La tapa de la V0.35 en su orientación de impresión, sobre su cara axial.](images/complete-remote-v0.35-print-cover.png)
 
-![La lámina del teclado de la V0.34 desplegada en plano en su orientación de impresión, vista desde el lado de las teclas.](images/complete-remote-v0.34-gasket-flat.png)
+![La lámina del teclado de la V0.35 desplegada en plano en su orientación de impresión, vista desde el lado de las teclas.](images/complete-remote-v0.35-gasket-flat.png)
 
-![Las piezas del joystick de la V0.34 en sus orientaciones de impresión: la placa sobre su lado de la lámina con los dos separadores de la PCB hacia arriba, la bola y el disco sobre el disco, el pomo sobre su cara superior, y el pasador de acero de Ø3 × 12 mm (comprado).](images/complete-remote-v0.34-print-joy.png)
+![Las piezas del joystick de la V0.35 en sus orientaciones de impresión: la placa sobre su lado de la lámina con los dos separadores de la PCB hacia arriba, la bola y el disco sobre el disco, el pomo sobre su cara superior, y el pasador de acero de Ø3 × 12 mm (comprado).](images/complete-remote-v0.35-print-joy.png)
 
-![La placa del joystick de la V0.34 en su orientación de impresión: los dos separadores de la PCB en la mitad inferior, debajo del agujero del asiento.](images/complete-remote-v0.34-print-joy-plate.png)
+![La placa del joystick de la V0.35 en su orientación de impresión: los dos separadores de la PCB en la mitad inferior, debajo del agujero del asiento.](images/complete-remote-v0.35-print-joy-plate.png)
 
-![Las mitades del casquillo de la V0.34 en su orientación de impresión, sobre una cara del extremo. Cada una se queda 0,5 mm antes del corte.](images/complete-remote-v0.34-print-sleeve.png)
+![Las mitades del casquillo de la V0.35 en su orientación de impresión, sobre una cara del extremo. Cada una se queda 0,5 mm antes del corte.](images/complete-remote-v0.35-print-sleeve.png)
 
-Las dos imágenes fotográficas son renders del CAD de la V0.33 hechos con Blender (mira [Renders fotográficos](#photo-renders)); la V0.34 no cambia nada de lo que muestran. Las demás son renders directos de OpenSCAD del fichero de la V0.34 (mira [Imágenes del documento](#doc-images)). Las imágenes de versiones anteriores siguen en `docs/images/`. Las imágenes de la placa están en la [página de la placa del joystick](../electronics/joystick-pcb-rev-c/README.md).
+Las dos imágenes fotográficas son renders del CAD de la V0.33 hechos con Blender (mira [Renders fotográficos](#photo-renders)); la V0.34 y la V0.35 no cambian nada de lo que muestran. Las demás son renders directos de OpenSCAD del fichero de la V0.35, salvo la imagen de la colocación de la placa USB-C, que sale del vídeo de la V0.34 (mira [Imágenes del documento](#doc-images)). Las imágenes de versiones anteriores siguen en `docs/images/`. Las imágenes de la placa están en la [página de la placa del joystick](../electronics/joystick-pcb-rev-c/README.md).
 
-<a id="changes-from-v033"></a>
-## Cambios desde la V0.33
+<a id="changes-from-v034"></a>
+## Cambios desde la V0.34
+
+<a id="key-rings"></a>
+### Anillos de las teclas
+
+Una tecla acciona su interruptor doblando la lámina. El anillo que se dobla está entre la tecla de Ø12 mm y el agujero de Ø15,8 mm de la placa de botones (`key_web_d`): 1,9 mm de ancho y, hasta la V0.34, 0,8 mm de grosor. Más allá del agujero, la placa apoya la lámina. Para activar un interruptor, el anillo tiene que recorrer los 0,3 mm de holgura en reposo más 0,25–0,65 mm de recorrido del interruptor: 0,55–0,95 mm, más que su propio grosor.
+
+Estimación, sin medir: una placa anular empotrada en el agujero de la placa y guiada por la tecla rígida, con flexión y cortante, y el módulo de Young de la relación de Gent (85A, unos 13 MPa; las fichas de los filamentos dan 9–20 MPa). La lámina suelta no está empotrada en el borde del agujero, así que estos valores probablemente se quedan altos. Con los 2 N del interruptor:
+
+| Lámina en el anillo | 85A | 70A | 60A |
+|---|---|---|---|
+| 0,8 mm (V0.34) | 15–35 N | unos 10 N | unos 7 N |
+| 0,6 mm (V0.35) | unos 12 N | unos 6 N | unos 5 N |
+
+Una tecla normal pide 2–5 N. Una flecha tan grande como el grosor añade rigidez de membrana (un 10–50 % más, estimado), y el frío endurece el TPU en una cantidad que no se ha encontrado; las dos cosas suben estos valores.
+
+V0.35:
+
+- **Anillo más fino.** El anillo tiene 0,6 mm de grosor (`key_web_t`), rebajado 0,2 mm desde el lado de la tapa. El rebaje acaba en Ø16,4 mm (`key_groove_d`), 0,3 mm más allá del borde del agujero de la placa, para que su escalón no quede donde más se dobla el anillo. El dorso de la lámina, la holgura en reposo de 0,3 mm y la cara plana de la impresión sobre la cama quedan como en la V0.34.
+- **Altura de capa.** El rebaje de 0,2 mm es una capa de 0,2 mm, o dos de 0,1 mm. Pide al taller capas de 0,1 o 0,2 mm: con 0,25–0,3 mm, el laminador redondea el rebaje a nada o lo hace demasiado hondo.
+- **TPU blando.** El teclado se imprime en TPU por FDM de Shore A61–A70 (el acabado "Soft" de Craftcloud). El 16-11-2026 Craftcloud presupuestó el fichero de la V0.34 a 26,17 € con envío gratis, en un taller de Lituania; el filamento exacto no está confirmado. El presupuesto no dice si el taller imprime bien la lámina plana de 0,6–0,8 mm: pregúntaselo. No se usa el "Very Soft" (A50–A60): los grados más blandos se rasgan con más facilidad, en el agujero estirado de la palanca y en el anillo.
+- **Descartado.** Un agujero más ancho en la placa ablandaría más el anillo (Ø17,8 mm: unas 0,4 veces la fuerza, estimado), pero los separadores de la placa de control, a 3,95 mm de la fila de teclas, lo limitan a unos Ø16 mm; moverlos exige una placa de control nueva.
+- **Coste.** Para un mismo recorrido, un anillo más fino se estira menos en su superficie, no más: un 25–50 % con 0,6 mm frente a un 35–65 % con 0,8 mm (estimación de placa delgada, cota alta). El TPU más blando se rasga con más facilidad, y la raíz de la tecla, donde el anillo también se dobla más, sigue siendo una esquina viva. No se sabe cuánto dura.
+- **Nuevas incógnitas abiertas.** Este análisis añadió tres: la vida de los anillos de las teclas, la altura del pulsador del interruptor y el agua detrás de la tapa (mira [Incógnitas abiertas](#open-unknowns-before-printing)).
+
+<a id="v034-changes-from-v033-still-current"></a>
+## Cambios de la V0.34 respecto a la V0.33, aún vigentes
 
 <a id="sliding-usb-c-board"></a>
 ### Placa USB-C deslizante
@@ -205,7 +233,7 @@ El diseño mantenía los insertos roscados por calor con la esperanza de que el 
 | Pomo del joystick | Inserto M2 radial para el prisionero | Una tuerca cuadrada M2 (DIN 562, 4 × 1,2 mm) en una ranura abierta hacia la tapa (`knob_nut`), a 0,65 mm del agujero del pasador. La cruz grabada empieza a 4,9 mm del centro para no tocar la ranura |
 | Pomo del cierre | Inserto M3 desde dentro de la copa | Una tuerca M3 en un alojamiento hexagonal en la cara exterior del pomo (`lock_nut`). La tensión del tornillo tira de la tuerca contra el fondo del alojamiento, y la contratuerca se bloquea contra ella. V0.32: sin contratuerca; el epoxi en la rosca fija la tuerca |
 
-![El pomo del joystick de la V0.34 desde abajo, con la ranura de la tuerca cuadrada junto al agujero del pasador, y el pomo de bloqueo con el alojamiento de su tuerca M3.](images/complete-remote-v0.34-print-knobs.png)
+![El pomo del joystick de la V0.35 desde abajo, con la ranura de la tuerca cuadrada junto al agujero del pasador, y el pomo de bloqueo con el alojamiento de su tuerca M3.](images/complete-remote-v0.35-print-knobs.png)
 
 La cruz grabada del pomo del joystick se reduce a cuatro marcas de 0,6 mm en el borde. El coste: las roscas impresas en PETG se desgastan con cada apertura. La tapa y la abrazadera se abren poco; los tornillos de la tapa de la batería ya funcionaban así. Las medidas de los pilotos son estimaciones iniciales y hay que comprobarlas en la primera impresión.
 
@@ -470,6 +498,17 @@ V0.30 (sellado de la tapa de controles; `mechanical/cad/tools/test_seal.py` ejec
 | Topes frente a la espuma y a los agujeros del alma de las teclas; agujeros de la lámina frente a una sonda de Ø1,35 mm | Sin solape |
 | Comprobación de recorrido de montaje, en los dos órdenes | Sin colisiones; el pellizco de los topes sobre la lámina (2,98 mm³) es un contacto a propósito |
 
+V0.35 (`mechanical/cad/tools/test_v035.py` hace las cinco primeras filas):
+
+| Comprobación | Resultado |
+|---|---|
+| Grosor del anillo | 0,6 mm desde la tecla de Ø12 mm hasta Ø16,4 mm, 0,3 mm más allá del borde del agujero de la placa |
+| Volumen quitado de la lámina | 58,9 mm³: tres anillos de 98,1 mm², 0,2 mm de hondo; nada más cambia |
+| Lado del rebaje | Desde el lado de la tapa; los 0,6 mm hacia el interruptor quedan enteros |
+| Holgura en reposo | 0,3 mm, como en la V0.34 |
+| Impresión en plano | El rebaje queda arriba, alrededor de cada tecla; la cara de la cama es plana |
+| Comprobación de recorrido de montaje, en los dos órdenes | Sin colisiones ([informe](assembly-video-v0.35-checks.md)); no cambia el contorno de ninguna pieza |
+
 V0.34 (`mechanical/cad/tools/test_v034.py` hace las trece primeras filas):
 
 | Comprobación | Resultado |
@@ -620,7 +659,7 @@ La V0.24 busca resistir la lluvia y las salpicaduras, no un grado IP. No se ha p
 | Placa del joystick | `print_joy_plate` | Lado de la lámina sobre la cama | Mando, rígido |
 | Bola y disco | `print_ball_disc` | Disco sobre la cama | Mando, rígido |
 | Pomo | `print_knob` | Cara de arriba sobre la cama | Mando, rígido |
-| Teclado y junta | `print_gasket` | En plano, lámina de 0,8 mm sobre su lado de la carcasa, teclas hacia arriba | Teclado, TPU blando (85A o más blando); no se corta de lámina, por las teclas |
+| Teclado y junta | `print_gasket` | En plano, lámina de 0,8 mm sobre su lado de la carcasa, teclas hacia arriba | Teclado, TPU blando, Shore A61–A70 (V0.35); no se corta de lámina, por las teclas |
 | Placa de botones | `print_button_plate` | Lado de la lámina sobre la cama, separadores hacia arriba | Mando, rígido |
 | Tapa de la batería | `print_battery_cap` | Cara exterior sobre la cama | Mando, rígido |
 | Plantilla de la junta de la tapa (V0.31) | `print_cap_gasket` | En plano, 0,8 mm | Cualquier plástico; una plantilla para cortar la junta de espuma. Una plantilla de papel sirve igual: imprime `mechanical/cad/tools/foam-templates-v0.34.scad` al 100 % (V0.34: tiene todas las piezas de espuma) |
@@ -628,7 +667,7 @@ La V0.24 busca resistir la lluvia y las salpicaduras, no un grado IP. No se ha p
 | Mitades del casquillo ×2 (solo manillar de 22,2 mm) | `print_sleeve` | Cara del extremo sobre la cama | Base, rígido |
 | Tiras antivibración ×2 | no se imprimen (V0.32) | 4 × 50 mm, de grosor `strip_t` | Cortadas de una cámara de bicicleta |
 
-Los materiales aún no están elegidos. El [estudio de materiales](materials-study.es.md) los compara para cada grupo: las piezas rígidas del mando (PA11 por MJF o ASA por FDM), las de la base (PA12 por MJF) y el teclado (TPU cerca de 85A). También recoge los presupuestos de impresión conseguidos hasta ahora.
+Los materiales aún no están elegidos. El [estudio de materiales](materials-study.es.md) los compara para cada grupo: las piezas rígidas del mando (PA11 por MJF o ASA por FDM), las de la base (PA12 por MJF) y el teclado (TPU blando, Shore A61–A70 desde la V0.35). También recoge los presupuestos de impresión conseguidos hasta ahora.
 
 Ninguna pieza necesita soportes.
 - **Carcasa:** las paredes son verticales, la cara inferior es un borde abierto al aire, los resaltes inferiores de los tornillos se inclinan 20°, y la pared trasera de la cavidad y el bloque delantero de la tapa de la batería hacen un puente de 21 mm. La ranura queda arriba: sus labios se estrechan hacia arriba a 45°, y el agujero del cierre y la ranura del USB-C se abren hacia arriba; el apoyo de la junta es un rebaje poco profundo en la pared trasera del puente. Los dos canales de las tuercas del nervio USB-C (V0.34) van a lo largo de X, de 4,2 mm de ancho bajo una piel de 1,0 mm, y hacen puente. Se apoya en su fino borde delantero, así que usa un brim.
@@ -638,12 +677,12 @@ Ninguna pieza necesita soportes.
 - **Pomo:** el agujero radial del prisionero es horizontal y lo bastante pequeño para hacer puente; la ranura de la tuerca se abre hacia arriba.
 - **Tapa de la batería:** los avellanados se abren hacia la cama a 45°.
 - **Pilotos de los tornillos:** usa relleno del 100 % o al menos cuatro perímetros alrededor de los pilotos M4 de la parte delantera de la base y de los pilotos M2 de los resaltes, donde los tornillos se hacen la rosca.
-- **Lámina del teclado:** desde la V0.30 no sella por compresión, así que la dureza fija el tacto de las teclas y cómo abraza la lámina la palanca y los tornillos. Sigue siendo preferible un TPU más blando (85–88A). Si cortas la lámina, perfora el agujero de Ø2,4 mm de la palanca y los de Ø1,4 mm de los tornillos.
+- **Lámina del teclado:** desde la V0.30 no sella por compresión, así que la dureza fija el tacto de las teclas y cómo abraza la lámina la palanca y los tornillos. Imprímela en TPU blando, Shore A61–A70 (V0.35): en 85A las teclas cuestan demasiado de pulsar (mira [Cambios desde la V0.34](#changes-from-v034)). Pregunta al taller qué filamento usa, y pide capas de 0,1 o 0,2 mm para que salga el rebaje de 0,2 mm alrededor de cada tecla (V0.35). Si cortas la lámina, perfora el agujero de Ø2,4 mm de la palanca y los de Ø1,4 mm de los tornillos.
 
 <a id="assembly"></a>
 ## Montaje
 
-Mando (V0.34; nada que soldar, ninguna herramienta caliente):
+Mando (V0.35; nada que soldar, ninguna herramienta caliente):
 1. Repasa los diez agujeros piloto de Ø1,6 mm de los resaltes de la carcasa con una broca de 1,6 mm sujeta a mano; los agujeros impresos salen más estrechos.
 2. Coloca la placa USB-C rev B ([vídeo](videos/usbc-mount-v0.34.es.mp4)). Solo si la prueba de estanqueidad mostró que entra agua por el receptáculo, rellena antes con el epoxi transparente la parte de atrás del receptáculo, con la placa sobre la mesa: donde sus contactos se unen a la placa, lejos de la cara delantera del cuerpo, de la abertura, de la cara de la placa que apoya en el nervio, de los agujeros de los tornillos y de J2. Deja que cure. Conecta el cable de 3 pines a J2 con la placa en la mano. Mete una tuerca cuadrada M2 en cada canal, por delante del nervio USB-C, y pon la junta del receptáculo. Sujeta la placa boca abajo, con el receptáculo debajo, contra la cara inferior del nervio, y deslízala hacia la pared trasera hasta que la boca entre en la ranura. Pon a mano, desde abajo, los dos tornillos de cabeza abombada M2 × 4, a través de la placa hasta las tuercas, y déjalos flojos. Empuja la placa hacia la pared hasta que la junta resista y mantenla ahí. Aprieta los dos tornillos con un destornillador hexagonal de 1,3 mm (unos 75 mm de alcance) metido por la abertura de la tapa de la batería, un poco inclinado hacia atrás; aparta el cable de su camino. Rellena desde fuera la ventana del LED con el epoxi transparente. Si D1 no está montado, no hay nada detrás de la ventana: usa una mezcla espesa, ya medio curada, y poca cantidad, para que el epoxi no llegue a la placa ni a la junta.
 3. Joystick: mete la palanca por detrás a través de la placa del joystick, para que la bola asiente en su sitio. Atornilla la placa del joystick rev C a los separadores de la placa con dos tornillos de cabeza abombada M2 × 8; el disco apoya en los interruptores. Conecta el cable de 5 pines a su conector.
@@ -673,11 +712,11 @@ Para programarlo por USB, saca el mando de la base y quítale la tapa de control
 <a id="assembly-video"></a>
 ## Vídeo de montaje
 
-[`complete-remote-v0.34-assembly.mp4`](videos/complete-remote-v0.34-assembly.mp4) muestra los pasos 1 a 11 del mando de arriba, un capítulo por paso (56 s; QuickTime y VLC muestran los capítulos). Es para revisar el diseño, no una guía de montaje. Las piezas que chocan en su recorrido se ven en rojo. Los cables no están animados: cada uno aparece en su sitio cuando sus dos extremos están colocados. El vídeo sigue el orden documentado de los pasos 8 y 9. Es anterior al orden de los pasos 2 y 5 del 28-10-2026: conecta J2 y J4 con las placas montadas y pone la tira de espuma sobre el borde de la carcasa.
+[`complete-remote-v0.35-assembly.mp4`](videos/complete-remote-v0.35-assembly.mp4) muestra los pasos 1 a 11 del mando de arriba, un capítulo por paso (56 s; QuickTime y VLC muestran los capítulos). Es para revisar el diseño, no una guía de montaje. Las piezas que chocan en su recorrido se ven en rojo. Los cables no están animados: cada uno aparece en su sitio cuando sus dos extremos están colocados. El vídeo sigue el orden documentado de los pasos 8 y 9. Es anterior al orden de los pasos 2 y 5 del 28-10-2026: conecta J2 y J4 con las placas montadas y pone la tira de espuma sobre el borde de la carcasa.
 
-El vídeo para quien monta es [`guide-v0.34.es.mp4`](videos/guide-v0.34.es.mp4) ([inglés](videos/guide-v0.34.mp4)): todos los pasos del mando y de la base y la colocación, acción por acción, con la tornillería, las herramientas y un texto, en el orden del 28-10-2026 (unos 4,5 minutos). Lo genera `mechanical/cad/tools/guide_video.py` a partir de `guide-video-v0.34.scad`. No se regenera con cada cambio de diseño, así que compruébalo con los pasos de arriba.
+El vídeo para quien monta es [`guide-v0.34.es.mp4`](videos/guide-v0.34.es.mp4) ([inglés](videos/guide-v0.34.mp4)): todos los pasos del mando y de la base y la colocación, acción por acción, con la tornillería, las herramientas y un texto, en el orden del 28-10-2026 (unos 4,5 minutos). La V0.35 no cambia ningún paso ni la forma de ninguna pieza que muestre. Lo genera `mechanical/cad/tools/guide_video.py`, ahora a partir de `guide-video-v0.35.scad`. No se regenera con cada cambio de diseño, así que compruébalo con los pasos de arriba.
 
-[`assembly-video-v0.34-checks.md`](assembly-video-v0.34-checks.md) es la comprobación de recorrido que hay detrás. En la V0.34 no encuentra ninguna colisión, como en la [V0.33](assembly-video-v0.33-checks.md) y la [V0.31](assembly-video-v0.31-checks.md). Cada movimiento se comprueba en cinco posiciones contra las piezas ya colocadas, y también cada pareja de piezas en la posición final. Se comprueban los dos órdenes de los pasos 8 y 9. Resultados:
+[`assembly-video-v0.35-checks.md`](assembly-video-v0.35-checks.md) es la comprobación de recorrido que hay detrás. En la V0.35 no encuentra ninguna colisión, como en la [V0.34](assembly-video-v0.34-checks.md), la [V0.33](assembly-video-v0.33-checks.md) y la [V0.31](assembly-video-v0.31-checks.md). Cada movimiento se comprueba en cinco posiciones contra las piezas ya colocadas, y también cada pareja de piezas en la posición final. Se comprueban los dos órdenes de los pasos 8 y 9. Resultados:
 
 - La carcasa cierra sobre el apilado a lo largo de X (desde la V0.27; en la [V0.26](assembly-video-v0.26-checks.md) chocaba con la placa del joystick).
 - La etiqueta de ventilación, en la tapa de la batería desde la V0.28, no toca nada ([V0.27](assembly-video-v0.27-checks.md): chocaba con el apilado de la cara inferior).
@@ -696,7 +735,7 @@ python3 -m unittest mechanical/cad/tools/test_assembly_video.py
 
 La V0.32 no cambió ninguna pieza del mando y no tiene vídeo propio.
 
-La secuencia, los desplazamientos de cada etapa y las cámaras están en `mechanical/cad/assembly-video-v0.34.scad`. La herramienta usa la versión más reciente; `ORR_VERSION=0.26` a `0.33` elige un fichero anterior, pero sus rótulos necesitan la lista de montaje de esa versión, que ahora está en el historial de git. Los rótulos de los pasos salen de los pasos de montaje de la versión en inglés de este documento, así que vuelve a ejecutar `video` después de editarlos.
+La secuencia, los desplazamientos de cada etapa y las cámaras están en `mechanical/cad/assembly-video-v0.35.scad`. La herramienta usa la versión más reciente; `ORR_VERSION=0.26` a `0.34` elige un fichero anterior, pero sus rótulos necesitan la lista de montaje de esa versión, que ahora está en el historial de git. Los rótulos de los pasos salen de los pasos de montaje de la versión en inglés de este documento, así que vuelve a ejecutar `video` después de editarlos.
 
 <a id="photo-renders"></a>
 ## Renders fotográficos
@@ -712,7 +751,7 @@ Las imágenes salen en `mechanical/cad/build/photo/`; cópialas a mano a `docs/i
 <a id="doc-images"></a>
 ## Imágenes del documento
 
-Las demás imágenes de esta página son renders de OpenSCAD del fichero de la V0.34. `mechanical/cad/tools/doc_images.py` las dibuja: las vistas fijas y el GIF de colocación. Las vistas que el fichero del CAD no tiene en `part_to_render`, como la sección del sellado y la tapa de la batería despiezada, están en `mechanical/cad/doc-views-v0.34.scad`. La imagen de la colocación de la placa USB-C es el último fotograma del vídeo de colocación. Las cámaras están en la herramienta. Desde la raíz del repositorio (ImageMagick para el GIF; menos de un minuto):
+Las demás imágenes de esta página son renders de OpenSCAD del fichero de la V0.35. `mechanical/cad/tools/doc_images.py` las dibuja: las vistas fijas y el GIF de colocación. Las vistas que el fichero del CAD no tiene en `part_to_render`, como la sección del sellado y la tapa de la batería despiezada, están en `mechanical/cad/doc-views-v0.35.scad`. La imagen de la colocación de la placa USB-C es el último fotograma del vídeo de colocación. Las cámaras están en la herramienta. Desde la raíz del repositorio (ImageMagick para el GIF; menos de un minuto):
 
 ```sh
 python3 mechanical/cad/tools/doc_images.py            # todo
@@ -781,7 +820,10 @@ La [página de la serie IS](https://www.apem.com/panel-switches/pushbutton-switc
 
 Estos son los únicos puntos que impiden una primera impresión con confianza. Cada uno es un parámetro del CAD.
 
-- **Teclado:** la pulsación y el recorrido de un KSC2 detrás de una lámina de TPU, con guantes (0,3 mm de holgura en reposo más 0,35–0,65 mm de recorrido, frente a 1,7 mm de los botones APEM); si la lámina impresa sella alrededor de las teclas y en el pliegue; si la holgura en reposo de 0,3 mm necesita suplementos.
+- **Teclado:** la pulsación y el recorrido de un KSC2 detrás de una lámina de TPU, con guantes (0,3 mm de holgura en reposo más 0,25–0,65 mm de recorrido, frente a 1,7 mm de los botones APEM); si la lámina impresa sella alrededor de las teclas y en el pliegue; si la holgura en reposo de 0,3 mm necesita suplementos. V0.35: la fuerza de pulsación, estimada en 5–6 N con anillos de 0,6 mm en TPU de Shore A61–A70, no está medida; no se sabe qué filamento exacto usa el taller ni cuánto lo endurece el frío.
+- **Anillos de las teclas (V0.35):** cada pulsación estira el anillo de 0,6 mm hasta un 25–50 % en su superficie (estimación), sobre todo en el borde del agujero de la placa y en la raíz de la tecla. Una grieta o una capa despegada ahí deja entrar agua por la tecla. El interruptor aguanta 500.000 pulsaciones; no se sabe cuánto aguanta el anillo. Revisa los anillos tras usarlo y en la prueba de estanqueidad.
+- **Altura del pulsador del interruptor:** el CAD da al KSC2 0,6 mm de pulsador por encima de su cuerpo (`ksc_h` 3,5, `ksc_body_h` 2,9 mm), menos que el recorrido máximo de 0,65 mm. En el peor caso, la lámina llega al cuerpo antes de que el interruptor se active. La altura del cuerpo no está comprobada con la hoja de datos; mide un interruptor real.
+- **Agua detrás de la tapa:** el agua que entra por los agujeros de Ø13 mm de las teclas y por el de la palanca corre entre la tapa y la lámina suelta hasta los tornillos de la tapa. Ahí, ya pasadas las cabezas avellanadas, solo la frenan el pellizco de 0,05 mm de los apoyos y el agarre de la lámina a la rosca, y los tornillos están dentro de la línea de espuma. La prueba de estanqueidad lo comprueba.
 - **Tornillos superiores de la tapa:** la distancia entre los tornillos de Y = 24 y −6 mm es de 30 mm. Con la tira de espuma de la V0.30, la tapa se dobla ahí unos 0,015–0,07 mm según la estimación, frente a 0,5 mm de recorrido de la espuma; la prueba de estanqueidad lo confirma.
 - **Tira de espuma (V0.30):** su fuerza de compresión real y su recuperación después de abrir la tapa, las dos uniones a tope en las esquinas de los extremos, y si el adhesivo aguanta sobre la lámina de TPU (desde el 28-10-2026 la tira va en la lámina, no en el borde impreso).
 - **Joystick:** mide la altura de los KSC2 y la placa, la bola y el disco impresos; junto con los separadores fijan la holgura en reposo de 0,05 mm (`joy_rest_gap`). Hay que comprobar con guantes el tacto (5,9° hasta activarse, 2 N por dirección, unos 8 N para el acorde central) y el pomo de Ø16 mm.
@@ -804,8 +846,8 @@ Estos son los únicos puntos que impiden una primera impresión con confianza. C
 - **Sujeción de la placa del joystick (V0.27):** ahora los dos tornillos de la placa están en la mitad inferior. Una estimación a mano da 0,011 mm de flexión bajo el interruptor de arriba con 2 N, frente a la holgura en reposo de 0,05 mm; comprueba en la primera impresión que la dirección de arriba se activa como las demás y que la placa no cabecea.
 - **LED de carga:** si el LED se ve lo bastante a través de la ventana de Ø1,6 mm rellena (`usbc_led_hole_d`), y si hay que repasar el agujero impreso a su medida.
 - **Ventilación:** la etiqueta está dimensionada para una ventilación de Ø7,6 mm de la clase Takachi VE8, en la tapa de la batería, sobre un agujero de Ø3 mm. Una etiqueta de Ø8 mm con una zona transpirable de Ø4 mm, vendida en paquetes de 100 (mira la [lista de materiales](bom.md#hardware)), también cabe sin tocar la junta de la tapa ni la carcasa (comprobación en el CAD, 20-10-2026), con 0,9 mm hasta los bordes de la abertura. Sigue abierto: si sella; su grado IP67 lo dice el vendedor. La prueba de estanqueidad lo comprueba.
-- **Lámina del teclado:** el tacto de las teclas con la lámina suelta, cuánto dura una lámina de TPU impresa flexando con la palanca, y si sella alrededor de las roscas de los tornillos.
-- **Material de impresión:** sin elegir. El [estudio de materiales](materials-study.es.md) compara PA11 por MJF y ASA por FDM para el mando, PA12 por MJF para la base y TPU cerca de 85A para el teclado, con presupuestos de servicios de impresión de la UE.
+- **Lámina del teclado:** el tacto de las teclas con la lámina suelta, cuánto dura una lámina de TPU impresa flexando con la palanca y en los anillos de las teclas, y si sella alrededor de las roscas de los tornillos.
+- **Material de impresión:** sin elegir. El [estudio de materiales](materials-study.es.md) compara PA11 por MJF y ASA por FDM para el mando, PA12 por MJF para la base y TPU blando, Shore A61–A70, para el teclado (V0.35), con presupuestos de servicios de impresión de la UE.
 - **Ancho (V0.33):** el mando y la base miden 25 mm a lo largo del manillar. Comprueba en cada moto que la piña se puede mover para dejar 25 mm, o más con el paramanos.
 - **Ángulo del pliegue:** se eligieron 20° para esquivar el mando de intermitentes. El prensaestopas que impedía los 30° desapareció en la V0.24, pero los 30° no se han vuelto a comprobar, y ninguno de los dos ángulos se ha comprobado en una moto.
 
@@ -813,4 +855,4 @@ Este concepto no aborda: el grado IP, los impactos, las vibraciones ni la resist
 
 ## Versiones anteriores
 
-Las versiones V0.1–V0.32 siguen disponibles para comparar. La V0.32 y las anteriores tienen paredes de 1 mm en la parte estrecha y en los extremos. La junta de la tapa de la batería de la V0.30 no se puede apretar lo suficiente con sus tornillos. La lámina del teclado de la V0.29 no se puede apretar lo suficiente con sus tornillos para sellar. La V0.28 necesita insertos roscados por calor, y el resalte de su tapa de la batería toca el J1 de la placa del joystick. La etiqueta de ventilación de la V0.27 choca con la tapa de controles y la placa del joystick; monta la V0.28. La V0.26 no se debe montar: su carcasa no puede cerrar sobre la placa del joystick (mira [Cambios de la V0.27 respecto a la V0.26](#v027-changes-from-v026-still-current)). La V0.23 es la versión fija, alimentada por cable: su anillo de abrazadera y sus hombros forman parte de la carcasa. Los separadores de la placa de la V0.22 se solaparían con los pads de la huella real del KSC2; monta la V0.23 o posterior. La V0.24 coloca una batería 602030 que no se puede meter por la abertura delantera (mira [Cambios desde la V0.24](#changes-from-v024)); monta la V0.25. La V0.21 no se debe montar: sus teclas de Ø7 mm son demasiado pequeñas para usarlas con guantes y cuesta pulsarlas en la cara plegada. La V0.20 usa el joystick de panel Ruffy MHS, que cuesta unas 149 £ y ocupa todo el ancho de 23 mm del cuerpo. La V0.19 tiene una cara de controles recta que estorba al mando de intermitentes, y no tiene junta. La V0.18 se puede instalar, pero su tapa no coincide con la carcasa y no tiene tapa, placa ni montaje para el prensaestopas. La V0.17 no se debe imprimir: su cuerpo de 250 grados no puede pasar el manillar. Las V0.13–V0.16 son intentos superados de la silueta con hombros y no se deben imprimir. La V0.13 dejaba huecos en los hombros. La V0.14 perdía casi todo el cuerpo por un polígono mal cerrado. En la V0.15 y la V0.16 el mismo polígono trazaba el arco de la abrazadera como contorno interior, así que faltaba el anillo fijo de 250 grados y solo la tapa desmontable rodeaba el manillar.
+Las versiones V0.1–V0.34 siguen disponibles para comparar. La V0.34 y las anteriores tienen anillos de las teclas demasiado rígidos para pulsar con comodidad en TPU 85A (estimación). La V0.32 y las anteriores tienen paredes de 1 mm en la parte estrecha y en los extremos. La junta de la tapa de la batería de la V0.30 no se puede apretar lo suficiente con sus tornillos. La lámina del teclado de la V0.29 no se puede apretar lo suficiente con sus tornillos para sellar. La V0.28 necesita insertos roscados por calor, y el resalte de su tapa de la batería toca el J1 de la placa del joystick. La etiqueta de ventilación de la V0.27 choca con la tapa de controles y la placa del joystick; monta la V0.28. La V0.26 no se debe montar: su carcasa no puede cerrar sobre la placa del joystick (mira [Cambios de la V0.27 respecto a la V0.26](#v027-changes-from-v026-still-current)). La V0.23 es la versión fija, alimentada por cable: su anillo de abrazadera y sus hombros forman parte de la carcasa. Los separadores de la placa de la V0.22 se solaparían con los pads de la huella real del KSC2; monta la V0.23 o posterior. La V0.24 coloca una batería 602030 que no se puede meter por la abertura delantera (mira [Cambios desde la V0.24](#changes-from-v024)); monta la V0.25. La V0.21 no se debe montar: sus teclas de Ø7 mm son demasiado pequeñas para usarlas con guantes y cuesta pulsarlas en la cara plegada. La V0.20 usa el joystick de panel Ruffy MHS, que cuesta unas 149 £ y ocupa todo el ancho de 23 mm del cuerpo. La V0.19 tiene una cara de controles recta que estorba al mando de intermitentes, y no tiene junta. La V0.18 se puede instalar, pero su tapa no coincide con la carcasa y no tiene tapa, placa ni montaje para el prensaestopas. La V0.17 no se debe imprimir: su cuerpo de 250 grados no puede pasar el manillar. Las V0.13–V0.16 son intentos superados de la silueta con hombros y no se deben imprimir. La V0.13 dejaba huecos en los hombros. La V0.14 perdía casi todo el cuerpo por un polígono mal cerrado. En la V0.15 y la V0.16 el mismo polígono trazaba el arco de la abrazadera como contorno interior, así que faltaba el anillo fijo de 250 grados y solo la tapa desmontable rodeaba el manillar.

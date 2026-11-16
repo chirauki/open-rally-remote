@@ -1,4 +1,4 @@
-# Build Guide — V0.34
+# Build Guide — V0.35
 
 > Spanish version: [build-guide.es.md](build-guide.es.md).
 
@@ -43,7 +43,7 @@ The first remote and base cost about €470–510, without the bench prototype p
 ### Decisions
 
 - **Boards: bare or assembled.** This guide follows bare boards soldered by hand, the cheapest way. Board makers also assemble boards, at a much higher price; see [Orders](#orders).
-- **Print material.** It is not chosen yet. The [materials study](materials-study.md#recommendation) recommends PA11 by MJF for the remote (ASA by FDM is the alternative), PA12 by MJF for the base and TPU near 85A for the keypad.
+- **Print material.** It is not chosen yet. The [materials study](materials-study.md#recommendation) recommends PA11 by MJF for the remote (ASA by FDM is the alternative), PA12 by MJF for the base and soft TPU, Shore A61–A70, for the keypad.
 
 ## Orders
 
@@ -85,11 +85,11 @@ Other board makers also assemble boards; they were not compared.
 
 ### Export the print files
 
-Set the measurements in `mechanical/cad/complete-remote-v0.34.scad`, or pass them with `-D`, and export each part with its `part_to_render` mode. For example:
+Set the measurements in `mechanical/cad/complete-remote-v0.35.scad`, or pass them with `-D`, and export each part with its `part_to_render` mode. For example:
 
 ```sh
-openscad -o housing.stl -D 'part_to_render="print_housing"' mechanical/cad/complete-remote-v0.34.scad
-openscad -o base_front.stl -D 'part_to_render="print_base_front"' -D 'strip_t=0.9' mechanical/cad/complete-remote-v0.34.scad
+openscad -o housing.stl -D 'part_to_render="print_housing"' mechanical/cad/complete-remote-v0.35.scad
+openscad -o base_front.stl -D 'part_to_render="print_base_front"' -D 'strip_t=0.9' mechanical/cad/complete-remote-v0.35.scad
 ```
 
 The parts, modes, orientations and print notes are in [Printing](mechanical-concept.md#printing). No part needs supports. The housing and the cover need a brim.
@@ -98,7 +98,7 @@ The parts, modes, orientations and print notes are in [Printing](mechanical-conc
 
 The printed parts are the largest cost of each remote: €170–196 for the remote and the base, from EU workshops ([printed parts](bom.md#printed-parts)). Order them once the electronics work (step 3), so a board problem does not leave you with parts you cannot use.
 - **Rigid parts:** ask for solid walls: 100 % infill, or at least five perimeters in FDM. The housing walls must keep water out.
-- **Keypad:** soft TPU (85A or softer). Its 0.8 mm sheet is under the 1 mm minimum wall that FDM TPU services give: ask the workshop first.
+- **Keypad:** FDM TPU, Shore A61–A70 (Craftcloud's "Soft" finish). At 85A the keys are too hard to press. Ask the workshop which filament it uses, whether it prints the flat 0.6–0.8 mm sheet, and for 0.1 or 0.2 mm layers, so the 0.2 mm cut round each key prints.
 - **Workshops outside the EU** quoted less but add import duties.
 
 ## Electronics

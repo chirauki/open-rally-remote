@@ -1,4 +1,4 @@
-# Guía de construcción — V0.34
+# Guía de construcción — V0.35
 
 > Traducción al castellano de [build-guide.md](build-guide.md). La versión en inglés es la de referencia; si las dos difieren, vale la inglesa.
 
@@ -44,7 +44,7 @@ El primer mando con su base cuesta unos 470–510 €, sin las piezas del protot
 ### Decisiones
 
 - **Placas: sin montar o montadas.** Esta guía sigue las placas sin montar, soldadas a mano, que es lo más barato. Los fabricantes de placas también las montan, a un precio mucho mayor; ver [Pedidos](#orders).
-- **Material de impresión.** Todavía no está elegido. El [estudio de materiales](materials-study.es.md#recommendation) recomienda PA11 por MJF para el mando (ASA por FDM es la alternativa), PA12 por MJF para la base y TPU cerca de 85A para el teclado.
+- **Material de impresión.** Todavía no está elegido. El [estudio de materiales](materials-study.es.md#recommendation) recomienda PA11 por MJF para el mando (ASA por FDM es la alternativa), PA12 por MJF para la base y TPU blando, Shore A61–A70, para el teclado.
 
 <a id="orders"></a>
 ## Pedidos
@@ -88,11 +88,11 @@ Otros fabricantes de placas también las montan; no se han comparado.
 
 ### Exportar los archivos de impresión
 
-Pon las medidas en `mechanical/cad/complete-remote-v0.34.scad`, o pásalas con `-D`, y exporta cada pieza con su modo `part_to_render`. Por ejemplo:
+Pon las medidas en `mechanical/cad/complete-remote-v0.35.scad`, o pásalas con `-D`, y exporta cada pieza con su modo `part_to_render`. Por ejemplo:
 
 ```sh
-openscad -o housing.stl -D 'part_to_render="print_housing"' mechanical/cad/complete-remote-v0.34.scad
-openscad -o base_front.stl -D 'part_to_render="print_base_front"' -D 'strip_t=0.9' mechanical/cad/complete-remote-v0.34.scad
+openscad -o housing.stl -D 'part_to_render="print_housing"' mechanical/cad/complete-remote-v0.35.scad
+openscad -o base_front.stl -D 'part_to_render="print_base_front"' -D 'strip_t=0.9' mechanical/cad/complete-remote-v0.35.scad
 ```
 
 Las piezas, los modos, las orientaciones y las notas de impresión están en [Impresión](mechanical-concept.es.md#printing). Ninguna pieza necesita soportes. La carcasa y la tapa necesitan borde de adherencia (brim).
@@ -101,7 +101,7 @@ Las piezas, los modos, las orientaciones y las notas de impresión están en [Im
 
 Las piezas impresas son el mayor coste de cada mando: 170–196 € el mando y la base, en talleres de la UE ([piezas impresas](bom.es.md#printed-parts)). Pídelas cuando la electrónica funcione (paso 3), para que un problema en una placa no te deje con piezas que no puedes usar.
 - **Piezas rígidas:** pide paredes macizas: relleno del 100 %, o al menos cinco perímetros en FDM. Las paredes de la carcasa tienen que parar el agua.
-- **Teclado:** TPU blando (85A o más blando). Su lámina de 0,8 mm está por debajo de la pared mínima de 1 mm que dan los servicios de TPU en FDM: pregunta antes al taller.
+- **Teclado:** TPU FDM, Shore A61–A70 (el acabado "Soft" de Craftcloud). En 85A las teclas cuestan demasiado de pulsar. Pregunta al taller qué filamento usa, si imprime la lámina plana de 0,6–0,8 mm, y pide capas de 0,1 o 0,2 mm, para que salga el rebaje de 0,2 mm alrededor de cada tecla.
 - **Talleres de fuera de la UE:** dieron precios más bajos, pero suman aduana.
 
 <a id="electronics"></a>

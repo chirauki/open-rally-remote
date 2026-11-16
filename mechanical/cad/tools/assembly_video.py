@@ -19,7 +19,7 @@ from pathlib import Path
 
 CAD = Path(__file__).resolve().parent.parent
 REPO = CAD.parent.parent
-VERSION = os.environ.get("ORR_VERSION", "0.34")
+VERSION = os.environ.get("ORR_VERSION", "0.35")
 SCAD = CAD / ("assembly-video-v%s.scad" % VERSION)
 BUILD = CAD / "build"
 OPENSCAD = os.environ.get("OPENSCAD", "openscad")
@@ -164,7 +164,10 @@ _USBC = ("**USB-C board path (step 2).** Slid straight along its rib from the ca
          "above the rib past the bosses, lowered onto the rib 8 mm short of the rear wall, and "
          "slid in, it clears. The margin is small: 1 mm above the rib still overlaps 0.2 mm³. "
          "The video uses this path.")
-FINDINGS = {"0.34": [
+FINDINGS = {"0.35": [
+    "**Thinned key rings (V0.35).** The keypad sheet is 0.6 mm thick in the ring round each "
+    "key, cut from the cover side. No part outline changes, so the paths are those of V0.34."],
+    "0.34": [
     "**Sliding USB-C board (V0.34).** The board is upside down, under its rib. The two DIN 562 "
     "square nuts sit in the rib's channels from the start of step 2 and are drawn with the "
     "housing. The fitting in detail is in docs/videos/usbc-mount-v0.34.mp4.",
@@ -221,6 +224,7 @@ FINDINGS = {"0.34": [
     "out with the cover\" did not include the joystick board. Not solved; see "
     "\"Open unknowns\" in docs/mechanical-concept.md.",
     _VENT, _J1, _USBC]}
+FINDINGS["0.35"] += FINDINGS["0.34"]   # V0.35: the V0.34 paths still hold
 
 
 def _volume(variant, body, tag):

@@ -28,7 +28,7 @@ The inner parts sit in a dark, sealed box. In the sun they can get almost as hot
 | Knobs | joystick knob | UV; knocks |
 | Inner plates | joystick plate, button plate | Stiffness; M2 threads; heat inside the box |
 | Joystick ball | ball and disc | Wear; the pin press fit in the Ø2.95 mm bore |
-| Keypad | keypad and gasket | Soft TPU, 85–88A preferred; 0.8 mm sheet; flexes in the cold; UV on the three keys |
+| Keypad | keypad and gasket | Soft TPU, Shore A61–A70 (V0.35: 85A is too hard to press); 0.8 mm sheet with 0.6 mm rings round the keys; flexes in the cold; UV on the three keys |
 
 ## Rigid candidates
 
@@ -139,7 +139,7 @@ The gap between PA11 by MJF and ASA by FDM for the remote is smaller than with 1
 | FDM TPU, for example Filaflex 82A | 82A | Elongation 650 % | Recreus |
 | FDM TPU 90A / 95A | 90–95A | Elongation 550–590 % | [Polymaker](https://wiki.polymaker.com/polymaker-products/polymaker-filaments/technical-data-at-a-glance) |
 
-A −5 °C morning is far above the −48 °C glass transition of the BASF powder, so cold is not a limit for TPU. The keypad wants 85–88A for the key feel. The powder TPUs are 88–90A, just above that, and the keypad sheet is 0.8 mm, under the 1.0 mm wall that powder services recommend for PA12; their TPU limit is not checked. An FDM TPU near 85A prints a 0.8 mm sheet without that limit.
+A −5 °C morning is far above the −48 °C glass transition of the BASF powder, so cold does not make TPU brittle; it does stiffen it, by an amount not found. Since V0.35 the keypad wants Shore A61–A70: at 85A, with the V0.34 0.8 mm ring, a key needs an estimated 15–35 N ([mechanical concept](mechanical-concept.md#changes-from-v034)). Before V0.35 this study took 85–88A without a force estimate. The powder TPUs are 88–90A, too hard for the keys. FDM TPU comes in soft grades, and the flat 0.8 mm sheet is printed in layers.
 
 ## Recommendation
 
@@ -149,7 +149,7 @@ Not decided yet. The recommendation as it stands:
 - **Base (base front, base cap, lock knob, sleeve halves): PA12 by MJF.** It has the widest heat margin under the clamp preload. The base is cheap to reprint after a fall.
 - Both come from the same process and can go in one order. PA11 for every part would be one material less, but its 50 °C HDT at 1.8 MPa is a risk for the clamp; PA12 for every part would make the remote notch-sensitive.
 - **Alternative for the remote: ASA by FDM.** With 2 mm walls it is a reasonable choice: better in the sun, more services, and cheaper on its own. It is still brittle across the layers, so it is the weaker choice for falls. Ask for 100 % infill or at least five perimeters, and wipe off petrol; do not leave it to dry on the part. The base stays PA12 by MJF.
-- **Keypad: FDM TPU, 85A or as close as the service offers.** Powder TPU (88–90A) only if the service prints the 0.8 mm sheet.
+- **Keypad: FDM TPU, Shore A61–A70 (V0.35).** Craftcloud lists it as the "Soft" finish. Ask the workshop for the exact filament, for example Filaflex 70A; soft filaments need a direct-drive extruder. Powder TPU (88–90A) is too hard.
 - **Liners and anti-rattle strips:** bike inner tube, as in V0.32.
 
 ## Quotes
@@ -167,6 +167,7 @@ Craftcloud quotes of 2026-10-21 for the V0.33 STL files, the sleeve bored for a 
 | 11 rigid parts | ASA FDM, black, 20 % infill | Ľubomír Pavliš (Slovakia) | €76.40 |
 | Keypad | TPU FDM, Shore 81–90A, black | Amber Layer (Lithuania) | €26.14 |
 | Keypad | TPU FDM, Shore 81–90A, black | Imagination 3D (Romania) | €30.19 |
+| Keypad (2026-11-16) | TPU FDM, Shore A61–A70 | A workshop in Lithuania | €26.17, free shipping |
 
 What the quotes say:
 
@@ -175,7 +176,7 @@ What the quotes say:
 - **ASA remote plus PA12 base costs about the same, €149–166,** because the base is PA12 either way. 100 % infill adds about €17 to the ASA remote.
 - **All ASA costs half,** but ASA for the base is what the [heat](#heat-and-creep) rules out.
 - WAITKUS had one review on Craftcloud on 2026-10-21.
-- The keypad adds €26–30. Craftcloud groups Shore 81–90A, so the exact filament has to be asked; the 0.8 mm sheet is under the 1 mm FDM minimum wall Craftcloud gives for TPU.
+- The keypad adds €26–30. Craftcloud groups the hardness in bands (A61–A70, A81–A90 and others), so the exact filament has to be asked. The sheet prints flat, so its 0.6–0.8 mm are layers, and the 1 mm FDM minimum wall Craftcloud gives for TPU probably does not apply; this is not confirmed by a workshop, so ask.
 - Not quoted: the PA11 and PA12 mix in one order, the keypad in MJF TPU from the nylon workshop, and INNOVATIA3D in Spain (its calculator needs a manual upload). Weerg and Sculpteo were not checked. Offers from Singapore, China and India started at about €115 for all parts, before duties.
 
 ## Open points

@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""V0.34 assembly guide video: every step of docs/mechanical-concept.md "Assembly" (remote,
+"""V0.35 assembly guide video: every step of docs/mechanical-concept.md "Assembly" (remote,
 base, fitting), action by action, with the hardware and the tools, in English and Spanish.
 
 A draft for review: it is not regenerated with every design change. It drives
-mechanical/cad/guide-video-v0.34.scad, which only draws; the animation is here: each action
+mechanical/cad/guide-video-v0.35.scad, which only draws; the animation is here: each action
 has a duration, a caption, a camera and operations on the items it moves.
 
 Run from the repository root:
   python3 mechanical/cad/tools/guide_video.py [--preview] [--only N ...] [en|es ...]
 --preview renders the first and last frame of each action into a contact sheet instead.
-Output: mechanical/cad/build/guide/guide-v0.34.<lang>.mp4. Needs ImageMagick and ffmpeg.
+Output: mechanical/cad/build/guide/guide-v0.35.<lang>.mp4. Needs ImageMagick and ffmpeg.
 """
 import argparse
 import json
@@ -22,13 +22,13 @@ from concurrent.futures import ThreadPoolExecutor
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import assembly_video as av  # noqa: E402
 
-SCAD = av.CAD / "guide-video-v0.34.scad"
+SCAD = av.CAD / "guide-video-v0.35.scad"
 WORK = av.BUILD / "guide"
 FPS = 20
 SIZE = (1280, 720)
 FONT = av.FONT
 
-# Model values used for staging and cameras (complete-remote-v0.34.scad).
+# Model values used for staging and cameras (complete-remote-v0.35.scad).
 ZC = 12.5                       # axial_width / 2
 FOLD = math.radians(20)
 FN = [math.cos(FOLD), math.sin(FOLD), 0.0]   # joystick axis, inward
@@ -474,7 +474,7 @@ def compose(job):
 
 
 def video(lang):
-    out = WORK / ("guide-v0.34.%s.mp4" % lang)
+    out = WORK / ("guide-v0.35.%s.mp4" % lang)
     subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-framerate", str(FPS),
                     "-i", str(WORK / lang / "f%05d.png"), "-c:v", "libx264", "-crf", "24", "-preset", "slow",
                     "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(out)], check=True)

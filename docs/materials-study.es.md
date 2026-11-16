@@ -30,7 +30,7 @@ Las piezas interiores van dentro de una caja oscura y cerrada. Al sol pueden cal
 | Pomos | pomo del joystick | UV; golpes |
 | Placas interiores | placa del joystick, placa de botones | Rigidez; roscas M2; calor dentro de la caja |
 | Bola del joystick | bola y disco | Desgaste; el ajuste a presión del pasador en el agujero de Ø2,95 mm |
-| Teclado | teclado y junta | TPU blando, mejor 85–88A; lámina de 0,8 mm; flexión en frío; UV en las tres teclas |
+| Teclado | teclado y junta | TPU blando, Shore A61–A70 (V0.35: en 85A cuesta demasiado pulsar); lámina de 0,8 mm con anillos de 0,6 mm alrededor de las teclas; flexión en frío; UV en las tres teclas |
 
 <a id="rigid-candidates"></a>
 ## Candidatos rígidos
@@ -152,7 +152,7 @@ La diferencia entre el PA11 por MJF y el ASA por FDM para el mando es menor que 
 | TPU FDM, por ejemplo Filaflex 82A | 82A | Alargamiento 650 % | Recreus |
 | TPU FDM 90A / 95A | 90–95A | Alargamiento 550–590 % | [Polymaker](https://wiki.polymaker.com/polymaker-products/polymaker-filaments/technical-data-at-a-glance) |
 
-Una mañana a −5 °C queda muy por encima de la transición vítrea de −48 °C del polvo de BASF, así que el frío no es un límite para el TPU. El teclado pide 85–88A por el tacto de las teclas. Los TPU en polvo son de 88–90A, justo por encima, y la lámina del teclado mide 0,8 mm, menos que la pared de 1,0 mm que los servicios de polvo recomiendan para el PA12; su límite para el TPU no está comprobado. Un TPU FDM cerca de 85A imprime una lámina de 0,8 mm sin ese límite.
+Una mañana a −5 °C queda muy por encima de la transición vítrea de −48 °C del polvo de BASF, así que el frío no vuelve frágil el TPU; sí lo endurece, en una cantidad que no se ha encontrado. Desde la V0.35 el teclado pide Shore A61–A70: en 85A, con el anillo de 0,8 mm de la V0.34, una tecla necesita unos 15–35 N según la estimación ([concepto mecánico](mechanical-concept.es.md#changes-from-v034)). Antes de la V0.35 este estudio tomaba 85–88A sin estimar la fuerza. Los TPU en polvo son de 88–90A, demasiado duros para las teclas. El TPU FDM existe en grados blandos, y la lámina plana de 0,8 mm se imprime por capas.
 
 <a id="recommendation"></a>
 ## Recomendación
@@ -163,7 +163,7 @@ Aún sin decidir. La recomendación tal como está:
 - **Base (parte delantera, tapa, pomo del cierre, mitades del casquillo): PA12 por MJF.** Tiene el mayor margen de temperatura bajo la precarga de la abrazadera. La base es barata de reimprimir tras una caída.
 - Los dos salen del mismo proceso y pueden ir en un solo pedido. PA11 para todo sería un material menos, pero su HDT de 50 °C a 1,8 MPa es un riesgo para la abrazadera; PA12 para todo haría el mando sensible a la entalla.
 - **Alternativa para el mando: ASA por FDM.** Con paredes de 2 mm es una opción razonable: mejor al sol, más servicios y más barato por sí solo. Sigue siendo frágil entre capas, así que es la opción más débil para las caídas. Pide un relleno del 100 % o al menos cinco perímetros, y limpia la gasolina; no la dejes secarse sobre la pieza. La base sigue en PA12 por MJF.
-- **Teclado: TPU FDM, 85A o lo más cerca que ofrezca el servicio.** TPU en polvo (88–90A) solo si el servicio imprime la lámina de 0,8 mm.
+- **Teclado: TPU FDM, Shore A61–A70 (V0.35).** Craftcloud lo llama acabado "Soft". Pregunta al taller el filamento exacto, por ejemplo Filaflex 70A; los filamentos blandos necesitan un extrusor de arrastre directo. El TPU en polvo (88–90A) es demasiado duro.
 - **Forros y tiras antivibración:** cámara de bicicleta, como en la V0.32.
 
 <a id="quotes"></a>
@@ -182,6 +182,7 @@ Presupuestos de Craftcloud del 21-10-2026 para los STL de la V0.33, con el casqu
 | 11 piezas rígidas | ASA FDM, negro, relleno del 20 % | Ľubomír Pavliš (Eslovaquia) | 76,40 € |
 | Teclado | TPU FDM, Shore 81–90A, negro | Amber Layer (Lituania) | 26,14 € |
 | Teclado | TPU FDM, Shore 81–90A, negro | Imagination 3D (Rumanía) | 30,19 € |
+| Teclado (16-11-2026) | TPU FDM, Shore A61–A70 | Un taller de Lituania | 26,17 €, envío gratis |
 
 Lo que dicen los presupuestos:
 
@@ -190,7 +191,7 @@ Lo que dicen los presupuestos:
 - **Mando en ASA más base en PA12 cuesta más o menos lo mismo, 149–166 €,** porque la base va en PA12 en los dos casos. El relleno del 100 % suma unos 17 € al mando en ASA.
 - **Todo en ASA cuesta la mitad,** pero el ASA en la base es justo lo que descarta el [calor](#heat-and-creep).
 - WAITKUS tenía una sola valoración en Craftcloud el 21-10-2026.
-- El teclado suma 26–30 €. Craftcloud agrupa de 81 a 90A, así que hay que preguntar el filamento exacto; la lámina de 0,8 mm es más fina que la pared mínima de 1 mm que Craftcloud da para el TPU FDM.
+- El teclado suma 26–30 €. Craftcloud agrupa la dureza por tramos (A61–A70, A81–A90 y otros), así que hay que preguntar el filamento exacto. La lámina se imprime en plano, así que sus 0,6–0,8 mm son capas, y la pared mínima de 1 mm que Craftcloud da para el TPU FDM probablemente no se aplica; ningún taller lo ha confirmado, así que pregunta.
 - Sin cotizar: la mezcla de PA11 y PA12 en un solo pedido, el teclado en TPU MJF del taller del nylon e INNOVATIA3D en España (su calculadora necesita subir los ficheros a mano). Weerg y Sculpteo no se miraron. Las ofertas de Singapur, China e India empezaban en unos 115 € por todas las piezas, antes de aranceles.
 
 <a id="open-points"></a>

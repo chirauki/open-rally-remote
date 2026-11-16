@@ -1,10 +1,10 @@
-# Lista de materiales — V0.34
+# Lista de materiales — V0.35
 
 > Traducción al castellano de [bom.md](bom.md). La versión en inglés es la de referencia; si las dos difieren, vale la inglesa.
 
-Esta es la única lista de piezas del proyecto: el prototipo de banco y el mando extraíble con batería de la V0.34, con su base. La V0.34 es la V0.26 con la placa del joystick rev C, una sola base para los dos diámetros de manillar, la ventilación en la tapa de la batería, sin insertos roscados por calor, juntas de espuma en la tapa de controles y en la tapa de la batería, menos piezas distintas que comprar (V0.32) paredes de 2 mm, que hacen que el mando y la base midan 25 mm de ancho (V0.33), y una placa USB-C que desliza sobre dos tuercas cuadradas, con juntas de espuma de dos capas (V0.34). Las tres placas de circuito se unen con cables comprados ([diseño](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Se pueden pedir montadas, y entonces el montaje no necesita soldar, o desnudas, para que quien lo monte las suelde a mano por mucho menos dinero: mira [Pedido de las placas](#ordering-the-boards). Los detalles del diseño están en los documentos enlazados; esta página dice qué comprar.
+Esta es la única lista de piezas del proyecto: el prototipo de banco y el mando extraíble con batería de la V0.35, con su base. La V0.35 es la V0.26 con la placa del joystick rev C, una sola base para los dos diámetros de manillar, la ventilación en la tapa de la batería, sin insertos roscados por calor, juntas de espuma en la tapa de controles y en la tapa de la batería, menos piezas distintas que comprar (V0.32) paredes de 2 mm, que hacen que el mando y la base midan 25 mm de ancho (V0.33), y una placa USB-C que desliza sobre dos tuercas cuadradas, con juntas de espuma de dos capas (V0.34), y anillos de las teclas más finos en un teclado de TPU blando (V0.35). Las tres placas de circuito se unen con cables comprados ([diseño](superpowers/specs/2026-10-14-no-solder-assembly-design.md)). Se pueden pedir montadas, y entonces el montaje no necesita soldar, o desnudas, para que quien lo monte las suelde a mano por mucho menos dinero: mira [Pedido de las placas](#ordering-the-boards). Los detalles del diseño están en los documentos enlazados; esta página dice qué comprar.
 
-**Estado:** nada de la lista de la V0.34 se ha construido ni probado. El material de impresión aún no está elegido ([estudio de materiales](materials-study.es.md)). La lista de la V0.25 está en el historial de git.
+**Estado:** nada de la lista de la V0.35 se ha construido ni probado. El material de impresión aún no está elegido ([estudio de materiales](materials-study.es.md)). La lista de la V0.25 está en el historial de git.
 
 Preferencia de compra: primero las piezas que se pueden comprar en tiendas generalistas (por ejemplo Amazon). Las piezas que solo venden los distribuidores se usan solo donde ninguna pieza de tienda cumple el requisito, y se explica por qué.
 
@@ -145,19 +145,20 @@ Coste estimado: unos 75 €.
 | 1 | Placa del joystick | Mando, rígido | `print_joy_plate` |
 | 1 | Bola y disco | Mando, rígido | `print_ball_disc` |
 | 1 | Pomo del joystick | Mando, rígido | `print_knob` |
-| 1 | Teclado y junta, una sola pieza con las tres teclas | Teclado: TPU blando (85A o más blando); ya no se puede cortar de lámina, porque las teclas salen de ella | `print_gasket` |
+| 1 | Teclado y junta, una sola pieza con las tres teclas | Teclado: TPU blando, Shore A61–A70 (V0.35; en 85A cuesta demasiado pulsar); ya no se puede cortar de lámina, porque las teclas salen de ella | `print_gasket` |
 | 1 | Placa de botones | Mando, rígido | `print_button_plate` |
 | 1 | Tapa de la batería | Mando, rígido | `print_battery_cap` |
 
 Las piezas impresas de la base están en [Base](#base-one-per-bike). Los ajustes y las orientaciones de impresión están en las [notas mecánicas](mechanical-concept.es.md#printing).
 
-Los materiales aún no están elegidos. El [estudio de materiales](materials-study.es.md) recomienda PA11 por MJF para las piezas rígidas del mando (el ASA por FDM es la alternativa), PA12 por MJF para las de la base y TPU cerca de 85A para el teclado. El PETG queda descartado: una pieza oscura al sol de España llega a su temperatura de flexión bajo carga.
+Los materiales aún no están elegidos. El [estudio de materiales](materials-study.es.md) recomienda PA11 por MJF para las piezas rígidas del mando (el ASA por FDM es la alternativa), PA12 por MJF para las de la base y TPU blando, Shore A61–A70 (V0.35), para el teclado. El PETG queda descartado: una pieza oscura al sol de España llega a su temperatura de flexión bajo carga.
 
 Coste estimado, según presupuestos de Craftcloud del 21-10-2026 para los ficheros de la V0.33, solo talleres de la UE, con el envío a España, sin comprobar el IVA:
 
 - Las 11 piezas rígidas del mando y de la base de un solo taller MJF: 143,84 € en PA12 teñido de negro, 161,49 € en PA11 teñido de negro (WAITKUS 360°, Alemania). Un mando en PA11 con una base en PA12 en un solo pedido debería quedar entre los dos; sin cotizar.
 - Mando en ASA negro por FDM: 56,99 € con relleno del 20 % (Ľubomír Pavliš, Eslovaquia), unos 74 € al 100 %. La base en PA12 aparte: 91,97 € (Smart Factory, Lituania).
-- Teclado en TPU FDM, Shore 81–90A: 26,14 € (Amber Layer, Lituania) o 30,19 € (Imagination 3D, Rumanía). Pregunta el filamento exacto; la lámina de 0,8 mm es más fina que la pared mínima de 1 mm que se da para el TPU FDM.
+- Teclado en TPU FDM, Shore A61–A70 (V0.35): 26,17 € con envío gratis, de un taller de Lituania (Craftcloud, 16-11-2026, fichero de la V0.34). Pregunta el filamento exacto, si imprime la lámina plana de 0,6–0,8 mm, y pide capas de 0,1 o 0,2 mm.
+- Teclado en TPU FDM, Shore 81–90A (V0.34, demasiado duro): 26,14 € (Amber Layer, Lituania) o 30,19 € (Imagination 3D, Rumanía).
 
 La lista completa está en el [estudio de materiales](materials-study.es.md#quotes). Los pedidos de fuera de la UE eran más baratos (desde unos 115 € por las piezas rígidas), pero pagan aranceles.
 
