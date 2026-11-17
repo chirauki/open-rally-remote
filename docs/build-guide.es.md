@@ -27,7 +27,7 @@ El primer mando con su base cuesta unos 470–510 €, sin las piezas del protot
 
 ### Habilidades y herramientas
 
-- **Soldar**, si se piden las placas sin montar: componentes 0603, encapsulados SOT-23 y conectores de 1,0 mm de paso. La [guía de electrónica](electronics-assembly.es.md#antes-de-empezar) da las herramientas.
+- **Soldar**, si se piden las placas sin montar: componentes 0603, encapsulados SOT-23 y conectores de 1,0 mm de paso. La [guía de electrónica](electronics-assembly.es.md#antes-de-empezar) da las herramientas. La [guía con pasta y aire caliente](electronics-assembly-hot-air.es.md) es una alternativa para los componentes de montaje superficial.
 - **OpenSCAD 2026.x**, para poner tus medidas y exportar los archivos de impresión. Todavía no hay un paquete de impresión preparado.
 - **Arduino IDE 2**, para cargar el firmware ([entorno de desarrollo](development-environment.md)). El firmware compilado se publicará como [releases de GitHub](../firmware/xiao-nrf52840/README.es.md#releases); todavía no hay ninguna.
 - **Herramientas de mano:**
@@ -107,7 +107,7 @@ Las piezas impresas son el mayor coste de cada mando: 170–196 € el mando y l
 <a id="electronics"></a>
 ## Electrónica
 
-Sigue la [guía de montaje de la electrónica](electronics-assembly.es.md). Cubre, en este orden:
+Sigue la [guía de montaje de la electrónica](electronics-assembly.es.md), o su [versión con pasta y aire caliente](electronics-assembly-hot-air.es.md) para los componentes de montaje superficial. Cubre, en este orden:
 1. soldar las placas de joystick, de control y USB-C;
 2. los cables;
 3. las pruebas de alimentación sin el XIAO;

@@ -26,7 +26,7 @@ The first remote and base cost about €470–510, without the bench prototype p
 
 ### Skills and tools
 
-- **Soldering**, if you order bare boards: 0603 parts, SOT-23 packages and 1.0 mm pitch sockets. The [electronics guide](electronics-assembly.md#tools) lists the tools.
+- **Soldering**, if you order bare boards: 0603 parts, SOT-23 packages and 1.0 mm pitch sockets. The [electronics guide](electronics-assembly.md#tools) lists the tools. The [paste and hot-air guide](electronics-assembly-hot-air.md) is an alternative for the surface-mount parts.
 - **OpenSCAD 2026.x**, to set your measurements and export the print files. There is no ready-made print package yet.
 - **Arduino IDE 2**, to upload the firmware ([development environment](development-environment.md)). Compiled firmware will be published as [GitHub releases](../firmware/xiao-nrf52840/README.md#releases); none is published yet.
 - **Hand tools:**
@@ -103,7 +103,7 @@ The printed parts are the largest cost of each remote: €170–196 for the remo
 
 ## Electronics
 
-Follow the [electronics assembly guide](electronics-assembly.md). It covers, in this order:
+Follow the [electronics assembly guide](electronics-assembly.md), or its [paste and hot-air version](electronics-assembly-hot-air.md) for the surface-mount parts. It covers, in this order:
 1. soldering the joystick, control and USB-C boards;
 2. the cables;
 3. power tests without the XIAO;

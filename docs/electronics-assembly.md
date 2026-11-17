@@ -6,6 +6,8 @@ This guide takes the three bare boards from the JLCPCB order and the parts from 
 
 If the boards came assembled, skip the soldering steps and start at [Cables](#4-cables). Boards with Economic assembly still need the switches and the XIAO headers (steps J1, C7 and C8) and the USB-C receptacle (step U3).
 
+**Hot air.** The [paste and hot-air guide](electronics-assembly-hot-air.md) solders the surface-mount parts with solder paste and a hot-air station instead of the iron. It follows the same steps and checks.
+
 **Status.** This guide comes from the design files, not from a build. Nobody has built these boards yet. The points not yet confirmed on real parts are listed under [Open points](#open-points). Note what differs on the first build and correct this guide.
 
 ## Contents
@@ -487,7 +489,7 @@ The coating stays off the pouch and the vent; they are not on the boards. The me
 
 Each of these is checked on the first build. Record the result here.
 
-- **KSC2 by hand.** Whether the KSC221JLFS J-leads can be soldered well with an iron. The pads show about 1 mm past the body. If not, a hot-air station or a hot plate is needed.
+- **KSC2 by hand.** Whether the KSC221JLFS J-leads can be soldered well with an iron. The pads show about 1 mm past the body. If not, a hot-air station or a hot plate is needed: see the [paste and hot-air guide](electronics-assembly-hot-air.md).
 - **USB4736 by hand.** The signal pads' 0.3 mm gaps, and the heat the shell tabs need.
 - **USB4736 position.** Once it is soldered, measure from the body's front face (where the gasket bears) to the centre of each M2 hole, with a Ø2 mm pin in the hole: 11.10 mm in the design. It sets the gasket squeeze; see the open unknowns in the [mechanical concept](mechanical-concept.md#open-unknowns-before-printing).
 - **LED orientation.** The rev B footprint appears mirrored (see [step U4](#step-u4-charge-led)). Confirm it on a part, and that the LED solders upside down and shows through the window. A machine cannot turn the part over, so D1 on assembled boards is probably reversed: test it. To be fixed in the next board revision, with a larger LED.

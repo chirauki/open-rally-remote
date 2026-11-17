@@ -6,6 +6,8 @@ Esta guía lleva las tres placas desnudas del pedido de JLCPCB y los componentes
 
 Si las placas llegaron montadas, sáltate la soldadura y empieza en [Cables](#cables). Con el montaje Economic de JLCPCB aún hay que soldar los interruptores y los zócalos de la XIAO (pasos J1, C7 y C8) y el receptáculo USB-C (paso U3).
 
+**Aire caliente.** La [guía con pasta y aire caliente](electronics-assembly-hot-air.es.md) suelda los componentes de montaje superficial con pasta de soldar y una estación de aire caliente en vez del soldador. Sigue los mismos pasos y comprobaciones.
+
 **Estado.** Esta guía sale de los ficheros de diseño, no de un montaje real. Nadie ha montado todavía estas placas. Lo que aún no se ha comprobado con piezas reales está en [Puntos abiertos](#puntos-abiertos). Apunta lo que salga distinto en el primer montaje y corrige la guía.
 
 ## Índice
@@ -502,7 +504,7 @@ El barniz no va en la batería ni en la membrana de ventilación, que no están 
 
 Cada uno se comprueba en el primer montaje. Apunta aquí el resultado.
 
-- **KSC2 a mano.** Si las patas en J del KSC221JLFS se sueldan bien con soldador. De cada pad asoma alrededor de 1 mm. Si no, hace falta una estación de aire caliente o una placa calefactora.
+- **KSC2 a mano.** Si las patas en J del KSC221JLFS se sueldan bien con soldador. De cada pad asoma alrededor de 1 mm. Si no, hace falta una estación de aire caliente o una placa calefactora: mira la [guía con pasta y aire caliente](electronics-assembly-hot-air.es.md).
 - **USB4736 a mano.** La separación de 0,3 mm entre sus pads de señal, y el calor que necesitan las patas de la carcasa.
 - **Posición del USB4736.** Una vez soldado, mide desde la cara frontal del cuerpo (donde apoya la junta) hasta el centro de cada agujero M2, con un pasador de Ø2 mm en el agujero: 11,10 mm en el diseño. Fija la compresión de la junta; mira las incógnitas abiertas del [concepto mecánico](mechanical-concept.es.md#open-unknowns-before-printing).
 - **Orientación del LED.** La huella de la rev B parece invertida (mira el [paso U4](#paso-u4-led-de-carga)). Confírmalo con una pieza, y que el LED se suelda boca abajo y se ve por la ventana. Una máquina no puede dar la vuelta a la pieza, así que D1 en las placas montadas probablemente esté invertido: pruébalo. Se corregirá en la próxima revisión de la placa, con un LED más grande.
