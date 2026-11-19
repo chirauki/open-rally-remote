@@ -40,8 +40,8 @@ Los números de LCSC están en el CSV y en el `fab/*-bom.csv` de cada placa. Los
 
 | Herramienta | Notas |
 |---|---|
-| Soldador con control de temperatura | Punta cónica fina o de cincel de 1–1,5 mm. Unos 330 °C con estaño con plomo y 360 °C sin plomo. Los planos de masa y las patas de la carcasa del USB-C necesitan una punta más caliente o más grande. El LED de carga tiene un límite más bajo: mira el [paso U4](#paso-u4-led-de-carga). |
-| Flux sin limpieza (jeringa), estaño de 0,5 mm con alma de flux, malla desoldadora de 2 mm | El estaño de 0,8 mm es demasiado grueso para los 0603 y los conectores de paso 1 mm. |
+| Soldador con control de temperatura | Punta cónica fina o de cincel de 1–1,5 mm. Unos 350 °C con estaño sin plomo; en los condensadores, cada toque de pocos segundos. Los planos de masa y las patas de la carcasa del USB-C necesitan una punta más caliente o más grande. El LED de carga tiene un límite más bajo: mira el [paso U4](#paso-u4-led-de-carga). |
+| Flux sin limpieza (jeringa), estaño sin plomo de 0,5 mm con alma de flux, malla desoldadora de 2 mm | El estaño de 0,8 mm es demasiado grueso para los 0603 y los conectores de paso 1 mm. En la UE no se puede vender estaño con plomo al público general: mira [por qué sin plomo](electronics-assembly-hot-air.es.md#antes-de-empezar). |
 | Pinzas finas, no magnéticas | **Imprescindibles.** Sin ellas no se pueden colocar los 0603. |
 | Lupa o cámara del móvil en modo macro | Para revisar cada soldadura. |
 | Alcohol isopropílico y un cepillo de dientes viejo | Para quitar el flux. |
@@ -54,7 +54,7 @@ Los números de LCSC están en el CSV y en el `fab/*-bom.csv` de cada placa. Los
 
 - Suelda en un sitio ventilado: los humos del flux irritan.
 - Ponte gafas cuando cortes patas o retires estaño con la malla.
-- Lávate las manos después de soldar, sobre todo si usas estaño con plomo.
+- Lávate las manos después de soldar.
 - Batería LiPo: no cortocircuites sus cables, no la perfores y no la dobles. Conéctala solo cuando un paso lo diga.
 - Aplica el barniz al aire libre o con extracción, lejos de llamas.
 
@@ -90,11 +90,11 @@ Las placas desnudas son así; el texto impreso permite distinguir las caras.
   2. Comprueba que los pines coinciden con sus pads.
   3. Suelda la otra pestaña y luego los pines, con mucho flux.
   4. Los puentes entre pines se quitan con la malla.
-- **Zócalos de agujero pasante.** Calienta a la vez el pin y el pad durante 2–3 s y aporta el estaño a la unión, no a la punta. Una buena soldadura es un cono brillante.
+- **Zócalos de agujero pasante.** Calienta a la vez el pin y el pad durante 2–3 s y aporta el estaño a la unión, no a la punta. Una buena soldadura es un cono liso; el estaño sin plomo queda satinado, no como un espejo.
 - **Después de cada placa.**
   1. Frota el flux con alcohol isopropílico.
   2. Deja secar la placa.
-  3. Revisa cada soldadura con aumento: puentes, bolitas de estaño, soldaduras mates o agrietadas y patas levantadas.
+  3. Revisa cada soldadura con aumento: puentes, bolitas de estaño, soldaduras granuladas o agrietadas y patas levantadas.
 
 ### Orden
 
@@ -375,7 +375,7 @@ D1 es opcional. Sin él el mando funciona, pero con la carcasa cerrada nada indi
 5. Gira la placa para que el borde del receptáculo quede a tu izquierda. El pad 1 es ahora el pad lejano.
 6. Deja el LED en la tarjeta hasta el paso 3 de "Suéldalo".
 
-**Suéldalo.** Lite-On permite 300 °C durante 3 s, una sola vez.
+**Suéldalo.** Lite-On permite 300 °C durante 3 s, una sola vez. A 300 °C el estaño sin plomo funde igual, solo que más despacio: pon flux en los pads antes.
 1. Pon el soldador a 300 °C. Un soldador sin control de temperatura no puede cumplirlo y el LED puede morir: suelda poco después de que empiece a fundir el estaño, antes de que llegue a toda su temperatura.
 2. Añade flux. Estaña el pad 2 sin el LED. Usa muy poco estaño: limpia la punta después de cargarla. El estaño que sube a la lente le quita luz.
 3. Coge el LED por sus dos extremos metálicos, llévalo en línea recta hasta los pads sin girarlo y refunde el pad 2 mientras lo sujetas con las pinzas. Retira la punta en cuanto el estaño moje, en cerca de 1 s y nunca más de 2 s.

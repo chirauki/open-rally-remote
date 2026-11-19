@@ -27,14 +27,20 @@ Everything in the [iron guide's tool list](electronics-assembly.md#tools), plus:
 
 | Tool | Notes |
 |---|---|
-| Solder paste, leaded Sn63/Pb37, in a syringe with a fine needle | It melts at 183 °C. Lead-free paste (SAC305) melts at about 217–220 °C and needs more heat. Chip Quik SMD291AX10 is one example: a 10 cc syringe with about 35 g, enough for many boards. Its price in euros was not confirmed; about €23–28 with VAT at EU distributors is plausible. Cheaper generic pastes exist; check that the alloy is Sn63/Pb37 and that it comes in a syringe. |
+| Solder paste, lead-free SAC305 (Sn96.5/Ag3.0/Cu0.5), no-clean, in a syringe with a fine needle | It melts at about 217–221 °C. Examples, from DigiKey Spain on 2026-11-19 with VAT: MG Chemicals 4900P-25G, 25 g, €45.11, out of stock there until March 2027 but also listed on Amazon.es; Chip Quik SMD291SNL10T5, 35 g, €41.84. DigiKey charges €25 shipping on orders under €75. 25 g is enough for many boards. See the notes below on leaded and low-temperature pastes. |
 | Hot-air station with a small nozzle | For example a station with an iron and a hot-air gun, such as the YCD-8582D type. Use a round nozzle of about 5–8 mm. |
 | Heat-resistant tape (Kapton) or aluminium foil | To shield parts that must not get hot air. |
 | A heat-proof surface | A ceramic tile or a silicone mat. Not the table. |
 | Soldering iron with temperature control | Still needed: XIAO headers, USB-C shell tabs, and bridges. |
 
+**Why lead-free.**
+- In the EU, lead may not be supplied to the general public in mixtures such as solder (REACH Annex XVII, entry 30, since 2018). The rule was read in secondary sources, not in the official text; see [Open points](#open-points).
+- Several leaded pastes were no longer available at DigiKey and RS in November 2026.
+- Lead-free paste needs more heat. The joints need about 235–250 °C, and the LED and the USB4736 allow 260 °C at the peak, so the margin is small. Leaded Sn63/Pb37 (183 °C) would leave about 35–55 °C, by estimate.
+- Do not use low-temperature Sn42/Bi58 paste. It melts at 138 °C, but its joints are brittle under drops and vibration, and the remote rides on a handlebar.
+
 **The paste.**
-- Keep it cool and capped. Chip Quik quotes more than 6 months unrefrigerated and more than 12 months refrigerated.
+- Store it as its label says, capped. DigiKey lists 4–10 °C, in the fridge, for the 4900P.
 - If it was in the fridge, let the closed syringe reach room temperature before you open it, or water condenses in it.
 - Stir nothing. Push out a little onto a scrap of card first, to see how a dot looks.
 
@@ -42,7 +48,7 @@ Everything in the [iron guide's tool list](electronics-assembly.md#tools), plus:
 
 The [iron guide's safety notes](electronics-assembly.md#safety) apply. In addition:
 
-- **Lead.** The paste is lead powder in flux. Wear nitrile gloves when you handle it. Wash your hands after each session. Do not eat or drink while you work. Clean the bench with a damp cloth, never by blowing. Keep the paste away from children.
+- **Paste.** The paste is metal powder in flux. Wear nitrile gloves when you handle it. Wash your hands after each session. Do not eat or drink while you work. Clean the bench with a damp cloth, never by blowing. Keep the paste away from children.
 - **Fumes.** Hot air pushes the flux fumes toward you. Work with extraction, or with a fan that draws the fumes away from you.
 - **LiPo cell.** Keep it well away from the hot-air area.
 - **Hot air.** The air and the nozzle reach several hundred °C. Never point the gun at a person, at your other hand or at anything that burns.
@@ -54,17 +60,17 @@ The same method serves every surface-mount part in this guide.
 
 1. **Paste.** Put one small dot of paste on each pad. Aim for a dot smaller than the pad. Too much paste makes bridges and balls; too little is easy to fix with the iron later. A hand syringe rarely makes a dot smaller than about 0.4 mm, so on the finest gaps expect bridges and clear them with flux and braid.
 2. **Place.** Place the part with the tweezers, square on its pads. The paste is tacky and holds it. Do not press it down hard: the paste squeezes out and bridges.
-3. **Preheat.** Set the air to about 150 °C, the lowest airflow that still blows, and hold the nozzle about 3–5 cm away. Move it in circles over the area for 30–60 s. This takes the chill off the ground pours and stops a part from standing up on one end.
-4. **Reflow.** Set the air to about 300 °C, same low airflow. Bring the nozzle to about 1–2 cm and keep it moving in small circles over the part.
-   - The paste turns from grey to shiny, and the part settles and centres itself.
-   - Keep heating about 5 s more, then lift the nozzle away.
-   - If nothing melts in about 30–40 s, raise the air by 20 °C and try again. Do not go above about 350 °C.
+3. **Preheat.** Set the air to about 150–180 °C, the lowest airflow that still blows, and hold the nozzle about 3–5 cm away. Move it in circles over the area for 60–90 s. This takes the chill off the ground pours and stops a part from standing up on one end.
+4. **Reflow.** Set the air to about 330 °C, same low airflow. Bring the nozzle to about 1–2 cm and keep it moving in small circles over the part.
+   - The paste turns from grey to liquid metal, and the part settles and centres itself.
+   - Keep heating about 3–5 s more, then lift the nozzle away. Lead-free joints set satin, not mirror-bright.
+   - If nothing melts in about 30–40 s, raise the air by 20 °C and try again. Do not go above about 380 °C, and never that high near the LED.
    - The set temperature is not the board's temperature. Never stop the nozzle over a part.
 5. **Do not touch** the board for about 10 s, until the solder sets.
-6. **Inspect** under magnification, as in [After each board](electronics-assembly.md#soldering-method): bridges, balls of solder, a part off centre or standing on one end.
+6. **Inspect** under magnification, as in [After each board](electronics-assembly.md#soldering-method): bridges, balls of solder, a part off centre or standing on one end. A smooth, satin joint is good; a grainy, lumpy one did not melt fully.
 
 **Fixing.**
-- **Bridge:** flux, then braid with the iron at about 330 °C. With leaded solder the iron melts it easily.
+- **Bridge:** flux, then braid with the iron at about 350 °C.
 - **Part off centre:** flux it and reheat with air. It usually pulls itself straight.
 - **Dry pad:** add a little paste with the needle and reheat, or touch it with the iron and a little wire solder.
 
@@ -104,7 +110,7 @@ The placement is as in the [iron guide's step J1](electronics-assembly.md#step-j
 2. Put a dot of paste on each of the four pads of SW1–SW4.
 3. Place the four switches square to their outlines.
 4. Preheat, then reflow each switch in turn. Aim the air at the pads that show past the body, not at the top of the switch.
-5. C&K rates the KSC2 for lead-free reflow, **at most 2 times.** The paste's 183 °C melting point does not limit how hot the switch gets: lift the air as soon as the paste wets.
+5. C&K rates the KSC2 for lead-free reflow, **at most 2 times.** The air heats the switch as well as the paste: lift the air as soon as the paste wets.
 
 If a switch is hard to reflow, solder it with the iron instead, as in the iron guide.
 
@@ -137,7 +143,7 @@ Lay the board flat on the heat-proof surface. Hold it with Kapton tape at the co
 - The right pads of C1–C4 are about 0.77 mm from the legs of U1 and U2. Keep the dots small.
 - Check the gap between the left pad of C2 and the single pad of Q1, as in the [iron guide's step C3](electronics-assembly.md#step-c3-capacitors-back).
 
-**Rework of iron joints.** If some of these were soldered with the iron and the joint on a ground pad is poor, flux it and reflow it with air. Add a tiny dot of paste if the pad has too little solder. A lead-free joint melts only at about 217 °C or more: heat until the whole joint turns shiny, not only the new paste. Leaded paste mixed with an existing lead-free joint is acceptable for this repair.
+**Rework of iron joints.** If some of these were soldered with the iron and the joint on a ground pad is poor, flux it and reflow it with air. Add a tiny dot of paste if the pad has too little solder. An iron joint made with lead-free wire melts only at about 217 °C or more: heat until the whole joint melts, not only the new paste. Lead-free paste on a lead-free joint does not mix alloy families.
 
 ### Step C4 and C5: F1 and D1 (back)
 
@@ -207,7 +213,7 @@ Read the whole [iron guide's step U4](electronics-assembly.md#step-u4-charge-led
 3. Place the LED upside down, lens toward the board edge, as the iron guide describes.
 4. **Check the orientation now,** under magnification: lens toward the edge, upside down as described. Both pads reflow at once, so the iron guide's diode test with pad 1 still free is not possible. A wrong LED costs a removal.
 5. Hold it lightly with the tweezers. Use the lowest airflow: the LED weighs almost nothing and blows away easily.
-6. Set the air lower than for the other parts, about 260 °C, and keep the nozzle about 2–3 cm away. Lite-On allows 260 °C at the peak, for a few seconds. The paste's 183 °C melting point does not limit how hot the LED gets: lift the air as soon as both ends wet.
+6. Set the air about 30 °C lower than for the other parts, to about 300 °C, and keep the nozzle about 2–3 cm away. Lite-On allows 260 °C at the peak, for a few seconds, and the joints need about 235–250 °C: lift the air as soon as both ends wet. If they do not wet in about 20 s, stop, let the board cool and solder the LED with the iron, as in the iron guide.
 7. The receptacle's shell tab and signal pads are close and may reflow. Do not bump the board until it cools.
 8. Clean, then test it as in the iron guide: the diode test and the table of readings. A reversed or dead LED comes off with hot air and the tweezers. Use a new one; do not reuse a soldered LED.
 
@@ -228,6 +234,8 @@ Each of these is checked on the first build. Record the result here.
 
 - **Settings.** The air temperatures, airflow and times are starting points from general practice, not from these boards or a given station.
 - **Paste amount.** How small a dot avoids bridges on the 0.35 mm gaps of U1 and U2 and the 0.3 mm gaps of the USB4736.
+- **Lead-free margin.** The joints need about 235–250 °C; the LED and the USB4736 allow a 260 °C peak. Whether hand-held hot air stays inside that window on these boards.
+- **REACH.** The rule on lead in solder for the general public (REACH Annex XVII, entry 30, Appendix 5) was read in secondary sources (the International Lead Association, reachonline.eu, a retailer), not in the official text on EUR-Lex.
 - **Plastic parts.** The KSC2 is rated for lead-free reflow, at most 2 times, and GCT rates the USB4736 for a 260 °C peak. The JST SH and PH sockets are surface-mount parts, but their reflow ratings were not checked for this guide.
 - **Second side.** Whether the back parts stay in place while the front switches are reflowed.
 - **Joystick order.** The socket first, then the switches, is the reverse of the iron guide. Whether the board sits well on edge supports was not tried.

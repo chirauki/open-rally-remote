@@ -28,14 +28,20 @@ Todo lo de la [lista de herramientas de la guía con soldador](electronics-assem
 
 | Herramienta | Notas |
 |---|---|
-| Pasta de soldar con plomo, Sn63/Pb37, en jeringa con aguja fina | Funde a 183 °C. La pasta sin plomo (SAC305) funde a unos 217–220 °C y necesita más calor. Un ejemplo es la Chip Quik SMD291AX10: jeringa de 10 cc con unos 35 g, suficiente para muchas placas. Su precio en euros no está confirmado; unos 23–28 € con IVA en distribuidores de la UE es plausible. Hay pastas genéricas más baratas; comprueba que la aleación sea Sn63/Pb37 y que venga en jeringa. |
+| Pasta de soldar sin plomo SAC305 (Sn96,5/Ag3,0/Cu0,5), sin limpieza, en jeringa con aguja fina | Funde a unos 217–221 °C. Ejemplos, de DigiKey España el 19-11-2026 con IVA: MG Chemicals 4900P-25G, 25 g, 45,11 €, sin stock allí hasta marzo de 2027 pero también a la venta en Amazon.es; Chip Quik SMD291SNL10T5, 35 g, 41,84 €. DigiKey cobra 25 € de envío en pedidos de menos de 75 €. Con 25 g hay para muchas placas. Mira abajo las notas sobre las pastas con plomo y las de baja temperatura. |
 | Estación de aire caliente con boquilla pequeña | Por ejemplo, una estación con soldador y pistola de aire, del tipo YCD-8582D. Usa una boquilla redonda de unos 5–8 mm. |
 | Cinta resistente al calor (Kapton) o papel de aluminio | Para proteger los componentes que no deben recibir aire caliente. |
 | Una superficie que aguante el calor | Una baldosa cerámica o una alfombrilla de silicona. No la mesa. |
 | Soldador con control de temperatura | Sigue haciendo falta: zócalos de la XIAO, patas de la carcasa del USB-C y puentes. |
 
+**Por qué sin plomo.**
+- En la UE no se puede suministrar plomo al público general en mezclas como la soldadura (REACH, anexo XVII, entrada 30, desde 2018). La norma se leyó en fuentes secundarias, no en el texto oficial; mira [Puntos abiertos](#puntos-abiertos).
+- En noviembre de 2026, varias pastas con plomo ya no estaban disponibles en DigiKey ni en RS.
+- La pasta sin plomo necesita más calor. Las soldaduras necesitan unos 235–250 °C, y el LED y el USB4736 admiten 260 °C de pico, así que el margen es pequeño. La Sn63/Pb37 con plomo (183 °C) dejaría unos 35–55 °C, según una estimación.
+- No uses pasta de baja temperatura Sn42/Bi58. Funde a 138 °C, pero sus soldaduras son frágiles ante golpes y vibraciones, y el mando va en un manillar.
+
 **La pasta.**
-- Guárdala fresca y tapada. Chip Quik da más de 6 meses sin nevera y más de 12 meses en nevera.
+- Guárdala tapada, como diga su etiqueta. DigiKey indica 4–10 °C, en nevera, para la 4900P.
 - Si estaba en la nevera, deja que la jeringa cerrada llegue a temperatura ambiente antes de abrirla, o se condensa agua dentro.
 - No la remuevas. Saca primero un poco sobre un trozo de cartón, para ver cómo queda un punto.
 
@@ -43,7 +49,7 @@ Todo lo de la [lista de herramientas de la guía con soldador](electronics-assem
 
 Valen las [normas de seguridad de la guía con soldador](electronics-assembly.es.md#seguridad). Además:
 
-- **Plomo.** La pasta es polvo de plomo en flux. Usa guantes de nitrilo al manipularla. Lávate las manos después de cada sesión. No comas ni bebas mientras trabajas. Limpia la mesa con un trapo húmedo, nunca soplando. Mantén la pasta lejos de los niños.
+- **Pasta.** La pasta es polvo de metal en flux. Usa guantes de nitrilo al manipularla. Lávate las manos después de cada sesión. No comas ni bebas mientras trabajas. Limpia la mesa con un trapo húmedo, nunca soplando. Mantén la pasta lejos de los niños.
 - **Humos.** El aire caliente empuja los humos del flux hacia ti. Trabaja con extracción, o con un ventilador que aleje los humos de ti.
 - **Batería LiPo.** Tenla bien lejos de la zona del aire caliente.
 - **Aire caliente.** El aire y la boquilla llegan a varios cientos de grados. No apuntes nunca la pistola a una persona, a tu otra mano ni a nada que arda.
@@ -55,17 +61,17 @@ El mismo método sirve para todos los componentes de montaje superficial de esta
 
 1. **Pasta.** Pon un punto pequeño de pasta en cada pad. Intenta que el punto sea más pequeño que el pad. Demasiada pasta hace puentes y bolitas; poca se arregla fácil después con el soldador. Con una jeringa a mano es difícil hacer un punto de menos de unos 0,4 mm, así que en los huecos más finos cuenta con que salgan puentes y quítalos con flux y malla.
 2. **Colocar.** Coloca el componente con las pinzas, recto sobre sus pads. La pasta es pegajosa y lo sujeta. No lo aprietes fuerte: la pasta se sale y hace puentes.
-3. **Precalentar.** Pon el aire a unos 150 °C, con el caudal más bajo que todavía sople, y la boquilla a unos 3–5 cm. Muévela en círculos sobre la zona durante 30–60 s. Así los planos de masa no roban tanto calor y ningún componente se levanta de un lado.
-4. **Refundir.** Pon el aire a unos 300 °C, con el mismo caudal bajo. Acerca la boquilla a unos 1–2 cm y muévela en círculos pequeños sobre el componente.
-   - La pasta pasa de gris a brillante, y el componente se asienta y se centra solo.
-   - Sigue unos 5 s más y aparta la boquilla.
-   - Si no funde nada en unos 30–40 s, sube el aire 20 °C y vuelve a probar. No pases de unos 350 °C.
+3. **Precalentar.** Pon el aire a unos 150–180 °C, con el caudal más bajo que todavía sople, y la boquilla a unos 3–5 cm. Muévela en círculos sobre la zona durante 60–90 s. Así los planos de masa no roban tanto calor y ningún componente se levanta de un lado.
+4. **Refundir.** Pon el aire a unos 330 °C, con el mismo caudal bajo. Acerca la boquilla a unos 1–2 cm y muévela en círculos pequeños sobre el componente.
+   - La pasta pasa de gris a metal líquido, y el componente se asienta y se centra solo.
+   - Sigue unos 3–5 s más y aparta la boquilla. Las soldaduras sin plomo quedan satinadas, no como un espejo.
+   - Si no funde nada en unos 30–40 s, sube el aire 20 °C y vuelve a probar. No pases de unos 380 °C, y nunca tanto cerca del LED.
    - La temperatura que marcas no es la de la placa. No pares nunca la boquilla encima de un componente.
 5. **No toques** la placa durante unos 10 s, hasta que el estaño solidifique.
-6. **Revisa** con aumento, como en [Después de cada placa](electronics-assembly.es.md#cómo-soldar): puentes, bolitas de estaño, un componente descentrado o levantado de un lado.
+6. **Revisa** con aumento, como en [Después de cada placa](electronics-assembly.es.md#cómo-soldar): puentes, bolitas de estaño, un componente descentrado o levantado de un lado. Una soldadura lisa y satinada está bien; uno granulado o con grumos no llegó a fundir del todo.
 
 **Arreglos.**
-- **Puente:** flux y malla con el soldador a unos 330 °C. Con estaño con plomo, el soldador lo funde fácil.
+- **Puente:** flux y malla con el soldador a unos 350 °C.
 - **Componente descentrado:** ponle flux y vuelve a calentarlo con aire. Suele enderezarse solo.
 - **Pad seco:** añade un poco de pasta con la aguja y vuelve a calentar, o tócalo con el soldador y un poco de hilo de estaño.
 
@@ -107,7 +113,7 @@ La colocación es como en el [paso J1 de la guía con soldador](electronics-asse
 2. Pon un punto de pasta en cada uno de los cuatro pads de SW1–SW4.
 3. Coloca los cuatro interruptores rectos respecto a su contorno.
 4. Precalienta y refunde cada interruptor por turno. Apunta el aire a los pads que asoman fuera del cuerpo, no a la parte de arriba del interruptor.
-5. C&K da el KSC2 como apto para refusión sin plomo, **2 veces como máximo.** Que la pasta funda a 183 °C no limita cuánto se calienta el interruptor: aparta el aire en cuanto la pasta moje.
+5. C&K da el KSC2 como apto para refusión sin plomo, **2 veces como máximo.** El aire calienta el interruptor además de la pasta: aparta el aire en cuanto la pasta moje.
 
 Si un interruptor cuesta de refundir, suéldalo con el soldador, como en la guía con soldador.
 
@@ -142,7 +148,7 @@ Deja la placa plana sobre la superficie que aguanta el calor. Sujétala con Kapt
 - Los pads derechos de C1–C4 están a unos 0,77 mm de las patas de U1 y U2. Haz los puntos pequeños.
 - Revisa el hueco entre el pad izquierdo de C2 y el pad único de Q1, como en el [paso C3 de la guía con soldador](electronics-assembly.es.md#paso-c3-condensadores-cara-trasera).
 
-**Rehacer soldaduras hechas con soldador.** Si alguno se soldó con soldador y la soldadura de un pad de masa está mal, ponle flux y refúndela con aire. Añade un punto mínimo de pasta si al pad le falta estaño. Una soldadura sin plomo solo funde a unos 217 °C o más: calienta hasta que toda la soldadura brille, no solo la pasta nueva. Mezclar pasta con plomo con una soldadura sin plomo es aceptable para esta reparación.
+**Rehacer soldaduras hechas con soldador.** Si alguno se soldó con soldador y la soldadura de un pad de masa está mal, ponle flux y refúndela con aire. Añade un punto mínimo de pasta si al pad le falta estaño. Una soldadura hecha con hilo sin plomo solo funde a unos 217 °C o más: calienta hasta que funda toda la soldadura, no solo la pasta nueva. Pasta sin plomo sobre una soldadura sin plomo no mezcla familias de aleaciones.
 
 ### Pasos C4 y C5: F1 y D1 (cara trasera)
 
@@ -214,7 +220,7 @@ Lee antes todo el [paso U4 de la guía con soldador](electronics-assembly.es.md#
 3. Coloca el LED boca abajo, con la lente hacia el borde de la placa, como explica la guía con soldador.
 4. **Comprueba la orientación ahora,** con aumento: lente hacia el borde, boca abajo como se explica. Los dos pads se refunden a la vez, así que no se puede hacer la prueba de diodo con el pad 1 aún libre, como en la guía con soldador. Un LED mal puesto obliga a quitarlo.
 5. Sujétalo suavemente con las pinzas. Usa el caudal más bajo: el LED casi no pesa y sale volando fácil.
-6. Pon el aire más bajo que para el resto, a unos 260 °C, y la boquilla a unos 2–3 cm. Lite-On admite 260 °C de pico, durante unos segundos. Que la pasta funda a 183 °C no limita cuánto se calienta el LED: aparta el aire en cuanto mojen los dos extremos.
+6. Pon el aire unos 30 °C más bajo que para el resto, a unos 300 °C, y la boquilla a unos 2–3 cm. Lite-On admite 260 °C de pico, durante unos segundos, y las soldaduras necesitan unos 235–250 °C: aparta el aire en cuanto mojen los dos extremos. Si no mojan en unos 20 s, para, deja enfriar la placa y suelda el LED con el soldador, como en la guía con soldador.
 7. La pata de la carcasa del receptáculo y sus pads de señal están cerca y pueden refundirse. No golpees la placa hasta que se enfríe.
 8. Limpia y pruébalo como en la guía con soldador: la prueba de diodo y la tabla de lecturas. Un LED al revés o muerto se quita con aire caliente y las pinzas. Pon uno nuevo; no reutilices un LED ya soldado.
 
@@ -237,6 +243,8 @@ Cada uno se comprueba en el primer montaje. Anota aquí el resultado.
 
 - **Ajustes.** Las temperaturas del aire, el caudal y los tiempos son puntos de partida de la práctica habitual, no de estas placas ni de una estación concreta.
 - **Cantidad de pasta.** Qué tamaño de punto evita puentes en los huecos de 0,35 mm de U1 y U2 y en los de 0,3 mm del USB4736.
+- **Margen sin plomo.** Las soldaduras necesitan unos 235–250 °C; el LED y el USB4736 admiten un pico de 260 °C. Falta ver si el aire caliente a mano se queda dentro de ese margen en estas placas.
+- **REACH.** La norma sobre el plomo en la soldadura para el público general (REACH, anexo XVII, entrada 30, apéndice 5) se leyó en fuentes secundarias (la International Lead Association, reachonline.eu, una tienda), no en el texto oficial de EUR-Lex.
 - **Piezas de plástico.** El KSC2 es apto para refusión sin plomo, 2 veces como máximo, y GCT da el USB4736 para un pico de 260 °C. Los conectores JST SH y PH son de montaje superficial, pero no se ha comprobado su límite de refusión para esta guía.
 - **Segunda cara.** Si los componentes de detrás se quedan en su sitio al refundir los interruptores de delante.
 - **Orden del joystick.** El conector primero y luego los interruptores es al revés que en la guía con soldador. No se ha probado si la placa se sostiene bien sobre apoyos en los bordes.

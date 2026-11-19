@@ -39,8 +39,8 @@ The LCSC numbers are in the CSV and in each board's `fab/*-bom.csv`. Small parts
 
 | Tool | Notes |
 |---|---|
-| Soldering iron with temperature control | Fine conical or 1–1.5 mm chisel tip. About 330 °C for leaded solder and 360 °C for lead-free. The ground pours and the USB-C shell slots need a hotter tip or a bigger one. The charge LED has a lower limit: see [step U4](#step-u4-charge-led). |
-| No-clean flux (syringe), 0.5 mm flux-cored solder, 2 mm desoldering braid | 0.8 mm solder is too thick for 0603 parts and the 1 mm pitch sockets. |
+| Soldering iron with temperature control | Fine conical or 1–1.5 mm chisel tip. About 350 °C for lead-free solder; keep each touch on a capacitor to a few seconds. The ground pours and the USB-C shell slots need a hotter tip or a bigger one. The charge LED has a lower limit: see [step U4](#step-u4-charge-led). |
+| No-clean flux (syringe), 0.5 mm lead-free flux-cored solder, 2 mm desoldering braid | 0.8 mm solder is too thick for 0603 parts and the 1 mm pitch sockets. In the EU, leaded solder may not be sold to the general public: see [why lead-free](electronics-assembly-hot-air.md#before-you-start). |
 | Fine tweezers, non-magnetic | **Needed.** Without them, 0603 parts cannot be placed. |
 | Magnifier, loupe or a phone camera with macro | To inspect every joint. |
 | Isopropyl alcohol and an old toothbrush | To clean off the flux. |
@@ -53,7 +53,7 @@ The LCSC numbers are in the CSV and in each board's `fab/*-bom.csv`. Small parts
 
 - Solder in a ventilated room. Flux fumes irritate.
 - Wear safety glasses when you trim wires or remove solder with braid.
-- Wash your hands after soldering, above all with leaded solder.
+- Wash your hands after soldering.
 - LiPo cell: do not short its leads, pierce it or bend it. Connect it only where a step says so.
 - Spray the conformal coating outdoors or under extraction, away from flames.
 
@@ -89,11 +89,11 @@ The bare boards look like this; the printed text tells the sides apart.
   2. Check that the pins line up with their pads.
   3. Solder the other tab, then the pins with plenty of flux.
   4. Bridges between pins come off with braid.
-- **Through-hole headers.** Heat the pin and the pad together for 2–3 s and feed the solder into the joint, not onto the iron. A good joint is a shiny cone.
+- **Through-hole headers.** Heat the pin and the pad together for 2–3 s and feed the solder into the joint, not onto the iron. A good joint is a smooth cone; lead-free solder sets satin, not mirror-bright.
 - **After each board.**
   1. Scrub off the flux with isopropyl alcohol.
   2. Let the board dry.
-  3. Inspect every joint under magnification: look for bridges, balls of solder, dull or cracked joints, and lifted legs.
+  3. Inspect every joint under magnification: look for bridges, balls of solder, grainy or cracked joints, and lifted legs.
 
 ### Order
 
@@ -365,7 +365,7 @@ D1 is optional. Without it the remote works, but with the housing closed nothing
 5. Turn the board so the receptacle's edge is on your left. Pad 1 is now the far pad.
 6. Leave the LED on the card until step 3 of "Solder it".
 
-**Solder it.** Lite-On allows 300 °C for 3 s, one time.
+**Solder it.** Lite-On allows 300 °C for 3 s, one time. 300 °C still melts lead-free solder, only more slowly: flux the pads first.
 1. Set the iron to 300 °C. An iron without temperature control cannot meet this and the LED may die: solder soon after the iron starts to melt solder, before it reaches full heat.
 2. Add flux. Tin pad 2 with the LED off the board. Use very little solder: wipe the tip after loading it. Solder that climbs onto the lens dims it.
 3. Pick the LED up by its two metal ends, move it straight across to the pads without turning it, and reflow pad 2 while the tweezers hold it. Lift the tip as soon as the solder wets, in about 1 s and never more than 2 s.
